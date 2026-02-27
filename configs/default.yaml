@@ -1,0 +1,19 @@
+experiment_name: "nrc_baseline"
+
+nrc_constants:
+  phi_precision_dps: 50
+  giza_slope_deg: 51.853
+  mst_modulus: 24389
+  mst_lambda: 0.381
+  tupt_modulus: 2187
+  tupt_sequence: [3, 6, 9, 7]
+  gtt_entropy_target: 10.96
+
+model_params:
+  hidden_size: 4096
+  num_attention_heads: 32
+  max_sequence_length: 8192
+
+training:
+  batch_size: 16
+  learning_rate: 1.618e-4

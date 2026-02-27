@@ -1,0 +1,23 @@
+[project]
+name = "ai-enhancements"
+version = "0.1.0"
+description = "30 Novel LLM/AI enhancements based on the Nexus Resonance Codex (NRC) mathematical framework."
+authors = [
+    {name = "James Trageser (@jtrag)", email = "Nexus-Resonance-Codex@gmail.com"}
+]
+dependencies = [
+    "torch>=2.0.0",
+    "numpy",
+    "mpmath",
+    "sympy",
+    "transformers",
+    "pyyaml"
+]
+requires-python = ">=3.10"
+
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project.optional-dependencies]
+dev = ["pytest", "black", "flake8"]
