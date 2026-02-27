@@ -71,6 +71,12 @@ pip install -e .
 
 To ensure that cosmic constants are lossless before projection into Float32/BFloat16 neural networks, all core mathematical formulas generated during matrix init are handled via `mpmath` under standard NRC boundaries.
 
+### Local Ollama Modelfile Execution
+
+We have included a highly optimized, custom `Modelfile` inside this repository allowing users to run the NRC AI natively on consumer hardware (requiring as little as 4GB VRAM/8GB RAM).
+
+For detailed installation and execution instructions across Windows, macOS, and Linux, please read the [Local Ollama Execution Guide](docs/OLLAMA_GUIDE.md).
+
 ---
 
 ## License
