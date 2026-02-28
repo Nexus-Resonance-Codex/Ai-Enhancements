@@ -9,7 +9,7 @@ Core mathematical constants and transforms underpinning all 30 enhancements:
 """
 
 from .phi import PHI_FLOAT, PHI_INVERSE_FLOAT, binet_formula, phi_power_tensor, phi_infinity_fold
-from .qrt import qrt_damping
+from .qrt import qrt_damping, execute_qrt_damping_tensor
 from .mst import mst_step, MST_MODULUS, MST_LAMBDA
 from .tupt_exclusion import tupt_base_check, apply_exclusion_gate, TUPT_MOD, TUPT_PATTERN
 

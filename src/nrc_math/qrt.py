@@ -21,3 +21,14 @@ def qrt_damping(x: torch.Tensor) -> torch.Tensor:
     term3 = torch.cos(freq_cos * x)
 
     return (term1 * term2) + term3
+
+
+def execute_qrt_damping_tensor(x: torch.Tensor) -> torch.Tensor:
+    """
+    Alias for qrt_damping() — used by Enhancement #10 (Navier-Stokes Damping
+    Regulariser) and other modules that call the QRT wave function on full
+    hidden-state tensors.
+
+    QRT(x) = sin(φ · √2 · 51.85 · x) · exp(-x² / φ) + cos(π/φ · x)
+    """
+    return qrt_damping(x)
