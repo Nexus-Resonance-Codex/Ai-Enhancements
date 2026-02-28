@@ -1,8 +1,8 @@
+
 import torch
 import torch.nn as nn
-import math
-from nrc.math.phi import PHI_FLOAT
 from nrc.math.qrt import execute_qrt_damping_tensor
+
 
 class NavierStokesDampingRegulariser(nn.Module):
     """

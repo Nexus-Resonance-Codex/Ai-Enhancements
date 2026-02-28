@@ -2,6 +2,7 @@ import torch
 import torch.nn as nn
 from nrc.math.phi import PHI_FLOAT
 
+
 class GoldenAttractorFlowNorm(nn.Module):
     """
     Enhancement #3: Golden Attractor Flow Normalisation v3 (GAFEN)

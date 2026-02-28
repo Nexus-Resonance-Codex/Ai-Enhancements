@@ -2,6 +2,7 @@ import torch
 import torch.nn as nn
 from nrc.math.phi import PHI_FLOAT
 
+
 class GTTEntropyCollapseRegulariser(nn.Module):
     """
     Enhancement #12: GTT Entropy Collapse Regulariser v2

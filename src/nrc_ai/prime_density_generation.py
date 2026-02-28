@@ -1,7 +1,8 @@
+
 import torch
 import torch.nn as nn
-from typing import Optional
-from nrc.math.tupt_exclusion import TUPT_SEQUENCE
+from nrc.math.tupt_exclusion import TUPT_PATTERN
+
 
 class PrimeDensityGenerator(nn.Module):
     """
@@ -39,7 +40,7 @@ class PrimeDensityGenerator(nn.Module):
         for i in range(self.vocab_size):
             mod_val = i % 2187
             # TUPT subset
-            if mod_val in TUPT_SEQUENCE:
+            if mod_val in TUPT_PATTERN:
                 mask[i] = self.boost_factor
 
         return mask

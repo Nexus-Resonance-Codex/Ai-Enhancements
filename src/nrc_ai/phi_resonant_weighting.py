@@ -2,6 +2,7 @@ import torch
 import torch.nn as nn
 from nrc.math.phi import PHI_FLOAT
 
+
 class PhiResonantWeighting(nn.Module):
     """
     Enhancement #17: phi-Powered Resonant Weighting

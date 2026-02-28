@@ -1,7 +1,9 @@
+import math
+
 import torch
 import torch.nn as nn
-import math
 from nrc.math.phi import PHI_FLOAT
+
 
 class HodgeTorsionAttention(nn.Module):
     """

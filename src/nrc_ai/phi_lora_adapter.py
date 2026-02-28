@@ -1,7 +1,11 @@
+import math
+
 import torch
 import torch.nn as nn
 from nrc.math.phi import PHI_FLOAT
+
 from .shard_folding import PhiInfinityShardFolding
+
 
 class PhiLosslessLoraAdapter(nn.Module):
     """
@@ -78,5 +82,3 @@ class PhiLosslessLoraAdapter(nn.Module):
             return base_output + lora_update
 
         return lora_update
-
-import math # required for reset_parameters

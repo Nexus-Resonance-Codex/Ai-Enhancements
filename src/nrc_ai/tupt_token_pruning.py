@@ -2,6 +2,7 @@ import torch
 import torch.nn as nn
 from nrc.math.tupt_exclusion import apply_exclusion_gate
 
+
 class TUPTExclusionTokenPruner(nn.Module):
     """
     Enhancement #22: TUPT-Exclusion Token Pruning Scheduler

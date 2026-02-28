@@ -1,7 +1,10 @@
+import math
+
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
 from nrc.math.qrt import execute_qrt_damping_tensor
+
 
 class QRTKernelConvolution2d(nn.Module):
     """
@@ -51,5 +54,3 @@ class QRTKernelConvolution2d(nn.Module):
         output = F.conv2d(x, qrt_damped_kernel, self.bias, self.stride, self.padding)
 
         return output
-
-import math # Required for Kaiming Uniform Reset Standards

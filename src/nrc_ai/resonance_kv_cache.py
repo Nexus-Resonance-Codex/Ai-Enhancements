@@ -1,7 +1,10 @@
+from typing import Tuple
+
 import torch
 import torch.nn as nn
-from typing import Tuple, Optional
+
 from .shard_folding import PhiInfinityShardFolding
+
 
 class ResonanceShardKVCache(nn.Module):
     """

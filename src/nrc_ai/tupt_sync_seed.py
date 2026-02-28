@@ -1,5 +1,6 @@
 import torch
-from nrc.math.tupt_exclusion import TUPT_SEQUENCE
+from nrc.math.tupt_exclusion import TUPT_PATTERN
+
 
 class AttractorSynchronizationSeed:
     """
@@ -21,7 +22,7 @@ class AttractorSynchronizationSeed:
         """
         # Compose the TUPT seed mathematically.
         # We merge [3, 6, 9, 7] into a massive structural integer bound.
-        tupt_seed_base = int("".join(map(str, TUPT_SEQUENCE)))  # 3697
+        tupt_seed_base = int("".join(map(str, TUPT_PATTERN)))  # 3697
 
         # Multiply by 2187 to invoke the modular boundary natively
         resonant_seed = (tupt_seed_base * 2187) * base_multiplier

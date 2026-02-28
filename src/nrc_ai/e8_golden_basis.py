@@ -3,6 +3,7 @@ import torch.nn as nn
 from nrc.math.phi import PHI_FLOAT
 from nrc.math.tupt_exclusion import apply_exclusion_gate
 
+
 class GoldenBasisEmbedding(nn.Module):
     """
     Enhancement #8: 163840 E8x256 Golden Basis Embedding

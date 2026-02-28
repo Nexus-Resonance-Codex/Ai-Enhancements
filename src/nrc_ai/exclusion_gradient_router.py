@@ -1,8 +1,9 @@
 import torch
 import torch.nn as nn
-from torch.autograd import Function
-from nrc.math.tupt_exclusion import apply_exclusion_gate
 from nrc.math.phi import PHI_FLOAT
+from nrc.math.tupt_exclusion import apply_exclusion_gate
+from torch.autograd import Function
+
 
 class ExclusionGradientRouterFunction(Function):
     """

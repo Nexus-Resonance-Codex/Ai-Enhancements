@@ -1,6 +1,7 @@
 import torch
 import torch.nn as nn
 
+
 class FloorSinhActivationRegularizer(nn.Module):
     """
     Enhancement #28: Floor-Sinh Activation Regularizer

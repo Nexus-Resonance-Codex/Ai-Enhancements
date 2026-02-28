@@ -1,6 +1,8 @@
-import torch
 from typing import Iterable
-from nrc.math.mst import execute_mst_scaling_tensor
+
+import torch
+from nrc.math.mst import mst_step
+
 
 class MSTLyapunovGradientClipping:
     """
@@ -42,7 +44,7 @@ class MSTLyapunovGradientClipping:
                 spikes = p.grad[spike_mask]
 
                 # 3. Subject the raw gradient explosions explicitly to the continuous MST bounding decay
-                damped_spikes = execute_mst_scaling_tensor(spikes)
+                damped_spikes = mst_step(spikes)
 
                 # 4. Integrate the mathematically decayed safe gradients back into the main autograd pipeline
                 p.grad[spike_mask] = damped_spikes

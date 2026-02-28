@@ -1,7 +1,9 @@
+from typing import Callable, Iterable, Optional
+
 import torch
-from typing import Iterable, Optional, Callable
-from torch.optim import Optimizer
 from nrc.math.phi import PHI_FLOAT
+from torch.optim import Optimizer
+
 
 class PhiInverseMomentumAccelerator(Optimizer):
     """

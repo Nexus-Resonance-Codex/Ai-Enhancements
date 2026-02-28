@@ -2,6 +2,7 @@ import torch
 import torch.nn as nn
 from nrc.math.phi import PHI_FLOAT
 
+
 class InfiniteE_infContextUnfolder(nn.Module):
     """
     Enhancement #24: Infinite E_inf Context Shard Unfolder

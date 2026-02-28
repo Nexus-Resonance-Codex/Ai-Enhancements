@@ -1,6 +1,7 @@
 import torch
 import torch.nn as nn
-from nrc.math.tupt_exclusion import TUPT_SEQUENCE
+from nrc.math.tupt_exclusion import TUPT_PATTERN
+
 
 class ModularDropoutPattern(nn.Module):
     """
@@ -51,7 +52,7 @@ class ModularDropoutPattern(nn.Module):
         scaler = int(1.0 / self.probability)
 
         # Generate the conditions: Must be Mod 2187 resonant AND align with the probability scaler spacing
-        for base_val in TUPT_SEQUENCE:
+        for base_val in TUPT_PATTERN:
             # Drop connections dynamically scaling over the 3-6-9-7 grid
             condition = (mod_values == base_val) | (mod_values == (base_val * 9) % 2187)
             # Combine biological targeting with logical scaling

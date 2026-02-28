@@ -2,6 +2,7 @@ import torch
 import torch.nn as nn
 from nrc.math.phi import PHI_FLOAT
 
+
 class GoldenSpiralRotaryEmbedding(nn.Module):
     """
     Enhancement #29: Golden Spiral Rotary Embedding Extension
