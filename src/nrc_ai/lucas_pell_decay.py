@@ -1,6 +1,6 @@
 import torch
 from typing import Iterable
-from ..nrc_math.phi import PHI_FLOAT
+from nrc.math.phi import PHI_FLOAT
 
 class LucasPellHybridWeightDecay:
     """

@@ -1,6 +1,6 @@
 import torch
 import math
-from ..nrc_math.tupt_exclusion import apply_exclusion_gate
+from nrc.math.tupt_exclusion import apply_exclusion_gate
 
 class NRCProteinFoldingEngine(torch.nn.Module):
     """

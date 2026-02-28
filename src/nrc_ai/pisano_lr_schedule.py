@@ -1,7 +1,7 @@
 import torch
 from torch.optim.lr_scheduler import _LRScheduler
 import math
-from ..nrc_math.phi import PHI_FLOAT
+from nrc.math.phi import PHI_FLOAT
 
 class PisanoModulatedLRScheduler(_LRScheduler):
     """

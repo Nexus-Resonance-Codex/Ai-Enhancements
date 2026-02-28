@@ -1,7 +1,7 @@
 import torch
 import torch.nn as nn
 import math
-from ..nrc_math.phi import PHI_FLOAT
+from nrc.math.phi import PHI_FLOAT
 
 class PhiVoidPositionalEncoding(nn.Module):
     """

@@ -1,7 +1,7 @@
 import torch
 import torch.nn as nn
 from typing import Optional
-from ..nrc_math.tupt_exclusion import TUPT_SEQUENCE
+from nrc.math.tupt_exclusion import TUPT_SEQUENCE
 
 class PrimeDensityGenerator(nn.Module):
     """

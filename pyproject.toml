@@ -1,23 +1,64 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
 [project]
-name = "ai-enhancements"
-version = "0.1.0"
-description = "30 Novel LLM/AI enhancements based on the Nexus Resonance Codex (NRC) mathematical framework."
+name = "nrc_ai"
+dynamic = ["version"]
+description = "30 mathematically rigid PyTorch deep learning enhancements based on the Nexus Resonance Codex."
+readme = "README.md"
+requires-python = ">=3.10"
+license = "NRC-L-2.0"
+keywords = ["pytorch", "deep-learning", "golden-ratio", "resonance", "machine-learning", "transformers"]
 authors = [
-    {name = "James Trageser (@jtrag)", email = "Nexus-Resonance-Codex@gmail.com"}
+    { name = "James Trageser", email = "Nexus-Resonance-Codex@gmail.com" },
+]
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+    "Intended Audience :: Science/Research",
+    "Operating System :: OS Independent",
+    "Framework :: PyTorch",
 ]
 dependencies = [
     "torch>=2.0.0",
-    "numpy",
-    "mpmath",
-    "sympy",
-    "transformers",
-    "pyyaml"
+    "numpy>=1.24.0",
+    "pyyaml>=6.0",
+    # The nrc core math library is required. Locally, this can be installed via 'pip install -e ../NRC'
+    # In production, it would be a proper PIP dependency or git URL: "nrc @ git+https://github.com/Nexus-Resonance-Codex/NRC.git"
+    "nrc @ git+https://github.com/Nexus-Resonance-Codex/NRC.git",
 ]
-requires-python = ">=3.10"
 
-[build-system]
-requires = ["setuptools>=61.0"]
-build-backend = "setuptools.build_meta"
+[project.urls]
+Documentation = "https://github.com/Nexus-Resonance-Codex/ai-enhancements"
+Issues = "https://github.com/Nexus-Resonance-Codex/ai-enhancements/issues"
+Source = "https://github.com/Nexus-Resonance-Codex/ai-enhancements"
 
 [project.optional-dependencies]
-dev = ["pytest", "black", "flake8"]
+dev = [
+    "pytest>=8.0.0",
+    "mypy>=1.9.0",
+    "ruff>=0.3.0",
+    "transformers>=4.0.0", # For integration examples
+]
+
+[tool.hatch.version]
+path = "src/nrc_ai/__about__.py"
+
+[tool.ruff]
+line-length = 100
+target-version = "py310"
+
+[tool.ruff.lint]
+select = ["E", "F", "B", "W", "I"]
+exclude = ["tests", "examples"]
+
+[tool.mypy]
+python_version = "3.10"
+strict = false
+warn_return_any = false
+warn_unused_configs = true
+ignore_missing_imports = true

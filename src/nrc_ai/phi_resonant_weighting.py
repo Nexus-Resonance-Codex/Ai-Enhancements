@@ -1,6 +1,6 @@
 import torch
 import torch.nn as nn
-from ..nrc_math.phi import PHI_FLOAT
+from nrc.math.phi import PHI_FLOAT
 
 class PhiResonantWeighting(nn.Module):
     """

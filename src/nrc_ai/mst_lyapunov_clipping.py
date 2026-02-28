@@ -1,6 +1,6 @@
 import torch
 from typing import Iterable
-from ..nrc_math.mst import execute_mst_scaling_tensor
+from nrc.math.mst import execute_mst_scaling_tensor
 
 class MSTLyapunovGradientClipping:
     """

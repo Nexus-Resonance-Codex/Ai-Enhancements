@@ -1,5 +1,5 @@
 import torch
-from ..nrc_math.tupt_exclusion import TUPT_SEQUENCE
+from nrc.math.tupt_exclusion import TUPT_SEQUENCE
 
 class AttractorSynchronizationSeed:
     """

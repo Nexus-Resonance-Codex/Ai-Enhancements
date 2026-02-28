@@ -1,7 +1,7 @@
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
-from ..nrc_math.qrt import execute_qrt_damping_tensor
+from nrc.math.qrt import execute_qrt_damping_tensor
 
 class QRTKernelConvolution2d(nn.Module):
     """

@@ -1,6 +1,6 @@
 import torch
 import torch.nn as nn
-from ..nrc_math.tupt_exclusion import TUPT_SEQUENCE
+from nrc.math.tupt_exclusion import TUPT_SEQUENCE
 
 class ModularDropoutPattern(nn.Module):
     """

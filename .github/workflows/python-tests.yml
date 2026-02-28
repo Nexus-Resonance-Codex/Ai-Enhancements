@@ -1,39 +1,83 @@
-name: Python Package Tests
+# ============================================================
+# nrc_ai — Python CI
+# Tests all 30 NRC AI Enhancement PyTorch modules across
+# Python 3.10, 3.11, 3.12 with the core `nrc` library
+# installed directly from the NRC repo.
+# ============================================================
+name: Python CI — nrc_ai library
 
 on:
   push:
     branches: ["main"]
   pull_request:
     branches: ["main"]
+  workflow_dispatch:
 
 jobs:
-  build:
+  test:
+    name: Test (Python ${{ matrix.python-version }})
     runs-on: ubuntu-latest
     strategy:
+      fail-fast: false
       matrix:
         python-version: ["3.10", "3.11", "3.12"]
 
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
       - name: Set up Python ${{ matrix.python-version }}
         uses: actions/setup-python@v5
         with:
           python-version: ${{ matrix.python-version }}
+          cache: "pip"
 
-      - name: Install dependencies
+      # Install the NRC core math library first (required dependency)
+      - name: Install nrc core library from GitHub
         run: |
-          python -m pip install --upgrade pip
-          pip install flake8 pytest
-          if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
-          pip install -e .
+          pip install "nrc @ git+https://github.com/Nexus-Resonance-Codex/NRC.git"
 
-      - name: Lint with flake8
+      # PyTorch CPU-only (avoids needing CUDA on GitHub runners)
+      - name: Install PyTorch CPU
         run: |
-          # stop the build if there are Python syntax errors or undefined names
-          flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
-          # exit-zero treats all errors as warnings. The GitHub editor is 127 chars wide
-          flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
+          pip install torch --index-url https://download.pytorch.org/whl/cpu
 
-      - name: Test with pytest
+      - name: Install nrc_ai package and dev tools
         run: |
-          pytest tests/
+          # Override the torch dep since we already installed CPU version
+          pip install -e ".[dev]" --no-deps
+          pip install pytest ruff mypy pyyaml numpy
+
+      - name: Lint with ruff
+        run: |
+          ruff check src/ --select E9,F63,F7,F82 --output-format=github
+          ruff check src/ --exit-zero --output-format=github
+
+      - name: Run tests with pytest
+        run: |
+          pytest tests/ -v --tb=short
+
+  coverage:
+    name: Coverage Report
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: "pip"
+      - name: Install all dependencies
+        run: |
+          pip install "nrc @ git+https://github.com/Nexus-Resonance-Codex/NRC.git"
+          pip install torch --index-url https://download.pytorch.org/whl/cpu
+          pip install pytest pytest-cov ruff pyyaml numpy
+          pip install -e . --no-deps
+      - name: Run tests with coverage
+        run: |
+          pytest tests/ --cov=src/nrc_ai --cov-report=term-missing --cov-report=xml
+      - name: Upload coverage
+        uses: codecov/codecov-action@v4
+        with:
+          files: ./coverage.xml
+          fail_ci_if_error: false

@@ -1,6 +1,6 @@
 import torch
 import math
-from ..nrc_math.qrt import qrt_damping
+from nrc.math.qrt import qrt_damping
 
 PHI = (1.0 + math.sqrt(5.0)) / 2.0
 

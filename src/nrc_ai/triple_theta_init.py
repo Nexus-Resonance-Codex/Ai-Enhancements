@@ -1,7 +1,7 @@
 import torch
 import torch.nn as nn
-from ..nrc_math.phi import PHI_FLOAT
-from ..nrc_math.tupt_exclusion import apply_exclusion_gate
+from nrc.math.phi import PHI_FLOAT
+from nrc.math.tupt_exclusion import apply_exclusion_gate
 
 def triple_theta_init_(tensor: torch.Tensor, mean=0.0, std=1.0) -> torch.Tensor:
     """
