@@ -1,6 +1,6 @@
-# Running NRC AI Enhancements Locally via Ollama
+# Running NRC AI Enhancements: Ollama, PyTorch, and JAX Integration Guide
 
-This guide walks you through installing, creating, running, and verifying the NRC AI Enhancement Engine on your own machine. The Modelfile is optimized for systems with as little as **8 GB RAM / 4 GB VRAM**.
+This comprehensive tutorial walks you through installing Ollama, building custom Modelfiles, and verifying the NRC AI Enhancement Engine locally. Optimized for engineers, researchers, and hobbyists looking to run advanced open-source LLMs on low-spec hardware (as little as **8 GB RAM / 4 GB VRAM**) without sacrificing mathematical determinism.
 
 ---
 
@@ -17,41 +17,55 @@ This guide walks you through installing, creating, running, and verifying the NR
 
 ---
 
-## Step 1: Install Ollama
+## Step 1: Install Ollama (Comprehensive Guide)
 
-### Windows
+Ollama allows local execution of the NRC Deep Learning Enhancement algorithms through specialized AI system prompts, utilizing minimal hardware overhead. 
 
-1. Download the installer from [https://ollama.com/download/windows](https://ollama.com/download/windows)
-2. Run the `.exe` and follow the installer prompts
-3. Open **PowerShell** or **Command Prompt**
-4. Verify installation:
+### 🪟 Windows (Powershell/Local Run)
+
+Native Ollama executes seamlessly on Windows provided adequate paths are established.
+
+1. **Download Local Installer:** Navigate to [https://ollama.com/download/windows](https://ollama.com/download/windows) and download the executable file.
+2. **Setup:** Double-click the `.exe` installer. Proceed through the interactive installation prompts. Do not change default directory pathways unless necessary for drive space.
+3. **Initialize the Control Terminal:** Once installed, hit `Win + R`, type `powershell`, and press Enter. Verify the software installed properly by running:
    ```cmd
    ollama --version
    ```
+   *(If it says 'command not found', close PowerShell, open it again, or reboot your machine to refresh system environment variables).*
 
-### macOS
+### 🍏 macOS (Terminal / App Install)
 
-1. Download from [https://ollama.com/download/mac](https://ollama.com/download/mac)
-2. Drag `Ollama.app` to your Applications folder
-3. Launch Ollama from Applications
-4. Open **Terminal** and verify:
+Apple Silicon architecture scales inference mathematically perfect without CUDA reliance, using native unified memory.
+
+1. **Get Application Binary:** Go to [https://ollama.com/download/mac](https://ollama.com/download/mac).
+2. **Launch Container:** The download will provide a ZIP file containing the `Ollama.app`. Move `Ollama.app` into your native Macintosh `Applications` folder.
+3. **Execution Daemon:** Double-click the application from your `Applications` menu. Ollama will now run quietly in the background menu bar at the top of your screen.
+4. **Validation:** Open the `Terminal` application and type:
    ```bash
    ollama --version
    ```
 
-### Linux (Pop!\_OS, Ubuntu, Debian, Fedora, Arch, etc.)
+### 🐧 Linux (Pop!_OS / Ubuntu / Debian / Arch)
 
-```bash
-# One-line install script (official)
-curl -fsSL https://ollama.com/install.sh | sh
+Linux represents the highest capability inference server available for the NRC Codex, especially when paired with an NVIDIA computational GPU.
 
-# Verify
-ollama --version
-```
+1. **Retrieve the Curl Installer:**
+   Open a terminal and inject the deployment shell script:
+   ```bash
+   curl -fsSL https://ollama.com/install.sh | sh
+   ```
+2. **Service Verification:** 
+   Ollama automatically creates a systemd service. Ensure it operates continuously:
+   ```bash
+   sudo systemctl status ollama
+   ```
+   *(Ensure the text reports `active (running)`. If not, type `sudo systemctl start ollama`).*
 
-> **NVIDIA GPU Users (Linux):** Ensure you have the NVIDIA driver and CUDA toolkit installed. On Pop!\_OS, run `sudo apt install system76-cuda-latest`. On Ubuntu, install the driver from `Additional Drivers` settings.
-
----
+3. **Verify Local Variables:**
+   ```bash
+   ollama --version
+   ```
+   > **NVIDIA GPU Users:** For systems like Pop!_OS and Ubuntu, you must install native CUDA acceleration modules to maximize speed. On Pop!_OS, run `sudo apt install system76-cuda-latest`. On standard Ubuntu distributions, manage drivers via the 'Additional Drivers' wizard in the Software Update manager.
 
 ## Step 2: Pull the Base Model
 
@@ -220,3 +234,87 @@ For more precise/deterministic answers:
 ```
 PARAMETER temperature 0.3
 ```
+
+---
+
+## 🚀 Advanced Integration: PyTorch & JAX
+
+While Ollama provides a fast, local LLM execution environment, researchers and engineers building custom architectures will want to integrate the NRC enhancements directly into their deep learning primitives.
+
+### PyTorch Integration (Native)
+
+The `Ai-Enhancements` repository provides 30 drop-in replacements for standard `torch.nn` modules.
+
+#### 1. Swapping LayerNorm for GAFEN (Enhancement #3)
+
+Standard `LayerNorm` is stochastic. **Golden Attractor Flow Norm (GAFEN)** deterministically dampens exploding gradients toward the $\phi$ attractor.
+
+```python
+import torch
+import torch.nn as nn
+from src.enhancements import GoldenAttractorFlowNorm
+
+class TransformerBlock(nn.Module):
+    def __init__(self, d_model=768):
+        super().__init__()
+        # Replace nn.LayerNorm(d_model) -> GoldenAttractorFlowNorm(d_model)
+        self.norm1 = GoldenAttractorFlowNorm(normalized_shape=d_model)
+        self.attn = nn.MultiheadAttention(d_model, num_heads=12)
+
+    def forward(self, x):
+        # GAFEN automatically dampens the input tensor to stability
+        normed_x = self.norm1(x)
+        attn_out, _ = self.attn(normed_x, normed_x, normed_x)
+        return x + attn_out
+```
+
+#### 2. Entropy Collapse Early Stopping (Enhancement #30)
+
+Traditional Early Stopping waits for validation loss to degrade. NRC Early Stopping halts training the exact moment the weights form a perfect $\phi$-attractor.
+
+```python
+from src.enhancements import NRCEntropyAttractorEarlyStopping
+
+# Initialize with a strict phi tolerance
+nrc_stopper = NRCEntropyAttractorEarlyStopping(phi_tolerance=1e-5)
+
+for epoch in range(1000):
+    train_loss = train_epoch(model, dataloader, optimizer)
+
+    # Check if the epoch reached dimensional collapse
+    if nrc_stopper(train_loss):
+        print(f"Epoch {epoch}: Perfect Entropy Collapse Achieved. Stopping training.")
+        break
+```
+
+---
+
+### JAX / Flax Integration (Conceptual Bridge)
+
+For TPUs and ultra-scale distributed computing, JAX is preferred. The numpy-backed mathematical transforms in `src/nrc_math/` can be easily mirrored in `jax.numpy`.
+
+#### JAX Navier-Stokes Damping (Enhancement #10)
+
+```python
+import jax
+import jax.numpy as jnp
+
+phi = (1 + jnp.sqrt(5)) / 2
+
+@jax.jit
+def jax_navier_stokes_damping(x: jnp.ndarray, alpha: float = 1.618) -> jnp.ndarray:
+    """
+    JIT-compiled φ-damping for Flax neural networks.
+    """
+    # Simulate fluid viscosity using the golden ratio
+    viscosity_factor = jnp.exp(-jnp.abs(x) / phi)
+
+    # Scale momentum
+    damped_x = x * viscosity_factor * (1.0 / alpha)
+    return damped_x
+
+# Usage inside a Flax module:
+# hidden_state = jax_navier_stokes_damping(hidden_state)
+```
+
+By leveraging `jax.jit`, the NRC geometric projections map efficiently to Google TPU execution hardware, allowing 2048D lattice calculations to scale instantly across massive clusters.

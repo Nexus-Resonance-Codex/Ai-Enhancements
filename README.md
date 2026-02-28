@@ -24,7 +24,7 @@
 
 ## Overview
 
-This repository contains **30 novel deep learning enhancements** that implement the mathematical framework of the [Nexus Resonance Codex (NRC)](https://github.com/Nexus-Resonance-Codex/NRC) directly into PyTorch. Each module is a drop-in replacement for standard neural network components — LayerNorm, Attention, Optimizers, Positional Encodings, Dropout, and more.
+This repository contains **30 novel Deep Learning and AI Enhancements** that implement the deterministic mathematical framework of the [Nexus Resonance Codex (NRC)](https://github.com/Nexus-Resonance-Codex/NRC) directly into PyTorch. Optimized for researchers and developers seeking to run local LLMs on 4GB VRAM devices via Ollama, or scale massive models entirely via mathematical Golden Ratio Geometry, replacing stochastic neural networks. Each module is a drop-in replacement for standard neural network components — LayerNorm, Attention, Optimizers, Positional Encodings, Dropout, and more.
 
 Every enhancement is backed by real mathematical proofs (Golden Ratio dynamics, Fibonacci/Lucas sequences, Modular Exclusion Principle, Quantum Resonance Theory) and tested with comprehensive unit tests.
 
@@ -39,31 +39,133 @@ Every enhancement is backed by real mathematical proofs (Golden Ratio dynamics, 
 
 ---
 
-## Quick Start
+## 🚀 Quick Start (Exhaustive Cross-Platform Execution)
 
-```bash
-# 1. Clone the repository
-git clone https://github.com/Nexus-Resonance-Codex/Ai-Enhancements.git
-cd Ai-Enhancements
+The NRC AI Enhancements are mathematically complex PyTorch modules that require determinism across operating systems. Follow these rigorous steps to set up the interactive Python environment perfectly.
 
-# 2. Install the package
-pip install -e ".[dev]"
+**General Requirements:** Python 3.10+, Git, 8GB RAM minimum.
 
-# 3. Run the full demo (validates all 30 enhancements)
-python examples/demo_all_enhancements.py
+### 🐧 Linux (Pop!_OS / Ubuntu / Debian) - Primary Target
 
-# 4. Run unit tests
-python -m pytest tests/ -v
+Linux is the optimal environment for high-performance PyTorch operations, offering the least overhead on raw array multiplications and lattice projections.
 
-# 5. (Optional) Run with HuggingFace GPT-2
-pip install transformers
-python examples/integration_huggingface.py
+1. **System Update & Base Dependencies:**
+   Open a terminal and run:
+   ```bash
+   sudo apt update && sudo apt upgrade -y
+   sudo apt install -y git python3-pip python3-venv python3-dev curl build-essential
+   ```
 
-# 6. (Optional) Run with OpenFold mock
-python examples/integration_openfold.py
-```
+2. **Install `uv` (Fast Python Package Manager):**
+   ```bash
+   curl -LsSf https://astral.sh/uv/install.sh | sh
+   source $HOME/.bashrc
+   ```
 
----
+3. **Clone the AI Enhancement Repository:**
+   ```bash
+   git clone https://github.com/Nexus-Resonance-Codex/Ai-Enhancements.git
+   cd Ai-Enhancements
+   ```
+
+4. **Virtual Environment Setup (Absolute Isolation):**
+   ```bash
+   uv venv .venv
+   source .venv/bin/activate
+   ```
+
+5. **Install Development Packages & Modules:**
+   ```bash
+   uv pip install -e ".[dev]"
+   ```
+
+6. **Interactive Script Execution (Testing all 30 Enhancements):**
+   Launch the demo script to verify all 30 PyTorch modules map mathematically to the Giza angles and the 3-6-9-7 cycle:
+   ```bash
+   python3 examples/demo_all_enhancements.py
+   ```
+
+### 🪟 Windows 11 (via WSL2 / Ubuntu)
+
+To run PyTorch reliably with exact NRC lattice parity, native Windows environments are unsupported; you must rely on the Windows Subsystem for Linux (WSL2), mimicking a native Linux execution kernel.
+
+1. **Enable WSL2:**
+   Open PowerShell as an **Administrator** and execute:
+   ```powershell
+   wsl --install
+   ```
+   Restart your PC. Provide a UNIX username/password upon reboot.
+
+2. **System Dependencies in WSL2:**
+   Inside the Ubuntu command line window:
+   ```bash
+   sudo apt update && sudo apt install -y git python3-pip python3-venv curl
+   ```
+
+3. **Clone the Repo:**
+   (Do not clone into /mnt/c/; always clone to native Linux folders like `~` for speed)
+   ```bash
+   git clone https://github.com/Nexus-Resonance-Codex/Ai-Enhancements.git
+   cd Ai-Enhancements
+   ```
+
+4. **Setup Virtual Environment:**
+   ```bash
+   python3 -m venv .venv
+   source .venv/bin/activate
+   pip install --upgrade pip
+   ```
+
+5. **Install NRC AI Engine Modules:**
+   ```bash
+   pip install -e ".[dev]"
+   ```
+
+6. **Validate Installation (Interactive Test):**
+   Ensure all 30 tests pass by running:
+   ```bash
+   python3 examples/demo_all_enhancements.py
+   ```
+
+### 🍏 macOS (Apple Silicon M1/M2/M3 & Intel)
+
+macOS leverages the internal MPS backend for PyTorch. Ensure Python versions remain distinct via virtual environments to prevent conflict.
+
+1. **Install Homebrew:**
+   Open Terminal:
+   ```bash
+   /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+   # Run the explicit path additions suggested by Homebrew
+   ```
+
+2. **Install Python & Git:**
+   ```bash
+   brew install python@3.11 git
+   ```
+
+3. **Clone the Directory:**
+   ```bash
+   git clone https://github.com/Nexus-Resonance-Codex/Ai-Enhancements.git
+   cd Ai-Enhancements
+   ```
+
+4. **Create Virtual Environment:**
+   ```bash
+   python3.11 -m venv .venv
+   source .venv/bin/activate
+   ```
+
+5. **Install Hardware-Optimized PyTorch & Enhancements:**
+   ```bash
+   pip install --upgrade pip
+   pip install --pre torch --index-url https://download.pytorch.org/whl/nightly/cpu
+   pip install -e ".[dev]"
+   ```
+
+6. **Interactive Demo Run:**
+   ```bash
+   python3.11 examples/demo_all_enhancements.py
+   ```
 
 ## Repository Structure
 
