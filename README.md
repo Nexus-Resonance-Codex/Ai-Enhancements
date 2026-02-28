@@ -6,7 +6,7 @@
     <a href="LICENSE.md">
       <img src="https://img.shields.io/badge/License-NRC–L%20v2.0-FFD700?style=for-the-badge&logo=read-the-docs&logoColor=black&labelColor=0A192F" alt="NRC-L License">
     </a>
-    <a href="https://github.com/Nexus-Resonance-Codex/ai-enhancements/actions">
+    <a href="https://github.com/Nexus-Resonance-Codex/Ai-Enhancements/actions">
       <img src="https://img.shields.io/badge/Tests-Passing-brightgreen?style=for-the-badge&logo=pytest&logoColor=white&labelColor=0A192F" alt="Tests">
     </a>
     <a href="#">
@@ -43,8 +43,8 @@ Every enhancement is backed by real mathematical proofs (Golden Ratio dynamics, 
 
 ```bash
 # 1. Clone the repository
-git clone https://github.com/Nexus-Resonance-Codex/ai-enhancements.git
-cd ai-enhancements
+git clone https://github.com/Nexus-Resonance-Codex/Ai-Enhancements.git
+cd Ai-Enhancements
 
 # 2. Install the package
 pip install -e ".[dev]"
@@ -68,7 +68,7 @@ python examples/integration_openfold.py
 ## Repository Structure
 
 ```
-ai-enhancements/
+Ai-Enhancements/
 ├── Modelfile                          # Ollama Modelfile (8GB RAM / 4GB VRAM optimized)
 ├── README.md                          # This file
 ├── requirements.txt                   # Python dependencies
@@ -294,8 +294,8 @@ For detailed instructions (Windows, macOS, Linux), troubleshooting, and verifica
 | Repository                                                                      | Description                                                  |
 | :------------------------------------------------------------------------------ | :----------------------------------------------------------- |
 | [**NRC (Core)**](https://github.com/Nexus-Resonance-Codex/NRC)                  | The main mathematical paper, LaTeX source, and core theorems |
-| [**Protein Folding**](https://github.com/Nexus-Resonance-Codex/protein-folding) | Applications to biological structures and protein folding    |
-| [**AI Enhancements**](https://github.com/Nexus-Resonance-Codex/ai-enhancements) | This repository — 30 PyTorch enhancement modules             |
+| [**Protein Folding**](https://github.com/Nexus-Resonance-Codex/Protein-Folding) | Applications to biological structures and protein folding    |
+| [**AI Enhancements**](https://github.com/Nexus-Resonance-Codex/Ai-Enhancements) | This repository — 30 PyTorch enhancement modules             |
 
 ## Support NRC / JTRAG
 

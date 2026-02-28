@@ -4,7 +4,7 @@
   NRC AI Enhancement Suite — Full Demo (All 30 Enhancements)
 =======================================================================
   Author:   James Trageser (@jtrag)
-  Repo:     https://github.com/Nexus-Resonance-Codex/ai-enhancements
+  Repo:     https://github.com/Nexus-Resonance-Codex/Ai-Enhancements
   License:  NRC-L v2.0
 
   This script instantiates every single one of the 30 NRC AI
@@ -12,7 +12,7 @@
   that each module produces valid (no NaN/Inf) output.
 
   HOW TO RUN:
-    cd ai-enhancements
+    cd Ai-Enhancements
     pip install -e .
     python examples/demo_all_enhancements.py
 =======================================================================

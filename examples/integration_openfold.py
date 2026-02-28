@@ -4,7 +4,7 @@
   NRC × OpenFold — Integration Example
 =======================================================================
   Author:   James Trageser (@jtrag)
-  Repo:     https://github.com/Nexus-Resonance-Codex/ai-enhancements
+  Repo:     https://github.com/Nexus-Resonance-Codex/Ai-Enhancements
   License:  NRC-L v2.0
 
   This script demonstrates how to wrap an OpenFold-style structure

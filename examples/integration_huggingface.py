@@ -4,7 +4,7 @@
   NRC × HuggingFace Transformers — Integration Example
 =======================================================================
   Author:   James Trageser (@jtrag)
-  Repo:     https://github.com/Nexus-Resonance-Codex/ai-enhancements
+  Repo:     https://github.com/Nexus-Resonance-Codex/Ai-Enhancements
   License:  NRC-L v2.0
 
   This script demonstrates how to inject NRC AI Enhancements directly

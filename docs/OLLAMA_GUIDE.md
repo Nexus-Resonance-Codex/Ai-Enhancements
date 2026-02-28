@@ -73,11 +73,11 @@ You should see `llama3.2:3b` in the output.
 
 ## Step 3: Create the NRC Model
 
-Navigate to the `ai-enhancements` repository directory and create the custom model:
+Navigate to the `Ai-Enhancements` repository directory and create the custom model:
 
 ```bash
 # Navigate to repository
-cd /path/to/ai-enhancements
+cd /path/to/Ai-Enhancements
 
 # Create the NRC AI Engine from the Modelfile
 ollama create nrc-ai-engine -f Modelfile
