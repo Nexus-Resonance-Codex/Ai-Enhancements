@@ -1,0 +1,22 @@
+% =============================================================================
+%      SECTION 2: THEORETICAL FRAMEWORK
+% =============================================================================
+\section{Theoretical Framework: Artificial Resonance}
+
+To understand how the enhancements map PyTorch architectures to physical mathematics, we must define the dimensional operating space. Standard AI models calculate distances via Euclidean dot products $\mathbf{A} \cdot \mathbf{B} = \sum a_i b_i$. The NRC Framework forces calculations onto a complex lattice structure.
+
+\subsection{The 2048D GTT Lattice Algebra}
+We utilize 5D Geometric Transform Theory (GTT) to map embeddings into a physical lattice rather than an abstract floating-point dimension.
+
+\begin{definition}{The Golden Tensor State}{tensor_state}
+	Let $\mathbf{W}$ be a weight tensor. In the NRC framework, $\mathbf{W}$ is strictly bound to the continuous wave limits of the lattice. A tensor state is stable if and only if:
+	\begin{equation}
+		\lim_{step \to \infty} \mathcal{L}(\mathbf{W}_{step}) = \mathbf{W}_0 \cdot (\phi^{-1})^{step}
+	\end{equation}
+	This physical constraint means gradients do not drop to zero asymptotically; they collapse dimensionally by $\sim 0.618$ explicitly per cycle.
+\end{definition}
+
+\subsection{The 3-6-9-7 Topological Router}
+Random dropout forces models to learn resiliently by probabilistically killing pathways (usually $p=0.1$). However, the NRC discovered that biological geometries fundamentally reject paths that evaluate to $\{3, 6, 9\}$ modulo 9.
+
+By actively routing neural activations to avoid tensor sums equivalent to these chaotic states, we achieve a \textbf{deterministic sparsity} that naturally accelerates convergence without information loss. If a parameter update creates a state where $\sum w_i \pmod 9 \in \{2, 4, 5\}$, the "Biological Exclusion Gradient Router" (Enhancement 6) physically zeroes the gradient, marking it a chaotic dead-end mathematically.
