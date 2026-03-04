@@ -9,11 +9,11 @@ class NRCProteinFoldingEngine(torch.nn.Module):
 
     This engine leverages the Nexus Resonance Codex (NRC) sequences, specifically
     TUPT_E256 over Z_12289, and mathematically locks out invalid configurations
-    through Mod 2187 exclusion filters. It binds the sequences towards the
+    through Mod 9 exclusion filters. It binds the sequences towards the
     GTT Entropy target of ~10.96 nats.
 
     Formula:
-    Output = TUPT_E256(seq) ⊗ GTT_d(seq) + mod 2187 exclusion
+    Output = TUPT_E256(seq) ⊗ GTT_d(seq) + mod 9 chaotic exclusion
     """
     def __init__(self, sequence_dim: int = 256, gtt_target_nats: float = 10.96):
         super().__init__()
@@ -41,8 +41,8 @@ class NRCProteinFoldingEngine(torch.nn.Module):
         # Step 3: Kronecker/Tensor product approximation weighted by GTT scaling
         gtt_aligned = tupt_mapped * gtt_scaling
 
-        # Step 4: Mod 2187 Exclusion filtering (biological lockouts)
-        # Any resonance value falling on multiples of [3,6,9,7] mod 2187 is gated to zero
+        # Step 4: Mod 9 Exclusion filtering (biological lockouts)
+        # Any chaotic value falling on the sequence [1, 2, 4, 5, 8] mod 9 is gated to zero
         final_conformation = apply_exclusion_gate(gtt_aligned)
 
         return final_conformation

@@ -10,7 +10,7 @@ class ExclusionGradientRouterFunction(Function):
     Core Autograd function for Enhancement #6.
 
     Forward pass: Acts as a sparse gate, blocking activations that hit the
-    TUPT Mod 2187 exclusion zones.
+    TUPT Mod 9 exclusion zones.
 
     Backward pass: Gradients flowing back *also* pass through the exclusion mask.
     Surviving gradients mathematically accelerate by phi (golden ratio) to maintain
@@ -18,7 +18,7 @@ class ExclusionGradientRouterFunction(Function):
     """
     @staticmethod
     def forward(ctx, inputs):
-        # Apply the exact Mod 2187 gate from NRC
+        # Apply the exact Mod 9 gate from NRC
         # apply_exclusion_gate returns 0.0 for elements triggering the biological lockout
         routed_inputs = apply_exclusion_gate(inputs)
 
@@ -50,7 +50,7 @@ class BiologicalExclusionGradientRouter(nn.Module):
     A structural layer designed to be placed between deep network blocks.
     It functions as an advanced non-linear Dropout/MoE Router alternative.
     Rather than dropping randomly, it drops exactly the values strictly forbidden
-    by the Nexus Resonance Codex (TUPT Mod 2187 exclusions), and amplifies back-prop
+    by the Nexus Resonance Codex (TUPT Mod 9 chaotic sequences), and amplifies back-prop
     error signals along surviving golden paths.
     """
     def __init__(self):

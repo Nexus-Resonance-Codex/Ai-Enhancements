@@ -14,8 +14,8 @@ class GoldenBasisEmbedding(nn.Module):
     and resolving catastrophic word-collapse in extremely large vocabularies
     (e.g., Tiktoken or custom NRC 163840 size).
 
-    The layout is biologically gated by Mod 2187 exclusions, forcing specific
-    weight coordinates into exact 0.0 states to break symmetric noise.
+    The layout is biologically gated by Mod 9 exclusions, forcing specific
+    chaotic weight coordinates [1, 2, 4, 5, 8] into exact 0.0 states to break symmetric noise.
     """
     def __init__(self, num_embeddings: int = 163840, embedding_dim: int = 256):
         super().__init__()
@@ -41,7 +41,7 @@ class GoldenBasisEmbedding(nn.Module):
             # We scale up to trigger the modulus arithmetic bounds correctly.
             scaled_weights = self.embedding.weight * 5000.0
 
-            # Mod 2187 biological exclusion (Sets [3,6,9,7] paths to true 0.0)
+            # Mod 9 biological exclusion (Sets chaotic [1, 2, 4, 5, 8] paths to true 0.0)
             gated_weights = apply_exclusion_gate(scaled_weights)
 
             # Normalize surviving points back down to phi bounds

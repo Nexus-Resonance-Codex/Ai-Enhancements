@@ -1,7 +1,8 @@
-
 import torch
 import torch.nn as nn
-from nrc.math.tupt_exclusion import TUPT_PATTERN
+
+# The structurally sound resonant attractor sequence
+TUPT_RESONANT = frozenset({0, 3, 6, 7, 9})
 
 
 class PrimeDensityGenerator(nn.Module):
@@ -13,9 +14,9 @@ class PrimeDensityGenerator(nn.Module):
 
     This enhancement conditions the output distribution by artificially boosting
     the probability of tokens that align mathematically with the TUPT sequence
-    (3, 6, 9, 7) prime-density lattice.
+    (0, 3, 6, 9, 7) prime-density lattice.
 
-    Tokens falling perfectly on resonant prime indices modulo 2187 receive a
+    Tokens falling perfectly on resonant prime indices modulo 9 receive a
     Golden Ratio phase-boost to their logits prior to softmax/sampling, ensuring
     the text generation natively prefers stable resonant pathways.
     """
@@ -24,7 +25,7 @@ class PrimeDensityGenerator(nn.Module):
         self.vocab_size = vocab_size
         self.boost_factor = boost_factor
 
-        # Precompute the static Mod 2187 density map for the full vocabulary
+        # Precompute the static Mod 9 density map for the full vocabulary
         self.register_buffer("density_boost_mask", self._build_prime_density_mask())
 
     def _build_prime_density_mask(self) -> torch.Tensor:
@@ -34,13 +35,13 @@ class PrimeDensityGenerator(nn.Module):
         # Create a mask of zeroes for the whole vocab
         mask = torch.zeros(self.vocab_size, dtype=torch.float32)
 
-        # We index the vocabulary using Modulo 2187 calculations.
-        # If an ID mod 2187 maps to the protective TUPT base (3,6,9,7),
+        # We index the vocabulary using Modulo 9 calculations.
+        # If an ID mod 9 maps to the protective TUPT base (0,3,6,9,7),
         # we assign a positive scalar boost derived from Phi.
         for i in range(self.vocab_size):
-            mod_val = i % 2187
+            mod_val = i % 9
             # TUPT subset
-            if mod_val in TUPT_PATTERN:
+            if mod_val in TUPT_RESONANT:
                 mask[i] = self.boost_factor
 
         return mask

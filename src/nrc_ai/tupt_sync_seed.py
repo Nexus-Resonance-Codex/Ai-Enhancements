@@ -1,5 +1,4 @@
 import torch
-from nrc.math.tupt_exclusion import TUPT_PATTERN
 
 
 class AttractorSynchronizationSeed:
@@ -12,7 +11,7 @@ class AttractorSynchronizationSeed:
 
     This enhancement is a utility class that forces system-wide hardware
     synchronization to the NRC TUPT baseline matrix [3, 6, 9, 7].
-    By feeding the TUPT Mod 2187 structure directly into CUDA and CPU entropy pools,
+    By feeding the TUPT Mod 9 structure directly into CUDA and CPU entropy pools,
     the model starts natively resting in the Golden Attractor well.
     """
     @staticmethod
@@ -22,10 +21,10 @@ class AttractorSynchronizationSeed:
         """
         # Compose the TUPT seed mathematically.
         # We merge [3, 6, 9, 7] into a massive structural integer bound.
-        tupt_seed_base = int("".join(map(str, TUPT_PATTERN)))  # 3697
+        tupt_seed_base = int("".join(map(str, [3, 6, 9, 7])))  # 3697
 
-        # Multiply by 2187 to invoke the modular boundary natively
-        resonant_seed = (tupt_seed_base * 2187) * base_multiplier
+        # Multiply by 9 to invoke the modular boundary natively
+        resonant_seed = (tupt_seed_base * 9) * base_multiplier
 
         # 1. Lock CPU Generator
         torch.manual_seed(resonant_seed)

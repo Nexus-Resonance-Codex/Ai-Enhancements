@@ -15,7 +15,7 @@ class NavierStokesDampingRegulariser(nn.Module):
     (QRT) equation.
 
     The QRT acts as a continuous damping boundary:
-    QRT(x) = sin(phi * sqrt(2) * 51.85 * x) * exp(-x^2 / phi) + cos((pi / phi) * x)
+    QRT(x) = sin(phi * sqrt(2) * arctan(sqrt(phi)) * x) * exp(-x^2 / phi) + cos((pi / phi) * x)
 
     Any activations or gradients spiking destructively are smoothly decayed and
     pulled back toward the Golden Attractor limit, preventing structural collapse.

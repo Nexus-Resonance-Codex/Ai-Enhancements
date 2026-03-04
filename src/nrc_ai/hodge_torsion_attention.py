@@ -19,7 +19,7 @@ class HodgeTorsionAttention(nn.Module):
     Formula:
     Attention(Q, K, V) = softmax( (Q·K^T + φ^T_torsion) / sqrt(d) ) * V
     Where φ^T_torsion is a deterministically rotating matrix embedding derived
-    from the Giza slope (51.85 degrees).
+    from the exact tangent limit arctan(sqrt(phi)).
     """
     def __init__(self, embed_dim: int, num_heads: int):
         super().__init__()
@@ -28,9 +28,9 @@ class HodgeTorsionAttention(nn.Module):
         self.head_dim = embed_dim // num_heads
         self.scale = 1.0 / math.sqrt(self.head_dim)
 
-        # NRC Giza slope mapped to radians: 51.85 * (pi / 180) ~ 0.9049
+        # NRC precise torsion limit mapped directly to analytical radians
         # The torsion scalar dictates the "twist" amplitude applied across the diagonal
-        self.giza_torsion_radians = 51.85 * (math.pi / 180.0)
+        self.giza_torsion_radians = math.atan(math.sqrt(PHI_FLOAT))
 
         # Structural Q, K, V projections
         self.q_proj = nn.Linear(embed_dim, embed_dim)

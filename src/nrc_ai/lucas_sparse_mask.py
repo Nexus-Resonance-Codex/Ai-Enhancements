@@ -13,7 +13,7 @@ class LucasWeightedSparseMask(nn.Module):
 
     This sparse mask utilizes the Lucas integer sequence (which perfectly approximates
     Phi fractals at vast depths: L_n = F_{n-1} + F_{n+1}) superimposed onto the
-    TUPT Mod 2187 biological exclusions. Tokens that land on structurally
+    TUPT Mod 9 biological exclusions. Tokens that land on structurally
     excluded nodes are completely zero-gated from attention flow, ensuring
     perfectly sparse, resonantly noise-free routing dynamically scaled
     by Lucas index distances.
@@ -38,7 +38,7 @@ class LucasWeightedSparseMask(nn.Module):
         # 2. Generate Lucas Index Approximations
         lucas_indices = torch.arange(self.max_seq_len, dtype=torch.float32)
 
-        # 3. We subject the spatial matrix indices to the Mod 2187 Exclusion paths (TUPT gating)
+        # 3. We subject the spatial matrix indices to the Mod 9 Exclusion paths (TUPT gating)
         # We broadcast a 2D grid measuring the absolute sequence position
         grid = torch.abs(lucas_indices.unsqueeze(0) - lucas_indices.unsqueeze(1))
 

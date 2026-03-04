@@ -10,7 +10,7 @@ class TUPTExclusionTokenPruner(nn.Module):
     In ultra-long context transformers, attention processing scales quadratically O(N^2).
     Standard models attempt to arbitrarily pool or slice sequences to save memory.
 
-    This enhancement utilizes the TUPT (Mod 2187 structure) natively across the sequence
+    This enhancement utilizes the TUPT (Mod 9 structure) natively across the sequence
     length dimension. It physically measures the mathematical resonance of intermediate
     tokens and statically structurally prunes the tokens that map cleanly into the
     biological TUPT zero-blocks (the mathematical "waste" tokens).
@@ -33,9 +33,9 @@ class TUPTExclusionTokenPruner(nn.Module):
         # 1. Create a logical grid mapping the spatial index locations of each token
         indices = torch.arange(seq_len, dtype=torch.float32, device=hidden_states.device)
 
-        # 2. Gate the indices natively using the Mod 2187 Modulo-9 base
+        # 2. Gate the indices natively using the Mod 9 base
         # (This is a 1D implementation of the 2D gate applied in the Attention layers earlier).
-        # Any token whose index modulo 2187 triggers a TUPT Exclusion returns 0.0 mathematically.
+        # Any token whose index modulo 9 triggers a TUPT Exclusion returns 0.0 mathematically.
         # Any token that survives the resonance test returns 1.0
         survival_mask = apply_exclusion_gate(indices)
 

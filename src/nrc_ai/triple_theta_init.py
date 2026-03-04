@@ -10,14 +10,14 @@ def triple_theta_init_(tensor: torch.Tensor, mean=0.0, std=1.0) -> torch.Tensor:
 
     A mathematically constrained initialization method for Neural Network weights.
     It applies the Golden exponential map (φ^{round(i * φ)}) masked by
-    Z_2187 biological exclusions (via apply_exclusion_gate) over a standard
+    Z_9 biological chaotic exclusions (via apply_exclusion_gate) over a standard
     normal distribution.
 
     This breaks symmetry using non-linear fractals instead of random noise,
     drastically stabilizing early training epochs and avoiding exploding gradients.
 
     Formula:
-    w_i ← φ^{round(i·φ)} mod 2187 · N(0,σ) · exclusion_mask
+    w_i ← φ^{round(i·φ)} mod 9 · N(0,σ) · exclusion_mask
     """
     with torch.no_grad():
         # Generate initial Normal distribution N(0, σ)
@@ -29,7 +29,7 @@ def triple_theta_init_(tensor: torch.Tensor, mean=0.0, std=1.0) -> torch.Tensor:
         indices = torch.arange(num_elements, dtype=torch.float32, device=tensor.device)
 
         # Compute φ^{round(i * φ)}
-        # To avoid overflow, we modulate early since we will apply mod 12289/2187
+        # To avoid overflow, we modulate early since we will apply mod 12289/9
         phi_scaled_idx = torch.round(indices * PHI_FLOAT)
 
         # We use standard modular arithmetic bounding
@@ -40,10 +40,10 @@ def triple_theta_init_(tensor: torch.Tensor, mean=0.0, std=1.0) -> torch.Tensor:
         # Apply the golden ratio power
         phi_map = (PHI_FLOAT ** theta_power)
 
-        # Apply strict mod 2187 domain wrapping
-        phi_mapped_mod = torch.fmod(phi_map, 2187.0)
+        # Apply strict mod 9 domain wrapping
+        phi_mapped_mod = torch.fmod(phi_map, 9.0)
 
-        # Pass through the biological exclusion gate (Mod 2187 traps [3,6,9,7])
+        # Pass through the biological exclusion gate (Mod 9 traps [1,2,4,5,8])
         gated_multiplier = apply_exclusion_gate(phi_mapped_mod)
 
         # Reshape to match the original tensor
