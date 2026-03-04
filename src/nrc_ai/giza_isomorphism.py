@@ -22,8 +22,8 @@ class GizaLatticeIsomorphism(nn.Module):
     def __init__(self, high_dim_features: int):
         super().__init__()
         self.features = high_dim_features
-        # 51.85 degrees natively mapped to radians
-        self.giza_angle = 51.85 * (math.pi / 180.0)
+        # The physically perfect lattice rotation bound (arctan(sqrt(phi)) ~ 51.827 degrees)
+        self.giza_angle = math.atan(math.sqrt(PHI_FLOAT))
 
         # Precompute the static 2D Rotational-Scale Isomorphism Matrix
         self.register_buffer("isomorphism_matrix", self._build_giza_matrix())

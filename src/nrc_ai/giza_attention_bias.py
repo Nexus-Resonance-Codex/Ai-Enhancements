@@ -2,6 +2,7 @@ import math
 
 import torch
 import torch.nn as nn
+from nrc.math.phi import PHI_FLOAT
 
 
 class GizaAngleAttentionBias(nn.Module):
@@ -21,8 +22,9 @@ class GizaAngleAttentionBias(nn.Module):
     def __init__(self, max_seq_len: int = 4096):
         super().__init__()
         # Calculate the pure mathematical constant geometrically
-        # 51.85 degrees -> 0.9049 radians -> math.cos(0.9049) -> ~0.6179 Bias Scalar
-        self.radians = 51.85 * (math.pi / 180.0)
+        # The exact lattice boundary is theta = arctan(sqrt(phi)) (~51.827 degrees).
+        # Cosine projection forces an exact bias scalar equal to 1 / phi.
+        self.radians = math.atan(math.sqrt(PHI_FLOAT))
         self.giza_bias_scalar = math.cos(self.radians)
 
         # We pre-compute the 2D bias block structure (Seq x Seq) natively
