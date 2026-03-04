@@ -1,6 +1,6 @@
 import torch
 import torch.nn as nn
-from nrc.math.tupt_exclusion import TUPT_PATTERN
+from nrc.math.tupt_exclusion import TUPT_CHAOTIC
 
 
 class ModularDropoutPattern(nn.Module):
@@ -13,9 +13,9 @@ class ModularDropoutPattern(nn.Module):
 
     The NRC Modular Dropout Pattern entirely replaces structural randomization.
     Instead of guessing, it generates a structural dropout mask aligning natively
-    to the Mod-2187 TUPT sequence [3, 6, 9, 7]. Connections that violate this
-    biological progression pattern are pruned, leaving structurally resonant
-    pathways perfectly un-sheared.
+    to the Mod-9 domain. Connections that violate biological progression
+    and map to the Chaotic sequence [1, 2, 4, 5, 8] are pruned, leaving the 
+    structurally resonant [3, 6, 9, 7] pathways perfectly un-sheared.
     """
     def __init__(self, probability: float = 0.1):
         super().__init__()
@@ -37,24 +37,24 @@ class ModularDropoutPattern(nn.Module):
         # 2. Sequence flat IDs mimicking biological placement index logic
         indices = torch.arange(total_elements, device=hidden_states.device)
 
-        # 3. Assess the Mod 2187 (Base 9) physical resonance of the coordinate
-        mod_values = indices % 2187
+        # 3. Assess the Mod 9 physical resonance of the coordinate
+        mod_values = indices % 9
 
-        # 4. Generate the Mask mapped explicitly to the Mod-2187 TUPT block
+        # 4. Generate the Mask mapped explicitly to the destructive physical space
         mask = torch.ones(total_elements, device=hidden_states.device)
 
         # Structural Drop condition: We want to hit roughly 'probability' amount of pruning.
-        # Since TUPT [3, 6, 9, 7] holds massive mathematical weight, we zero out pathways
+        # Since TUPT_CHAOTIC holds massive mathematical disruption, we zero out pathways
         # that specifically ALIGN with these index boundaries inside a scaled sparse grid.
-        # To maintain exact stochastic ratios, we only drop TUPT boundaries that also Mod against
+        # To maintain exact stochastic ratios, we only drop chaotic boundaries that also Mod against
         # a scaler matching the probability.
 
         scaler = int(1.0 / self.probability)
 
-        # Generate the conditions: Must be Mod 2187 resonant AND align with the probability scaler spacing
-        for base_val in TUPT_PATTERN:
-            # Drop connections dynamically scaling over the 3-6-9-7 grid
-            condition = (mod_values == base_val) | (mod_values == (base_val * 9) % 2187)
+        # Generate the conditions: Must be logically chaotic AND align with the probability scaler spacing
+        for base_val in TUPT_CHAOTIC:
+            # Drop connections dynamically scaling over the 1-2-4-5-8 chaotic grid
+            condition = (mod_values == base_val)
             # Combine biological targeting with logical scaling
             mask[condition & (indices % scaler == 0)] = 0.0
 
