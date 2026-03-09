@@ -8,15 +8,14 @@ To understand how the enhancements map PyTorch architectures to physical mathema
 \subsection{The 2048D GTT Lattice Algebra}
 We utilize 5D Geometric Transform Theory (GTT) to map embeddings into a physical lattice rather than an abstract floating-point dimension.
 
-\begin{definition}{The Golden Tensor State}{tensor_state}
-	Let $\mathbf{W}$ be a weight tensor. In the NRC framework, $\mathbf{W}$ is strictly bound to the continuous wave limits of the lattice. A tensor state is stable if and only if:
-	\begin{equation}
-		\lim_{step \to \infty} \mathcal{L}(\mathbf{W}_{step}) = \mathbf{W}_0 \cdot (\phi^{-1})^{step}
-	\end{equation}
-	This physical constraint means gradients do not drop to zero asymptotically; they collapse dimensionally by $\sim 0.618$ explicitly per cycle.
-\end{definition}
+\subsection{The Golden Tensor State [CONJ]}
+We utilize Geometric Transform Theory (GTT) to map embeddings into a discrete recursive physical lattice rather than an abstract isotropic floating-point dimension. Let $\mathbf{W}$ be a neural weight tensor structurally constrained to continuous wave limits. A subset state is inherently stable under recursive backpropagation if its bounded evaluation collapses dimensionally:
+\begin{equation}
+	\lim_{k \to \infty} \mathcal{L}(\mathbf{W}_{k}) = \mathbf{W}_0 \cdot (\phi^{-1})^k
+\end{equation}
+This physical constraint asserts that neural gradients do not merely drop asymptotically to minimal thresholds, but collapse explicitly by the algebraic invariant $\phi^{-1}$ per state cycle.
 
 \subsection{The 0-3-6-9 Topological Chaotic Void Router [CONJ]}
-Random dropout forces models to learn resiliently by probabilistically killing pathways (usually $p=0.1$). However, the NRC discovered that biological geometries fundamentally reject paths that evaluate to the chaotic voids $\{0, 3, 6, 9\}$ modulo 9.
+Standard stochastic randomness functionally forces AI models to generalize by probabilistically severing pathway connections (e.g., standard dropout with $p=0.1$). Conversely, biological architectures explicitly and geometrically reject structural evaluation nodes that align with destructive interference boundaries equivalent to the values $\{0, 3, 6, 9\}$ strictly mapped modulo 9.
 
-By actively routing neural activations to avoid tensor sums equivalent to these chaotic states, we achieve a \textbf{deterministic sparsity} that naturally accelerates convergence without information loss. If a parameter update creates a state where $\sum w_i \pmod 9 \in \{2, 4, 5\}$, the ``Biological Exclusion Gradient Router'' (Enhancement 6) physically zeroes the gradient, marking it a chaotic dead-end mathematically.
+By deploying the \textbf{Trageser Transformation Theorem (TTT)} as an active deterministic geometric filter, the framework intercepts neural gradient states evaluating to $\sum w_i \pmod{9} \in \{0, 3, 6, 9\}$. The \textit{Biological Exclusion Gradient Router} physically negates these vector trajectories, locking stabilization structurally to the $7$-adic anchor. Instead of artificial randomness, AI training achieves a massive operational \textbf{deterministic sparsity} preserving continuous global alignment.
