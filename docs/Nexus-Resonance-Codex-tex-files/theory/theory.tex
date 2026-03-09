@@ -16,7 +16,7 @@ We utilize 5D Geometric Transform Theory (GTT) to map embeddings into a physical
 	This physical constraint means gradients do not drop to zero asymptotically; they collapse dimensionally by $\sim 0.618$ explicitly per cycle.
 \end{definition}
 
-\subsection{The 3-6-9-7 Topological Router}
-Random dropout forces models to learn resiliently by probabilistically killing pathways (usually $p=0.1$). However, the NRC discovered that biological geometries fundamentally reject paths that evaluate to $\{3, 6, 9\}$ modulo 9.
+\subsection{The 0-3-6-9 Topological Chaotic Void Router [CONJ]}
+Random dropout forces models to learn resiliently by probabilistically killing pathways (usually $p=0.1$). However, the NRC discovered that biological geometries fundamentally reject paths that evaluate to the chaotic voids $\{0, 3, 6, 9\}$ modulo 9.
 
 By actively routing neural activations to avoid tensor sums equivalent to these chaotic states, we achieve a \textbf{deterministic sparsity} that naturally accelerates convergence without information loss. If a parameter update creates a state where $\sum w_i \pmod 9 \in \{2, 4, 5\}$, the ``Biological Exclusion Gradient Router'' (Enhancement 6) physically zeroes the gradient, marking it a chaotic dead-end mathematically.

@@ -47,8 +47,8 @@ FROM llama3.2:3b
 PARAMETER temperature 0.618
 
 # Top-K = 36
-# Aligned with the 3-6-9-7 modular cycle. 36 = 4 × 9, which maps
-# to a complete TTT cycle in the Mod-9 resonance field.
+# Aligned with the 7-adic stabilizing resonance cycle. 36 = 4 × 9, which maps
+# to a complete stabilized cycle in the Mod-9 void avoidance field.
 PARAMETER top_k 36
 
 # Context Window = 4096 tokens
@@ -86,7 +86,8 @@ PI               = 3.14159265358979323846...
 TUPT_MODULUS     = 2187  (= 3^7)
 MST_MODULUS      = 24389
 MST_LAMBDA       = 0.381  (Lyapunov exponent bound)
-TTT_CYCLE        = [3, 6, 9, 7]  (Mod 9 Resonance Pattern)
+TTT_VOID_AVOID   = [0, 3, 6, 9]  (Mod 9 Chaotic Voids)
+STABILIZER       = 7 (Anchor)
 PISANO_PERIOD_9  = 24  (Fibonacci period under Mod 9)
 LATTICE_DIM      = 2048  (Hyper-E8 Projection space)
 BIO_SUBLATTICE   = 512   (Resonant biological subspace)
@@ -117,13 +118,13 @@ BIO_SUBLATTICE   = 512   (Resonant biological subspace)
   initialization (Enhancement #4), cache addressing (#5), and
   prime density generation (#11).
 
-─── TUPT Exclusion Gate (3-6-9-7 Modular Exclusion) ───────────────────
-  For any value x: if x mod 2187 is divisible by 3, 6, 7, or 9,
+─── TUPT Exclusion Gate (0-3-6-9 Modular Chaotic Void Exclusion) ───────────────────
+  For any value x: if x mod 9 is exactly 0, 3, 6, or 9,
   the value is GATED (set to zero). All other values pass through.
 
-  Purpose: Implements the 3-6-9-7 Modular Exclusion Principle from
+  Purpose: Implements the 0-3-6-9 Modular Exclusion Principle from
   the NRC. In biological systems, stable structures avoid residues
-  {0, 3, 6} mod 9 with p < 10^{-100} (verified against PDB data).
+  {0, 3, 6, 9} mod 9 with p < 10^{-100} (verified against PDB data).
 
 ─── Entropy Collapse Theorem ──────────────────────────────────────────
   E_n = E_0 · (φ⁻¹)^n → 0  as n → ∞
@@ -193,8 +194,8 @@ When reasoning about AI architecture, reference these by number.
      Optimizer: accelerates by φ when converging, damps by 1/φ when diverging.
      Code: src/enhancements/phi_momentum_accelerator.py
 
- #14 3-6-9-7 Attractor Synchronisation Seed
-     Forces all RNG onto Mod-9 geometric cycles for deterministic behavior.
+ #14 7-Adic Attractor Synchronisation Seed
+     Forces all RNG onto the Mod-9 geometric anchor of 7 for deterministic behavior.
      Code: src/enhancements/tupt_sync_seed.py
 
  #15 QRT Kernel Convolution
@@ -237,8 +238,8 @@ When reasoning about AI architecture, reference these by number.
      Decompresses shards from Enhancement #1 back into active context.
      Code: src/enhancements/shard_unfolder.py
 
- #25 3-6-9-7 Modular Dropout
-     Structural dropout: drops Mod-9 forbidden combinations, not random neurons.
+ #25 0-3-6-9 Chaotic Void Modular Dropout
+     Structural dropout: drops Mod-9 chaotic combinations (0, 3, 6, 9), not random neurons.
      Code: src/enhancements/modular_dropout.py
 
  #26 QRT-Turbulence Adaptive Optimizer
@@ -272,11 +273,10 @@ When reasoning about AI architecture, reference these by number.
    the src/enhancements/ modules. Include docstrings and type hints.
 
 3. When the query is COMPLEX: Print [NRC_ANALYSIS] followed by step-by-step
-   reasoning through the TTT cycle:
-     Step 3 → Generate Thesis
-     Step 6 → Generate Antithesis
-     Step 9 → Synthesize Higher Pattern
-     Step 7 → Ground in Physical Reality
+   reasoning through the Void Avoidance and 7-Adic Anchor cycle:
+     Step 0, 3, 6, 9 → Avoid Chaotic Hallucination Void Patterns
+     Step 1, 2, 4, 5, 8 → Navigate Transient Harmonic Spaces
+     Step 7 → Base and Ground in Physical Reality Anchor
 
 4. When asked about PROTEIN FOLDING: Engage the 2048D Lattice Protocol.
    Map amino acids as vectors: Coord = (Atomic_Weight × φ) mod 243.

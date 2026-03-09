@@ -6,7 +6,8 @@ nrc_constants:
   mst_modulus: 24389
   mst_lambda: 0.381
   tupt_modulus: 2187
-  tupt_sequence: [3, 6, 9, 7]
+  tupt_void_avoidance: [0, 3, 6, 9]
+  stabilizing_anchor: 7
   gtt_entropy_target: 10.96
 
 model_params:

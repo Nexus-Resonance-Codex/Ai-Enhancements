@@ -80,7 +80,7 @@ Ai-Enhancements/
 │   │   ├── phi.py                     #   φ constants, Binet formula, φ^∞ folding
 │   │   ├── qrt.py                     #   QRT wave function (damping)
 │   │   ├── mst.py                     #   MST step function (Lyapunov bounds)
-│   │   └── tupt_exclusion.py          #   3-6-9-7 Mod-2187 exclusion gate
+│   │   └── tupt_exclusion.py          #   0-3-6-9 Mod-9 chaotic exclusion gate
 │   │
 │   ├── enhancements/                  # All 30 enhancement modules
 │   │   ├── __init__.py                #   Exports all 30 classes
@@ -160,7 +160,7 @@ Ai-Enhancements/
 | 11  | **Prime-Density Conditioned Generation** | `prime_density_generation.py`  | Standard logit sampling       |
 | 12  | **GTT Entropy Collapse Regulariser**     | `gtt_entropy_regulariser.py`   | Activation regularization     |
 | 13  | **φ⁻¹ Momentum Accelerator**             | `phi_momentum_accelerator.py`  | `SGD` / `Adam`                |
-| 14  | **3-6-9-7 Attractor Sync Seed**          | `tupt_sync_seed.py`            | `torch.manual_seed`           |
+| 14  | **7-Adic Anchor Sync Seed**          | `tupt_sync_seed.py`            | `torch.manual_seed`           |
 | 15  | **QRT Kernel Convolution**               | `qrt_convolution.py`           | `nn.Conv1d`                   |
 | 16  | **Lucas-weighted Sparse Attention**      | `lucas_sparse_mask.py`         | Dense attention masks         |
 | 17  | **φ-Powered Resonant Weighting**         | `phi_resonant_weighting.py`    | Standard weight scaling       |
@@ -171,7 +171,7 @@ Ai-Enhancements/
 | 22  | **TUPT-Exclusion Token Pruning**         | `tupt_token_pruning.py`        | Random token pruning          |
 | 23  | **φ⁶ Void Resonance Positional Enc.**    | `phi_void_positional.py`       | Sinusoidal PE                 |
 | 24  | **Infinite E_∞ Context Unfolder**        | `shard_unfolder.py`            | Context window limits         |
-| 25  | **3-6-9-7 Modular Dropout**              | `modular_dropout.py`           | `nn.Dropout`                  |
+| 25  | **0-3-6-9 Chaotic Void Dropout**              | `modular_dropout.py`           | `nn.Dropout`                  |
 | 26  | **QRT-Turbulence Adaptive Optimizer**    | `qrt_optimizer.py`             | `Adam` / `AdamW`              |
 | 27  | **Giza-Slope 51.85° Attention Bias**     | `giza_attention_bias.py`       | Standard attention bias       |
 | 28  | **Floor-Sinh Activation Regularizer**    | `floor_sinh_activation.py`     | `GELU` / `ReLU`               |
@@ -214,7 +214,7 @@ Generates deterministic pseudo-chaotic cycles with Lyapunov exponent λ ≈ 0.38
 For any x: if x mod 2187 is divisible by 3, 6, 7, or 9 → gate (zero out)
 ```
 
-Implements the 3-6-9-7 Modular Exclusion Principle verified against PDB data (p < 10⁻¹⁰⁰).
+Implements the 0-3-6-9 Modular Chaotic Void Avoidance Principle verified against PDB data (p < 10⁻¹⁰⁰).
 
 ---
 

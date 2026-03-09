@@ -5,7 +5,7 @@ from nrc.math.tupt_exclusion import TUPT_CHAOTIC
 
 class ModularDropoutPattern(nn.Module):
     """
-    Enhancement #25: 3-6-9-7 Modular Dropout Pattern
+    Enhancement #25: 0-3-6-9 Chaotic Void Modular Dropout Pattern
 
     Standard Dropout mechanisms (e.g. Dropout(0.1)) annihilate network
     connections randomly via arbitrary Bernoulli distributions. This destroys
@@ -14,8 +14,8 @@ class ModularDropoutPattern(nn.Module):
     The NRC Modular Dropout Pattern entirely replaces structural randomization.
     Instead of guessing, it generates a structural dropout mask aligning natively
     to the Mod-9 domain. Connections that violate biological progression
-    and map to the Chaotic sequence [1, 2, 4, 5, 8] are pruned, leaving the 
-    structurally resonant [3, 6, 9, 7] pathways perfectly un-sheared.
+    and map to the Chaotic sequence [0, 3, 6, 9] are pruned, leaving the 
+    structurally stable pathways perfectly un-sheared.
     """
     def __init__(self, probability: float = 0.1):
         super().__init__()

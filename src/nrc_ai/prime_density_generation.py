@@ -1,8 +1,8 @@
 import torch
 import torch.nn as nn
 
-# The structurally sound resonant attractor sequence
-TUPT_RESONANT = frozenset({0, 3, 6, 7, 9})
+# The structurally sound resonant anchor sequence
+TUPT_RESONANT = frozenset({1, 2, 4, 5, 7, 8})
 
 
 class PrimeDensityGenerator(nn.Module):
@@ -13,12 +13,13 @@ class PrimeDensityGenerator(nn.Module):
     decoding phase. Standard LLMs decode strictly based on raw probability.
 
     This enhancement conditions the output distribution by artificially boosting
-    the probability of tokens that align mathematically with the TUPT sequence
-    (0, 3, 6, 9, 7) prime-density lattice.
+    the probability of tokens that align mathematically with the stabilizing anchor
+    (1, 2, 4, 5, 7, 8) prime-density lattice.
 
-    Tokens falling perfectly on resonant prime indices modulo 9 receive a
+    Tokens falling exactly on stable resonant indices modulo 9 receive a
     Golden Ratio phase-boost to their logits prior to softmax/sampling, ensuring
-    the text generation natively prefers stable resonant pathways.
+    the text generation natively prefers stable resonant pathways and avoids the
+    0, 3, 6, 9 chaotic voids.
     """
     def __init__(self, vocab_size: int, boost_factor: float = 1.0):
         super().__init__()
@@ -36,7 +37,7 @@ class PrimeDensityGenerator(nn.Module):
         mask = torch.zeros(self.vocab_size, dtype=torch.float32)
 
         # We index the vocabulary using Modulo 9 calculations.
-        # If an ID mod 9 maps to the protective TUPT base (0,3,6,9,7),
+        # If an ID mod 9 maps to the protective stable nodes (1, 2, 4, 5, 7, 8),
         # we assign a positive scalar boost derived from Phi.
         for i in range(self.vocab_size):
             mod_val = i % 9
