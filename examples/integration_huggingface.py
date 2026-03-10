@@ -5,7 +5,7 @@
 =======================================================================
   Author:   James Trageser (@jtrag)
   Repo:     https://github.com/Nexus-Resonance-Codex/Ai-Enhancements
-  License:  NRC-L v2.0
+  License:  NRC-L
 
   This script demonstrates how to inject NRC AI Enhancements directly
   into a HuggingFace GPT-2 model. It replaces standard components:

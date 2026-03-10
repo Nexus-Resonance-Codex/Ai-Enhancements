@@ -5,7 +5,7 @@
 =======================================================================
   Author:   James Trageser (@jtrag)
   Repo:     https://github.com/Nexus-Resonance-Codex/Ai-Enhancements
-  License:  NRC-L v2.0
+  License:  NRC-L
 
   This script instantiates every single one of the 30 NRC AI
   Enhancements on synthetic data, runs a forward pass, and verifies
