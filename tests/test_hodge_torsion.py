@@ -10,6 +10,7 @@ from nrc_ai.hodge_torsion_attention import HodgePhiTTorsionAttention
 
 def test_hodge_torsion_attention() -> None:
     """Validates Enhancement #7: Hodge-phi^T Torsion Attention v3
+
     Ensures that the geometric torsion bias bounded by the Golden Ratio
     correctly integrates with standard Q-K dot products without breaking
     softmax gradients or dimensional routing.

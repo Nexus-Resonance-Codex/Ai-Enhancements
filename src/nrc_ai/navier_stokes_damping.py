@@ -26,6 +26,7 @@ class NavierStokesDampingRegularizer(nn.Module):
 
     def forward(self, hidden_states: torch.Tensor) -> torch.Tensor:
         """Applies mathematical friction to activations that veer outside of
+
         stable resonance limits.
         """
         # Calculate the pure QRT topological landscape for the given tensor block

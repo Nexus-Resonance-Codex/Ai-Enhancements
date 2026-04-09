@@ -52,6 +52,7 @@ class QRTKernelConvolution(nn.Module):
 
     def forward(self, x: torch.Tensor) -> torch.Tensor:
         """Dynamically calculates the QRT bounded filter weights before
+
         executing standard spatial 2D sliding extraction.
         """
         # 1. Subject the raw convolution kernels to the Mathematical Friction Boundary

@@ -5,12 +5,14 @@ import torch
 
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "../src")))
 
-from nrc_ai.shard_unfolder import InfiniteEInfinityContextUnfolder
 from nrc_math import PHI_FLOAT
+
+from nrc_ai.shard_unfolder import InfiniteEInfinityContextUnfolder
 
 
 def test_infinite_e_inf_unfolder() -> None:
     """Validates Enhancement #24: Ensures the Context Unfolder structurally reverses
+
     Phi-Shard memory compression algorithms, expanding cached geometries back to
     native execution size linearly.
     """

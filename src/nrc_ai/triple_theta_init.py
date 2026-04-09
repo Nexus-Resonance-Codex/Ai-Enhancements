@@ -57,6 +57,7 @@ def triple_theta_init_(tensor: torch.Tensor, mean=0.0, std=1.0) -> torch.Tensor:
 
 class TripleThetaInitializer(nn.Linear):
     """A standard PyTorch Linear layer that utilizes NRC Triple-Theta Initialisation v3
+
     automatically upon instantiation.
     """
 

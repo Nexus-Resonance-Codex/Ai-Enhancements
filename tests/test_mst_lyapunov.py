@@ -10,6 +10,7 @@ from nrc_ai.mst_lyapunov_clipping import MSTLyapunovGradientClipping
 
 def test_mst_lyapunov_grad_clip() -> None:
     """Validates Enhancement #19: MST-Lyapunov Gradient Clipping structurally maps extreme
+
     gradient spikes through the mathematical MST equations ensuring dynamic compression
     rather than absolute truncation.
     """

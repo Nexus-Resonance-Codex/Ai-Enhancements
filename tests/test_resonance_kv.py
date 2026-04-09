@@ -10,6 +10,7 @@ from nrc_ai.resonance_kv_cache import ResonanceShardKVCache
 
 def test_resonance_kv_cache() -> None:
     """Validates Enhancement #5: Resonance Shard KV Cache correctly captures incoming KV blocks,
+
     triggers a Phase-Folding compression at the memory boundary, and aggregates historic states
     without breaking dimensionality.
     """

@@ -11,6 +11,7 @@ from nrc_ai.floor_sinh_activation import FloorSinhActivation
 
 def test_floor_sinh_regularizer() -> None:
     """Validates Enhancement #28: Ensures that tensors track onto Hyperbolic Sine limits natively
+
     while structurally locking severe negative anomalies smoothly onto the physical floor limit.
     """
     # Create an arbitrary tensor matrix passing through Positive, Neutral, and severely Negative zones

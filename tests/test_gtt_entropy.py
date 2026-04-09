@@ -5,12 +5,14 @@ import torch
 
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "../src")))
 
-from nrc_ai.gtt_entropy_regulariser import GTTEntropyCollapseRegularizer
 from nrc_math import PHI_FLOAT
+
+from nrc_ai.gtt_entropy_regulariser import GTTEntropyCollapseRegularizer
 
 
 def test_gtt_entropy_collapse() -> None:
     """Validates Enhancement #12: The GTT Entropy Collapse layer successfully
+
     measures real-time Shannon Entropy and proportionally scales down specific
     vectors that exceed the 10.96 nat boundary limits.
     """

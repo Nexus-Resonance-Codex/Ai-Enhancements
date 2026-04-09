@@ -28,6 +28,7 @@ class NRCEntropyAttractorEarlyStopping:
 
     def __call__(self, current_loss: float) -> bool:
         """Receives loss globally. Returns True physically if the topological calculus
+
         confirms mathematical training termination bounds.
         """
         # If the model structurally crashed physics initially, continue mapping mathematically

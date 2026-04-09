@@ -10,6 +10,7 @@ from nrc_ai.golden_spiral_rope import GoldenSpiralRotaryEmbedding
 
 def test_golden_spiral_rope() -> None:
     """Validates Enhancement #29: Ensures the Golden Spiral Positional architecture rotates
+
     complex embeddings strictly leveraging continuous mathematical Phi bases geometrically.
     """
     batch = 1

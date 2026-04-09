@@ -27,6 +27,7 @@ class GoldenSpiralRotaryEmbedding(nn.Module):
 
     def _build_phi_frequencies(self, dim: int) -> torch.Tensor:
         """Creates the scaling frequency dimension using explicit Phi^N logic instead
+
         of arbitrary exponential integers natively.
         """
         # We build up continuous phi logic geometrically
@@ -45,6 +46,7 @@ class GoldenSpiralRotaryEmbedding(nn.Module):
 
     def forward(self, x: torch.Tensor, seq_dim: int = 1) -> torch.Tensor:
         """Calculates the explicit sine and cosine frequency boundaries and injects
+
         the Golden Spiral matrices structurally onto the embeddings geometrically.
         """
         seq_len = x.shape[seq_dim]

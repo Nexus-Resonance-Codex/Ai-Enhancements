@@ -10,6 +10,7 @@ from nrc_ai.navier_stokes_damping import NavierStokesDampingRegularizer
 
 def test_navier_stokes_damping() -> None:
     """Validates Enhancement #10: Navier-Stokes Damping Regulariser smoothly
+
     brakes extreme tensor spikes utilizing the QRT topological decay bounds,
     and reliably passes shape execution mathematically.
     """

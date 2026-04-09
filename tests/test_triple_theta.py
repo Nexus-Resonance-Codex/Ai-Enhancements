@@ -10,6 +10,7 @@ from nrc_ai.triple_theta_init import TripleThetaInitializer, triple_theta_init_
 
 def test_triple_theta_initialization() -> None:
     """Validates Enhancement #4: Triple-Theta Initialisation v3 mathematically applies
+
     φ^n scaling and Z_2187 biological exclusions to neural network weights.
     """
     # Create a generic weight tensor

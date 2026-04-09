@@ -24,6 +24,7 @@ class TUPTExclusionTokenPruning(nn.Module):
 
     def forward(self, hidden_states: torch.Tensor) -> torch.Tensor:
         """Args:
+
         hidden_states: (batch_size, seq_len, embed_dim).
         """
         # Determine current structural size

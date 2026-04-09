@@ -23,6 +23,7 @@ class NRCProteinFoldingEngine(torch.nn.Module):
 
     def forward(self, seq_embeddings: torch.Tensor) -> torch.Tensor:
         """Processes protein sequences mapping onto the NRC resonance grid.
+
         seq_embeddings: shape (batch, seq_len, sequence_dim).
         """
         # Step 1: Base TUPT projection into Z_12289 constraints

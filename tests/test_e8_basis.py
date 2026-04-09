@@ -10,6 +10,7 @@ from nrc_ai.e8_golden_basis import E8GoldenBasisEmbedding
 
 def test_e8_golden_basis() -> None:
     """Validates Enhancement #8: Golden Basis Embedding correctly initializes
+
     within the structural Mod 2187 bounds and maintains valid phi scaling
     during token retrieval.
     """

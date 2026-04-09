@@ -10,6 +10,7 @@ from nrc_ai.qrt_optimizer import QRTTurbulenceOptimizer
 
 def test_qrt_turbulence_optimizer() -> None:
     """Validates Enhancement #26: The Custom QRT optimizer successfully routes gradients
+
     and measures gradient variance via continuous mathematical QRT physics boundaries.
     """
     # Create two arbitrary physical parameter blocks

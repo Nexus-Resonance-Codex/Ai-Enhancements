@@ -1,41 +1,46 @@
 import torch
-from nrc_ai.exclusion_gradient_router import BiologicalExclusionGradientRouter
 from nrc_math import PHI_FLOAT
+
+from nrc_ai.exclusion_gradient_router import BiologicalExclusionGradientRouter
+
 
 def test_exclusion_gradient_router() -> None:
     """Validates Enhancement #6: Exclusion Router logic.
+
     Ensures gradients are structurally masked by Mod-9 biological exclusion.
     """
     dim = 256
     router = BiologicalExclusionGradientRouter()
-    
+
     # 1. Forward Pass
     # Create a leaf tensor to ensure .grad is populated
     x = torch.randn(2, 16, dim)
     x.requires_grad_(True)
-    
+
     # Scale inputs to trigger exclusion gate logic (integer mod 9)
     # Use a high-range input to ensure chaotic sequences appear
     scaled_x = x * 5000.0
     output = router(scaled_x)
-    
+
     assert output.shape == x.shape
     assert not torch.isnan(output).any()
-    
+
     # 2. Path Integrity Check
     # Verify some indices are exactly 0.0 (structural exclusion)
     zero_count = (output == 0.0).sum().item()
-    assert zero_count > 0, f"Exclusion gate failed to zero out chaotic paths. Zero count: {zero_count}"
-    
+    assert zero_count > 0, (
+        f"Exclusion gate failed to zero out chaotic paths. Zero count: {zero_count}"
+    )
+
     # 3. Backward Pass
     loss = output.sum()
     loss.backward()
-    
+
     assert x.grad is not None
     # Survivors should have gradient = 1.0 * phi * 5000.0 (from input scaling)
-    survivor_mask = (output != 0.0)
+    survivor_mask = output != 0.0
     grad_active = x.grad[survivor_mask]
-    
+
     # Mathematical expectation: unit_grad * phi * scale
     expected_grad = PHI_FLOAT * 5000.0
     assert torch.allclose(grad_active, torch.full_like(grad_active, expected_grad), rtol=1e-5), (

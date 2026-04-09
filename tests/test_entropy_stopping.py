@@ -8,6 +8,7 @@ from nrc_ai.entropy_stopping import NRCEntropyAttractorEarlyStopping
 
 def test_entropy_stopping_criterion() -> None:
     """Validates Enhancement #30: The Early Stopping mechanism aborts training
+
     structurally ONLY when the loss delta maps physically onto the Phi or 1/Phi bounds.
     """
     # Initialize the theoretical evaluation criterion

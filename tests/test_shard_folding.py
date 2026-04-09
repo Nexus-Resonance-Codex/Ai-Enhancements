@@ -11,6 +11,7 @@ from nrc_ai.shard_folding import PhiInfinityShardFolding
 
 def test_shard_folding_compression() -> None:
     """Tests the deterministic property and geometric constraints of the
+
     Phi Infinity Shard Folding Enhancement #1.
     """
     folding_module = PhiInfinityShardFolding(k_steps=3)

@@ -10,6 +10,7 @@ from nrc_ai.nrc_protein_engine import NRCProteinFoldingEngine
 
 def test_nrc_protein_engine_excludes_invalid_states() -> None:
     """Validates Enhancement #2: The NRC Protein engine correctly utilizes Mod 2187
+
     exclusions and maps toward GTT target scaling limits.
     """
     dim_size = 256

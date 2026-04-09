@@ -39,6 +39,7 @@ class GTTEntropyCollapseRegularizer(nn.Module):
 
     def forward(self, hidden_states: torch.Tensor) -> torch.Tensor:
         """Dynamically routes tensors. If their internal entropy is destructive,
+
         they are friction-damped.
         """
         # 1. Measure the thermodynamic entropy of the tensor

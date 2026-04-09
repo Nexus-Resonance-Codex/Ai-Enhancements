@@ -23,6 +23,7 @@ class PhiPoweredResonantWeighting(nn.Module):
 
     def forward(self, hidden_states: torch.Tensor) -> torch.Tensor:
         """Args:
+
         hidden_states: (batch_size, seq_len, in_features).
         """
         # We calculate the normalized variance of the current block

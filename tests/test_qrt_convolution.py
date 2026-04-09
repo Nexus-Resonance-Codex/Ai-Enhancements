@@ -10,6 +10,7 @@ from nrc_ai.qrt_convolution import QRTKernelConvolution
 
 def test_qrt_convolution() -> None:
     """Validates Enhancement #15: QRT Convolution accurately applies the QRT decay equations
+
     across 2D kernel grids and correctly outputs properly strided spatial geometries.
     """
     batch_size = 2

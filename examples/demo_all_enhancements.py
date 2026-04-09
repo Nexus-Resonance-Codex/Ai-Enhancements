@@ -59,10 +59,15 @@ from enhancements import (
     TUPTAttractorSyncSeed,
     TUPTExclusionTokenPruner,
 )
-from nrc_math import mst_step
-from nrc_math import PHI_FLOAT, PHI_INVERSE_FLOAT, binet_formula
-from nrc_math import execute_qrt_damping_tensor, qrt_damping
-from nrc_math import apply_exclusion_gate
+from nrc_math import (
+    PHI_FLOAT,
+    PHI_INVERSE_FLOAT,
+    apply_exclusion_gate,
+    binet_formula,
+    execute_qrt_damping_tensor,
+    mst_step,
+    qrt_damping,
+)
 
 
 # ---------------------------------------------------------------------------

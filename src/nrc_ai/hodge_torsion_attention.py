@@ -40,6 +40,7 @@ class HodgePhiTTorsionAttention(nn.Module):
 
     def _generate_torsion_bias(self, seq_len: int, device: torch.device) -> torch.Tensor:
         """Generates the phi-weighted torsion matrix dynamically based on sequence bounds.
+
         The torsion matrix applies a sinusoidal phase-twist scaled by phi across
         positional relationships.
         """
@@ -58,6 +59,7 @@ class HodgePhiTTorsionAttention(nn.Module):
         self, hidden_states: torch.Tensor, attention_mask: torch.Tensor = None
     ) -> torch.Tensor:
         """Args:
+
         hidden_states: (batch_size, seq_len, embed_dim)
         attention_mask: Optional boolean or float mask.
         """

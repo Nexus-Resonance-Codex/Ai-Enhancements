@@ -10,6 +10,7 @@ from nrc_ai.tupt_token_pruning import TUPTExclusionTokenPruning
 
 def test_tupt_token_pruning() -> None:
     """Validates Enhancement #22: TUPT Exclusion Pruning successfully cuts down sequence
+
     processing complexity by mathematically identifying and shredding tokens that
     map directly into Mod-2187 biological noise limits.
     """

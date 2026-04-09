@@ -10,6 +10,7 @@ from nrc_ai.golden_flow_norm import GoldenAttractorFlowNorm
 
 def test_golden_attractor_flow_normalisation() -> None:
     """Validates Enhancement #3: GAFEN successfully constrains tensors within the
+
     defined bounds of phi^-44 and phi^21, maintaining dimensionality.
     """
     batch_size = 4

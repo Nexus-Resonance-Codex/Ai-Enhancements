@@ -5,12 +5,14 @@ import torch
 
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "../src")))
 
-from nrc_ai.lucas_pell_decay import LucasPellHybridWeightDecay
 from nrc_math import PHI_FLOAT
+
+from nrc_ai.lucas_pell_decay import LucasPellHybridWeightDecay
 
 
 def test_lucas_pell_hybrid_decay() -> None:
     """Validates Enhancement #21: The Lucas-Pell Hybrid Weight Decay algebraically applies
+
     lighter Silver-Ratio decay to massive foundational tensors, and heavy Phi-Decay
     to tiny chaotic floating bits.
     """

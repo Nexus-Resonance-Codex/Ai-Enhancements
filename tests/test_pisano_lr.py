@@ -6,12 +6,14 @@ from torch.optim import SGD
 
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "../src")))
 
-from nrc_ai.pisano_lr_schedule import PisanoModulatedLRSchedule
 from nrc_math import PHI_FLOAT
+
+from nrc_ai.pisano_lr_schedule import PisanoModulatedLRSchedule
 
 
 def test_pisano_lr_schedule() -> None:
     """Validates Enhancement #20: Ensures the Pisano-Modulated LR correctly pulses
+
     between a peak of Base_LR * Phi and a trough of Base_LR * (1/Phi).
     """
     weight = torch.tensor([1.0], requires_grad=True)

@@ -47,6 +47,7 @@ class PrimeDensityConditionedGeneration(nn.Module):
 
     def forward(self, input_ids: torch.Tensor, logits: torch.Tensor) -> torch.Tensor:
         """Args:
+
             input_ids: (batch_size, seq_len) The current generation context.
             logits: (batch_size, vocab_size) The next-token probabilistic logits.
 

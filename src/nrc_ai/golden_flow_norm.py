@@ -68,6 +68,7 @@ class GoldenAttractorFlowNorm(nn.Module):
 
     def step_decay(self) -> None:
         """Increments the exponential t-decay used during forward passes. Common use case
+
         when placing GAFEN iteratively in extremely deep network blocks.
         """
         self.t_decay += 1.0

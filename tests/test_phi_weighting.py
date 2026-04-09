@@ -5,12 +5,14 @@ import torch
 
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "../src")))
 
-from nrc_ai.phi_resonant_weighting import PhiPoweredResonantWeighting
 from nrc_math import PHI_FLOAT
+
+from nrc_ai.phi_resonant_weighting import PhiPoweredResonantWeighting
 
 
 def test_phi_resonant_weighting() -> None:
     """Validates Enhancement #17: Ensures that the Phi Resonant Weighting logic
+
     correctly senses low variance (scaling by phi) and high variance (damping by 1/phi).
     """
     features = 128

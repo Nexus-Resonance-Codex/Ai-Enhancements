@@ -23,6 +23,7 @@ class MSTLyapunovGradientClipping:
         parameters: Iterable[torch.Tensor], max_lyapunov_threshold: float = 2.0
     ) -> torch.Tensor:
         """Calculates gradient scale norms, and functionally subjects tensors
+
         breaching Lyapunov divergence markers to MST continuous friction.
         """
         if isinstance(parameters, torch.Tensor):

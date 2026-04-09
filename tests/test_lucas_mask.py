@@ -10,6 +10,7 @@ from nrc_ai.lucas_sparse_mask import LucasWeightedSparseAttention
 
 def test_lucas_sparse_mask() -> None:
     """Validates Enhancement #16: The Lucas-Weighted Sparse Matrix correctly calculates
+
     lower triangular structural limits combined seamlessly with the dynamic
     2D Mod 2187 TUPT block gates, enforcing mathematically proven attention routing.
     """

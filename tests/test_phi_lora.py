@@ -10,6 +10,7 @@ from nrc_ai.phi_lora_adapter import PhiInfinityLosslessLoRA
 
 def test_phi_lossless_lora() -> None:
     """Validates Enhancement #9: The Phi Lossless LoRA Adapter initializes correctly
+
     (B=0), successfully runs down/up projection bounded by Shard Compression,
     and applies golden scaling.
     """

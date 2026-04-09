@@ -24,6 +24,7 @@ class TUPTModularDropout(nn.Module):
 
     def forward(self, hidden_states: torch.Tensor) -> torch.Tensor:
         """Calculates biological gaps algebraically and routes information explicitly
+
         around chaotic boundaries natively.
         """
         if not self.training:

@@ -10,6 +10,7 @@ from nrc_ai.modular_dropout import TUPTModularDropout
 
 def test_modular_dropout() -> None:
     """Validates Enhancement #25: The Modular Dropout grid shreds parameters
+
     using strictly algebraic Mod-2187 placement indices without random logic failures.
     """
     batch = 2

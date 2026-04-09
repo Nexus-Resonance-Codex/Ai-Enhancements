@@ -6,12 +6,14 @@ import torch
 
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "../src")))
 
-from nrc_ai.phi_void_positional import PhiVoidResonancePositionalEncoding
 from nrc_math import PHI_FLOAT
+
+from nrc_ai.phi_void_positional import PhiVoidResonancePositionalEncoding
 
 
 def test_phi_void_positional() -> None:
     """Validates Enhancement #23: Ensures the Positional Encoding grids properly scale based
+
     on the mathematical phi^6 void boundaries seamlessly across varying topological sequences.
     """
     batch = 2

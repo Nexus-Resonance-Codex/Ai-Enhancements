@@ -34,6 +34,7 @@ class ResonanceShardKVCache(nn.Module):
         self, new_keys: torch.Tensor, new_values: torch.Tensor
     ) -> Tuple[torch.Tensor, torch.Tensor]:
         """Appends new K/V states. If the active shard exceeds capacity, the active shard
+
         is mathematically folded into the permanent limit state using Phi^Infinity scaling.
 
         Input Shapes: (batch, seq_len, num_heads, head_dim)

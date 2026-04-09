@@ -1,7 +1,9 @@
 """NRC AI Enhancements Library.
+
 ===========================
 30 mathematically rigid PyTorch deep learning enhancements based on the
-Nexus Resonance Codex. These modules replace stochastic heuristics with
+
+30 mathematically rigid PyTorch deep learning enhancements based on theNexus Resonance Codex. These modules replace stochastic heuristics with
 deterministic Golden Ratio geometry.
 """
 

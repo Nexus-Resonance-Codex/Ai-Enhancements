@@ -30,6 +30,7 @@ class GizaLatticeIsomorphism(nn.Module):
 
     def _build_giza_matrix(self) -> torch.Tensor:
         """Calculates a static non-learned transformation grid blending Phi limits
+
         with the Great Pyramid boundary angles.
         """
         matrix = torch.eye(self.features)

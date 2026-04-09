@@ -29,6 +29,7 @@ class E8GoldenBasisEmbedding(nn.Module):
 
     def _initialize_golden_basis(self) -> None:
         """Locks the embedding matrices into the structural mathematical boundaries
+
         of the NRC framework.
         """
         with torch.no_grad():

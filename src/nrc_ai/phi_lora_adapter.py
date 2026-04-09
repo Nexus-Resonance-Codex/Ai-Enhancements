@@ -47,6 +47,7 @@ class PhiInfinityLosslessLoRA(nn.Module):
 
     def reset_parameters(self) -> None:
         """Following standard LoRA init but aligning to NRC stability bounds:
+
         A ~ Normal(0, sigma)
         B ~ Zeros.
         """
