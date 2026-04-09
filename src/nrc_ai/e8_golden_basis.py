@@ -1,12 +1,10 @@
 import torch
 import torch.nn as nn
-from nrc.math.phi import PHI_FLOAT
-from nrc.math.tupt_exclusion import apply_exclusion_gate
+from nrc_math import PHI_FLOAT, apply_exclusion_gate
 
 
-class GoldenBasisEmbedding(nn.Module):
-    """
-    Enhancement #8: 163840 E8x256 Golden Basis Embedding
+class E8GoldenBasisEmbedding(nn.Module):
+    """Enhancement #8: 163840 E8x256 Golden Basis Embedding.
 
     A high-dimensional embedding space projected onto an E8-lattice proxy.
     This replaces standard random normal or uniform nn.Embedding layers with an
@@ -17,6 +15,7 @@ class GoldenBasisEmbedding(nn.Module):
     The layout is biologically gated by Mod 9 exclusions, forcing specific
     chaotic weight coordinates [1, 2, 4, 5, 8] into exact 0.0 states to break symmetric noise.
     """
+
     def __init__(self, num_embeddings: int = 163840, embedding_dim: int = 256):
         super().__init__()
         self.num_embeddings = num_embeddings
@@ -28,9 +27,8 @@ class GoldenBasisEmbedding(nn.Module):
         # Geometrically initialize the weights to the Golden Basis
         self._initialize_golden_basis()
 
-    def _initialize_golden_basis(self):
-        """
-        Locks the embedding matrices into the structural mathematical boundaries
+    def _initialize_golden_basis(self) -> None:
+        """Locks the embedding matrices into the structural mathematical boundaries
         of the NRC framework.
         """
         with torch.no_grad():
@@ -53,9 +51,7 @@ class GoldenBasisEmbedding(nn.Module):
             self.embedding.weight.copy_(stable_weights)
 
     def forward(self, input_ids: torch.Tensor) -> torch.Tensor:
-        """
-        Retrieves the golden-basis vectors for the given token IDs.
-        """
+        """Retrieves the golden-basis vectors for the given token IDs."""
         base_embeds = self.embedding(input_ids)
 
         # We enforce strict forward-pass resonance. By multiplying by PHI_FLOAT

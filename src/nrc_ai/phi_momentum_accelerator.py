@@ -1,13 +1,12 @@
 from typing import Callable, Iterable, Optional
 
 import torch
-from nrc.math.phi import PHI_FLOAT
+from nrc_math import PHI_FLOAT
 from torch.optim import Optimizer
 
 
 class PhiInverseMomentumAccelerator(Optimizer):
-    """
-    Enhancement #13: phi^-1 Momentum Accelerator v2
+    """Enhancement #13: phi^-1 Momentum Accelerator v2.
 
     A Custom Optimizer replacing the standard momentum vector found in SGD or Adam.
     In traditional optimization, momentum accumulates exponentially decaying gradients.
@@ -21,25 +20,24 @@ class PhiInverseMomentumAccelerator(Optimizer):
     v_t = beta * v_{t-1} + (1 - beta) * grad
     theta_t = theta_{t-1} - lr * [v_t * (1 / phi) or v_t * phi]
     """
+
     def __init__(self, params: Iterable[torch.Tensor], lr: float = 1e-3, beta: float = 0.9):
-        defaults = dict(lr=lr, beta=beta)
+        defaults = {"lr": lr, "beta": beta}
         super(PhiInverseMomentumAccelerator, self).__init__(params, defaults)
 
     @torch.no_grad()
     def step(self, closure: Optional[Callable] = None):
-        """
-        Performs a single optimization step incorporating Phi-scaled momentum.
-        """
+        """Performs a single optimization step incorporating Phi-scaled momentum."""
         loss = None
         if closure is not None:
             with torch.enable_grad():
                 loss = closure()
 
         for group in self.param_groups:
-            lr = group['lr']
-            beta = group['beta']
+            lr = group["lr"]
+            beta = group["beta"]
 
-            for p in group['params']:
+            for p in group["params"]:
                 if p.grad is None:
                     continue
 
@@ -48,12 +46,12 @@ class PhiInverseMomentumAccelerator(Optimizer):
 
                 # State initialization
                 if len(state) == 0:
-                    state['step'] = 0
+                    state["step"] = 0
                     # Exponential moving average of gradient values
-                    state['momentum_buffer'] = torch.zeros_like(p)
+                    state["momentum_buffer"] = torch.zeros_like(p)
 
-                state['step'] += 1
-                v_t = state['momentum_buffer']
+                state["step"] += 1
+                v_t = state["momentum_buffer"]
 
                 # Update Momentum
                 v_t.mul_(beta).add_(grad, alpha=1 - beta)

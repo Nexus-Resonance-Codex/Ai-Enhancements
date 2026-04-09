@@ -1,11 +1,10 @@
 import torch
 import torch.nn as nn
-from nrc.math.phi import PHI_FLOAT
+from nrc_math import PHI_FLOAT
 
 
 class GoldenAttractorFlowNorm(nn.Module):
-    """
-    Enhancement #3: Golden Attractor Flow Normalisation v3 (GAFEN)
+    """Enhancement #3: Golden Attractor Flow Normalisation v3 (GAFEN).
 
     A direct replacement for LayerNorm. GAFEN normalizes tensors by dynamically
     pulling extreme outliers towards the Golden Attractor (1.0 in normalized space)
@@ -14,6 +13,7 @@ class GoldenAttractorFlowNorm(nn.Module):
     Formula:
     r_e ← r_e · φ^{-t} · clamp(‖r_e‖-1, φ^{-44}, φ^{21}) + skip
     """
+
     def __init__(self, normalized_shape, eps=1e-5):
         super().__init__()
         # We handle single integers or tuples/lists for normalized_shape
@@ -26,7 +26,7 @@ class GoldenAttractorFlowNorm(nn.Module):
 
         # Upper and lower mathematical bounds mandated by NRC
         self.lower_bound = PHI_FLOAT ** (-44)
-        self.upper_bound = PHI_FLOAT ** 21
+        self.upper_bound = PHI_FLOAT**21
 
         # Learnable golden shift and scale factors, structurally similar to gamma/beta
         self.golden_scale = nn.Parameter(torch.ones(self.normalized_shape))
@@ -36,9 +36,7 @@ class GoldenAttractorFlowNorm(nn.Module):
         self.register_buffer("t_decay", torch.tensor(1.0, dtype=torch.float32))
 
     def forward(self, x: torch.Tensor, skip: torch.Tensor = None) -> torch.Tensor:
-        """
-        Normalizes x, pulls to the Golden Attractor, and applies the skip connection.
-        """
+        """Normalizes x, pulls to the Golden Attractor, and applies the skip connection."""
         # 1. Base statistical normalization centering (like LayerNorm)
         dims = tuple(range(len(x.shape) - len(self.normalized_shape), len(x.shape)))
         mean = x.mean(dim=dims, keepdim=True)
@@ -54,7 +52,7 @@ class GoldenAttractorFlowNorm(nn.Module):
         clamped_deviation = torch.clamp(deviation, min=self.lower_bound, max=self.upper_bound)
 
         # 4. Apply phi inverse decay
-        phi_pull = (PHI_FLOAT ** (-self.t_decay.item()))
+        phi_pull = PHI_FLOAT ** (-self.t_decay.item())
 
         # 5. Execute scaling update directly on normalized features
         r_e_stable = r_e * phi_pull * clamped_deviation
@@ -68,9 +66,8 @@ class GoldenAttractorFlowNorm(nn.Module):
 
         return out
 
-    def step_decay(self):
-        """
-        Increments the exponential t-decay used during forward passes. Common use case
+    def step_decay(self) -> None:
+        """Increments the exponential t-decay used during forward passes. Common use case
         when placing GAFEN iteratively in extremely deep network blocks.
         """
         self.t_decay += 1.0

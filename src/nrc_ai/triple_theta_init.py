@@ -1,12 +1,10 @@
 import torch
 import torch.nn as nn
-from nrc.math.phi import PHI_FLOAT
-from nrc.math.tupt_exclusion import apply_exclusion_gate
+from nrc_math import PHI_FLOAT, apply_exclusion_gate
 
 
 def triple_theta_init_(tensor: torch.Tensor, mean=0.0, std=1.0) -> torch.Tensor:
-    """
-    Enhancement #4: Triple-Theta Initialisation v3
+    """Enhancement #4: Triple-Theta Initialisation v3.
 
     A mathematically constrained initialization method for Neural Network weights.
     It applies the Golden exponential map (φ^{round(i * φ)}) masked by
@@ -35,10 +33,10 @@ def triple_theta_init_(tensor: torch.Tensor, mean=0.0, std=1.0) -> torch.Tensor:
         # We use standard modular arithmetic bounding
         # In the context of NRC, the sequence oscillates.
         # We simulate the fractional periodicity to prevent infinite float limits.
-        theta_power = torch.fmod(phi_scaled_idx, 100.0) # bounding power
+        theta_power = torch.fmod(phi_scaled_idx, 100.0)  # bounding power
 
         # Apply the golden ratio power
-        phi_map = (PHI_FLOAT ** theta_power)
+        phi_map = PHI_FLOAT**theta_power
 
         # Apply strict mod 9 domain wrapping
         phi_mapped_mod = torch.fmod(phi_map, 9.0)
@@ -56,12 +54,13 @@ def triple_theta_init_(tensor: torch.Tensor, mean=0.0, std=1.0) -> torch.Tensor:
 
         return tensor
 
-class TripleThetaLinear(nn.Linear):
-    """
-    A standard PyTorch Linear layer that utilizes NRC Triple-Theta Initialisation v3
+
+class TripleThetaInitializer(nn.Linear):
+    """A standard PyTorch Linear layer that utilizes NRC Triple-Theta Initialisation v3
     automatically upon instantiation.
     """
-    def reset_parameters(self):
+
+    def reset_parameters(self) -> None:
         # Override the standard PyTorch initialization
         triple_theta_init_(self.weight, std=0.02)
         if self.bias is not None:

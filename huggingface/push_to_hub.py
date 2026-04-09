@@ -1,6 +1,5 @@
 #!/usr/bin/env python3
-"""
-NRC Hub Push Script
+"""NRC Hub Push Script.
 ====================
 Pushes model card, generated dataset, and source to HuggingFace Hub.
 Requires:  pip install huggingface_hub
@@ -15,6 +14,7 @@ import argparse
 import os
 import sys
 from pathlib import Path
+
 
 def push(repo_id: str, model_card_path: str, dataset_path: str | None) -> None:
     try:
@@ -41,7 +41,7 @@ def push(repo_id: str, model_card_path: str, dataset_path: str | None) -> None:
     )
 
     # ── Upload Model Card ──────────────────────────────────────
-    print(f"[2/3] Uploading model card ...")
+    print("[2/3] Uploading model card ...")
     api.upload_file(
         path_or_fileobj=model_card_path,
         path_in_repo="README.md",
@@ -61,12 +61,12 @@ def push(repo_id: str, model_card_path: str, dataset_path: str | None) -> None:
             commit_message="feat: Add NRC synthetic training dataset",
         )
     else:
-        print(f"[3/3] No dataset provided — skipping dataset upload.")
+        print("[3/3] No dataset provided — skipping dataset upload.")
 
     print(f"\n✓ Done! View at: https://huggingface.co/{repo_id}")
 
 
-def main():
+def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--repo-id", default="Nexus-Resonance-Codex/nrc-Ai-Enhancements")
     parser.add_argument("--card", default=str(Path(__file__).parent / "MODEL_CARD.md"))

@@ -1,13 +1,11 @@
 import torch
 import torch.nn as nn
-from nrc.math.phi import PHI_FLOAT
-from nrc.math.tupt_exclusion import apply_exclusion_gate
+from nrc_math import PHI_FLOAT, apply_exclusion_gate
 from torch.autograd import Function
 
 
 class ExclusionGradientRouterFunction(Function):
-    """
-    Core Autograd function for Enhancement #6.
+    """Core Autograd function for Enhancement #6.
 
     Forward pass: Acts as a sparse gate, blocking activations that hit the
     TUPT Mod 9 exclusion zones.
@@ -16,6 +14,7 @@ class ExclusionGradientRouterFunction(Function):
     Surviving gradients mathematically accelerate by phi (golden ratio) to maintain
     total system resonance and Entropy Target.
     """
+
     @staticmethod
     def forward(ctx, inputs):
         # Apply the exact Mod 9 gate from NRC
@@ -30,7 +29,7 @@ class ExclusionGradientRouterFunction(Function):
 
     @staticmethod
     def backward(ctx, grad_output):
-        mask, = ctx.saved_tensors
+        (mask,) = ctx.saved_tensors
 
         # 1. Biological Gradient Exclusion
         # Gradients matching blocked forward paths are zeroed out (dead pathways)
@@ -43,9 +42,9 @@ class ExclusionGradientRouterFunction(Function):
 
         return resonant_grad
 
+
 class BiologicalExclusionGradientRouter(nn.Module):
-    """
-    Enhancement #6: Biological Exclusion Gradient Router v3
+    """Enhancement #6: Biological Exclusion Gradient Router v3.
 
     A structural layer designed to be placed between deep network blocks.
     It functions as an advanced non-linear Dropout/MoE Router alternative.
@@ -53,6 +52,7 @@ class BiologicalExclusionGradientRouter(nn.Module):
     by the Nexus Resonance Codex (TUPT Mod 9 chaotic sequences), and amplifies back-prop
     error signals along surviving golden paths.
     """
+
     def __init__(self):
         super().__init__()
 

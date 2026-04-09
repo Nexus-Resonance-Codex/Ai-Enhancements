@@ -2,14 +2,13 @@ import math
 
 import torch
 import torch.nn as nn
-from nrc.math.phi import PHI_FLOAT
+from nrc_math import PHI_FLOAT
 
 from .shard_folding import PhiInfinityShardFolding
 
 
-class PhiLosslessLoraAdapter(nn.Module):
-    """
-    Enhancement #9: phi^infty Lossless LoRA Adapter v3
+class PhiInfinityLosslessLoRA(nn.Module):
+    """Enhancement #9: phi^infty Lossless LoRA Adapter v3.
 
     Standard Low-Rank Adaptation (LoRA) compresses weight updates structurally
     using W = W_0 + (B * A) * alpha / rank.
@@ -23,6 +22,7 @@ class PhiLosslessLoraAdapter(nn.Module):
     Formula:
     Forward = W_0(x) + ShardFold_B( B( ShardFold_A( A(x) ) ) ) * phi_scaling
     """
+
     def __init__(self, in_features: int, out_features: int, rank: int = 16, alpha: float = 32.0):
         super().__init__()
         self.in_features = in_features
@@ -45,18 +45,17 @@ class PhiLosslessLoraAdapter(nn.Module):
         self.shard_compressor_A = PhiInfinityShardFolding(k_steps=1)
         self.shard_compressor_B = PhiInfinityShardFolding(k_steps=1)
 
-    def reset_parameters(self):
-        """
-        Following standard LoRA init but aligning to NRC stability bounds:
+    def reset_parameters(self) -> None:
+        """Following standard LoRA init but aligning to NRC stability bounds:
         A ~ Normal(0, sigma)
-        B ~ Zeros
+        B ~ Zeros.
         """
         nn.init.kaiming_uniform_(self.lora_A.weight, a=math.sqrt(5))
         nn.init.zeros_(self.lora_B.weight)
 
     def forward(self, x: torch.Tensor, base_output: torch.Tensor = None) -> torch.Tensor:
-        """
-        Calculates the LoRA update structurally folded via the Golden Ratio.
+        """Calculates the LoRA update structurally folded via the Golden Ratio.
+
         Args:
             x: Input tensor to the original layer
             base_output: The pre-calculated W_0(x) from the frozen model weights.

@@ -1,11 +1,10 @@
 import torch
 import torch.nn as nn
-from nrc.math.phi import PHI_FLOAT
+from nrc_math import PHI_FLOAT
 
 
 class GoldenSpiralRotaryEmbedding(nn.Module):
-    """
-    Enhancement #29: Golden Spiral Rotary Embedding Extension
+    """Enhancement #29: Golden Spiral Rotary Embedding Extension.
 
     Standard Rotary Positional Embeddings (RoPE) use complex numbers to apply
     spatial distances by rotating vector states inside arbitrary circles.
@@ -17,6 +16,7 @@ class GoldenSpiralRotaryEmbedding(nn.Module):
     preserving perfect geometric relationships between tokens functionally no matter
     how large the sequence radius grows physically.
     """
+
     def __init__(self, dim: int, max_seq_len: int = 4096):
         super().__init__()
         self.dim = dim
@@ -26,8 +26,7 @@ class GoldenSpiralRotaryEmbedding(nn.Module):
         self.register_buffer("seq_spiral_tensor", self._build_sequence_mappings(max_seq_len))
 
     def _build_phi_frequencies(self, dim: int) -> torch.Tensor:
-        """
-        Creates the scaling frequency dimension using explicit Phi^N logic instead
+        """Creates the scaling frequency dimension using explicit Phi^N logic instead
         of arbitrary exponential integers natively.
         """
         # We build up continuous phi logic geometrically
@@ -41,14 +40,11 @@ class GoldenSpiralRotaryEmbedding(nn.Module):
         return inv_freq
 
     def _build_sequence_mappings(self, max_seq_len: int) -> torch.Tensor:
-        """
-        Builds the physical sequence integer limits natively mapped.
-        """
+        """Builds the physical sequence integer limits natively mapped."""
         return torch.arange(max_seq_len, dtype=torch.float32)
 
     def forward(self, x: torch.Tensor, seq_dim: int = 1) -> torch.Tensor:
-        """
-        Calculates the explicit sine and cosine frequency boundaries and injects
+        """Calculates the explicit sine and cosine frequency boundaries and injects
         the Golden Spiral matrices structurally onto the embeddings geometrically.
         """
         seq_len = x.shape[seq_dim]

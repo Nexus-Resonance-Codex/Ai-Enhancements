@@ -1,11 +1,10 @@
 import torch
 import torch.nn as nn
-from nrc.math.tupt_exclusion import apply_exclusion_gate
+from nrc_math import apply_exclusion_gate
 
 
-class TUPTExclusionTokenPruner(nn.Module):
-    """
-    Enhancement #22: TUPT-Exclusion Token Pruning Scheduler
+class TUPTExclusionTokenPruning(nn.Module):
+    """Enhancement #22: TUPT-Exclusion Token Pruning Scheduler.
 
     In ultra-long context transformers, attention processing scales quadratically O(N^2).
     Standard models attempt to arbitrarily pool or slice sequences to save memory.
@@ -19,13 +18,13 @@ class TUPTExclusionTokenPruner(nn.Module):
     Topological context structures since the removed tokens were geometrically
     doomed to zero-resonance anyway.
     """
+
     def __init__(self):
         super().__init__()
 
     def forward(self, hidden_states: torch.Tensor) -> torch.Tensor:
-        """
-        Args:
-            hidden_states: (batch_size, seq_len, embed_dim)
+        """Args:
+        hidden_states: (batch_size, seq_len, embed_dim).
         """
         # Determine current structural size
         batch_size, seq_len, embed_dim = hidden_states.shape

@@ -1,9 +1,8 @@
 import torch
 
 
-class AttractorSynchronizationSeed:
-    """
-    Enhancement #14: 3-6-9-7 Attractor Synchronisation Seed v2
+class TUPTAttractorSyncSeed:
+    """Enhancement #14: 3-6-9-7 Attractor Synchronisation Seed v2.
 
     Standard random number generators (RNG) in PyTorch (e.g. torch.manual_seed)
     rely on arbitrary integers, meaning model initialization begins mathematically
@@ -14,11 +13,10 @@ class AttractorSynchronizationSeed:
     By feeding the TUPT Mod 9 structure directly into CUDA and CPU entropy pools,
     the model starts natively resting in the Golden Attractor well.
     """
+
     @staticmethod
     def synchronize(base_multiplier: int = 1):
-        """
-        Locks the global PyTorch training environment to the structurally resonant TUPT bounds.
-        """
+        """Locks the global PyTorch training environment to the structurally resonant TUPT bounds."""
         # Compose the TUPT seed mathematically.
         # We merge [3, 6, 9, 7] into a massive structural integer bound.
         tupt_seed_base = int("".join(map(str, [3, 6, 9, 7])))  # 3697

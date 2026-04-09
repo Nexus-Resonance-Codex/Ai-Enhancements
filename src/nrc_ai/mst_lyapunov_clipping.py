@@ -1,12 +1,11 @@
 from typing import Iterable
 
 import torch
-from nrc.math.mst import mst_step
+from nrc_math import mst_step
 
 
 class MSTLyapunovGradientClipping:
-    """
-    Enhancement #19: MST-Lyapunov Gradient Clipping Stabilizer
+    """Enhancement #19: MST-Lyapunov Gradient Clipping Stabilizer.
 
     Standard deep learning handles exploding gradients via a rigid structural
     cutoff (e.g. max_norm = 1.0).
@@ -18,10 +17,12 @@ class MSTLyapunovGradientClipping:
     decay function. High Lyapunov noise is compressed linearly via continuous calculus
     rather than completely sheared off.
     """
+
     @staticmethod
-    def clip_grad_mst_norm_(parameters: Iterable[torch.Tensor], max_lyapunov_threshold: float = 2.0) -> torch.Tensor:
-        """
-        Calculates gradient scale norms, and functionally subjects tensors
+    def clip_grad_mst_norm_(
+        parameters: Iterable[torch.Tensor], max_lyapunov_threshold: float = 2.0
+    ) -> torch.Tensor:
+        """Calculates gradient scale norms, and functionally subjects tensors
         breaching Lyapunov divergence markers to MST continuous friction.
         """
         if isinstance(parameters, torch.Tensor):
@@ -29,10 +30,12 @@ class MSTLyapunovGradientClipping:
 
         parameters = [p for p in parameters if p.grad is not None]
         if len(parameters) == 0:
-            return torch.tensor(0.)
+            return torch.tensor(0.0)
 
         # Calculate standard global norm measuring entire gradient explosion field
-        total_norm = torch.norm(torch.stack([torch.norm(p.grad.detach(), 2) for p in parameters]), 2)
+        total_norm = torch.norm(
+            torch.stack([torch.norm(p.grad.detach(), 2) for p in parameters]), 2
+        )
 
         # Check if the global explosion breaches the Lyapunov safety structural bound
         if total_norm > max_lyapunov_threshold:

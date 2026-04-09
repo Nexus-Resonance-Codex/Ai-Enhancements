@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
-"""
-=======================================================================
-  NRC AI Enhancement Suite — Full Demo (All 30 Enhancements)
+"""=======================================================================
+  NRC AI Enhancement Suite — Full Demo (All 30 Enhancements).
 =======================================================================
   Author:   James Trageser (@jtrag)
   Repo:     https://github.com/Nexus-Resonance-Codex/Ai-Enhancements
@@ -17,59 +16,59 @@
     python examples/demo_all_enhancements.py
 =======================================================================
 """
-import sys
+
 import os
+import sys
+
 import torch
-import math
 
 # ---------------------------------------------------------------------------
 # Path setup — allow running from repo root without installing
 # ---------------------------------------------------------------------------
-sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'src')))
-
-from nrc_math.phi import PHI_FLOAT, PHI_INVERSE_FLOAT, binet_formula
-from nrc_math.qrt import qrt_damping, execute_qrt_damping_tensor
-from nrc_math.mst import mst_step
-from nrc_math.tupt_exclusion import apply_exclusion_gate
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "src")))
 
 from enhancements import (
-    PhiInfinityShardFolding,
-    NRCProteinFoldingEngine,
-    GoldenAttractorFlowNorm,
-    TripleThetaInitialiser,
-    ResonanceShardKVCache,
     BiologicalExclusionGradientRouter,
-    HodgePhiTTorsionAttention,
     E8GoldenBasisEmbedding,
-    PhiInfinityLosslessLoRA,
-    NavierStokesDampingRegulariser,
-    PrimeDensityConditionedGeneration,
-    GTTEntropyCollapseRegulariser,
-    PhiInverseMomentumAccelerator,
-    TUPTAttractorSyncSeed,
-    QRTKernelConvolution,
-    LucasWeightedSparseAttentionMask,
-    PhiResonantWeighting,
-    GizaLatticeIsomorphismProjection,
-    MSTLyapunovGradientClipper,
-    PisanoModulatedLRSchedule,
-    LucasPellHybridWeightDecay,
-    TUPTExclusionTokenPruner,
-    PhiVoidResonancePositionalEncoding,
-    InfiniteContextShardUnfolder,
-    ModularDropout3697,
-    QRTTurbulenceAdaptiveOptimizer,
-    GizaSlopeAngleAwareAttentionBias,
     FloorSinhActivationRegularizer,
+    GizaLatticeIsomorphismProjection,
+    GizaSlopeAngleAwareAttentionBias,
+    GoldenAttractorFlowNorm,
     GoldenSpiralRotaryEmbedding,
+    GTTEntropyCollapseRegulariser,
+    HodgePhiTTorsionAttention,
+    InfiniteContextShardUnfolder,
+    LucasPellHybridWeightDecay,
+    LucasWeightedSparseAttentionMask,
+    ModularDropout3697,
+    MSTLyapunovGradientClipper,
+    NavierStokesDampingRegulariser,
     NRCEntropyAttractorEarlyStopping,
+    NRCProteinFoldingEngine,
+    PhiInfinityLosslessLoRA,
+    PhiInfinityShardFolding,
+    PhiInverseMomentumAccelerator,
+    PhiResonantWeighting,
+    PhiVoidResonancePositionalEncoding,
+    PisanoModulatedLRSchedule,
+    PrimeDensityConditionedGeneration,
+    QRTKernelConvolution,
+    QRTTurbulenceAdaptiveOptimizer,
+    ResonanceShardKVCache,
+    TripleThetaInitialiser,
+    TUPTAttractorSyncSeed,
+    TUPTExclusionTokenPruner,
 )
+from nrc_math.mst import mst_step
+from nrc_math.phi import PHI_FLOAT, PHI_INVERSE_FLOAT, binet_formula
+from nrc_math.qrt import execute_qrt_damping_tensor, qrt_damping
+from nrc_math.tupt_exclusion import apply_exclusion_gate
 
 
 # ---------------------------------------------------------------------------
 # Helper
 # ---------------------------------------------------------------------------
-def check_tensor(name: str, t: torch.Tensor):
+def check_tensor(name: str, t: torch.Tensor) -> None:
     """Validates that a tensor has no NaN or Inf values."""
     assert not torch.isnan(t).any(), f"  ✗ {name} — NaN detected!"
     assert not torch.isinf(t).any(), f"  ✗ {name} — Inf detected!"
@@ -79,15 +78,15 @@ def check_tensor(name: str, t: torch.Tensor):
 # ---------------------------------------------------------------------------
 # Constants for synthetic data
 # ---------------------------------------------------------------------------
-BATCH     = 2
-SEQ_LEN   = 64
+BATCH = 2
+SEQ_LEN = 64
 EMBED_DIM = 128
 NUM_HEADS = 4
-HEAD_DIM  = EMBED_DIM // NUM_HEADS
-VOCAB     = 1000
+HEAD_DIM = EMBED_DIM // NUM_HEADS
+VOCAB = 1000
 
 
-def main():
+def main() -> None:
     print("=" * 72)
     print("  NEXUS RESONANCE CODEX — AI Enhancement Suite Demo")
     print(f"  φ  = {PHI_FLOAT:.15f}")

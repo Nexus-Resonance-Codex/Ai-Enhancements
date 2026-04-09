@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
-"""
-=======================================================================
-  NRC × OpenFold — Integration Example
+"""=======================================================================
+  NRC × OpenFold — Integration Example.
 =======================================================================
   Author:   James Trageser (@jtrag)
   Repo:     https://github.com/Nexus-Resonance-Codex/Ai-Enhancements
@@ -25,17 +24,19 @@
     python examples/integration_openfold.py
 =======================================================================
 """
-import sys
+
 import os
+import sys
+
 import torch
 import torch.nn as nn
 
-sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'src')))
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "src")))
 
-from enhancements.navier_stokes_damping import NavierStokesDampingRegulariser
-from enhancements.mst_lyapunov_clipping import MSTLyapunovGradientClipper
-from enhancements.exclusion_gradient_router import BiologicalExclusionGradientRouter
 from enhancements.entropy_stopping import EntropyAttractorStoppingCriterion
+from enhancements.exclusion_gradient_router import BiologicalExclusionGradientRouter
+from enhancements.mst_lyapunov_clipping import MSTLyapunovGradientClipper
+from enhancements.navier_stokes_damping import NavierStokesDampingRegulariser
 from nrc_math.phi import PHI_FLOAT, PHI_INVERSE_FLOAT
 
 
@@ -43,11 +44,11 @@ from nrc_math.phi import PHI_FLOAT, PHI_INVERSE_FLOAT
 #  Mock OpenFold Structure Module (replace with real OpenFold)
 # ──────────────────────────────────────────────────────────────────────
 class MockStructureModule(nn.Module):
-    """
-    Simulates an OpenFold-like structure module that takes single
+    """Simulates an OpenFold-like structure module that takes single
     representation features and outputs 3D atom coordinates.
     In reality, this is openfold.model.structure_module.StructureModule.
     """
+
     def __init__(self, input_dim: int = 256, num_residues: int = 50):
         super().__init__()
         self.proj = nn.Linear(input_dim, num_residues * 3)
@@ -66,8 +67,7 @@ class MockStructureModule(nn.Module):
 #  NRC-Enhanced OpenFold Wrapper
 # ──────────────────────────────────────────────────────────────────────
 class NRCOpenFoldWrapper(nn.Module):
-    """
-    Wraps any OpenFold-compatible structure module with NRC enhancements.
+    """Wraps any OpenFold-compatible structure module with NRC enhancements.
 
     Enhancement Pipeline:
       1. Standard forward pass through the structure module
@@ -75,6 +75,7 @@ class NRCOpenFoldWrapper(nn.Module):
       3. Enhancement #10: Navier-Stokes Damping on predicted coordinates
       4. Enhancement #19: MST-Lyapunov Gradient Clipping during training
     """
+
     def __init__(self, structure_module: nn.Module):
         super().__init__()
         self.structure_module = structure_module
@@ -89,9 +90,8 @@ class NRCOpenFoldWrapper(nn.Module):
         self.gradient_clipper = MSTLyapunovGradientClipper()
 
     def forward(self, single_repr):
-        """
-        Args:
-            single_repr: (batch, num_residues, feature_dim) — per-residue features
+        """Args:
+            single_repr: (batch, num_residues, feature_dim) — per-residue features.
 
         Returns:
             damped_coords: (batch, num_residues, 3) — NRC-stabilized 3D coordinates
@@ -119,7 +119,7 @@ class NRCOpenFoldWrapper(nn.Module):
 # ──────────────────────────────────────────────────────────────────────
 #  Main — Run a simulated protein folding pass
 # ──────────────────────────────────────────────────────────────────────
-def main():
+def main() -> None:
     print("=" * 72)
     print("  NRC × OpenFold Integration Demo")
     print(f"  φ    = {PHI_FLOAT:.15f}")
@@ -148,19 +148,21 @@ def main():
     assert not torch.isnan(pred_coords).any(), "NaN in predicted coordinates!"
     assert not torch.isinf(pred_coords).any(), "Inf in predicted coordinates!"
 
-    print(f"\n[4/4] Results:")
+    print("\n[4/4] Results:")
     print(f"  Output shape: {list(pred_coords.shape)} (batch × residues × xyz)")
     print(f"  Coord range:  [{pred_coords.min():.4f}, {pred_coords.max():.4f}]")
     print(f"  Mean coord:   {pred_coords.mean():.6f}")
 
     # Demonstrate Enhancement #30: Early Stopping
-    print(f"\n── Enhancement #30: Entropy-Attractor Early Stopping ──")
+    print("\n── Enhancement #30: Entropy-Attractor Early Stopping ──")
     stopper = EntropyAttractorStoppingCriterion(phi_tolerance=1e-2)
     losses = [10.0, 8.5, 7.2, 6.18, 5.25, 4.45, 3.77, 3.2, 2.71]
     for epoch, loss in enumerate(losses):
         should_stop = stopper(loss)
         marker = " ← STOP" if should_stop else ""
-        print(f"  Epoch {epoch+1}: loss={loss:.2f}  ratio={stopper.previous_loss/loss if loss > 0 else 0:.4f}{marker}")
+        print(
+            f"  Epoch {epoch + 1}: loss={loss:.2f}  ratio={stopper.previous_loss / loss if loss > 0 else 0:.4f}{marker}"
+        )
         if should_stop:
             break
 
