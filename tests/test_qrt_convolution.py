@@ -5,7 +5,7 @@ import torch
 
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "../src")))
 
-from enhancements.qrt_convolution import QRTKernelConvolution2d
+from nrc_ai.qrt_convolution import QRTKernelConvolution
 
 
 def test_qrt_convolution() -> None:
@@ -22,7 +22,7 @@ def test_qrt_convolution() -> None:
     spatial_data = torch.randn(batch_size, in_channels, grid_size, grid_size)
 
     # Initialize the custom resonant extraction engine
-    layer = QRTKernelConvolution2d(
+    layer = QRTKernelConvolution(
         in_channels=in_channels, out_channels=out_channels, kernel_size=kernel_size
     )
 

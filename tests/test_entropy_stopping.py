@@ -3,7 +3,7 @@ import sys
 
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "../src")))
 
-from enhancements.entropy_stopping import EntropyAttractorStoppingCriterion
+from nrc_ai.entropy_stopping import NRCEntropyAttractorEarlyStopping
 
 
 def test_entropy_stopping_criterion() -> None:
@@ -12,7 +12,7 @@ def test_entropy_stopping_criterion() -> None:
     """
     # Initialize the theoretical evaluation criterion
     # We use a wide tolerance just to prove the physics locally
-    criterion = EntropyAttractorStoppingCriterion(phi_tolerance=0.01)
+    criterion = NRCEntropyAttractorEarlyStopping(phi_tolerance=0.01)
 
     # Epoch 1: Massive arbitrary initial loss
     epoch_1_loss = 10.0

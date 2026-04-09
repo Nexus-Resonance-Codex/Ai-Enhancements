@@ -5,8 +5,8 @@ import torch
 
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "../src")))
 
-from enhancements.shard_unfolder import InfiniteE_infContextUnfolder
-from nrc_math.phi import PHI_FLOAT
+from nrc_ai.shard_unfolder import InfiniteEInfinityContextUnfolder
+from nrc_math import PHI_FLOAT
 
 
 def test_infinite_e_inf_unfolder() -> None:
@@ -24,7 +24,7 @@ def test_infinite_e_inf_unfolder() -> None:
     compressed_state = original_math_state * (1.0 / (PHI_FLOAT**depth_layer))
 
     # 2. Deploy the Algebraic Unfolder
-    unfolder = InfiniteE_infContextUnfolder()
+    unfolder = InfiniteEInfinityContextUnfolder()
 
     restored_state = unfolder(compressed_state, depth_layer=depth_layer)
 

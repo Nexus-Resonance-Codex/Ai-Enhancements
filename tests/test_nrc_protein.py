@@ -5,7 +5,7 @@ import torch
 
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "../src")))
 
-from enhancements.nrc_protein_engine import NRCProteinFoldingEngine
+from nrc_ai.nrc_protein_engine import NRCProteinFoldingEngine
 
 
 def test_nrc_protein_engine_excludes_invalid_states() -> None:

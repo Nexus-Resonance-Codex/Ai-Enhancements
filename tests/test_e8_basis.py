@@ -5,7 +5,7 @@ import torch
 
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "../src")))
 
-from enhancements.e8_golden_basis import GoldenBasisEmbedding
+from nrc_ai.e8_golden_basis import E8GoldenBasisEmbedding
 
 
 def test_e8_golden_basis() -> None:
@@ -17,7 +17,7 @@ def test_e8_golden_basis() -> None:
     vocab_size = 4096
     embed_dim = 256
 
-    layer = GoldenBasisEmbedding(num_embeddings=vocab_size, embedding_dim=embed_dim)
+    layer = E8GoldenBasisEmbedding(num_embeddings=vocab_size, embedding_dim=embed_dim)
 
     # 1. Verify that the initialization triggered the biological blocks.
     # We should have multiple exactly 0.0 weights in the matrix due to apply_exclusion_gate.

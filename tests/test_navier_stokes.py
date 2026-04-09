@@ -5,7 +5,7 @@ import torch
 
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "../src")))
 
-from enhancements.navier_stokes_damping import NavierStokesDampingRegulariser
+from nrc_ai.navier_stokes_damping import NavierStokesDampingRegularizer
 
 
 def test_navier_stokes_damping() -> None:
@@ -17,7 +17,7 @@ def test_navier_stokes_damping() -> None:
     seq_len = 256
     embed_dim = 128
 
-    regulariser = NavierStokesDampingRegulariser(damping_strength=0.1)
+    regulariser = NavierStokesDampingRegularizer(damping_strength=0.1)
 
     # 1. Create a tensor with intentional destructive spikes (e.g. exploding gradients proxy)
     exploding_states = torch.randn(batch_size, seq_len, embed_dim)

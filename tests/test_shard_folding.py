@@ -6,7 +6,7 @@ import torch
 # Add src to Python path for testing
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "../src")))
 
-from enhancements.shard_folding import PhiInfinityShardFolding
+from nrc_ai.shard_folding import PhiInfinityShardFolding
 
 
 def test_shard_folding_compression() -> None:

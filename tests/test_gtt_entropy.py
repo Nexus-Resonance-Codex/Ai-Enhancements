@@ -5,8 +5,8 @@ import torch
 
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "../src")))
 
-from enhancements.gtt_entropy_regulariser import GTTEntropyCollapseRegulariser
-from nrc_math.phi import PHI_FLOAT
+from nrc_ai.gtt_entropy_regulariser import GTTEntropyCollapseRegularizer
+from nrc_math import PHI_FLOAT
 
 
 def test_gtt_entropy_collapse() -> None:
@@ -18,7 +18,7 @@ def test_gtt_entropy_collapse() -> None:
     seq_len = 4
     embed_dim = 65000  # Require a massive dimensionality to realistically hit 10.96 Shannon nats
 
-    regulariser = GTTEntropyCollapseRegulariser(gtt_safe_boundary=10.96)
+    regulariser = GTTEntropyCollapseRegularizer(gtt_safe_boundary=10.96)
 
     # 1. Create a perfectly uniform massive tensor.
     # A completely uniform distribution of size N has maximum entropy: H = ln(N).

@@ -5,7 +5,7 @@ import torch
 
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "../src")))
 
-from enhancements.modular_dropout import ModularDropoutPattern
+from nrc_ai.modular_dropout import TUPTModularDropout
 
 
 def test_modular_dropout() -> None:
@@ -20,7 +20,7 @@ def test_modular_dropout() -> None:
     # Zeros are invisible to scale multiplication, so we use 1s
     pure_states = torch.ones(batch, seq, dim)
 
-    dropout = ModularDropoutPattern(probability=0.1)
+    dropout = TUPTModularDropout(probability=0.1)
 
     # Must enforce training mode globally for mask activation
     dropout.train()

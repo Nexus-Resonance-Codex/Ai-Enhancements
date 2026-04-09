@@ -5,8 +5,8 @@ import torch
 
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "../src")))
 
-from enhancements.phi_resonant_weighting import PhiResonantWeighting
-from nrc_math.phi import PHI_FLOAT
+from nrc_ai.phi_resonant_weighting import PhiPoweredResonantWeighting
+from nrc_math import PHI_FLOAT
 
 
 def test_phi_resonant_weighting() -> None:
@@ -17,7 +17,7 @@ def test_phi_resonant_weighting() -> None:
     batch_size = 2
     seq_len = 10
 
-    layer = PhiResonantWeighting(in_features=features)
+    layer = PhiPoweredResonantWeighting(in_features=features)
 
     # Simulate a collapsing tensor (near-zero variance)
     collapsed_states = torch.ones(batch_size, seq_len, features) * 0.5

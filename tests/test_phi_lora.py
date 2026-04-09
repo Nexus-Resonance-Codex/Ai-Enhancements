@@ -5,7 +5,7 @@ import torch
 
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "../src")))
 
-from enhancements.phi_lora_adapter import PhiLosslessLoraAdapter
+from nrc_ai.phi_lora_adapter import PhiInfinityLosslessLoRA
 
 
 def test_phi_lossless_lora() -> None:
@@ -20,7 +20,7 @@ def test_phi_lossless_lora() -> None:
     seq = 32
 
     # Instantiate the NRC LoRA module
-    adapter = PhiLosslessLoraAdapter(in_features=in_dim, out_features=out_dim, rank=rank)
+    adapter = PhiInfinityLosslessLoRA(in_features=in_dim, out_features=out_dim, rank=rank)
 
     # 1. Initial State Validity Check
     # Ensure B is perfectly zeroed on init for safe drop-in scaling

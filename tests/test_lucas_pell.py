@@ -5,8 +5,8 @@ import torch
 
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "../src")))
 
-from enhancements.lucas_pell_decay import LucasPellHybridWeightDecay
-from nrc_math.phi import PHI_FLOAT
+from nrc_ai.lucas_pell_decay import LucasPellHybridWeightDecay
+from nrc_math import PHI_FLOAT
 
 
 def test_lucas_pell_hybrid_decay() -> None:

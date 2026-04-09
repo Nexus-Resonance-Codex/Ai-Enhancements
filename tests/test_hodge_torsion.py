@@ -5,7 +5,7 @@ import torch
 
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "../src")))
 
-from enhancements.hodge_torsion_attention import HodgeTorsionAttention
+from nrc_ai.hodge_torsion_attention import HodgePhiTTorsionAttention
 
 
 def test_hodge_torsion_attention() -> None:
@@ -20,7 +20,7 @@ def test_hodge_torsion_attention() -> None:
     num_heads = 4
 
     # 1. Instantiate the Torsion Attention Layer
-    attention_layer = HodgeTorsionAttention(embed_dim=embed_dim, num_heads=num_heads)
+    attention_layer = HodgePhiTTorsionAttention(embed_dim=embed_dim, num_heads=num_heads)
 
     # 2. Setup standard hidden states
     hidden_states = torch.randn(batch_size, seq_len, embed_dim, requires_grad=True)

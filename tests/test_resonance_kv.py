@@ -5,7 +5,7 @@ import torch
 
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "../src")))
 
-from enhancements.resonance_kv_cache import ResonanceShardKVCache
+from nrc_ai.resonance_kv_cache import ResonanceShardKVCache
 
 
 def test_resonance_kv_cache() -> None:

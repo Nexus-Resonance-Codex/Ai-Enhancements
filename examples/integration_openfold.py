@@ -37,7 +37,7 @@ from enhancements.entropy_stopping import EntropyAttractorStoppingCriterion
 from enhancements.exclusion_gradient_router import BiologicalExclusionGradientRouter
 from enhancements.mst_lyapunov_clipping import MSTLyapunovGradientClipper
 from enhancements.navier_stokes_damping import NavierStokesDampingRegulariser
-from nrc_math.phi import PHI_FLOAT, PHI_INVERSE_FLOAT
+from nrc_math import PHI_FLOAT, PHI_INVERSE_FLOAT
 
 
 # ──────────────────────────────────────────────────────────────────────

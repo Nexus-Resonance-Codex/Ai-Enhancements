@@ -1,16 +1,19 @@
 # Nexus Resonance License (NRC-L)
+**SPDX-License-Identifier: CC-BY-NC-SA-4.0** (Non-Commercial Researcher Grant)
+
+---
 
 **Effective Date: February 2026**
 
 ## Preamble
 
-This License governs the use of the **Nexus Resonance Codex (NRC)** framework, including all mathematical models, algorithms, codebases, visual representations, and derivative materials (collectively, the **"NRC Materials"**) as applied to artificial intelligence, machine learning architectures, large language models (LLMs), neural networks, and related computational systems, as detailed in the official NRC compiled documentation and related repository files.
+This License governs the use of the **Nexus Resonance Codex (NRC)** framework, including all mathematical models, algorithms, codebases (specifically the `nrc_ai` enhancements), visual representations, and derivative materials (collectively, the **"NRC Materials"**) as applied to **artificial intelligence, large language models (LLMs), neural networks, agentic cognitive architectures, prompt engineering optimizations, and machine learning scaling systems**, as detailed in the official NRC compiled documentation and related repository files.
 
-The NRC framework promotes rigorous, resonant innovation. To balance open scientific collaboration with the protection of foundational intellectual property, this License adopts a dual-licensing model:
+The NRC framework promotes rigorous, resonant innovation in the field of synthetic intelligence. To balance open scientific collaboration with the protection of foundational intellectual property, this License adopts a dual-licensing model:
 
 - **Non-commercial** and academic research use is granted freely to accelerate global discovery.
-- **Commercial** exploitation requires an explicit, separate commercial agreement.
-- **Harmful** or unethical applications are strictly prohibited.
+- **Commercial** exploitation (including integration into proprietary SaaS, for-profit AI APIs, or commercial model training) requires an explicit, separate commercial agreement.
+- **Harmful** or unethical applications (including unauthorized surveillance, autonomous weaponry, or deceptive systems) are strictly prohibited.
 
 ## 1. Definitions
 

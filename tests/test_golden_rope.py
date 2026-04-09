@@ -5,7 +5,7 @@ import torch
 
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "../src")))
 
-from enhancements.golden_spiral_rope import GoldenSpiralRotaryEmbedding
+from nrc_ai.golden_spiral_rope import GoldenSpiralRotaryEmbedding
 
 
 def test_golden_spiral_rope() -> None:

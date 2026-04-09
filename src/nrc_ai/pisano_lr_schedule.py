@@ -24,12 +24,13 @@ class PisanoModulatedLRSchedule(_LRScheduler):
 
     def get_lr(self):
         # Determine the current phase in the Pisano cycle (0 to 1)
+        # We align the peak exactly with the start of training (epoch 0)
         cycle_position = (self.last_epoch % self.pisano_period) / self.pisano_period
 
         # We model the pulse using a cosine wave structurally stretched by Phi.
-        # When cos is 1 (Start of cycle), LR is maximized.
-        # As it approaches Pi, LR is mathematically damped by 1/Phi.
-        structural_modifier = (math.cos(math.pi * cycle_position) + 1.0) / 2.0
+        # When cos is 1 (Start of cycle), LR is maximized at Base_LR * Phi.
+        # At the halfway point (cos is -1), LR is damped to Base_LR * (1/Phi).
+        structural_modifier = (math.cos(2.0 * math.pi * cycle_position) + 1.0) / 2.0
 
         # Blend the structural wave with the extreme bounds of Phi
         phi_bounds = (structural_modifier * PHI_FLOAT) + (

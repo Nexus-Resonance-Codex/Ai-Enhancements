@@ -6,7 +6,7 @@ import torch
 
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "../src")))
 
-from enhancements.floor_sinh_activation import FloorSinhActivationRegularizer
+from nrc_ai.floor_sinh_activation import FloorSinhActivation
 
 
 def test_floor_sinh_regularizer() -> None:
@@ -27,7 +27,7 @@ def test_floor_sinh_regularizer() -> None:
 
     physical_floor = -1.0
 
-    layer = FloorSinhActivationRegularizer(physical_floor=physical_floor)
+    layer = FloorSinhActivation(physical_floor=physical_floor)
 
     activated = layer(raw_tensor)
 

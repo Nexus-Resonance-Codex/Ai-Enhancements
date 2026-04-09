@@ -5,7 +5,7 @@ import torch
 
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "../src")))
 
-from enhancements.mst_lyapunov_clipping import MSTLyapunovGradientClipping
+from nrc_ai.mst_lyapunov_clipping import MSTLyapunovGradientClipping
 
 
 def test_mst_lyapunov_grad_clip() -> None:

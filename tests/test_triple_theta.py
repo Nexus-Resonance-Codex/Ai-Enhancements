@@ -5,7 +5,7 @@ import torch
 
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "../src")))
 
-from enhancements.triple_theta_init import TripleThetaLinear, triple_theta_init_
+from nrc_ai.triple_theta_init import TripleThetaInitializer, triple_theta_init_
 
 
 def test_triple_theta_initialization() -> None:
@@ -37,7 +37,7 @@ def test_triple_theta_initialization() -> None:
     assert zero_count > 0, "No values were zeroed out by the Mod 2187 biological exclusion filter."
 
     # 4. Check the linear layer wrapper module
-    custom_linear = TripleThetaLinear(128, 128)
+    custom_linear = TripleThetaInitializer(128, 128)
     assert not torch.isnan(custom_linear.weight).any()
 
     print(

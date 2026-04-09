@@ -5,7 +5,7 @@ import torch
 
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "../src")))
 
-from enhancements.tupt_token_pruning import TUPTExclusionTokenPruner
+from nrc_ai.tupt_token_pruning import TUPTExclusionTokenPruning
 
 
 def test_tupt_token_pruning() -> None:
@@ -21,7 +21,7 @@ def test_tupt_token_pruning() -> None:
     hidden_states = torch.randn(batch_size, seq_len, embed_dim)
 
     # Initialize the mathematical exclusion filter mapping
-    pruner = TUPTExclusionTokenPruner()
+    pruner = TUPTExclusionTokenPruning()
 
     pruned_states = pruner(hidden_states)
 

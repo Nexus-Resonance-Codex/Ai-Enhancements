@@ -6,8 +6,8 @@ from torch.optim import SGD
 
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "../src")))
 
-from enhancements.pisano_lr_schedule import PisanoModulatedLRScheduler
-from nrc_math.phi import PHI_FLOAT
+from nrc_ai.pisano_lr_schedule import PisanoModulatedLRSchedule
+from nrc_math import PHI_FLOAT
 
 
 def test_pisano_lr_schedule() -> None:
@@ -19,7 +19,7 @@ def test_pisano_lr_schedule() -> None:
     optimizer = SGD([weight], lr=base_lr)
 
     # 24 is the Pisano period of Modulo 9.
-    scheduler = PisanoModulatedLRScheduler(optimizer, pisano_period=24)
+    scheduler = PisanoModulatedLRSchedule(optimizer, pisano_period=24)
 
     # Step 0: The very beginning of the cycle.
     # The cosine modifier is mathematically 1.0 -> We should be scaling purely by Phi.

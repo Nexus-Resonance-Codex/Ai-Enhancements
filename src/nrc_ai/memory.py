@@ -1,3 +1,10 @@
+#  Nexus Resonance Codex - 2025-2026 Breakthrough Series
+#  Copyright (c) 2026 James Trageser (@jtrag)
+#
+#  Licensed under CC-BY-NC-SA-4.0 + NRC-L
+#  "This work is part of the Nexus Resonance Codex (NRC) incorporating TTT 
+#  modular exclusion, phi^inf compression, 256D->729D lattice, QRT, and MST."
+
 """Spiral Memory: O(1) Context Scaling.
 
 This module implements the φ^∞ Spiral Memory architecture, leveraging
@@ -12,7 +19,7 @@ from .shard_folding import PHI, PhiInfinityShardFolding
 
 
 class SpiralMemory(torch.nn.Module):
-    """Institutional memory architecture using φ^∞ spiral projections."""
+    """Memory architecture using φ^∞ spiral projections."""
 
     def __init__(self, hidden_dim: int, k_steps: int = 4) -> None:
         """Initialize the spiral memory.

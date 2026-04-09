@@ -1,12 +1,11 @@
 <div align="center">
-  <img src="https://raw.githubusercontent.com/Nexus-Resonance-Codex/Phi-Infinity-Lattice-Compression/main/assets/phi_spiral_banner.png" width="100%" alt="NRC Ai-Enhancements Banner">
+  <img src="https://raw.githubusercontent.com/Nexus-Resonance-Codex/Phi-Infinity-Lattice-Compression/main/docs/assets/phi_spiral_banner.png" width="100%" alt="NRC Ai-Enhancements Banner">
 
 # NRC Ai-Enhancements
-## Institutional-Grade AI Stability via φ^∞ Lattice Resonance
+## High-Stability AI Scaling via φ^∞ Lattice Resonance
 
-[![License: CC-BY-NC-SA-4.0](https://img.shields.io/badge/License-CC--BY--NC--SA%204.0-00F0FF?style=for-the-badge&logo=creative-commons "Institutional License: CC-BY-NC-SA-4.0")](LICENSE)
+[![License: CC-BY-NC-SA-4.0](https://img.shields.io/badge/License-CC--BY--NC--SA%204.0-00F0FF?style=for-the-badge&logo=creative-commons)](LICENSE)
 [![CI: Cognitive Audit](https://github.com/Nexus-Resonance-Codex/Ai-Enhancements/actions/workflows/ci.yml/badge.svg)](https://github.com/Nexus-Resonance-Codex/Ai-Enhancements/actions/workflows/ci.yml)
-[![Docs: Neural Resonance](https://img.shields.io/badge/Docs-Neural%20Resonance-blue?style=for-the-badge&logo=markdown)](https://nexus-resonance-codex.github.io/Ai-Enhancements/)
 [![Enhancements: 30+ Core](https://img.shields.io/badge/Enhancements-30+%20Core-00FF88?style=for-the-badge&logo=pytorch)](src/nrc_ai/)
 
 [Enhancements](src/nrc_ai/) • [Spiral Memory](src/nrc_ai/memory.py) • [Demos](examples/) • [Scaling Roadmap](roadmap.md)
@@ -32,7 +31,7 @@
 
 ### ⚡ Performance Comparison Matrix
 
-| Problem Space | Industry Baseline (Transformers) | NRC Enhanced Architecture | Institutional Advantage |
+| Problem Space | Industry Baseline (Transformers) | NRC Enhanced Architecture | Advantage |
 | :--- | :--- | :--- | :--- |
 | **Context Length** | $O(N^2)$ (Attention) | **$O(1)$ ($\varphi^\infty$ Shards)** | Infinite Logic Window |
 | **Convergence** | Statistical Sampling | **Deterministic (Resonant)** | 2x-5x Faster Training |
@@ -41,36 +40,30 @@
 
 ---
 
-### 🛠 Quick Start
-
-Built for **Maximum Integrity** using [uv](https://github.com/astral-sh/uv).
+### 🛠 Setup
+Built for high-integrity research using [uv](https://github.com/astral-sh/uv).
 
 ```bash
-# Clone the repository
-git clone https://github.com/Nexus-Resonance-Codex/Ai-Enhancements.git
-cd Ai-Enhancements
-
-# Anchor the environment
-uv venv && uv pip install -e .[dev]
+# Initialize the AI enhancement environment
+uv venv
+source .venv/bin/activate
+uv pip install -e .[dev]
 
 # Run the cognitive audit
-uv run pytest tests/
+pytest tests/
 ```
 
 ---
 
 ### 📜 Mathematical Foundations
-The [Documentation](https://nexus-resonance-codex.github.io/Ai-Enhancements/) contains the formal proofs for:
-1.  **Gradient Orthogonality**: Why $\varphi$-spiral init ensures stable layer activations.
-2.  **Modular Sieve Training**: Logic for excluding chaotic moduli in attention heads.
-3.  **$\varphi^\infty$ Convergence**: Mathematical proof of lossless shard recovery.
+The [Documentation](https://nexus-resonance-codex.github.io/Ai-Enhancements/) contains the formal proofs for the **Modular Sieve Training** and **Shard Folding Convergence**.
 
 ---
 
 ### 🤝 Strategic Mission
-This repository provides the "Institutional Soul" for the next generation of intelligence. Every enhancement is engineered to move AI from statistical guessing to mathematical certainty.
+This repository provides the high-fidelity foundation for the next generation of intelligence. Every enhancement is engineered to move AI from statistical guessing to mathematical certainty.
 
 <div align="center">
-<i>Authored by the Nexus Resonance Codex (2026)</i><br>
+<i>Authored by James Trageser (@jtrag) — Nexus Resonance Codex (2026)</i><br>
 <b>Stabilizing the future of machine intelligence.</b>
 </div>

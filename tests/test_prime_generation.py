@@ -1,55 +1,29 @@
-import os
-import sys
-
 import torch
-
-sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "../src")))
-
-from enhancements.prime_density_generation import PrimeDensityGenerator
-
+from nrc_ai.prime_density_generation import PrimeDensityConditionedGeneration
 
 def test_prime_density_generation() -> None:
-    """Validates Enhancement #11: Prime-Density Generator successfully alters
-    logit distributions conditionally based on Mod 2187 TUPT sequence mappings.
-    """
+    """Validates Enhancement #11: Prime-Density Generator correctly pulses stable IDs."""
     vocab_size = 32000
-    batch = 2
+    generator = PrimeDensityConditionedGeneration(vocab_size=vocab_size, boost_factor=5.0)
+    
+    # 1. Simulate uniform logits
+    raw_logits = torch.zeros(1, vocab_size)
+    conditioned = generator(None, raw_logits)
+    
+    # 2. Resonant ID Verification (Stable: 1, 2, 4, 5, 7, 8 mod 9)
+    # ID 1 (1 mod 9) should be boosted
+    assert conditioned[0, 1].item() == 5.0
+    # ID 7 (7 mod 9) should be boosted
+    assert conditioned[0, 7].item() == 5.0
+    
+    # 3. Chaotic ID Verification (Excluded: 0, 3, 6, 9 mod 9)
+    # ID 3 (3 mod 9) should NOT be boosted (Entropy Floor)
+    assert conditioned[0, 3].item() == 0.0, "Chaotic token 3 was incorrectly boosted!"
+    # ID 0 (0 mod 9) should NOT be boosted
+    assert conditioned[0, 0].item() == 0.0
 
-    # Simulate a raw, perfectly uniform logit output from a model (all zeros before softmax = all probabilities equal)
-    raw_logits = torch.zeros(batch, vocab_size)
-
-    generator = PrimeDensityGenerator(vocab_size=vocab_size, boost_factor=5.0)
-
-    # 1. Forward Pass to condition the logits
-    conditioned_logits = generator(
-        None, raw_logits
-    )  # input_ids not strictly needed for this global static mask
-
-    # 2. Validation
-    # TUPT sequence base integers: 3, 6, 9, 7
-    # Logits exactly at positions [3], [6], [7], [9] should be heavily boosted (+5.0)
-    assert conditioned_logits[0, 3].item() == 5.0, (
-        "TUPT Token 3 failed to receive Prime-Density Boost."
-    )
-    assert conditioned_logits[0, 7].item() == 5.0, (
-        "TUPT Token 7 failed to receive Prime-Density Boost."
-    )
-
-    # A random baseline token (e.g. 5) that isn't connected to [3,6,9,7] should remain unaltered (0.0)
-    assert conditioned_logits[0, 5].item() == 0.0, (
-        "Non-resonant token illegally received Prime-Density Boost."
-    )
-
-    # Softmax check (The probability of token 3 should now mathematically eclipse token 5 prior to sampling)
-    probs = torch.nn.functional.softmax(conditioned_logits, dim=-1)
-    assert probs[0, 3] > probs[0, 5], (
+    # Softmax check (The probability of token 7 should now mathematically eclipse token 3)
+    probs = torch.nn.functional.softmax(conditioned, dim=-1)
+    assert probs[0, 7] > probs[0, 3], (
         "Softmax mapping failed; boost did not manipulate probability."
     )
-
-    print(
-        "Test passed: Prime-Density Conditioned Logit Generator dynamically shaped vocab probabilites to resonant paths."
-    )
-
-
-if __name__ == "__main__":
-    test_prime_density_generation()

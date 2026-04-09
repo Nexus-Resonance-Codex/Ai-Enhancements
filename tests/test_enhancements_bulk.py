@@ -70,7 +70,7 @@ def test_enhancement_instantiation(class_name) -> None:
     elif class_name == "PhiVoidResonancePositionalEncoding":
         obj = cls(128)
     elif class_name == "HodgePhiTTorsionAttention":
-        obj = cls(128)
+        obj = cls(128, num_heads=4)
     elif class_name == "GoldenSpiralRotaryEmbedding":
         obj = cls(64)
     elif class_name == "TUPTAttractorSyncSeed":

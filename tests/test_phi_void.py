@@ -6,8 +6,8 @@ import torch
 
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "../src")))
 
-from enhancements.phi_void_positional import PhiVoidPositionalEncoding
-from nrc_math.phi import PHI_FLOAT
+from nrc_ai.phi_void_positional import PhiVoidResonancePositionalEncoding
+from nrc_math import PHI_FLOAT
 
 
 def test_phi_void_positional() -> None:
@@ -22,7 +22,7 @@ def test_phi_void_positional() -> None:
     token_embeddings = torch.zeros(batch, seq, dim)
 
     # 2. Deploy the mathematical Phi^6 encoder grid
-    encoder = PhiVoidPositionalEncoding(d_model=dim)
+    encoder = PhiVoidResonancePositionalEncoding(d_model=dim)
 
     encoded_features = encoder(token_embeddings)
 

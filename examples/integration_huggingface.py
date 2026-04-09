@@ -43,7 +43,7 @@ except ImportError:
 from enhancements.floor_sinh_activation import FloorSinhActivationRegularizer
 from enhancements.golden_flow_norm import GoldenAttractorFlowNorm
 from enhancements.navier_stokes_damping import NavierStokesDampingRegulariser
-from nrc_math.phi import PHI_FLOAT
+from nrc_math import PHI_FLOAT
 
 
 # ──────────────────────────────────────────────────────────────────────

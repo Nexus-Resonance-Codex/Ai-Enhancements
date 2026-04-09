@@ -5,7 +5,7 @@ import torch
 
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "../src")))
 
-from enhancements.lucas_sparse_mask import LucasWeightedSparseMask
+from nrc_ai.lucas_sparse_mask import LucasWeightedSparseAttention
 
 
 def test_lucas_sparse_mask() -> None:
@@ -15,7 +15,7 @@ def test_lucas_sparse_mask() -> None:
     """
     seq_size = 24  # Using a smaller block sequentially to test 2D array coordinates manually
 
-    layer = LucasWeightedSparseMask(max_seq_length=512)
+    layer = LucasWeightedSparseAttention(max_seq_length=512)
 
     # 1. Fetch dynamic slice mask
     mask_slice = layer(seq_len=seq_size)

@@ -5,7 +5,7 @@ import torch
 
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "../src")))
 
-from enhancements.qrt_optimizer import QRTTurbulenceOptimizer
+from nrc_ai.qrt_optimizer import QRTTurbulenceOptimizer
 
 
 def test_qrt_turbulence_optimizer() -> None:
