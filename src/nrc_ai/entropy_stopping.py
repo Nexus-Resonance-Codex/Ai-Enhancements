@@ -1,9 +1,8 @@
 import math
 
 
-class EntropyAttractorStoppingCriterion:
-    """
-    Enhancement #30: NRC Entropy-Attractor Early Stopping Criterion
+class NRCEntropyAttractorEarlyStopping:
+    """Enhancement #30: NRC Entropy-Attractor Early Stopping Criterion.
 
     Modern networks evaluate Early Stopping arbitrarily using metrics like 'Patience'.
     If Validation Loss doesn't decay for N epochs, it brutally aborts training.
@@ -17,9 +16,10 @@ class EntropyAttractorStoppingCriterion:
     proven technically mathematically finished. Training ceases perfectly dynamically regardless
     of arbitrary sequence epochs.
     """
+
     def __init__(self, phi_tolerance: float = 1e-4):
-        self.best_loss = float('inf')
-        self.previous_loss = float('inf')
+        self.best_loss = float("inf")
+        self.previous_loss = float("inf")
         self.tolerance = phi_tolerance
 
         # Calculate strict analytical physical boundaries natively
@@ -27,12 +27,11 @@ class EntropyAttractorStoppingCriterion:
         self.inverse_golden = 1.0 / self.golden_target
 
     def __call__(self, current_loss: float) -> bool:
-        """
-        Receives loss globally. Returns True physically if the topological calculus
+        """Receives loss globally. Returns True physically if the topological calculus
         confirms mathematical training termination bounds.
         """
         # If the model structurally crashed physics initially, continue mapping mathematically
-        if self.previous_loss == float('inf'):
+        if self.previous_loss == float("inf"):
             self.previous_loss = current_loss
             self.best_loss = current_loss
             return False
@@ -42,7 +41,7 @@ class EntropyAttractorStoppingCriterion:
         # mathematically match the dimensional Phi logic natively?
 
         if current_loss == 0.0:
-            return True # Absolute entropy destruction, abort natively
+            return True  # Absolute entropy destruction, abort natively
 
         ratio = self.previous_loss / current_loss
 
@@ -54,7 +53,9 @@ class EntropyAttractorStoppingCriterion:
         inverse_phi_hit = abs(ratio - self.inverse_golden) < self.tolerance
 
         if phi_hit or inverse_phi_hit:
-            print(f"TERMINATION: Structural Loss mapped natively onto NRC Golden bounds. Ratio: {ratio:.5f}")
+            print(
+                f"TERMINATION: Structural Loss mapped natively onto NRC Golden bounds. Ratio: {ratio:.5f}"
+            )
             return True
 
         # Advance structural memory explicitly

@@ -1,14 +1,15 @@
-import torch
-import sys
 import os
+import sys
 
-sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '../src')))
+import torch
+
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "../src")))
 
 from enhancements.tupt_token_pruning import TUPTExclusionTokenPruner
 
-def test_tupt_token_pruning():
-    """
-    Validates Enhancement #22: TUPT Exclusion Pruning successfully cuts down sequence
+
+def test_tupt_token_pruning() -> None:
+    """Validates Enhancement #22: TUPT Exclusion Pruning successfully cuts down sequence
     processing complexity by mathematically identifying and shredding tokens that
     map directly into Mod-2187 biological noise limits.
     """
@@ -26,7 +27,9 @@ def test_tupt_token_pruning():
 
     # 1. Verification of structural dimensionality properties
     # The embed_dim MUST remain entirely un-corrupted (Tokens are destroyed laterally, not vertically)
-    assert pruned_states.shape[2] == embed_dim, "Token Pruning accidentally deleted embedding representation depth."
+    assert pruned_states.shape[2] == embed_dim, (
+        "Token Pruning accidentally deleted embedding representation depth."
+    )
 
     # 2. Verification of mathematical memory-save properties
     # The output seq_len must be strictly smaller than the input seq_len because
@@ -36,9 +39,14 @@ def test_tupt_token_pruning():
     print(f"Original Sequence Context: {seq_len} tokens.")
     print(f"Resonant Sequence Context: {survived_seq_len} tokens.")
 
-    assert survived_seq_len < seq_len, "TUPT Token Matrix failed to sparsely trim inference contexts natively."
+    assert survived_seq_len < seq_len, (
+        "TUPT Token Matrix failed to sparsely trim inference contexts natively."
+    )
 
-    print("Test passed: 1D Mod-2187 Exclusion grids dynamically stripped non-resonant trajectory sequences from tracking bounds.")
+    print(
+        "Test passed: 1D Mod-2187 Exclusion grids dynamically stripped non-resonant trajectory sequences from tracking bounds."
+    )
+
 
 if __name__ == "__main__":
     test_tupt_token_pruning()

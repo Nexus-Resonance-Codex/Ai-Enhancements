@@ -1,15 +1,16 @@
-import torch
-import sys
 import os
+import sys
 
-sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '../src')))
+import torch
+
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "../src")))
 
 from enhancements.phi_momentum_accelerator import PhiInverseMomentumAccelerator
 from nrc_math.phi import PHI_FLOAT
 
-def test_phi_momentum():
-    """
-    Validates Enhancement #13: Checks if gradient updates successfully scale
+
+def test_phi_momentum() -> None:
+    """Validates Enhancement #13: Checks if gradient updates successfully scale
     upwards by phi on continuous resonant tracks, and decay downwards by
     1/phi upon detecting oscillation barriers.
     """
@@ -46,12 +47,19 @@ def test_phi_momentum():
 
     # The absolute structural update of the accelerating tensor should be phi^2 times larger
     # than the damped oscillating tensor due to the (phi) vs (1/phi) routing mechanism.
-    expected_ratio = PHI_FLOAT ** 2
+    expected_ratio = PHI_FLOAT**2
     actual_ratio = (delta_increasing / delta_oscillating).item()
 
-    print(f"Momentum tracking expected a {expected_ratio:.4f}x acceleration margin across the topological boundaries.")
-    assert torch.isclose(torch.tensor(actual_ratio), torch.tensor(expected_ratio), rtol=1e-3), "Phi scaling router failed in Momentum tracking."
-    print("Test passed: Phi-Inverse Momentum dynamically shaped backpropagation bounds via the Golden Ratio.")
+    print(
+        f"Momentum tracking expected a {expected_ratio:.4f}x acceleration margin across the topological boundaries."
+    )
+    assert torch.isclose(torch.tensor(actual_ratio), torch.tensor(expected_ratio), rtol=1e-3), (
+        "Phi scaling router failed in Momentum tracking."
+    )
+    print(
+        "Test passed: Phi-Inverse Momentum dynamically shaped backpropagation bounds via the Golden Ratio."
+    )
+
 
 if __name__ == "__main__":
     test_phi_momentum()

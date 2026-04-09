@@ -7,8 +7,7 @@ from .shard_folding import PhiInfinityShardFolding
 
 
 class ResonanceShardKVCache(nn.Module):
-    """
-    Enhancement #5: Resonance Shard KV Cache v3
+    """Enhancement #5: Resonance Shard KV Cache v3.
 
     A context memory mechanism redefining standard Transformer KV caches.
     Rather than letting memory scale linearly O(N), older memory blocks (shards)
@@ -19,6 +18,7 @@ class ResonanceShardKVCache(nn.Module):
     the stable limits of the Golden Attractor, preventing gradient explosion
     while preserving resonance state.
     """
+
     def __init__(self, folding_steps: int = 3, shard_capacity: int = 1024):
         super().__init__()
         self.shard_capacity = shard_capacity
@@ -30,9 +30,10 @@ class ResonanceShardKVCache(nn.Module):
         self.folded_memory_keys = None
         self.folded_memory_values = None
 
-    def forward(self, new_keys: torch.Tensor, new_values: torch.Tensor) -> Tuple[torch.Tensor, torch.Tensor]:
-        """
-        Appends new K/V states. If the active shard exceeds capacity, the active shard
+    def forward(
+        self, new_keys: torch.Tensor, new_values: torch.Tensor
+    ) -> Tuple[torch.Tensor, torch.Tensor]:
+        """Appends new K/V states. If the active shard exceeds capacity, the active shard
         is mathematically folded into the permanent limit state using Phi^Infinity scaling.
 
         Input Shapes: (batch, seq_len, num_heads, head_dim)
@@ -45,7 +46,7 @@ class ResonanceShardKVCache(nn.Module):
             return self.active_keys, self.active_values
 
         # 2. Append incoming context to our active shard
-        self.active_keys = torch.cat([self.active_keys, new_keys], dim=1) # dim 1 is seq_len
+        self.active_keys = torch.cat([self.active_keys, new_keys], dim=1)  # dim 1 is seq_len
         self.active_values = torch.cat([self.active_values, new_values], dim=1)
 
         current_seq_len = self.active_keys.size(1)
@@ -84,8 +85,8 @@ class ResonanceShardKVCache(nn.Module):
 
         return self.active_keys, self.active_values
 
-    def reset_cache(self):
-        """ Clears all resonance memory states for a new sequence generation """
+    def reset_cache(self) -> None:
+        """Clears all resonance memory states for a new sequence generation."""
         self.active_keys = None
         self.active_values = None
         self.folded_memory_keys = None

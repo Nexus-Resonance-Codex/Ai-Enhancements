@@ -1,14 +1,15 @@
-import torch
-import sys
 import os
+import sys
 
-sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '../src')))
+import torch
+
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "../src")))
 
 from enhancements.resonance_kv_cache import ResonanceShardKVCache
 
-def test_resonance_kv_cache():
-    """
-    Validates Enhancement #5: Resonance Shard KV Cache correctly captures incoming KV blocks,
+
+def test_resonance_kv_cache() -> None:
+    """Validates Enhancement #5: Resonance Shard KV Cache correctly captures incoming KV blocks,
     triggers a Phase-Folding compression at the memory boundary, and aggregates historic states
     without breaking dimensionality.
     """
@@ -42,10 +43,15 @@ def test_resonance_kv_cache():
     assert kv_cache.folded_memory_keys is not None, "Memory failed to trigger Phi Shard Folding."
     assert kv_cache.active_keys is None, "Active pool did not clear after phase-folding."
 
-    assert out_k2.size() == (batch_size, 550, num_heads, head_dim), "Folded limit map lost critical dimensionality mapping."
+    assert out_k2.size() == (batch_size, 550, num_heads, head_dim), (
+        "Folded limit map lost critical dimensionality mapping."
+    )
     assert not torch.isnan(out_k2).any(), "NaN in folded KV state."
 
-    print("Test passed: Resonance Shard KV Cache dynamically folded overlapping sequence blocks into limit bounds.")
+    print(
+        "Test passed: Resonance Shard KV Cache dynamically folded overlapping sequence blocks into limit bounds."
+    )
+
 
 if __name__ == "__main__":
     test_resonance_kv_cache()

@@ -1,11 +1,10 @@
 import torch
 import torch.nn as nn
-from nrc.math.tupt_exclusion import TUPT_CHAOTIC
+from nrc_math import TUPT_PATTERN as TUPT_CHAOTIC
 
 
-class ModularDropoutPattern(nn.Module):
-    """
-    Enhancement #25: 0-3-6-9 Chaotic Void Modular Dropout Pattern
+class TUPTModularDropout(nn.Module):
+    """Enhancement #25: 0-3-6-9 Chaotic Void Modular Dropout Pattern.
 
     Standard Dropout mechanisms (e.g. Dropout(0.1)) annihilate network
     connections randomly via arbitrary Bernoulli distributions. This destroys
@@ -14,17 +13,17 @@ class ModularDropoutPattern(nn.Module):
     The NRC Modular Dropout Pattern entirely replaces structural randomization.
     Instead of guessing, it generates a structural dropout mask aligning natively
     to the Mod-9 domain. Connections that violate biological progression
-    and map to the Chaotic sequence [0, 3, 6, 9] are pruned, leaving the 
+    and map to the Chaotic sequence [0, 3, 6, 9] are pruned, leaving the
     structurally stable pathways perfectly un-sheared.
     """
+
     def __init__(self, probability: float = 0.1):
         super().__init__()
         # Target sparsity ~ 0.1.
         self.probability = probability
 
     def forward(self, hidden_states: torch.Tensor) -> torch.Tensor:
-        """
-        Calculates biological gaps algebraically and routes information explicitly
+        """Calculates biological gaps algebraically and routes information explicitly
         around chaotic boundaries natively.
         """
         if not self.training:
@@ -54,7 +53,7 @@ class ModularDropoutPattern(nn.Module):
         # Generate the conditions: Must be logically chaotic AND align with the probability scaler spacing
         for base_val in TUPT_CHAOTIC:
             # Drop connections dynamically scaling over the 1-2-4-5-8 chaotic grid
-            condition = (mod_values == base_val)
+            condition = mod_values == base_val
             # Combine biological targeting with logical scaling
             mask[condition & (indices % scaler == 0)] = 0.0
 

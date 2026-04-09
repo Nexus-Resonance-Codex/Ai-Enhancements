@@ -1,12 +1,11 @@
 from typing import Iterable
 
 import torch
-from nrc.math.phi import PHI_FLOAT
+from nrc_math import PHI_FLOAT
 
 
 class LucasPellHybridWeightDecay:
-    """
-    Enhancement #21: Lucas-Pell Hybrid Weight Decay
+    """Enhancement #21: Lucas-Pell Hybrid Weight Decay.
 
     Standard Deep Learning optimization utilizes a static L2 Weight Decay (e.g. 1e-4)
     to linearly compress parameter growth and prevent overfitting.
@@ -19,11 +18,12 @@ class LucasPellHybridWeightDecay:
     protected by the Pell integer boundary, while chaotic irrelevant weights are
     friction-shredded by Lucas approximations of Phi.
     """
+
     @staticmethod
-    def apply_hybrid_decay_(parameters: Iterable[torch.Tensor], base_decay_rate: float = 1e-4):
-        """
-        Calculates and applies the physical topological decay limits in-place.
-        """
+    def apply_hybrid_decay_(
+        parameters: Iterable[torch.Tensor], base_decay_rate: float = 1e-4
+    ) -> None:
+        """Calculates and applies the physical topological decay limits in-place."""
         if isinstance(parameters, torch.Tensor):
             parameters = [parameters]
 
@@ -31,7 +31,7 @@ class LucasPellHybridWeightDecay:
 
         # Phi approximations:
         # Pell limit approx ~ 1 + sqrt(2) ~ 2.414 (Silver Ratio)
-        silver_ratio = 1.0 + (2.0 ** 0.5)
+        silver_ratio = 1.0 + (2.0**0.5)
 
         for p in parameters:
             with torch.no_grad():
@@ -48,7 +48,7 @@ class LucasPellHybridWeightDecay:
                 decay_modifier = torch.where(
                     is_dominant == 1.0,
                     1.0 / silver_ratio,  # Protect the core macro-structures
-                    PHI_FLOAT            # Destroy the micro-scale noise quickly
+                    PHI_FLOAT,  # Destroy the micro-scale noise quickly
                 )
 
                 # 3. Apply the L2 gradient mathematically directly to the parameters

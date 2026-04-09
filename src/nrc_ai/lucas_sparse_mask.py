@@ -1,11 +1,10 @@
 import torch
 import torch.nn as nn
-from nrc.math.tupt_exclusion import apply_exclusion_gate
+from nrc_math import apply_exclusion_gate
 
 
-class LucasWeightedSparseMask(nn.Module):
-    """
-    Enhancement #16: Lucas-weighted Sparse Attention Mask v2
+class LucasWeightedSparseAttention(nn.Module):
+    """Enhancement #16: Lucas-weighted Sparse Attention Mask v2.
 
     A structural masking drop-in for standard Causal Attention mechanisms.
     Typically, models employ a rigid causal Lower-Triangular boolean mask to
@@ -18,6 +17,7 @@ class LucasWeightedSparseMask(nn.Module):
     perfectly sparse, resonantly noise-free routing dynamically scaled
     by Lucas index distances.
     """
+
     def __init__(self, max_seq_length: int = 4096):
         super().__init__()
         self.max_seq_len = max_seq_length
@@ -25,9 +25,7 @@ class LucasWeightedSparseMask(nn.Module):
         self.register_buffer("lucas_exclusion_mask", self._build_lucas_mask())
 
     def _build_lucas_mask(self) -> torch.Tensor:
-        """
-        Calculates the 2D Sequence x Sequence tensor identifying resonant Lucas gaps natively.
-        """
+        """Calculates the 2D Sequence x Sequence tensor identifying resonant Lucas gaps natively."""
         # Note: 1.0 represents a clean passable topological link. 0.0 represents a
         # destructive blocked link determined by the NRC structural laws.
         mask = torch.ones((self.max_seq_len, self.max_seq_len), dtype=torch.float32)
@@ -55,9 +53,7 @@ class LucasWeightedSparseMask(nn.Module):
         return final_sparse_mask
 
     def forward(self, seq_len: int) -> torch.Tensor:
-        """
-        Dynamically fetches the exact sequence size needed from the pre-computed fractal mask structure.
-        """
+        """Dynamically fetches the exact sequence size needed from the pre-computed fractal mask structure."""
         # Slices from 0 to seq_len
         # (Usually added or multiplied to raw Dot Product Q-K logits directly before softmax)
         return self.lucas_exclusion_mask[:seq_len, :seq_len]

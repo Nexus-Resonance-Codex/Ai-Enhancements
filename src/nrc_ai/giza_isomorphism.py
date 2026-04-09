@@ -2,12 +2,11 @@ import math
 
 import torch
 import torch.nn as nn
-from nrc.math.phi import PHI_FLOAT
+from nrc_math import PHI_FLOAT
 
 
 class GizaLatticeIsomorphism(nn.Module):
-    """
-    Enhancement #18: Giza-Lattice Isomorphism Projection Protocol
+    """Enhancement #18: Giza-Lattice Isomorphism Projection Protocol.
 
     A severe mathematical structural transformation matrix. Deep network
     representations usually exist inside arbitrary Euclidean vectors.
@@ -19,6 +18,7 @@ class GizaLatticeIsomorphism(nn.Module):
     By passing a tensor through this Isomorphism, the information is bound
     onto a coordinate grid that perfectly transmits resonance without noise.
     """
+
     def __init__(self, high_dim_features: int):
         super().__init__()
         self.features = high_dim_features
@@ -29,8 +29,7 @@ class GizaLatticeIsomorphism(nn.Module):
         self.register_buffer("isomorphism_matrix", self._build_giza_matrix())
 
     def _build_giza_matrix(self) -> torch.Tensor:
-        """
-        Calculates a static non-learned transformation grid blending Phi limits
+        """Calculates a static non-learned transformation grid blending Phi limits
         with the Great Pyramid boundary angles.
         """
         matrix = torch.eye(self.features)
@@ -44,16 +43,14 @@ class GizaLatticeIsomorphism(nn.Module):
             if i % 2 == 0:
                 # 2D Rotational Block scaled by the Phi lattice boundary
                 matrix[i, i] = cos_val * PHI_FLOAT
-                matrix[i, i+1] = -sin_val / PHI_FLOAT
-                matrix[i+1, i] = sin_val / PHI_FLOAT
-                matrix[i+1, i+1] = cos_val * PHI_FLOAT
+                matrix[i, i + 1] = -sin_val / PHI_FLOAT
+                matrix[i + 1, i] = sin_val / PHI_FLOAT
+                matrix[i + 1, i + 1] = cos_val * PHI_FLOAT
 
         return matrix
 
     def forward(self, hidden_states: torch.Tensor) -> torch.Tensor:
-        """
-        Projects arbitrary vectors onto the resonant Giza grid.
-        """
+        """Projects arbitrary vectors onto the resonant Giza grid."""
         # Matmul the incoming features sequentially through the rigid isomorphism lattice
         projected_states = torch.matmul(hidden_states, self.isomorphism_matrix)
         return projected_states

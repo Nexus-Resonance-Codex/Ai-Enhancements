@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="https://raw.githubusercontent.com/Nexus-Resonance-Codex/Phi-Infinity-Lattice-Compression/main/docs/assets/phi_spiral_banner.png" width="100%" alt="NRC Ai-Enhancements Banner">
+  <img src="https://raw.githubusercontent.com/Nexus-Resonance-Codex/Phi-Infinity-Lattice-Compression/main/assets/phi_spiral_banner.png" width="100%" alt="NRC Ai-Enhancements Banner">
 
 # NRC Ai-Enhancements
 ## Institutional-Grade AI Stability via φ^∞ Lattice Resonance
@@ -9,7 +9,7 @@
 [![Docs: Neural Resonance](https://img.shields.io/badge/Docs-Neural%20Resonance-blue?style=for-the-badge&logo=markdown)](https://nexus-resonance-codex.github.io/Ai-Enhancements/)
 [![Enhancements: 30+ Core](https://img.shields.io/badge/Enhancements-30+%20Core-00FF88?style=for-the-badge&logo=pytorch)](src/nrc_ai/)
 
-[Enhancements](src/nrc_ai/) • [Spiral Memory](src/nrc_ai/memory.py) • [Demos](examples/) • [Scaling Roadmap](docs/roadmap.md)
+[Enhancements](src/nrc_ai/) • [Spiral Memory](src/nrc_ai/memory.py) • [Demos](examples/) • [Scaling Roadmap](roadmap.md)
 
 **"Eliminating hallucination and quadratic complexity through geometric convergence and TTT logic."**
 

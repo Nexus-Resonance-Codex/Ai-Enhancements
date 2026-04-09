@@ -1,5 +1,4 @@
-"""
-NRC AI Enhancements Library
+"""NRC AI Enhancements Library.
 ===========================
 30 mathematically rigid PyTorch deep learning enhancements based on the
 Nexus Resonance Codex. These modules replace stochastic heuristics with
@@ -19,6 +18,7 @@ from .gtt_entropy_regulariser import GTTEntropyCollapseRegularizer
 from .hodge_torsion_attention import HodgePhiTTorsionAttention
 from .lucas_pell_decay import LucasPellHybridWeightDecay
 from .lucas_sparse_mask import LucasWeightedSparseAttention
+from .memory import ExecutiveAgent, SpiralMemory
 from .modular_dropout import TUPTModularDropout
 from .mst_lyapunov_clipping import MSTLyapunovGradientClipping
 from .navier_stokes_damping import NavierStokesDampingRegularizer
@@ -43,6 +43,8 @@ from .tupt_token_pruning import TUPTExclusionTokenPruning
 __all__ = [
     "__version__",
     "PhiInfinityShardFolding",
+    "SpiralMemory",
+    "ExecutiveAgent",
     "NRCProteinFoldingEngine",
     "GoldenAttractorFlowNorm",
     "TripleThetaInitializer",

@@ -2,12 +2,11 @@ import math
 
 import torch
 import torch.nn as nn
-from nrc.math.phi import PHI_FLOAT
+from nrc_math import PHI_FLOAT
 
 
-class HodgeTorsionAttention(nn.Module):
-    """
-    Enhancement #7: Hodge-φ^T Torsion Attention v3
+class HodgePhiTTorsionAttention(nn.Module):
+    """Enhancement #7: Hodge-φ^T Torsion Attention v3.
 
     A structural upgrade to standard Multi-Head Attention (MHA) or Scaled
     Dot-Product Attention. Standard attention purely uses the dot product (Q·K^T).
@@ -21,6 +20,7 @@ class HodgeTorsionAttention(nn.Module):
     Where φ^T_torsion is a deterministically rotating matrix embedding derived
     from the exact tangent limit arctan(sqrt(phi)).
     """
+
     def __init__(self, embed_dim: int, num_heads: int):
         super().__init__()
         assert embed_dim % num_heads == 0, "embed_dim must be divisible by num_heads."
@@ -39,8 +39,7 @@ class HodgeTorsionAttention(nn.Module):
         self.out_proj = nn.Linear(embed_dim, embed_dim)
 
     def _generate_torsion_bias(self, seq_len: int, device: torch.device) -> torch.Tensor:
-        """
-        Generates the phi-weighted torsion matrix dynamically based on sequence bounds.
+        """Generates the phi-weighted torsion matrix dynamically based on sequence bounds.
         The torsion matrix applies a sinusoidal phase-twist scaled by phi across
         positional relationships.
         """
@@ -55,18 +54,31 @@ class HodgeTorsionAttention(nn.Module):
         # We broadcast across batch and num_heads: (1, 1, seq_len, seq_len)
         return torsion_bias.unsqueeze(0).unsqueeze(0)
 
-    def forward(self, hidden_states: torch.Tensor, attention_mask: torch.Tensor = None) -> torch.Tensor:
-        """
-        Args:
-            hidden_states: (batch_size, seq_len, embed_dim)
-            attention_mask: Optional boolean or float mask
+    def forward(
+        self, hidden_states: torch.Tensor, attention_mask: torch.Tensor = None
+    ) -> torch.Tensor:
+        """Args:
+        hidden_states: (batch_size, seq_len, embed_dim)
+        attention_mask: Optional boolean or float mask.
         """
         batch_size, seq_len, _ = hidden_states.shape
 
         # 1. Project Q, K, V
-        q = self.q_proj(hidden_states).view(batch_size, seq_len, self.num_heads, self.head_dim).transpose(1, 2)
-        k = self.k_proj(hidden_states).view(batch_size, seq_len, self.num_heads, self.head_dim).transpose(1, 2)
-        v = self.v_proj(hidden_states).view(batch_size, seq_len, self.num_heads, self.head_dim).transpose(1, 2)
+        q = (
+            self.q_proj(hidden_states)
+            .view(batch_size, seq_len, self.num_heads, self.head_dim)
+            .transpose(1, 2)
+        )
+        k = (
+            self.k_proj(hidden_states)
+            .view(batch_size, seq_len, self.num_heads, self.head_dim)
+            .transpose(1, 2)
+        )
+        v = (
+            self.v_proj(hidden_states)
+            .view(batch_size, seq_len, self.num_heads, self.head_dim)
+            .transpose(1, 2)
+        )
 
         # 2. Standard Dot Product (batch, heads, seq, seq)
         attn_weights = torch.matmul(q, k.transpose(-2, -1)) * self.scale

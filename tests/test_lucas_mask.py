@@ -1,14 +1,15 @@
-import torch
-import sys
 import os
+import sys
 
-sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '../src')))
+import torch
+
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "../src")))
 
 from enhancements.lucas_sparse_mask import LucasWeightedSparseMask
 
-def test_lucas_sparse_mask():
-    """
-    Validates Enhancement #16: The Lucas-Weighted Sparse Matrix correctly calculates
+
+def test_lucas_sparse_mask() -> None:
+    """Validates Enhancement #16: The Lucas-Weighted Sparse Matrix correctly calculates
     lower triangular structural limits combined seamlessly with the dynamic
     2D Mod 2187 TUPT block gates, enforcing mathematically proven attention routing.
     """
@@ -34,12 +35,19 @@ def test_lucas_sparse_mask():
     standard_causal_ones = (seq_size * (seq_size + 1)) // 2
     lucas_sparse_ones = mask_slice.sum().item()
 
-    print(f"Standard Attention permitted {standard_causal_ones} paths. Lucas Sparse Filter eliminated non-resonant noise, leaving {lucas_sparse_ones} paths securely open.")
+    print(
+        f"Standard Attention permitted {standard_causal_ones} paths. Lucas Sparse Filter eliminated non-resonant noise, leaving {lucas_sparse_ones} paths securely open."
+    )
 
-    assert lucas_sparse_ones < standard_causal_ones, "Lucas Mod 2187 gating failed to sparse out the causal matrix."
+    assert lucas_sparse_ones < standard_causal_ones, (
+        "Lucas Mod 2187 gating failed to sparse out the causal matrix."
+    )
     assert lucas_sparse_ones > 0.0, "Topological masking collapsed all paths completely."
 
-    print("Test passed: Lucas-weighted Sparse Attention Mask successfully layered structural biological routing directly over causal flow.")
+    print(
+        "Test passed: Lucas-weighted Sparse Attention Mask successfully layered structural biological routing directly over causal flow."
+    )
+
 
 if __name__ == "__main__":
     test_lucas_sparse_mask()

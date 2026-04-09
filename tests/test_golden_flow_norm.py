@@ -1,14 +1,15 @@
-import torch
-import sys
 import os
+import sys
 
-sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '../src')))
+import torch
+
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "../src")))
 
 from enhancements.golden_flow_norm import GoldenAttractorFlowNorm
 
-def test_golden_attractor_flow_normalisation():
-    """
-    Validates Enhancement #3: GAFEN successfully constrains tensors within the
+
+def test_golden_attractor_flow_normalisation() -> None:
+    """Validates Enhancement #3: GAFEN successfully constrains tensors within the
     defined bounds of phi^-44 and phi^21, maintaining dimensionality.
     """
     batch_size = 4
@@ -30,7 +31,10 @@ def test_golden_attractor_flow_normalisation():
     assert not torch.isnan(normalized_output).any(), "NaN found after Flow Normalization."
     assert not torch.isinf(normalized_output).any(), "Inf found after Flow Normalization."
 
-    print("Test passed: Golden Attractor Flow Normalisation v3 (GAFEN) gracefully normalizes massive outliers using phi bounds.")
+    print(
+        "Test passed: Golden Attractor Flow Normalisation v3 (GAFEN) gracefully normalizes massive outliers using phi bounds."
+    )
+
 
 if __name__ == "__main__":
     test_golden_attractor_flow_normalisation()

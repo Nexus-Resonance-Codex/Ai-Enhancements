@@ -1,11 +1,10 @@
 import torch
 import torch.nn as nn
-from nrc.math.phi import PHI_FLOAT
+from nrc_math import PHI_FLOAT
 
 
-class GTTEntropyCollapseRegulariser(nn.Module):
-    """
-    Enhancement #12: GTT Entropy Collapse Regulariser v2
+class GTTEntropyCollapseRegularizer(nn.Module):
+    """Enhancement #12: GTT Entropy Collapse Regulariser v2.
 
     Global Tensor Thermodynamics (GTT) dictates the exact physical limits of entropy
     an AI model can sustain before catastrophic hallucination occurs.
@@ -20,14 +19,13 @@ class GTTEntropyCollapseRegulariser(nn.Module):
     H(x) = -sum( P(x) * log(P(x)) )
     if H(x) > 10.96 -> x_new = x / phi
     """
+
     def __init__(self, gtt_safe_boundary: float = 10.96):
         super().__init__()
         self.gtt_safe_boundary = gtt_safe_boundary
 
     def _calculate_shannon_entropy(self, tensor: torch.Tensor) -> torch.Tensor:
-        """
-        Calculates the normalized Shannon Entropy of the incoming feature block.
-        """
+        """Calculates the normalized Shannon Entropy of the incoming feature block."""
         # Convert raw activations to a probability distribution over the final dimension
         prob_dist = torch.nn.functional.softmax(tensor, dim=-1)
 
@@ -40,8 +38,7 @@ class GTTEntropyCollapseRegulariser(nn.Module):
         return entropy
 
     def forward(self, hidden_states: torch.Tensor) -> torch.Tensor:
-        """
-        Dynamically routes tensors. If their internal entropy is destructive,
+        """Dynamically routes tensors. If their internal entropy is destructive,
         they are friction-damped.
         """
         # 1. Measure the thermodynamic entropy of the tensor

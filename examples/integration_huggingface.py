@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
-"""
-=======================================================================
-  NRC × HuggingFace Transformers — Integration Example
+"""=======================================================================
+  NRC × HuggingFace Transformers — Integration Example.
 =======================================================================
   Author:   James Trageser (@jtrag)
   Repo:     https://github.com/Nexus-Resonance-Codex/Ai-Enhancements
@@ -26,11 +25,13 @@
     • ~4 GB RAM (CPU inference on GPT-2 small)
 =======================================================================
 """
-import sys
+
 import os
+import sys
+
 import torch
 
-sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'src')))
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "src")))
 
 try:
     from transformers import GPT2LMHeadModel, GPT2Tokenizer
@@ -39,9 +40,9 @@ except ImportError:
     print("Install it with:  pip install transformers")
     sys.exit(1)
 
+from enhancements.floor_sinh_activation import FloorSinhActivationRegularizer
 from enhancements.golden_flow_norm import GoldenAttractorFlowNorm
 from enhancements.navier_stokes_damping import NavierStokesDampingRegulariser
-from enhancements.floor_sinh_activation import FloorSinhActivationRegularizer
 from nrc_math.phi import PHI_FLOAT
 
 
@@ -49,8 +50,7 @@ from nrc_math.phi import PHI_FLOAT
 #  NRC-Enhanced GPT-2 Wrapper
 # ──────────────────────────────────────────────────────────────────────
 class NRCEnhancedGPT2(torch.nn.Module):
-    """
-    Wraps a standard GPT-2 model and applies NRC enhancements to its
+    """Wraps a standard GPT-2 model and applies NRC enhancements to its
     hidden states after every transformer block.
 
     Enhancements applied:
@@ -58,6 +58,7 @@ class NRCEnhancedGPT2(torch.nn.Module):
       #10 — Navier-Stokes Damping (stabilizes hidden states)
       #28 — Floor-Sinh Activation (replaces GELU in MLP)
     """
+
     def __init__(self, model_name: str = "gpt2"):
         super().__init__()
         self.base_model = GPT2LMHeadModel.from_pretrained(model_name)
@@ -98,7 +99,7 @@ class NRCEnhancedGPT2(torch.nn.Module):
 # ──────────────────────────────────────────────────────────────────────
 #  Main — Demonstrate generation with NRC-Enhanced GPT-2
 # ──────────────────────────────────────────────────────────────────────
-def main():
+def main() -> None:
     print("=" * 72)
     print("  NRC × HuggingFace GPT-2 Integration")
     print(f"  Golden Ratio: φ = {PHI_FLOAT:.15f}")
@@ -112,13 +113,13 @@ def main():
 
     # Prepare input
     prompt = "The golden ratio in nature governs"
-    print(f"\n[2/3] Prompt: \"{prompt}\"")
+    print(f'\n[2/3] Prompt: "{prompt}"')
     inputs = tokenizer(prompt, return_tensors="pt")
 
     # Generate with NRC-enhanced model
     print("\n[3/3] Generating with NRC Enhancements active...")
     with torch.no_grad():
-        logits = nrc_model(inputs["input_ids"])
+        nrc_model(inputs["input_ids"])
 
         # Greedy decode 30 new tokens
         generated_ids = inputs["input_ids"].clone()

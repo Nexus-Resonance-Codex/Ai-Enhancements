@@ -1,11 +1,10 @@
 import torch
 import torch.nn as nn
-from nrc.math.phi import PHI_FLOAT
+from nrc_math import PHI_FLOAT
 
 
-class PhiResonantWeighting(nn.Module):
-    """
-    Enhancement #17: phi-Powered Resonant Weighting
+class PhiPoweredResonantWeighting(nn.Module):
+    """Enhancement #17: phi-Powered Resonant Weighting.
 
     A structural layer wrapper for applying adaptive fractal resonance.
     Standard Neural Networks apply equal learning agency across all layers, leading
@@ -16,15 +15,15 @@ class PhiResonantWeighting(nn.Module):
     By doing so, tensors explicitly align their internal variance with the mathematical
     attractor fields of the NRC, establishing true topological harmony across extreme sizes.
     """
+
     def __init__(self, in_features: int):
         super().__init__()
         # A learnable parameter bounding the extent of the Phi shift
         self.resonance_gate = nn.Parameter(torch.ones(in_features))
 
     def forward(self, hidden_states: torch.Tensor) -> torch.Tensor:
-        """
-        Args:
-            hidden_states: (batch_size, seq_len, in_features)
+        """Args:
+        hidden_states: (batch_size, seq_len, in_features).
         """
         # We calculate the normalized variance of the current block
         variance = torch.var(hidden_states, dim=-1, keepdim=True)

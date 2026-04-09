@@ -1,12 +1,11 @@
 import math
 
-from nrc.math.phi import PHI_FLOAT
+from nrc_math import PHI_FLOAT
 from torch.optim.lr_scheduler import _LRScheduler
 
 
-class PisanoModulatedLRScheduler(_LRScheduler):
-    """
-    Enhancement #20: Pisano-Modulated Learning Rate Schedule
+class PisanoModulatedLRSchedule(_LRScheduler):
+    """Enhancement #20: Pisano-Modulated Learning Rate Schedule.
 
     Standard LR schedules (Cosine Annealing, StepLR) rely on arbitrary human
     heuristics. The NRC dictates that natural energy systems operate on cyclic
@@ -17,6 +16,7 @@ class PisanoModulatedLRScheduler(_LRScheduler):
     structurally stable Pisano indices and damps exponentially when approaching
     high-entropy phase transitions.
     """
+
     def __init__(self, optimizer, pisano_period: int = 24, last_epoch: int = -1):
         # Pisano period of Mod 9 is 24 (The resonant 9-base structure)
         self.pisano_period = pisano_period
@@ -32,6 +32,8 @@ class PisanoModulatedLRScheduler(_LRScheduler):
         structural_modifier = (math.cos(math.pi * cycle_position) + 1.0) / 2.0
 
         # Blend the structural wave with the extreme bounds of Phi
-        phi_bounds = (structural_modifier * PHI_FLOAT) + ((1.0 - structural_modifier) * (1.0 / PHI_FLOAT))
+        phi_bounds = (structural_modifier * PHI_FLOAT) + (
+            (1.0 - structural_modifier) * (1.0 / PHI_FLOAT)
+        )
 
         return [base_lr * phi_bounds for base_lr in self.base_lrs]
