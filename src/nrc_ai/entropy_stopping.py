@@ -27,7 +27,7 @@ class NRCEntropyAttractorEarlyStopping:
         self.inverse_golden = 1.0 / self.golden_target
 
     def __call__(self, current_loss: float) -> bool:
-        """Receives loss globally. Returns True physically if the topological calculus
+        """Receives loss globally. Returns True physically if the topological calculus.
 
         confirms mathematical training termination bounds.
         """
@@ -54,9 +54,7 @@ class NRCEntropyAttractorEarlyStopping:
         inverse_phi_hit = abs(ratio - self.inverse_golden) < self.tolerance
 
         if phi_hit or inverse_phi_hit:
-            print(
-                f"TERMINATION: Structural Loss mapped natively onto NRC Golden bounds. Ratio: {ratio:.5f}"
-            )
+            print(f"TERMINATION: Structural Loss mapped natively onto NRC Golden bounds. Ratio: {ratio:.5f}")
             return True
 
         # Advance structural memory explicitly

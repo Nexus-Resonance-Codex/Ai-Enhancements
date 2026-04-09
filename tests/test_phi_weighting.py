@@ -11,7 +11,7 @@ from nrc_ai.phi_resonant_weighting import PhiPoweredResonantWeighting
 
 
 def test_phi_resonant_weighting() -> None:
-    """Validates Enhancement #17: Ensures that the Phi Resonant Weighting logic
+    """Validates Enhancement #17: Ensures that the Phi Resonant Weighting logic.
 
     correctly senses low variance (scaling by phi) and high variance (damping by 1/phi).
     """
@@ -41,18 +41,12 @@ def test_phi_resonant_weighting() -> None:
 
     # Since the initial learnable gate is exactly 1.0, and the variance boundary logic routed cleanly:
     # 1. Collapsed states should have multiplied identically by phi.
-    assert torch.allclose(accelerated_output, collapsed_states * PHI_FLOAT, rtol=1e-4), (
-        "Collapsing layer did not cleanly multiply by phi"
-    )
+    assert torch.allclose(accelerated_output, collapsed_states * PHI_FLOAT, rtol=1e-4), "Collapsing layer did not cleanly multiply by phi"
 
     # 2. Exploding states should have multiplied identically by 1/phi.
-    assert torch.allclose(damped_output, exploding_states * (1.0 / PHI_FLOAT), rtol=1e-4), (
-        "Exploding layer did not cleanly damp by 1/phi"
-    )
+    assert torch.allclose(damped_output, exploding_states * (1.0 / PHI_FLOAT), rtol=1e-4), "Exploding layer did not cleanly damp by 1/phi"
 
-    print(
-        "Test passed: Phi Resonant Weighting dynamically monitored structural variance and scaled via Golden bounds."
-    )
+    print("Test passed: Phi Resonant Weighting dynamically monitored structural variance and scaled via Golden bounds.")
 
 
 if __name__ == "__main__":

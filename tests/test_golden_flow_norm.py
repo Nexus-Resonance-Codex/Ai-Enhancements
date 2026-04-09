@@ -9,7 +9,7 @@ from nrc_ai.golden_flow_norm import GoldenAttractorFlowNorm
 
 
 def test_golden_attractor_flow_normalisation() -> None:
-    """Validates Enhancement #3: GAFEN successfully constrains tensors within the
+    """Validates Enhancement #3: GAFEN successfully constrains tensors within the.
 
     defined bounds of phi^-44 and phi^21, maintaining dimensionality.
     """
@@ -32,9 +32,7 @@ def test_golden_attractor_flow_normalisation() -> None:
     assert not torch.isnan(normalized_output).any(), "NaN found after Flow Normalization."
     assert not torch.isinf(normalized_output).any(), "Inf found after Flow Normalization."
 
-    print(
-        "Test passed: Golden Attractor Flow Normalisation v3 (GAFEN) gracefully normalizes massive outliers using phi bounds."
-    )
+    print("Test passed: Golden Attractor Flow Normalisation v3 (GAFEN) gracefully normalizes massive outliers using phi bounds.")
 
 
 if __name__ == "__main__":

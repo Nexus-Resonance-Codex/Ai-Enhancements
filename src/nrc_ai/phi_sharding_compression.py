@@ -34,9 +34,7 @@ class PhiShardingCompression(nn.Module):
                         self.golden_matrix[i, j] = self.phi**-dist
 
             # Normalize to preserve variance
-            self.golden_matrix.data = torch.nn.functional.normalize(
-                self.golden_matrix.data, p=2, dim=1
-            )
+            self.golden_matrix.data = torch.nn.functional.normalize(self.golden_matrix.data, p=2, dim=1)
 
     def forward(self, x: torch.Tensor) -> torch.Tensor:
         """Compresses input x into the stabilized 512D sub-lattice."""

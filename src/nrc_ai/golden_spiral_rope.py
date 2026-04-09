@@ -17,16 +17,18 @@ class GoldenSpiralRotaryEmbedding(nn.Module):
     how large the sequence radius grows physically.
     """
 
-    def __init__(self, dim: int, max_seq_len: int = 4096):
+    def __init__(self, dim: int, max_seq_len: int = 4096) -> None:
         super().__init__()
         self.dim = dim
 
         # We pre-calculate the topological Golden Spiral matrix natively
         self.register_buffer("inv_phi_spiral", self._build_phi_frequencies(dim))
         self.register_buffer("seq_spiral_tensor", self._build_sequence_mappings(max_seq_len))
+        self.inv_phi_spiral: torch.Tensor
+        self.seq_spiral_tensor: torch.Tensor
 
     def _build_phi_frequencies(self, dim: int) -> torch.Tensor:
-        """Creates the scaling frequency dimension using explicit Phi^N logic instead
+        """Creates the scaling frequency dimension using explicit Phi^N logic instead.
 
         of arbitrary exponential integers natively.
         """
@@ -45,7 +47,7 @@ class GoldenSpiralRotaryEmbedding(nn.Module):
         return torch.arange(max_seq_len, dtype=torch.float32)
 
     def forward(self, x: torch.Tensor, seq_dim: int = 1) -> torch.Tensor:
-        """Calculates the explicit sine and cosine frequency boundaries and injects
+        """Calculates the explicit sine and cosine frequency boundaries and injects.
 
         the Golden Spiral matrices structurally onto the embeddings geometrically.
         """

@@ -1,3 +1,5 @@
+from typing import cast
+
 import torch
 import torch.nn as nn
 from nrc_math import apply_exclusion_gate
@@ -18,11 +20,12 @@ class LucasWeightedSparseAttention(nn.Module):
     by Lucas index distances.
     """
 
-    def __init__(self, max_seq_length: int = 4096):
+    def __init__(self, max_seq_length: int = 4096) -> None:
         super().__init__()
         self.max_seq_len = max_seq_length
         # Precompute the static topological mask in the buffer to prevent redundant calculations
         self.register_buffer("lucas_exclusion_mask", self._build_lucas_mask())
+        self.lucas_exclusion_mask: torch.Tensor
 
     def _build_lucas_mask(self) -> torch.Tensor:
         """Calculates the 2D Sequence x Sequence tensor identifying resonant Lucas gaps natively."""
@@ -56,4 +59,4 @@ class LucasWeightedSparseAttention(nn.Module):
         """Dynamically fetches the exact sequence size needed from the pre-computed fractal mask structure."""
         # Slices from 0 to seq_len
         # (Usually added or multiplied to raw Dot Product Q-K logits directly before softmax)
-        return self.lucas_exclusion_mask[:seq_len, :seq_len]
+        return cast(torch.Tensor, self.lucas_exclusion_mask[:seq_len, :seq_len])

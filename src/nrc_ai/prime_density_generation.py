@@ -1,3 +1,5 @@
+from typing import cast
+
 import torch
 import torch.nn as nn
 
@@ -46,16 +48,18 @@ class PrimeDensityConditionedGeneration(nn.Module):
         return mask
 
     def forward(self, input_ids: torch.Tensor, logits: torch.Tensor) -> torch.Tensor:
-        """Args:
+        """Calculates conditioned logits toward prime-density alignment.
 
+        Args:
             input_ids: (batch_size, seq_len) The current generation context.
             logits: (batch_size, vocab_size) The next-token probabilistic logits.
 
         Returns:
             Conditioned logits mathematically pushed toward prime-density alignment.
         """
-        # We simply add the static structural bounds directly into the logit space
-        # prior to final softmax sampling.
-        conditioned_logits = logits + self.density_boost_mask
-
-        return conditioned_logits
+        # 1. Structural Coupling
+        # Projected field resonance is added back to original logits
+        # We ensure explicit Tensor addition
+        projected_field = self.prime_field_proj(logits)
+        output = logits + projected_field
+        return cast(torch.Tensor, output)

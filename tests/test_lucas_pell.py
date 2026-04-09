@@ -11,7 +11,7 @@ from nrc_ai.lucas_pell_decay import LucasPellHybridWeightDecay
 
 
 def test_lucas_pell_hybrid_decay() -> None:
-    """Validates Enhancement #21: The Lucas-Pell Hybrid Weight Decay algebraically applies
+    """Validates Enhancement #21: The Lucas-Pell Hybrid Weight Decay algebraically applies.
 
     lighter Silver-Ratio decay to massive foundational tensors, and heavy Phi-Decay
     to tiny chaotic floating bits.
@@ -39,16 +39,10 @@ def test_lucas_pell_hybrid_decay() -> None:
     actual_dominant_loss = dominant_initial - p_dominant
     actual_chaotic_loss = chaotic_initial - p_chaotic
 
-    assert torch.allclose(actual_dominant_loss, expected_dominant_loss), (
-        "Dominate features breached Pell integer protection mapping."
-    )
-    assert torch.allclose(actual_chaotic_loss, expected_chaotic_loss), (
-        "Chaotic micro-features bypassed Lucas-Phi destruction limits."
-    )
+    assert torch.allclose(actual_dominant_loss, expected_dominant_loss), "Dominate features breached Pell integer protection mapping."
+    assert torch.allclose(actual_chaotic_loss, expected_chaotic_loss), "Chaotic micro-features bypassed Lucas-Phi destruction limits."
 
-    print(
-        "Test passed: Lucas-Pell Hybrid boundaries safely protected macro-scale features while annihilating chaotic mathematical noise."
-    )
+    print("Test passed: Lucas-Pell Hybrid boundaries safely protected macro-scale features while annihilating chaotic mathematical noise.")
 
 
 if __name__ == "__main__":

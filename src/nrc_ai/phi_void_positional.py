@@ -18,7 +18,7 @@ class PhiVoidResonancePositionalEncoding(nn.Module):
     topologically to perfect physical spaces.
     """
 
-    def __init__(self, d_model: int, max_seq_len: int = 8192):
+    def __init__(self, d_model: int, max_seq_len: int = 8192) -> None:
         super().__init__()
         self.d_model = d_model
 
@@ -27,6 +27,7 @@ class PhiVoidResonancePositionalEncoding(nn.Module):
 
         # Precompute the entire positional spatial matrix immediately
         self.register_buffer("pe_matrix", self._build_positional_matrix(max_seq_len))
+        self.pe_matrix: torch.Tensor
 
     def _build_positional_matrix(self, max_len: int) -> torch.Tensor:
         """Creates the static topological grid merging sequence distances with the Phi^6 bounds."""
@@ -35,9 +36,7 @@ class PhiVoidResonancePositionalEncoding(nn.Module):
 
         # Instead of 10000.0, we use the literal mathematical phi^6 void base
         # to calculate the geometric expansion division term.
-        div_term = torch.exp(
-            torch.arange(0, self.d_model, 2).float() * (-math.log(self.phi_six_void) / self.d_model)
-        )
+        div_term = torch.exp(torch.arange(0, self.d_model, 2).float() * (-math.log(self.phi_six_void) / self.d_model))
 
         # Apply strict sine bounding on Evens
         pe[:, 0::2] = torch.sin(position * div_term)

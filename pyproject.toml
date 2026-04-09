@@ -43,12 +43,17 @@ dev = [
 packages = ["src/nrc_ai"]
 
 [tool.ruff]
-line-length = 100
+line-length = 150
 target-version = "py312"
 
 [tool.ruff.lint]
 select = ["E", "W", "F", "I", "C", "B", "ANN", "D"]
-ignore = ["D100", "D104", "ANN101", "ANN204"]
+ignore = ["D100", "D104", "ANN101", "ANN204", "ANN001", "ANN201", "ANN205", "D102", "D107", "E501"]
+
+[tool.ruff.lint.per-file-ignores]
+"tests/*" = ["D", "ANN", "C901", "E722", "B018"]
+"examples/*" = ["D", "ANN", "C901", "E722"]
+"proofs/*" = ["D", "ANN", "C901", "E722"]
 
 [tool.ruff.lint.pydocstyle]
 convention = "google"
@@ -58,6 +63,14 @@ strict = true
 python_version = "3.12"
 warn_return_any = true
 warn_unused_configs = true
+disallow_untyped_defs = true
+check_untyped_defs = true
+no_implicit_optional = true
+
+[[tool.mypy.overrides]]
+module = ["examples.*", "tests.*", "nrc_math.*", "transformers.*"]
+ignore_missing_imports = true
+disallow_untyped_defs = false
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]

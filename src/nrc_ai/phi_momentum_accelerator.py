@@ -1,4 +1,4 @@
-from typing import Callable, Iterable, Optional
+from typing import Callable, Iterable, Optional, overload
 
 import torch
 from nrc_math import PHI_FLOAT
@@ -25,8 +25,14 @@ class PhiInverseMomentumAccelerator(Optimizer):
         defaults = {"lr": lr, "beta": beta}
         super(PhiInverseMomentumAccelerator, self).__init__(params, defaults)
 
+    @overload
+    def step(self, closure: None = ...) -> None: ...
+
+    @overload
+    def step(self, closure: Callable[[], float]) -> float: ...
+
     @torch.no_grad()
-    def step(self, closure: Optional[Callable] = None):
+    def step(self, closure: Optional[Callable[[], float]] = None) -> Optional[float]:
         """Performs a single optimization step incorporating Phi-scaled momentum."""
         loss = None
         if closure is not None:

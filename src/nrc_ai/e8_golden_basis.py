@@ -1,3 +1,5 @@
+from typing import cast
+
 import torch
 import torch.nn as nn
 from nrc_math import PHI_FLOAT, apply_exclusion_gate
@@ -28,7 +30,7 @@ class E8GoldenBasisEmbedding(nn.Module):
         self._initialize_golden_basis()
 
     def _initialize_golden_basis(self) -> None:
-        """Locks the embedding matrices into the structural mathematical boundaries
+        """Locks the embedding matrices into the structural mathematical boundaries.
 
         of the NRC framework.
         """
@@ -60,4 +62,4 @@ class E8GoldenBasisEmbedding(nn.Module):
         # the golden trajectory before entering the core attention layers.
         resonant_embeds = base_embeds * PHI_FLOAT
 
-        return resonant_embeds
+        return cast(torch.Tensor, resonant_embeds)

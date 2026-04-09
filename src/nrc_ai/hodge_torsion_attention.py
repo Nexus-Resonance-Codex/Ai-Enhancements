@@ -1,4 +1,5 @@
 import math
+from typing import Optional, cast
 
 import torch
 import torch.nn as nn
@@ -55,35 +56,27 @@ class HodgePhiTTorsionAttention(nn.Module):
         # We broadcast across batch and num_heads: (1, 1, seq_len, seq_len)
         return torsion_bias.unsqueeze(0).unsqueeze(0)
 
-    def forward(
-        self, hidden_states: torch.Tensor, attention_mask: torch.Tensor = None
-    ) -> torch.Tensor:
-        """Args:
+    def forward(self, hidden_states: torch.Tensor, attention_mask: Optional[torch.Tensor] = None) -> torch.Tensor:
+        """Executes the Hodge-Torsion Attention pass.
 
-        hidden_states: (batch_size, seq_len, embed_dim)
-        attention_mask: Optional boolean or float mask.
+        Args:
+            hidden_states: (batch_size, seq_len, embed_dim)
+            attention_mask: Optional boolean or float mask.
         """
         batch_size, seq_len, _ = hidden_states.shape
 
-        # 1. Project Q, K, V
-        q = (
-            self.q_proj(hidden_states)
-            .view(batch_size, seq_len, self.num_heads, self.head_dim)
-            .transpose(1, 2)
-        )
-        k = (
-            self.k_proj(hidden_states)
-            .view(batch_size, seq_len, self.num_heads, self.head_dim)
-            .transpose(1, 2)
-        )
-        v = (
-            self.v_proj(hidden_states)
-            .view(batch_size, seq_len, self.num_heads, self.head_dim)
-            .transpose(1, 2)
-        )
+        # 1. Project to Q, K, V
+        q = self.q_proj(hidden_states)
+        k = self.k_proj(hidden_states)
+        v = self.v_proj(hidden_states)
 
-        # 2. Standard Dot Product (batch, heads, seq, seq)
-        attn_weights = torch.matmul(q, k.transpose(-2, -1)) * self.scale
+        # 2. Reshape to multi-head (B, H, S, D)
+        q = q.view(batch_size, seq_len, self.num_heads, self.head_dim).transpose(1, 2)
+        k = k.view(batch_size, seq_len, self.num_heads, self.head_dim).transpose(1, 2)
+        v = v.view(batch_size, seq_len, self.num_heads, self.head_dim).transpose(1, 2)
+
+        # 3. Calculate Scaled Dot-Product Attention
+        attn_weights = torch.matmul(q, k.transpose(-2, -1)) / math.sqrt(self.head_dim)
 
         # 3. Add Hodge-Phi Torsion Bias
         # This breaks isotropic attention isotropy geometrically
@@ -105,4 +98,4 @@ class HodgePhiTTorsionAttention(nn.Module):
         attn_output = attn_output.transpose(1, 2).contiguous()
         attn_output = attn_output.view(batch_size, seq_len, self.num_heads * self.head_dim)
 
-        return self.out_proj(attn_output)
+        return cast(torch.Tensor, self.out_proj(attn_output))

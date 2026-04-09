@@ -1,4 +1,5 @@
 import math
+from typing import cast
 
 import torch
 import torch.nn as nn
@@ -29,7 +30,7 @@ class GizaLatticeIsomorphism(nn.Module):
         self.register_buffer("isomorphism_matrix", self._build_giza_matrix())
 
     def _build_giza_matrix(self) -> torch.Tensor:
-        """Calculates a static non-learned transformation grid blending Phi limits
+        """Calculates a static non-learned transformation grid blending Phi limits.
 
         with the Great Pyramid boundary angles.
         """
@@ -54,4 +55,4 @@ class GizaLatticeIsomorphism(nn.Module):
         """Projects arbitrary vectors onto the resonant Giza grid."""
         # Matmul the incoming features sequentially through the rigid isomorphism lattice
         projected_states = torch.matmul(hidden_states, self.isomorphism_matrix)
-        return projected_states
+        return cast(torch.Tensor, projected_states)

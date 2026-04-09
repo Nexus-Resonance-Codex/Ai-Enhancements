@@ -10,7 +10,7 @@ from nrc_ai.shard_folding import PhiInfinityShardFolding
 
 
 def test_shard_folding_compression() -> None:
-    """Tests the deterministic property and geometric constraints of the
+    """Tests the deterministic property and geometric constraints of the.
 
     Phi Infinity Shard Folding Enhancement #1.
     """
@@ -32,9 +32,7 @@ def test_shard_folding_compression() -> None:
     compressed_2 = folding_module(test_tensor)
     assert torch.allclose(compressed, compressed_2), "Folding mapping is non-deterministic."
 
-    print(
-        "Test passed: Phi Infinity Shard Folding successfully maps tensor to fractional bounded modulus."
-    )
+    print("Test passed: Phi Infinity Shard Folding successfully maps tensor to fractional bounded modulus.")
 
 
 if __name__ == "__main__":

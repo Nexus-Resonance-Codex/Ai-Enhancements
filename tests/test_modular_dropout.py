@@ -9,7 +9,7 @@ from nrc_ai.modular_dropout import TUPTModularDropout
 
 
 def test_modular_dropout() -> None:
-    """Validates Enhancement #25: The Modular Dropout grid shreds parameters
+    """Validates Enhancement #25: The Modular Dropout grid shreds parameters.
 
     using strictly algebraic Mod-2187 placement indices without random logic failures.
     """
@@ -29,21 +29,15 @@ def test_modular_dropout() -> None:
     pruned_states = dropout(pure_states)
 
     # Validation A: Structural dimensionality continuity
-    assert pruned_states.shape == pure_states.shape, (
-        "Modular dropout physically fractured tensor dimensions inherently."
-    )
+    assert pruned_states.shape == pure_states.shape, "Modular dropout physically fractured tensor dimensions inherently."
 
     # Validation B: Confirm Mask activation successfully zeroed out components algebraically
     zeros_count = (pruned_states == 0.0).sum().item()
     total_elements = batch * seq * dim
 
-    assert zeros_count > 0, (
-        "No pathways were shredded. Mod-2187 topological scaler failed to execute boundaries."
-    )
+    assert zeros_count > 0, "No pathways were shredded. Mod-2187 topological scaler failed to execute boundaries."
 
-    print(
-        f"Modular Block dropped roughly {zeros_count} topological boundaries over {total_elements} available grid spaces algebraically."
-    )
+    print(f"Modular Block dropped roughly {zeros_count} topological boundaries over {total_elements} available grid spaces algebraically.")
 
     # Validation C: Check Scale Conservation Protocol (Inverted Dropout)
     # The pure states that SURVIVED the dropout should mathematically scale UPWARDS natively
@@ -56,9 +50,7 @@ def test_modular_dropout() -> None:
         "Dropout scaling mechanism destroyed sum-conservation boundaries natively."
     )
 
-    print(
-        "Test passed: 3-6-9-7 Modular Dropout grid structurally sheared noise via fixed TUPT algebraic placement correctly."
-    )
+    print("Test passed: 3-6-9-7 Modular Dropout grid structurally sheared noise via fixed TUPT algebraic placement correctly.")
 
 
 if __name__ == "__main__":

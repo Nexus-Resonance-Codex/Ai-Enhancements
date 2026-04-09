@@ -22,9 +22,10 @@ class PhiPoweredResonantWeighting(nn.Module):
         self.resonance_gate = nn.Parameter(torch.ones(in_features))
 
     def forward(self, hidden_states: torch.Tensor) -> torch.Tensor:
-        """Args:
+        """Calculates resonant weighting coefficients.
 
-        hidden_states: (batch_size, seq_len, in_features).
+        Args:
+            hidden_states: (batch_size, seq_len, in_features).
         """
         # We calculate the normalized variance of the current block
         variance = torch.var(hidden_states, dim=-1, keepdim=True)

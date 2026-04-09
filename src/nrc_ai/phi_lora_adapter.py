@@ -1,4 +1,5 @@
 import math
+from typing import Optional, cast
 
 import torch
 import torch.nn as nn
@@ -46,15 +47,16 @@ class PhiInfinityLosslessLoRA(nn.Module):
         self.shard_compressor_B = PhiInfinityShardFolding(k_steps=1)
 
     def reset_parameters(self) -> None:
-        """Following standard LoRA init but aligning to NRC stability bounds:
+        """Aligns to NRC stability bounds during initialization.
 
+        Following standard LoRA init but aligning to NRC stability bounds:
         A ~ Normal(0, sigma)
         B ~ Zeros.
         """
         nn.init.kaiming_uniform_(self.lora_A.weight, a=math.sqrt(5))
         nn.init.zeros_(self.lora_B.weight)
 
-    def forward(self, x: torch.Tensor, base_output: torch.Tensor = None) -> torch.Tensor:
+    def forward(self, x: torch.Tensor, base_output: Optional[torch.Tensor] = None) -> torch.Tensor:
         """Calculates the LoRA update structurally folded via the Golden Ratio.
 
         Args:
@@ -79,6 +81,6 @@ class PhiInfinityLosslessLoRA(nn.Module):
         lora_update = stable_up_proj * self.phi_scaling
 
         if base_output is not None:
-            return base_output + lora_update
+            return cast(torch.Tensor, base_output + lora_update)
 
-        return lora_update
+        return cast(torch.Tensor, lora_update)

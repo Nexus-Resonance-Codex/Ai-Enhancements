@@ -1,4 +1,5 @@
 import math
+from typing import cast
 
 import torch
 import torch.nn as nn
@@ -36,9 +37,7 @@ class QRTKernelConvolution(nn.Module):
         self.padding = padding
 
         # Base weights initialized identically to standard Conv2D
-        self.weight = nn.Parameter(
-            torch.Tensor(out_channels, in_channels, kernel_size, kernel_size)
-        )
+        self.weight = nn.Parameter(torch.Tensor(out_channels, in_channels, kernel_size, kernel_size))
         self.bias = nn.Parameter(torch.Tensor(out_channels))
 
         self.reset_parameters()
@@ -51,7 +50,7 @@ class QRTKernelConvolution(nn.Module):
             nn.init.uniform_(self.bias, -bound, bound)
 
     def forward(self, x: torch.Tensor) -> torch.Tensor:
-        """Dynamically calculates the QRT bounded filter weights before
+        """Dynamically calculates the QRT bounded filter weights before.
 
         executing standard spatial 2D sliding extraction.
         """
@@ -60,6 +59,6 @@ class QRTKernelConvolution(nn.Module):
         qrt_damped_kernel = execute_qrt_damping_tensor(self.weight)
 
         # 2. Execute standard 2D extraction using the stable fractal kernels
-        output = F.conv2d(x, qrt_damped_kernel, self.bias, self.stride, self.padding)
+        output = F.conv2d(x, cast(torch.Tensor, qrt_damped_kernel), self.bias, self.stride, self.padding)
 
         return output

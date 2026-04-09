@@ -30,10 +30,7 @@ def prove_3697_modular_exclusion() -> None:
     cycle = fib_mod9[0:24]
     for offset in [24, 48, 72]:
         segment = fib_mod9[offset : offset + 24]
-        assert cycle == segment, (
-            f"Pisano period mismatch at offset {offset}!\n"
-            f"  Expected: {cycle}\n  Got:      {segment}"
-        )
+        assert cycle == segment, f"Pisano period mismatch at offset {offset}!\n  Expected: {cycle}\n  Got:      {segment}"
 
     print("Pisano Period π(9) = 24  ✓  VERIFIED (checked 4 consecutive cycles)")
     print(f"Cycle: {cycle}\n")
@@ -65,10 +62,7 @@ def prove_3697_modular_exclusion() -> None:
     attractor_ratio = attractor_count / total
 
     print("-" * 70)
-    print(
-        f"\nAttractor nodes (0,3,6,7) occupy {attractor_count}/{total} = "
-        f"{attractor_ratio:.1%} of the Pisano cycle."
-    )
+    print(f"\nAttractor nodes (0,3,6,7) occupy {attractor_count}/{total} = {attractor_ratio:.1%} of the Pisano cycle.")
     print("This is the mathematical basis for deterministic gradient routing.\n")
 
     # --- Step 5: Verify exclusion principle ---
@@ -76,10 +70,7 @@ def prove_3697_modular_exclusion() -> None:
     # the COMPLEMENT of {0,3,6,7} mod 9 are marked chaotic.
     chaotic_nodes = {1, 2, 4, 5, 8}
     chaotic_count = sum(counts[n] for n in chaotic_nodes)
-    print(
-        f"Chaotic nodes (1,2,4,5,8) occupy {chaotic_count}/{total} = "
-        f"{chaotic_count / total:.1%} of the cycle."
-    )
+    print(f"Chaotic nodes (1,2,4,5,8) occupy {chaotic_count}/{total} = {chaotic_count / total:.1%} of the cycle.")
     print("These positions are where the Exclusion Router zeros gradients.\n")
 
     print("=" * 70)

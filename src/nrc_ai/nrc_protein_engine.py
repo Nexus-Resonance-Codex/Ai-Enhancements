@@ -1,3 +1,5 @@
+from typing import cast
+
 import torch
 from nrc_math import apply_exclusion_gate
 
@@ -14,7 +16,7 @@ class NRCProteinFoldingEngine(torch.nn.Module):
     Output = TUPT_E256(seq) ⊗ GTT_d(seq) + mod 9 chaotic exclusion
     """
 
-    def __init__(self, sequence_dim: int = 256, gtt_target_nats: float = 10.96):
+    def __init__(self, sequence_dim: int = 256, gtt_target_nats: float = 10.96) -> None:
         super().__init__()
         self.sequence_dim = sequence_dim
         self.gtt_target_nats = gtt_target_nats
@@ -44,4 +46,4 @@ class NRCProteinFoldingEngine(torch.nn.Module):
         # Any chaotic value falling on the sequence [1, 2, 4, 5, 8] mod 9 is gated to zero
         final_conformation = apply_exclusion_gate(gtt_aligned)
 
-        return final_conformation
+        return cast(torch.Tensor, final_conformation)

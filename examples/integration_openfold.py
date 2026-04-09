@@ -160,9 +160,7 @@ def main() -> None:
     for epoch, loss in enumerate(losses):
         should_stop = stopper(loss)
         marker = " ← STOP" if should_stop else ""
-        print(
-            f"  Epoch {epoch + 1}: loss={loss:.2f}  ratio={stopper.previous_loss / loss if loss > 0 else 0:.4f}{marker}"
-        )
+        print(f"  Epoch {epoch + 1}: loss={loss:.2f}  ratio={stopper.previous_loss / loss if loss > 0 else 0:.4f}{marker}")
         if should_stop:
             break
 

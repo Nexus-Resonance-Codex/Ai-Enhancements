@@ -11,7 +11,7 @@ from nrc_ai.shard_unfolder import InfiniteEInfinityContextUnfolder
 
 
 def test_infinite_e_inf_unfolder() -> None:
-    """Validates Enhancement #24: Ensures the Context Unfolder structurally reverses
+    """Validates Enhancement #24: Ensures the Context Unfolder structurally reverses.
 
     Phi-Shard memory compression algorithms, expanding cached geometries back to
     native execution size linearly.
@@ -31,9 +31,7 @@ def test_infinite_e_inf_unfolder() -> None:
     restored_state = unfolder(compressed_state, depth_layer=depth_layer)
 
     # Validation A: Structural footprint check
-    assert restored_state.shape == compressed_state.shape, (
-        "Unfolding grid corrupted tensor depth matrices natively."
-    )
+    assert restored_state.shape == compressed_state.shape, "Unfolding grid corrupted tensor depth matrices natively."
 
     # Validation B: Verification of lossless Algebraic Unfolding
     # We must recover exactly the original logical state prior to Phi-shard compression.
@@ -41,9 +39,7 @@ def test_infinite_e_inf_unfolder() -> None:
         "Phi expansion physics failed to losslessly recover compressed structural bounds."
     )
 
-    print(
-        f"Test passed: Infinite E_inf Unfolder seamlessly restored deep memory contexts algebraically (Depth: {depth_layer} Layers)."
-    )
+    print(f"Test passed: Infinite E_inf Unfolder seamlessly restored deep memory contexts algebraically (Depth: {depth_layer} Layers).")
 
 
 if __name__ == "__main__":

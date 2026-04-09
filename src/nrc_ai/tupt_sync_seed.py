@@ -1,21 +1,28 @@
+#  Nexus Resonance Codex - 2025-2026 Breakthrough Series
+#  Copyright (c) 2026 James Trageser (@jtrag)
+#
+#  Licensed under CC-BY-NC-SA-4.0 + NRC-L
+#  "This work is part of the Nexus Resonance Codex (NRC) incorporating TTT
+#  modular exclusion, phi^inf compression, 256D->729D lattice, QRT, and MST."
+
+"""TUPT Sync Seed: Structural Resonance Preservation.
+
+This module locks the global pseudorandom generators to the TTT-compliant
+modular bounds, ensuring that all subsequent operations remain anchored
+at digital root 7 stability.
+"""
+
 import torch
 
 
-class TUPTAttractorSyncSeed:
-    """Enhancement #14: 3-6-9-7 Attractor Synchronisation Seed v2.
+class TUPTSyncSeed:
+    """Enhancement #44: Trageser Universal Parity Transfer (TUPT) Sync-Seed.
 
-    Standard random number generators (RNG) in PyTorch (e.g. torch.manual_seed)
-    rely on arbitrary integers, meaning model initialization begins mathematically
-    un-aligned.
-
-    This enhancement is a utility class that forces system-wide hardware
-    synchronization to the NRC TUPT baseline matrix [3, 6, 9, 7].
-    By feeding the TUPT Mod 9 structure directly into CUDA and CPU entropy pools,
-    the model starts natively resting in the Golden Attractor well.
+    Locks all environment generators to a structurally stabilized TTT seed.
     """
 
     @staticmethod
-    def synchronize(base_multiplier: int = 1):
+    def synchronize(base_multiplier: int = 1) -> None:
         """Locks the global PyTorch training environment to the structurally resonant TUPT bounds."""
         # Compose the TUPT seed mathematically.
         # We merge [3, 6, 9, 7] into a massive structural integer bound.
@@ -36,5 +43,3 @@ class TUPTAttractorSyncSeed:
         # (Prevents non-deterministic kernels from dragging operations off-course)
         torch.backends.cudnn.deterministic = True
         torch.backends.cudnn.benchmark = False
-
-        return resonant_seed

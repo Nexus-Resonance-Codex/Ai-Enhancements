@@ -19,7 +19,7 @@ class GizaSlopeAttentionBias(nn.Module):
     crystalline structures within deep attention spaces.
     """
 
-    def __init__(self, max_seq_len: int = 4096):
+    def __init__(self, max_seq_len: int = 4096) -> None:
         super().__init__()
         # Calculate the pure mathematical constant geometrically
         # The exact lattice boundary is theta = arctan(sqrt(phi)) (~51.827 degrees).
@@ -29,6 +29,7 @@ class GizaSlopeAttentionBias(nn.Module):
 
         # We pre-compute the 2D bias block structure (Seq x Seq) natively
         self.register_buffer("giza_attention_bias", self._build_bias_matrix(max_seq_len))
+        self.giza_attention_bias: torch.Tensor
 
     def _build_bias_matrix(self, max_seq_len: int) -> torch.Tensor:
         """Calculates the static 2D positional grid embedding the 51.85 degree limits natively."""

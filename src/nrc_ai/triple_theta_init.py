@@ -3,7 +3,7 @@ import torch.nn as nn
 from nrc_math import PHI_FLOAT, apply_exclusion_gate
 
 
-def triple_theta_init_(tensor: torch.Tensor, mean=0.0, std=1.0) -> torch.Tensor:
+def triple_theta_init_(tensor: torch.Tensor, mean: float = 0.0, std: float = 1.0) -> torch.Tensor:
     """Enhancement #4: Triple-Theta Initialisation v3.
 
     A mathematically constrained initialization method for Neural Network weights.
@@ -56,7 +56,7 @@ def triple_theta_init_(tensor: torch.Tensor, mean=0.0, std=1.0) -> torch.Tensor:
 
 
 class TripleThetaInitializer(nn.Linear):
-    """A standard PyTorch Linear layer that utilizes NRC Triple-Theta Initialisation v3
+    """A standard PyTorch Linear layer that utilizes NRC Triple-Theta Initialisation v3.
 
     automatically upon instantiation.
     """

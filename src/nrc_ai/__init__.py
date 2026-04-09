@@ -14,15 +14,15 @@ from .exclusion_gradient_router import BiologicalExclusionGradientRouter
 from .floor_sinh_activation import FloorSinhActivation
 from .giza_attention_bias import GizaSlopeAttentionBias
 from .giza_isomorphism import GizaLatticeIsomorphism
-from .golden_flow_norm import GoldenAttractorFlowNorm
+from .golden_flow_norm import GoldenFlowNorm
 from .golden_spiral_rope import GoldenSpiralRotaryEmbedding
 from .gtt_entropy_regulariser import GTTEntropyCollapseRegularizer
 from .hodge_torsion_attention import HodgePhiTTorsionAttention
 from .lucas_pell_decay import LucasPellHybridWeightDecay
 from .lucas_sparse_mask import LucasWeightedSparseAttention
-from .memory import ExecutiveAgent, SpiralMemory
+from .memory import ExecutiveAgent, PhiSpiralMemory
 from .modular_dropout import TUPTModularDropout
-from .mst_lyapunov_clipping import MSTLyapunovGradientClipping
+from .mst_lyapunov_clipping import MSTLyapunovClipping
 from .navier_stokes_damping import NavierStokesDampingRegularizer
 from .nrc_protein_engine import NRCProteinFoldingEngine
 from .phi_lora_adapter import PhiInfinityLosslessLoRA
@@ -39,16 +39,16 @@ from .resonance_kv_cache import ResonanceShardKVCache
 from .shard_folding import PhiInfinityShardFolding
 from .shard_unfolder import InfiniteEInfinityContextUnfolder
 from .triple_theta_init import TripleThetaInitializer
-from .tupt_sync_seed import TUPTAttractorSyncSeed
+from .tupt_sync_seed import TUPTSyncSeed
 from .tupt_token_pruning import TUPTExclusionTokenPruning
 
 __all__ = [
     "__version__",
     "PhiInfinityShardFolding",
-    "SpiralMemory",
+    "PhiSpiralMemory",
     "ExecutiveAgent",
     "NRCProteinFoldingEngine",
-    "GoldenAttractorFlowNorm",
+    "GoldenFlowNorm",
     "TripleThetaInitializer",
     "ResonanceShardKVCache",
     "BiologicalExclusionGradientRouter",
@@ -59,12 +59,12 @@ __all__ = [
     "PrimeDensityConditionedGeneration",
     "GTTEntropyCollapseRegularizer",
     "PhiInverseMomentumAccelerator",
-    "TUPTAttractorSyncSeed",
+    "TUPTSyncSeed",
     "QRTKernelConvolution",
     "LucasWeightedSparseAttention",
     "PhiPoweredResonantWeighting",
     "GizaLatticeIsomorphism",
-    "MSTLyapunovGradientClipping",
+    "MSTLyapunovClipping",
     "PisanoModulatedLRSchedule",
     "LucasPellHybridWeightDecay",
     "TUPTExclusionTokenPruning",

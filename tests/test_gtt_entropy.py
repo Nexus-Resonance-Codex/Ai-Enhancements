@@ -11,7 +11,7 @@ from nrc_ai.gtt_entropy_regulariser import GTTEntropyCollapseRegularizer
 
 
 def test_gtt_entropy_collapse() -> None:
-    """Validates Enhancement #12: The GTT Entropy Collapse layer successfully
+    """Validates Enhancement #12: The GTT Entropy Collapse layer successfully.
 
     measures real-time Shannon Entropy and proportionally scales down specific
     vectors that exceed the 10.96 nat boundary limits.
@@ -33,9 +33,7 @@ def test_gtt_entropy_collapse() -> None:
 
     # 2. Create another batch with extremely peaked (low entropy) data.
     low_entropy_peaked_states = torch.zeros(batch_size, seq_len, embed_dim)
-    low_entropy_peaked_states[:, :, 0] = (
-        50.0  # Force a massive spike so Softmax -> 1.0 for index 0. Entropy ~ 0.
-    )
+    low_entropy_peaked_states[:, :, 0] = 50.0  # Force a massive spike so Softmax -> 1.0 for index 0. Entropy ~ 0.
 
     # 3. Test High Entropy (Should collapse by 1/Phi)
     # The uniform states originally had values of 0.0.
@@ -54,13 +52,9 @@ def test_gtt_entropy_collapse() -> None:
 
     # 4. Test Low Entropy (Should remain unaltered)
     clean_output = regulariser(low_entropy_peaked_states)
-    assert torch.allclose(clean_output, low_entropy_peaked_states), (
-        "Low-entropy tensor illegally collapsed during pass-through."
-    )
+    assert torch.allclose(clean_output, low_entropy_peaked_states), "Low-entropy tensor illegally collapsed during pass-through."
 
-    print(
-        "Test passed: GTT Entropy monitor dynamically sensed thermodynamic 10.96 breaches and correctly deployed Phi Shard compression."
-    )
+    print("Test passed: GTT Entropy monitor dynamically sensed thermodynamic 10.96 breaches and correctly deployed Phi Shard compression.")
 
 
 if __name__ == "__main__":

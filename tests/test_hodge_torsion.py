@@ -9,7 +9,7 @@ from nrc_ai.hodge_torsion_attention import HodgePhiTTorsionAttention
 
 
 def test_hodge_torsion_attention() -> None:
-    """Validates Enhancement #7: Hodge-phi^T Torsion Attention v3
+    """Validates Enhancement #7: Hodge-phi^T Torsion Attention v3.
 
     Ensures that the geometric torsion bias bounded by the Golden Ratio
     correctly integrates with standard Q-K dot products without breaking
@@ -30,9 +30,7 @@ def test_hodge_torsion_attention() -> None:
     output = attention_layer(hidden_states)
 
     # Check shape integrity
-    assert output.shape == (batch_size, seq_len, embed_dim), (
-        "Output dimensionality skewed by torsion bias."
-    )
+    assert output.shape == (batch_size, seq_len, embed_dim), "Output dimensionality skewed by torsion bias."
 
     # Check for Inf/NaN
     assert not torch.isnan(output).any(), "NaN detected in Hodge Torsion output."
@@ -42,14 +40,10 @@ def test_hodge_torsion_attention() -> None:
     dummy_loss = output.sum()
     dummy_loss.backward()
 
-    assert hidden_states.grad is not None, (
-        "Gradients failed to flow backwards through the Torsion Matrix."
-    )
+    assert hidden_states.grad is not None, "Gradients failed to flow backwards through the Torsion Matrix."
     assert not torch.isnan(hidden_states.grad).any(), "NaN encountered in backward gradient flow."
 
-    print(
-        "Test passed: Hodge-phi^T Torsion Attention successfully applied Golden geometric bias to dot-products."
-    )
+    print("Test passed: Hodge-phi^T Torsion Attention successfully applied Golden geometric bias to dot-products.")
 
 
 if __name__ == "__main__":

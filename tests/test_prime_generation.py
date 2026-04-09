@@ -26,6 +26,4 @@ def test_prime_density_generation() -> None:
 
     # Softmax check (The probability of token 7 should now mathematically eclipse token 3)
     probs = torch.nn.functional.softmax(conditioned, dim=-1)
-    assert probs[0, 7] > probs[0, 3], (
-        "Softmax mapping failed; boost did not manipulate probability."
-    )
+    assert probs[0, 7] > probs[0, 3], "Softmax mapping failed; boost did not manipulate probability."

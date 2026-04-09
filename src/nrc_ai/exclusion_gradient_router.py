@@ -1,3 +1,5 @@
+from typing import Any, cast
+
 import torch
 import torch.nn as nn
 from nrc_math import PHI_FLOAT, apply_exclusion_gate
@@ -16,7 +18,7 @@ class ExclusionGradientRouterFunction(Function):
     """
 
     @staticmethod
-    def forward(ctx, inputs):
+    def forward(ctx: Any, inputs: torch.Tensor) -> torch.Tensor:  # noqa: ANN401
         # Apply the exact Mod 9 gate from NRC
         # apply_exclusion_gate returns 0.0 for elements triggering the biological lockout
         routed_inputs = apply_exclusion_gate(inputs)
@@ -25,10 +27,10 @@ class ExclusionGradientRouterFunction(Function):
         mask = (routed_inputs != 0.0).type(inputs.dtype)
         ctx.save_for_backward(mask)
 
-        return routed_inputs
+        return cast(torch.Tensor, routed_inputs)
 
     @staticmethod
-    def backward(ctx, grad_output):
+    def backward(ctx: Any, grad_output: torch.Tensor) -> torch.Tensor:  # noqa: ANN401
         (mask,) = ctx.saved_tensors
 
         # 1. Biological Gradient Exclusion
@@ -40,7 +42,7 @@ class ExclusionGradientRouterFunction(Function):
         # flow along resonant trajectories
         resonant_grad = routed_grad * PHI_FLOAT
 
-        return resonant_grad
+        return cast(torch.Tensor, resonant_grad)
 
 
 class BiologicalExclusionGradientRouter(nn.Module):
@@ -53,8 +55,8 @@ class BiologicalExclusionGradientRouter(nn.Module):
     error signals along surviving golden paths.
     """
 
-    def __init__(self):
+    def __init__(self) -> None:
         super().__init__()
 
     def forward(self, x: torch.Tensor) -> torch.Tensor:
-        return ExclusionGradientRouterFunction.apply(x)
+        return cast(torch.Tensor, ExclusionGradientRouterFunction.apply(x)) # type: ignore[no-untyped-call]

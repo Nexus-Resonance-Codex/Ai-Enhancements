@@ -1,4 +1,4 @@
-from typing import Callable, Iterable, Optional
+from typing import Callable, Iterable, Optional, overload
 
 import torch
 from nrc_math import qrt_damping
@@ -29,8 +29,14 @@ class QRTTurbulenceOptimizer(Optimizer):
         defaults = {"lr": lr, "beta1": beta1, "beta2": beta2}
         super(QRTTurbulenceOptimizer, self).__init__(params, defaults)
 
+    @overload
+    def step(self, closure: None = ...) -> None: ...
+
+    @overload
+    def step(self, closure: Callable[[], float]) -> float: ...
+
     @torch.no_grad()
-    def step(self, closure: Optional[Callable] = None):
+    def step(self, closure: Optional[Callable[[], float]] = None) -> Optional[float]:
         """Executes a localized topological geometry step bounded by QRT physics."""
         loss = None
         if closure is not None:

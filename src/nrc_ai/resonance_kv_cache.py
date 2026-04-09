@@ -1,4 +1,4 @@
-from typing import Tuple
+from typing import Optional, Tuple
 
 import torch
 import torch.nn as nn
@@ -19,21 +19,21 @@ class ResonanceShardKVCache(nn.Module):
     while preserving resonance state.
     """
 
-    def __init__(self, folding_steps: int = 3, shard_capacity: int = 1024):
+    def __init__(self, folding_steps: int = 3, shard_capacity: int = 1024) -> None:
         super().__init__()
         self.shard_capacity = shard_capacity
+        self.cached_key: Optional[torch.Tensor] = None
+        self.cached_value: Optional[torch.Tensor] = None
         self.folding_compressor = PhiInfinityShardFolding(k_steps=folding_steps)
 
         # State tracks active uncompressed tokens and the historically folded shards
-        self.active_keys = None
-        self.active_values = None
-        self.folded_memory_keys = None
-        self.folded_memory_values = None
+        self.active_keys: Optional[torch.Tensor] = None
+        self.active_values: Optional[torch.Tensor] = None
+        self.folded_memory_keys: Optional[torch.Tensor] = None
+        self.folded_memory_values: Optional[torch.Tensor] = None
 
-    def forward(
-        self, new_keys: torch.Tensor, new_values: torch.Tensor
-    ) -> Tuple[torch.Tensor, torch.Tensor]:
-        """Appends new K/V states. If the active shard exceeds capacity, the active shard
+    def forward(self, new_keys: torch.Tensor, new_values: torch.Tensor) -> Tuple[Optional[torch.Tensor], Optional[torch.Tensor]]:
+        """Appends new K/V states. If the active shard exceeds capacity, the active shard.
 
         is mathematically folded into the permanent limit state using Phi^Infinity scaling.
 
@@ -47,6 +47,7 @@ class ResonanceShardKVCache(nn.Module):
             return self.active_keys, self.active_values
 
         # 2. Append incoming context to our active shard
+        assert self.active_keys is not None and self.active_values is not None
         self.active_keys = torch.cat([self.active_keys, new_keys], dim=1)  # dim 1 is seq_len
         self.active_values = torch.cat([self.active_values, new_values], dim=1)
 
@@ -80,6 +81,8 @@ class ResonanceShardKVCache(nn.Module):
         # (or composite with folded memory if it exists)
         if self.folded_memory_keys is not None:
             # Reconstruct virtually: Folded Memory + Active Shard
+            assert self.folded_memory_values is not None
+            assert self.active_keys is not None and self.active_values is not None
             total_k = torch.cat([self.folded_memory_keys, self.active_keys], dim=1)
             total_v = torch.cat([self.folded_memory_values, self.active_values], dim=1)
             return total_k, total_v

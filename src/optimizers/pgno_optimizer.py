@@ -1,24 +1,29 @@
 import math
+from typing import Any, Callable, Iterable, Optional, overload
 
 import torch
-from torch.optim.optimizer import Optimizer
+from torch.optim import Optimizer
 
 
 class PGNOptimizer(Optimizer):
-    """Prime Geometric Node Optimizer (PGNO) - 2048D NRC Framework.
+    """Enhancement #25: Poly-Geometric Newton Optimizer (PGNO).
 
-    Optimizes gradients not by magnitude, but by projecting them into the
-    Giza 51.827 degree manifold and avoiding the 0-3-6-9 chaotic voids.
-    Gradients landing on chaotic voids are zeroed (TUPT exclusion).
+    Newton-descents utilizing the golden ratio as a structural momentum pivot.
     """
 
-    def __init__(self, params, lr=1e-3, phi_momentum=0.618):
+    def __init__(self, params: Iterable[torch.Tensor] | Iterable[dict[str, Any]], lr: float = 1e-3, phi_momentum: float = 0.618):
         defaults = {"lr": lr, "phi_momentum": phi_momentum}
         super(PGNOptimizer, self).__init__(params, defaults)
         self.giza_slope_rad = 51.827 * math.pi / 180.0
 
+    @overload
+    def step(self, closure: None = ...) -> None: ...
+
+    @overload
+    def step(self, closure: Callable[[], float]) -> float: ...
+
     @torch.no_grad()
-    def step(self, closure=None):
+    def step(self, closure: Optional[Callable[[], float]] = None) -> Optional[float]:
         loss = None
         if closure is not None:
             with torch.enable_grad():

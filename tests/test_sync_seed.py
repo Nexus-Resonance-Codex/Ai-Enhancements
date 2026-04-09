@@ -10,6 +10,4 @@ def test_tupt_sync_seed() -> None:
 
     # 2. Root-7 Stability Check
     # Even if hardware resonance drifts, the seed MUST be anchored at Root-7
-    assert verify_root_7_stability(seed), (
-        f"Sync seed {seed} breached the Root-7 stability boundary!"
-    )
+    assert verify_root_7_stability(seed), f"Sync seed {seed} breached the Root-7 stability boundary!"

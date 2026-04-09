@@ -1,3 +1,5 @@
+from typing import cast
+
 import torch
 import torch.nn as nn
 from nrc_math import execute_qrt_damping_tensor
@@ -19,13 +21,13 @@ class NavierStokesDampingRegularizer(nn.Module):
     pulled back toward the Golden Attractor limit, preventing structural collapse.
     """
 
-    def __init__(self, damping_strength: float = 0.01):
+    def __init__(self, damping_strength: float = 0.01) -> None:
         super().__init__()
         # Strength dictates how heavily the QRT friction blends with the raw feed-forward values
         self.damping_strength = damping_strength
 
     def forward(self, hidden_states: torch.Tensor) -> torch.Tensor:
-        """Applies mathematical friction to activations that veer outside of
+        """Applies mathematical friction to activations that veer outside of.
 
         stable resonance limits.
         """
@@ -39,4 +41,4 @@ class NavierStokesDampingRegularizer(nn.Module):
         # effectively braking the signal dynamically.
         stabilized_states = hidden_states + (self.damping_strength * qrt_damped_states)
 
-        return stabilized_states
+        return cast(torch.Tensor, stabilized_states)

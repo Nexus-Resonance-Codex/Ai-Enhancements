@@ -1,9 +1,10 @@
 #!/usr/bin/env python3
 """NRC Hub Push Script.
-====================
+
 Pushes model card, generated dataset, and source to HuggingFace Hub.
-Requires:  pip install huggingface_hub
-           huggingface-cli login   (or set HF_TOKEN env variable)
+Requires:
+    pip install huggingface_hub
+    huggingface-cli login (or set HF_TOKEN env variable)
 
 Usage:
     python push_to_hub.py --repo-id Nexus-Resonance-Codex/nrc-Ai-Enhancements
@@ -14,9 +15,11 @@ import argparse
 import os
 import sys
 from pathlib import Path
+from typing import Optional
 
 
-def push(repo_id: str, model_card_path: str, dataset_path: str | None) -> None:
+def push(repo_id: str, model_card_path: str, dataset_path: Optional[str]) -> None:
+    """Pushes artifacts to the specified HuggingFace repository."""
     try:
         from huggingface_hub import HfApi, create_repo
     except ImportError:
@@ -67,6 +70,7 @@ def push(repo_id: str, model_card_path: str, dataset_path: str | None) -> None:
 
 
 def main() -> None:
+    """Parses arguments and initiates the HuggingFace manifold sync."""
     parser = argparse.ArgumentParser()
     parser.add_argument("--repo-id", default="Nexus-Resonance-Codex/nrc-Ai-Enhancements")
     parser.add_argument("--card", default=str(Path(__file__).parent / "MODEL_CARD.md"))

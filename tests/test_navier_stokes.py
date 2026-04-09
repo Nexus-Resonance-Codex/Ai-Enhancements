@@ -9,7 +9,7 @@ from nrc_ai.navier_stokes_damping import NavierStokesDampingRegularizer
 
 
 def test_navier_stokes_damping() -> None:
-    """Validates Enhancement #10: Navier-Stokes Damping Regulariser smoothly
+    """Validates Enhancement #10: Navier-Stokes Damping Regulariser smoothly.
 
     brakes extreme tensor spikes utilizing the QRT topological decay bounds,
     and reliably passes shape execution mathematically.
@@ -30,24 +30,16 @@ def test_navier_stokes_damping() -> None:
     # 2. Forward execution through damping fluid
     damped_output = regulariser(exploding_states)
 
-    assert damped_output.shape == exploding_states.shape, (
-        "Regulariser altered spatial dimensionality of the tensor."
-    )
+    assert damped_output.shape == exploding_states.shape, "Regulariser altered spatial dimensionality of the tensor."
 
     # 3. Check QRT Friction limits
     # At extreme values, exp(-x^2 / phi) goes to 0, leaving only the cos((pi / phi) * x) boundary.
     # Therefore, the added friction penalty for a massive spike is purely oscillatory and bounded natively [-1, 1] * strength.
     # This proves the regulariser doesn't return massive inf/nan values when attempting to correct anomalies.
-    assert not torch.isnan(damped_output).any(), (
-        "NaN developed dynamically inside the QRT Navier-Stokes bounds."
-    )
-    assert not torch.isinf(damped_output).any(), (
-        "Inf triggered internally inside the QRT boundaries."
-    )
+    assert not torch.isnan(damped_output).any(), "NaN developed dynamically inside the QRT Navier-Stokes bounds."
+    assert not torch.isinf(damped_output).any(), "Inf triggered internally inside the QRT boundaries."
 
-    print(
-        "Test passed: Navier-Stokes Damping Regulariser survived extreme explosive states by utilizing QRT topological friction bounds."
-    )
+    print("Test passed: Navier-Stokes Damping Regulariser survived extreme explosive states by utilizing QRT topological friction bounds.")
 
 
 if __name__ == "__main__":

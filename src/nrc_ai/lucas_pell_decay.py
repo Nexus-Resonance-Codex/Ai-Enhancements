@@ -20,9 +20,7 @@ class LucasPellHybridWeightDecay:
     """
 
     @staticmethod
-    def apply_hybrid_decay_(
-        parameters: Iterable[torch.Tensor], base_decay_rate: float = 1e-4
-    ) -> None:
+    def apply_hybrid_decay_(parameters: Iterable[torch.Tensor], base_decay_rate: float = 1e-4) -> None:
         """Calculates and applies the physical topological decay limits in-place."""
         if isinstance(parameters, torch.Tensor):
             parameters = [parameters]

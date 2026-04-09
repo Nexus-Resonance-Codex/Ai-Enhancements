@@ -12,7 +12,7 @@ from nrc_ai.pisano_lr_schedule import PisanoModulatedLRSchedule
 
 
 def test_pisano_lr_schedule() -> None:
-    """Validates Enhancement #20: Ensures the Pisano-Modulated LR correctly pulses
+    """Validates Enhancement #20: Ensures the Pisano-Modulated LR correctly pulses.
 
     between a peak of Base_LR * Phi and a trough of Base_LR * (1/Phi).
     """
@@ -26,9 +26,7 @@ def test_pisano_lr_schedule() -> None:
     # Step 0: The very beginning of the cycle.
     # The cosine modifier is mathematically 1.0 -> We should be scaling purely by Phi.
     initial_lrs = scheduler.get_last_lr()
-    assert torch.isclose(torch.tensor(initial_lrs[0]), torch.tensor(PHI_FLOAT), rtol=1e-4), (
-        "Pisano Schedule failed to peak at the Golden bounds."
-    )
+    assert torch.isclose(torch.tensor(initial_lrs[0]), torch.tensor(PHI_FLOAT), rtol=1e-4), "Pisano Schedule failed to peak at the Golden bounds."
 
     # Step 12: Exactly half-way through the 24 period cycle.
     # The cosine modifier is mathematically 0.0 -> We should be structurally bottomed out at 1/Phi.
@@ -37,13 +35,9 @@ def test_pisano_lr_schedule() -> None:
         scheduler.step()
 
     trough_lrs = scheduler.get_last_lr()
-    assert torch.isclose(torch.tensor(trough_lrs[0]), torch.tensor(1.0 / PHI_FLOAT), rtol=1e-4), (
-        "Pisano Schedule failed to damp to the 1/Phi bounds."
-    )
+    assert torch.isclose(torch.tensor(trough_lrs[0]), torch.tensor(1.0 / PHI_FLOAT), rtol=1e-4), "Pisano Schedule failed to damp to the 1/Phi bounds."
 
-    print(
-        "Test passed: Pisano-Modulated Learning Rate strictly controlled the training bounds dynamically utilizing continuous Golden fractals."
-    )
+    print("Test passed: Pisano-Modulated Learning Rate strictly controlled the training bounds dynamically utilizing continuous Golden fractals.")
 
 
 if __name__ == "__main__":

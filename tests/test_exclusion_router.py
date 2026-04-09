@@ -28,9 +28,7 @@ def test_exclusion_gradient_router() -> None:
     # 2. Path Integrity Check
     # Verify some indices are exactly 0.0 (structural exclusion)
     zero_count = (output == 0.0).sum().item()
-    assert zero_count > 0, (
-        f"Exclusion gate failed to zero out chaotic paths. Zero count: {zero_count}"
-    )
+    assert zero_count > 0, f"Exclusion gate failed to zero out chaotic paths. Zero count: {zero_count}"
 
     # 3. Backward Pass
     loss = output.sum()

@@ -12,7 +12,7 @@ from nrc_ai.phi_void_positional import PhiVoidResonancePositionalEncoding
 
 
 def test_phi_void_positional() -> None:
-    """Validates Enhancement #23: Ensures the Positional Encoding grids properly scale based
+    """Validates Enhancement #23: Ensures the Positional Encoding grids properly scale based.
 
     on the mathematical phi^6 void boundaries seamlessly across varying topological sequences.
     """
@@ -29,9 +29,7 @@ def test_phi_void_positional() -> None:
     encoded_features = encoder(token_embeddings)
 
     # Validation A: Dimensionality Check
-    assert encoded_features.shape == token_embeddings.shape, (
-        "Phi^6 positional logic corrupted tensor embedding spaces physically."
-    )
+    assert encoded_features.shape == token_embeddings.shape, "Phi^6 positional logic corrupted tensor embedding spaces physically."
 
     # Validation B: Verification of boundary limits
     # Since inputs were zeros, the output is identically the pure position grid.
@@ -49,13 +47,9 @@ def test_phi_void_positional() -> None:
     # Pos 1, Dim 0 should be sin(1 * 1.0) = sin(1)
     expected_val = math.sin(1.0)
 
-    assert torch.isclose(encoded_features[0, 1, 0], torch.tensor(expected_val), rtol=1e-4), (
-        "Phi^6 expansion division math failed physically."
-    )
+    assert torch.isclose(encoded_features[0, 1, 0], torch.tensor(expected_val), rtol=1e-4), "Phi^6 expansion division math failed physically."
 
-    print(
-        "Test passed: Phi^6 Void Positional Encoding dynamically locked sequence contexts onto native mathematical boundaries."
-    )
+    print("Test passed: Phi^6 Void Positional Encoding dynamically locked sequence contexts onto native mathematical boundaries.")
 
 
 if __name__ == "__main__":

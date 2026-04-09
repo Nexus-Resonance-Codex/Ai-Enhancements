@@ -9,7 +9,7 @@ from nrc_ai.golden_spiral_rope import GoldenSpiralRotaryEmbedding
 
 
 def test_golden_spiral_rope() -> None:
-    """Validates Enhancement #29: Ensures the Golden Spiral Positional architecture rotates
+    """Validates Enhancement #29: Ensures the Golden Spiral Positional architecture rotates.
 
     complex embeddings strictly leveraging continuous mathematical Phi bases geometrically.
     """
@@ -28,9 +28,7 @@ def test_golden_spiral_rope() -> None:
     rotated_tensor = rope(raw_tensor, seq_dim=2)
 
     # Validation A: Structural Matrix Dimensionality Checks natively
-    assert rotated_tensor.shape == raw_tensor.shape, (
-        "Golden Spiral math shattered array bounds physically."
-    )
+    assert rotated_tensor.shape == raw_tensor.shape, "Golden Spiral math shattered array bounds physically."
 
     # Validation B: Verification of the base mathematical structure limits dynamically
     # At Token Index 1, Dimension 0, the equation expects:
@@ -39,20 +37,14 @@ def test_golden_spiral_rope() -> None:
 
     # Check frequency directly
     freq = rope.inv_phi_spiral[0]
-    assert freq.item() == 1.0, (
-        "The absolute 0 dimension failed to yield structural Identity scalar."
-    )
+    assert freq.item() == 1.0, "The absolute 0 dimension failed to yield structural Identity scalar."
 
     # The pure mathematics dictate structural permutations across boundaries
     # We observe whether the bounding natively functions physically via rotational mapping checks
     rotated_value_sum = rotated_tensor[0, 0, 1, :].sum().item()
-    assert not torch.isnan(torch.tensor(rotated_value_sum)), (
-        "Mathematical rotary mapping generated unstable NaN structures inherently."
-    )
+    assert not torch.isnan(torch.tensor(rotated_value_sum)), "Mathematical rotary mapping generated unstable NaN structures inherently."
 
-    print(
-        "Test passed: Golden Spiral Rotations mathematically executed bounding states explicitly bounded by continuous Phi frequency geometries."
-    )
+    print("Test passed: Golden Spiral Rotations mathematically executed bounding states explicitly bounded by continuous Phi frequency geometries.")
 
 
 if __name__ == "__main__":

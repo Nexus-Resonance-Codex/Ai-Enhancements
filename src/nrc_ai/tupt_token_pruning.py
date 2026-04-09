@@ -19,13 +19,14 @@ class TUPTExclusionTokenPruning(nn.Module):
     doomed to zero-resonance anyway.
     """
 
-    def __init__(self):
+    def __init__(self) -> None:
         super().__init__()
 
     def forward(self, hidden_states: torch.Tensor) -> torch.Tensor:
-        """Args:
+        """Applies TUPT Exclusion pruning to the hidden states.
 
-        hidden_states: (batch_size, seq_len, embed_dim).
+        Args:
+            hidden_states: (batch_size, seq_len, embed_dim).
         """
         # Determine current structural size
         batch_size, seq_len, embed_dim = hidden_states.shape

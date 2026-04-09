@@ -49,9 +49,7 @@ def prove_entropy_collapse() -> None:
         elif nrc_error < 1e-8:
             marker = "  ◀ Machine-epsilon zone"
 
-        print(
-            f"  {step:>4}  |  {nrc_error:>18.12f}  |  {std_error:>18.5f}  |  {speedup:>10.1f}x{marker}"
-        )
+        print(f"  {step:>4}  |  {nrc_error:>18.12f}  |  {std_error:>18.5f}  |  {speedup:>10.1f}x{marker}")
 
     print("-" * 75)
     print(f"\n  Final NRC Error after 35 steps: {nrc_error:.15e}")
