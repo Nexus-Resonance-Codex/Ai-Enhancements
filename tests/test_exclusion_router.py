@@ -14,12 +14,11 @@ def test_exclusion_gradient_router() -> None:
 
     # 1. Forward Pass
     # Create a leaf tensor to ensure .grad is populated
-    x = torch.randn(2, 16, dim)
-    x.requires_grad_(True)
-
-    # Scale inputs to trigger exclusion gate logic (integer mod 9)
-    # Use a high-range input to ensure chaotic sequences appear
-    scaled_x = x * 5000.0
+    # Create integer-aligned inputs to ensure we hit Mod 9 zones (0, 3, 6)
+    # Use randint then cast to float for the nn.Module
+    scaled_x = torch.randint(0, 100, (2, 16, dim)).float()
+    scaled_x.requires_grad_(True)
+    x = scaled_x # Track for grad check
     output = router(scaled_x)
 
     assert output.shape == x.shape
@@ -39,8 +38,8 @@ def test_exclusion_gradient_router() -> None:
     survivor_mask = output != 0.0
     grad_active = x.grad[survivor_mask]
 
-    # Mathematical expectation: unit_grad * phi * scale
-    expected_grad = PHI_FLOAT * 5000.0
+    # Mathematical expectation: unit_grad * phi
+    expected_grad = PHI_FLOAT
     assert torch.allclose(grad_active, torch.full_like(grad_active, expected_grad), rtol=1e-5), (
         f"Gradients were not correctly amplified! Found {grad_active[0].item()}, Expected {expected_grad}"
     )

@@ -4,17 +4,17 @@ from nrc_math import TUPT_PATTERN as TUPT_CHAOTIC
 
 
 class TUPTModularDropout(nn.Module):
-    """Enhancement #25: 0-3-6-9 Chaotic Void Modular Dropout Pattern.
+    """Enhancement #25: TTT Modular Residue Stability Dropout.
 
     Standard Dropout mechanisms (e.g. Dropout(0.1)) annihilate network
     connections randomly via arbitrary Bernoulli distributions. This destroys
-    mathematical topology blindly.
+    mathematical topology without consideration for structural stability nodes.
 
-    The NRC Modular Dropout Pattern entirely replaces structural randomization.
-    Instead of guessing, it generates a structural dropout mask aligning natively
-    to the Mod-9 domain. Connections that violate biological progression
-    and map to the Chaotic sequence [0, 3, 6, 9] are pruned, leaving the
-    structurally stable pathways perfectly un-sheared.
+    The NRC Modular Dropout Pattern replaces random attenuation with structured
+    stability alignment. It generates a structural dropout mask aligned to the 
+    Mod-9 domain. Connections that correspond to unstable modular residue classes 
+    as defined by the Trageser Transformation Theorem (TTT) are prioritized for 
+    gating, preserving structurally stable pathways.
     """
 
     def __init__(self, probability: float = 0.1):

@@ -7,7 +7,7 @@ mathematical foundation for the Pisano-Modulated Learning Rate Schedule.
 
 Used by:
   - Enhancement #20: Pisano-Modulated Learning Rate Schedule
-  - Enhancement #14: 3-6-9-7 Attractor Synchronisation Seed
+  - Enhancement #14: TTT Anchor Synchronization Seed (TUPTSyncSeed)
 =============================================================================
 """
 

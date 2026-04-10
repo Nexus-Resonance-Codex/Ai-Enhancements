@@ -27,7 +27,9 @@ class GoldenFlowNorm(nn.Module):
 
     def __init__(self, hidden_dim: int, eps: float = 1e-6):
         super().__init__()
+        self.hidden_dim = hidden_dim
         self.eps = eps
+        self.phi = PHI_FLOAT
         self.gamma = nn.Parameter(torch.ones(hidden_dim))
         self.beta = nn.Parameter(torch.zeros(hidden_dim))
 

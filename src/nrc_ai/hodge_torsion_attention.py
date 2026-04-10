@@ -29,9 +29,9 @@ class HodgePhiTTorsionAttention(nn.Module):
         self.head_dim = embed_dim // num_heads
         self.scale = 1.0 / math.sqrt(self.head_dim)
 
-        # NRC precise torsion limit mapped directly to analytical radians
-        # The torsion scalar dictates the "twist" amplitude applied across the diagonal
-        self.giza_torsion_radians = math.atan(math.sqrt(PHI_FLOAT))
+        # Optimal geometric damping angle mapped directly to analytical radians
+        # The torsion scalar dictates the "skew" amplitude applied across the diagonal
+        self.qrt_torsion_angle = math.atan(math.sqrt(PHI_FLOAT))
 
         # Structural Q, K, V projections
         self.q_proj = nn.Linear(embed_dim, embed_dim)
@@ -49,9 +49,9 @@ class HodgePhiTTorsionAttention(nn.Module):
         position_indices = torch.arange(seq_len, device=device, dtype=torch.float32)
         relative_positions = position_indices.unsqueeze(0) - position_indices.unsqueeze(1)
 
-        # Apply the Giza twist angle and the Phi constant
-        # phi_torsion = phi * sin(theta_giza * relative_distance)
-        torsion_bias = PHI_FLOAT * torch.sin(self.giza_torsion_radians * relative_positions)
+        # Apply the optimal geometric damping angle and the Phi constant
+        # phi_torsion = phi * sin(theta_qrt * relative_distance)
+        torsion_bias = PHI_FLOAT * torch.sin(self.qrt_torsion_angle * relative_positions)
 
         # We broadcast across batch and num_heads: (1, 1, seq_len, seq_len)
         return torsion_bias.unsqueeze(0).unsqueeze(0)

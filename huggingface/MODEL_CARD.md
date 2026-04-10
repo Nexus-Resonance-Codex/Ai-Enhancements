@@ -70,59 +70,59 @@ x_{n+1} = |floor(1000·sinh(x_n)) + log(x_n²+1) + φ^{x_n}| mod 24389
 
 _Cycle length: ~2100 phases, Lyapunov exponent λ ≈ 0.381_
 
-### 3. TUPT Exclusion Gate (3-6-9-7)
-
-Biologically-informed signal gating:
-
-```
-TUPT(x) = 0  if  (x mod 2187) divisible by {3, 6, 7, 9}
-         x  otherwise
-```
-
-### 4. 2048D Phi-Lattice Projection
-
-Maps any signal into the Golden Ratio hyperdimensional space:
-
-```
-L_i(x) = x · φ^{-i/2048} · cos(i · Giza_rad)
-```
-
----
-
-## All 30 Enhancements
-
-| #   | Module Class                         | Replaces          | Key Formula                |
-| :-- | :----------------------------------- | :---------------- | :------------------------- |
-| 1   | `PhiInfinityShardFolding`            | Attention         | φ^∞ shard topology         |
-| 2   | `NRCProteinFoldingEngine`            | Scaffold          | 2048D lattice TUPT filter  |
-| 3   | `GoldenAttractorFlowNorm`            | LayerNorm         | φ-attractor normalization  |
-| 4   | `TripleThetaInitializer`             | Xavier Init       | 3θ resonance seed          |
-| 5   | `ResonanceShardKVCache`              | KV-Cache          | φ^n memory sharding        |
-| 6   | `BiologicalExclusionGradientRouter`  | Gradient clipping | TUPT mod-9 gate            |
-| 7   | `HodgePhiTTorsionAttention`          | Self-Attention    | Hodge torsion biasing      |
-| 8   | `E8GoldenBasisEmbedding`             | Embedding         | E8 root basis + φ          |
-| 9   | `PhiInfinityLosslessLoRA`            | LoRA              | φ^∞ lossless adapter       |
-| 10  | `NavierStokesDampingRegularizer`     | L2 Regularizer    | NS fractional damping      |
-| 11  | `PrimeDensityConditionedGeneration`  | Sampling          | Prime density seeds        |
-| 12  | `GTTEntropyCollapseRegularizer`      | Entropy penalty   | GTT threshold collapse     |
-| 13  | `PhiInverseMomentumAccelerator`      | Momentum          | φ⁻¹ velocity scaling       |
-| 14  | `TUPTAttractorSyncSeed`              | RNG Seed          | TUPT cycle sync            |
-| 15  | `QRTKernelConvolution`               | Conv1D/2D         | QRT wave kernel            |
-| 16  | `LucasWeightedSparseAttention`       | Sparse Attn       | Lucas number masking       |
-| 17  | `PhiPoweredResonantWeighting`        | Weight init       | φ^n spectral decay         |
-| 18  | `GizaLatticeIsomorphism`             | Projection        | 51.85° slope map           |
-| 19  | `MSTLyapunovGradientClipping`        | Grad clip         | MST λ≈0.381 bound          |
-| 20  | `PisanoModulatedLRSchedule`          | LR Schedule       | Pisano period cycle        |
-| 21  | `LucasPellHybridWeightDecay`         | Weight Decay      | Lucas-Pell recursion       |
-| 22  | `TUPTExclusionTokenPruning`          | Token pruning     | Mod-9 pruning gate         |
-| 23  | `PhiVoidResonancePositionalEncoding` | RoPE/APE          | φ-void sinusoidal PE       |
-| 24  | `InfiniteEInfinityContextUnfolder`   | Context window    | E∞ recursive unfolding     |
-| 25  | `TUPTModularDropout`                 | Dropout           | TUPT-gated structural drop |
-| 26  | `QRTTurbulenceOptimizer`             | Adam/AdaGrad      | QRT turbulence gradient    |
-| 27  | `GizaSlopeAttentionBias`             | Attention bias    | 51.85° Giza weighting      |
-| 28  | `FloorSinhActivation`                | ReLU/GELU         | floor(sinh(x)) + φ term    |
-| 29  | `GoldenSpiralRotaryEmbedding`        | RoPE              | φ-spiral rotation matrix   |
-| 30  | `NRCEntropyAttractorEarlyStopping`   | Early stopping    | NRC entropy convergence    |
+### 3. TTT Modular Residue Alignment
+ 
+ Structural stability through modular constraints:
+ 
+ ```
+ TTT(x) = 0  if  (x mod 9) \in \{3, 6, 9\}  # Chaotic Void Exclusion logic
+          x  otherwise
+ ```
+ 
+ ### 4. 2048D Coordinate Lattice Projection
+ 
+ Maps any signal into high-dimensional coordinate space:
+ 
+ ```
+ L_i(x) = x · φ^{-i/2048} · cos(i · THETA_QRT)
+ ```
+ 
+ ---
+ 
+ ## All 30 Enhancements
+ 
+ | #   | Module Class                         | Replaces          | Key Formula                |
+ | :-- | :----------------------------------- | :---------------- | :------------------------- |
+ | 1   | `PhiInfinityShardFolding`            | Attention         | φ^∞ shard topology         |
+ | 2   | `NRCProteinFoldingEngine`            | Scaffold          | 2048D lattice TTT filter   |
+ | 3   | `GoldenAttractorFlowNorm`            | LayerNorm         | φ-attractor normalization  |
+ | 4   | `TripleThetaInitializer`             | Xavier Init       | 3θ resonance seed          |
+ | 5   | `ResonanceShardKVCache`              | KV-Cache          | φ^n memory sharding        |
+ | 6   | `BiologicalExclusionGradientRouter`  | Gradient clipping | TUPT mod-9 gate            |
+ | 7   | `HodgePhiTTorsionAttention`          | Self-Attention    | Hodge torsion biasing      |
+ | 8   | `E8GoldenBasisEmbedding`             | Embedding         | E8 root basis + φ          |
+ | 9   | `PhiInfinityLosslessLoRA`            | LoRA              | φ^∞ lossless adapter       |
+ | 10  | `NavierStokesDampingRegularizer`     | L2 Regularizer    | NS fractional damping      |
+ | 11  | `PrimeDensityConditionedGeneration`  | Sampling          | Prime density seeds        |
+ | 12  | `GTTEntropyCollapseRegularizer`      | Entropy penalty   | GTT threshold collapse     |
+ | 13  | `PhiInverseMomentumAccelerator`      | Momentum          | φ⁻¹ velocity scaling       |
+ | 14  | `TUPTAttractorSyncSeed`              | RNG Seed          | TUPT cycle sync            |
+ | 15  | `QRTKernelConvolution`               | Conv1D/2D         | QRT wave kernel            |
+ | 16  | `LucasWeightedSparseAttention`       | Sparse Attn       | Lucas number masking       |
+ | 17  | `PhiPoweredResonantWeighting`        | Weight init       | φ^n spectral decay         |
+ | 18  | `GeometricLatticeIsomorphism`        | Projection        | 51.85° damping map         |
+ | 19  | `MSTLyapunovGradientClipping`        | Grad clip         | MST λ≈0.381 bound          |
+ | 20  | `PisanoModulatedLRSchedule`          | LR Schedule       | Pisano period cycle        |
+ | 21  | `LucasPellHybridWeightDecay`         | Weight Decay      | Lucas-Pell recursion       |
+ | 22  | `TUPTExclusionTokenPruning`          | Token pruning     | Mod-9 pruning gate         |
+ | 23  | `PhiVoidResonancePositionalEncoding` | RoPE/APE          | φ-void sinusoidal PE       |
+ | 24  | `InfiniteEInfinityContextUnfolder`   | Context window    | E∞ recursive unfolding     |
+ | 25  | `TUPTModularDropout`                 | Dropout           | TUPT-gated structural drop |
+ | 26  | `QRTTurbulenceOptimizer`             | Adam/AdaGrad      | QRT turbulence gradient    |
+ | 27  | `QRTGeometricAttentionBias`          | Attention bias    | 51.85° damping weighting   |
+ | 28  | `FloorSinhActivation`                | ReLU/GELU         | floor(sinh(x)) + φ term    |
+ | 29  | `GoldenSpiralRotaryEmbedding`        | RoPE              | φ-spiral rotation matrix   |
+ | 30  | `NRCEntropyAttractorEarlyStopping`   | Early stopping    | NRC entropy convergence    |
 
 ---
 

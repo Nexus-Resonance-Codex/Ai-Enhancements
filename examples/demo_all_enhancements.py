@@ -27,37 +27,37 @@ import torch
 # ---------------------------------------------------------------------------
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "src")))
 
-from enhancements import (
+from nrc_ai import (
     BiologicalExclusionGradientRouter,
     E8GoldenBasisEmbedding,
-    FloorSinhActivationRegularizer,
-    GizaLatticeIsomorphismProjection,
-    GizaSlopeAngleAwareAttentionBias,
+    FloorSinhActivation,
+    GeometricLatticeIsomorphism,
     GoldenAttractorFlowNorm,
     GoldenSpiralRotaryEmbedding,
-    GTTEntropyCollapseRegulariser,
+    GTTEntropyCollapseRegularizer,
     HodgePhiTTorsionAttention,
-    InfiniteContextShardUnfolder,
+    InfiniteEInfinityContextUnfolder,
     LucasPellHybridWeightDecay,
-    LucasWeightedSparseAttentionMask,
-    ModularDropout3697,
-    MSTLyapunovGradientClipper,
-    NavierStokesDampingRegulariser,
+    LucasWeightedSparseAttention,
+    MSTLyapunovClipping,
+    NavierStokesDampingRegularizer,
     NRCEntropyAttractorEarlyStopping,
     NRCProteinFoldingEngine,
     PhiInfinityLosslessLoRA,
     PhiInfinityShardFolding,
     PhiInverseMomentumAccelerator,
-    PhiResonantWeighting,
+    PhiPoweredResonantWeighting,
     PhiVoidResonancePositionalEncoding,
     PisanoModulatedLRSchedule,
     PrimeDensityConditionedGeneration,
+    QRTGeometricAttentionBias,
     QRTKernelConvolution,
-    QRTTurbulenceAdaptiveOptimizer,
+    QRTTurbulenceOptimizer,
     ResonanceShardKVCache,
-    TripleThetaInitialiser,
-    TUPTAttractorSyncSeed,
-    TUPTExclusionTokenPruner,
+    TripleThetaInitializer,
+    TUPTSyncSeed,
+    TUPTExclusionTokenPruning,
+    TUPTModularDropout,
 )
 from nrc_math import (
     PHI_FLOAT,
@@ -117,7 +117,7 @@ def main() -> None:
     check_tensor("MST Step Function", mst_out)
 
     gate_out = apply_exclusion_gate(torch.arange(20, dtype=torch.float32))
-    check_tensor("TUPT Exclusion Gate", gate_out)
+    check_tensor("TTT Modular Residue Gate", gate_out)
 
     # ------------------------------------------------------------------
     print("\n── Enhancements 1-10 (Core Architecture) ───────────────────")
@@ -136,7 +136,7 @@ def main() -> None:
     check_tensor("#03 GAFEN", e3(x))
 
     # 4. Triple-Theta Init
-    e4 = TripleThetaInitialiser()
+    e4 = TripleThetaInitializer()
     w = torch.empty(EMBED_DIM, EMBED_DIM)
     e4.initialise(w)
     check_tensor("#04 Triple-Theta Init", w)
@@ -166,7 +166,7 @@ def main() -> None:
     check_tensor("#09 Phi LoRA Adapter", e9(x))
 
     # 10. Navier-Stokes Damping
-    e10 = NavierStokesDampingRegulariser(damping_strength=0.01)
+    e10 = NavierStokesDampingRegularizer(damping_strength=0.01)
     check_tensor("#10 Navier-Stokes Damping", e10(x))
 
     # ------------------------------------------------------------------
@@ -179,7 +179,7 @@ def main() -> None:
     check_tensor("#11 Prime Density Gen", e11(logits_in))
 
     # 12. GTT Entropy Regulariser
-    e12 = GTTEntropyCollapseRegulariser()
+    e12 = GTTEntropyCollapseRegularizer()
     check_tensor("#12 GTT Entropy Collapse", e12(x))
 
     # 13. Phi Momentum Accelerator (optimizer — step test)
@@ -190,31 +190,31 @@ def main() -> None:
     e13.step()
     print(f"  ✓ {'#13 Phi Momentum Accelerator':.<55s} optimizer step OK")
 
-    # 14. TUPT Sync Seed
-    e14 = TUPTAttractorSyncSeed()
+    # 14. TTT Sync Seed
+    e14 = TUPTSyncSeed()
     e14.seed()
-    print(f"  ✓ {'#14 TUPT Sync Seed':.<55s} deterministic seed set")
+    print(f"  ✓ {'#14 TTT Sync Seed':.<55s} deterministic seed set")
 
     # 15. QRT Convolution
     e15 = QRTKernelConvolution(in_channels=EMBED_DIM, out_channels=EMBED_DIM)
     conv_in = torch.randn(BATCH, EMBED_DIM, SEQ_LEN)
     check_tensor("#15 QRT Convolution", e15(conv_in))
 
-    # 16. Lucas Sparse Attention Mask
-    e16 = LucasWeightedSparseAttentionMask(seq_len=SEQ_LEN)
+    # 16. Lucas Sparse Attention
+    e16 = LucasWeightedSparseAttention(seq_len=SEQ_LEN)
     mask = e16()
     check_tensor("#16 Lucas Sparse Mask", mask)
 
     # 17. Phi Resonant Weighting
-    e17 = PhiResonantWeighting()
+    e17 = PhiPoweredResonantWeighting()
     check_tensor("#17 Phi Resonant Weighting", e17(x))
 
-    # 18. Giza Isomorphism
-    e18 = GizaLatticeIsomorphismProjection(dim=EMBED_DIM)
-    check_tensor("#18 Giza Isomorphism", e18(x))
+    # 18. Geometric Isomorphism
+    e18 = GeometricLatticeIsomorphism(high_dim_features=EMBED_DIM)
+    check_tensor("#18 Geometric Isomorphism", e18(x))
 
     # 19. MST Lyapunov Clipping
-    e19 = MSTLyapunovGradientClipper()
+    e19 = MSTLyapunovClipping()
     grad = torch.randn(EMBED_DIM, EMBED_DIM) * 100
     check_tensor("#19 MST Lyapunov Clip", e19(grad))
 
@@ -237,34 +237,34 @@ def main() -> None:
     print(f"  ✓ {'#21 Lucas-Pell Weight Decay':.<55s} optimizer step OK")
 
     # 22. TUPT Token Pruning
-    e22 = TUPTExclusionTokenPruner()
-    check_tensor("#22 TUPT Token Pruning", e22(x))
+    e22 = TUPTExclusionTokenPruning()
+    check_tensor("#22 TUPT Token Pruning", e22(tokens))
 
     # 23. Phi Void Positional Encoding
     e23 = PhiVoidResonancePositionalEncoding(dim=EMBED_DIM)
     check_tensor("#23 Phi Void Positional", e23(x))
 
     # 24. Infinite Context Shard Unfolder
-    e24 = InfiniteContextShardUnfolder()
+    e24 = InfiniteEInfinityContextUnfolder()
     check_tensor("#24 Shard Unfolder", e24(x))
 
-    # 25. 3-6-9-7 Modular Dropout
-    e25 = ModularDropout3697()
+    # 25. TUPT Modular Dropout
+    e25 = TUPTModularDropout()
     check_tensor("#25 Modular Dropout", e25(x))
 
     # 26. QRT Turbulence Optimizer
-    e26 = QRTTurbulenceAdaptiveOptimizer(dummy_model.parameters(), lr=1e-3)
+    e26 = QRTTurbulenceOptimizer(dummy_model.parameters(), lr=1e-3)
     loss3 = dummy_model(x.mean(dim=1)).sum()
     loss3.backward()
     e26.step()
     print(f"  ✓ {'#26 QRT Turbulence Optimizer':.<55s} optimizer step OK")
 
-    # 27. Giza Slope Attention Bias
-    e27 = GizaSlopeAngleAwareAttentionBias(seq_len=SEQ_LEN)
-    check_tensor("#27 Giza Attention Bias", e27())
+    # 27. QRT Attention Bias
+    e27 = QRTGeometricAttentionBias(max_seq_len=SEQ_LEN)
+    check_tensor("#27 QRT Attention Bias", e27(torch.zeros(BATCH, NUM_HEADS, SEQ_LEN, SEQ_LEN)))
 
     # 28. Floor-Sinh Activation
-    e28 = FloorSinhActivationRegularizer()
+    e28 = FloorSinhActivation()
     check_tensor("#28 Floor-Sinh Activation", e28(x_small))
 
     # 29. Golden Spiral RoPE

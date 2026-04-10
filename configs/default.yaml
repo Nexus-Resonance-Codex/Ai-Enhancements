@@ -2,11 +2,11 @@ experiment_name: "nrc_baseline"
 
 nrc_constants:
   phi_precision_dps: 50
-  giza_slope_deg: 51.853
+  theta_qrt: 51.853
   mst_modulus: 24389
   mst_lambda: 0.381
   tupt_modulus: 2187
-  tupt_void_avoidance: [0, 3, 6, 9]
+  ttt_stability_nodes: [0, 3, 6, 9]
   stabilizing_anchor: 7
   gtt_entropy_target: 10.96
 

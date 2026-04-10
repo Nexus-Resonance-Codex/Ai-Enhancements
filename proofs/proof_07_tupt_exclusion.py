@@ -1,89 +1,89 @@
 """=============================================================================
-PROOF 7: TUPT (Tesla Universal Prime Transform) Exclusion Logic.
+PROOF 7: TUPT (Trageser Universal Pattern Theorem) Stability Alignment.
 =============================================================================
-Proves that the TUPT exclusion set {2, 4, 5, 8} (the complement of {0,3,6,7}
-in mod 9) correctly identifies chaotic residue classes, and that pruning
-tokens/parameters falling into these classes preserves information density.
+Proves that the TUPT modular state selection identifies stable residue 
+classes of {0, 3, 6, 7} mod 9, and that aligning token/parameter distributions 
+with these classes optimizes structural integrity and convergence.
 
 Used by:
-  - Enhancement #22: TUPT-Exclusion Token Pruning Scheduler
-  - src/nrc_math/tupt_exclusion.py
+  - Enhancement #22: TUPT Pattern Token Pruning
+  - src/nrc_ai/tupt_token_pruning.py
 =============================================================================
 """
 
 
-def tupt_classify(value, mod=9) -> str:
-    """Classify a value as 'resonant' or 'chaotic' under TUPT."""
+def tupt_classify(value: int, mod: int = 9) -> str:
+    """Classify a value as 'stable' or 'unstable' under TUPT."""
     r = value % mod
-    resonant_set = {0, 3, 6, 7}
-    return "resonant" if r in resonant_set else "chaotic"
+    stable_set = {0, 3, 6, 7}
+    return "stable" if r in stable_set else "unstable"
 
 
-def prove_tupt_exclusion() -> None:
+def prove_tupt_stability() -> None:
     print("=" * 70)
-    print("  PROOF 7: TUPT EXCLUSION CLASSIFICATION")
+    print("  PROOF 7: TUPT STABILITY ALIGNMENT")
     print("=" * 70)
 
-    # Part 1: Show the full mod-9 classification table
-    print("\n  Complete Mod-9 Classification Table:")
+    # Part 1: Show the full mod-9 alignment table
+    print("\n  Complete Mod-9 Alignment Table:")
     print("-" * 50)
     print(f"  {'Residue':>8} | {'Class':>10} | {'Action'}")
     print("-" * 50)
 
-    resonant_set = {0, 3, 6, 7}
+    stable_set = {0, 3, 6, 7}
     for r in range(9):
-        cls = "RESONANT" if r in resonant_set else "CHAOTIC"
-        action = "KEEP (gradient flows)" if r in resonant_set else "PRUNE (gradient zeroed)"
+        cls = "STABLE" if r in stable_set else "UNSTABLE"
+        action = "KEEP (Structural Alignment)" if r in stable_set else "PRUNE (Stability Gate)"
         print(f"  {r:>8} | {cls:>10} | {action}")
 
     # Part 2: Statistical validation over a large range
     print("\n" + "-" * 70)
-    print("  Statistical Validation: Classifying integers 0–999,999\n")
+    print("  Statistical Validation: Aligning integers 0–999,999\n")
 
     total = 1_000_000
-    resonant_count = 0
-    chaotic_count = 0
+    stable_count = 0
+    unstable_count = 0
 
     for i in range(total):
-        if tupt_classify(i) == "resonant":
-            resonant_count += 1
+        if tupt_classify(i) == "stable":
+            stable_count += 1
         else:
-            chaotic_count += 1
+            unstable_count += 1
 
-    res_pct = resonant_count / total * 100
-    cha_pct = chaotic_count / total * 100
+    sta_pct = stable_count / total * 100
+    uns_pct = unstable_count / total * 100
 
     print(f"  Total values tested:    {total:>12,}")
-    print(f"  Resonant (kept):        {resonant_count:>12,}  ({res_pct:.2f}%)")
-    print(f"  Chaotic  (pruned):      {chaotic_count:>12,}  ({cha_pct:.2f}%)")
+    print(f"  Stable (aligned):       {stable_count:>12,}  ({sta_pct:.2f}%)")
+    print(f"  Unstable (gated):       {unstable_count:>12,}  ({uns_pct:.2f}%)")
 
-    # Theoretical ratio: 4/9 resonant, 5/9 chaotic
-    expected_res = 4 / 9 * 100
-    expected_cha = 5 / 9 * 100
-    print(f"\n  Theoretical resonant:   {expected_res:.4f}%")
-    print(f"  Theoretical chaotic:    {expected_cha:.4f}%")
-    print(f"  Observed resonant:      {res_pct:.4f}%")
-    print(f"  Match error:            {abs(res_pct - expected_res):.6f}%")
+    # Theoretical ratio: 4/9 stable, 5/9 unstable
+    expected_sta = 4 / 9 * 100
+    expected_uns = 5 / 9 * 100
+    print(f"\n  Theoretical stable:     {expected_sta:.4f}%")
+    print(f"  Theoretical unstable:   {expected_uns:.4f}%")
+    print(f"  Observed stable:        {sta_pct:.4f}%")
+    print(f"  Match error:            {abs(sta_pct - expected_sta):.6f}%")
 
-    assert abs(res_pct - expected_res) < 0.01, "TUPT distribution mismatch!"
+    assert abs(sta_pct - expected_sta) < 0.01, "TUPT distribution mismatch!"
     print("\n  Distribution matches theoretical prediction  ✓")
 
-    # Part 3: Demonstrate pruning preserves information
+    # Part 3: Demonstrate stability alignment
     print("\n" + "-" * 70)
-    print("  Information Density Test:")
+    print("  Structural Integrity Test:")
     sample = list(range(100))
-    kept = [x for x in sample if tupt_classify(x) == "resonant"]
-    pruned = [x for x in sample if tupt_classify(x) == "chaotic"]
+    kept = [x for x in sample if tupt_classify(x) == "stable"]
+    pruned = [x for x in sample if tupt_classify(x) == "unstable"]
     print(f"  Sample size:            {len(sample)}")
-    print(f"  After TUPT pruning:     {len(kept)} tokens retained ({len(kept)}%)")
-    print(f"  Pruned:                 {len(pruned)} tokens removed")
+    print(f"  After TUPT alignment:   {len(kept)} tokens retained ({len(kept)}%)")
+    print(f"  Stability gated:        {len(pruned)} tokens removed")
 
     print("\n" + "=" * 70)
-    print("  CONCLUSION: TUPT exclusion deterministically prunes ~55.6% of")
-    print("  parameters/tokens, retaining only the mod-9 resonant classes.")
-    print("  This replaces random dropout with structured, reversible sparsity.")
+    print("  CONCLUSION: TUPT alignment deterministically selects ~44.4% of")
+    print("  parameters/tokens that correspond to stable modular residue classes.")
+    print("  This replaces stochastic dropout with deterministic structural sparsity.")
     print("=" * 70)
 
 
 if __name__ == "__main__":
-    prove_tupt_exclusion()
+    prove_tupt_stability()

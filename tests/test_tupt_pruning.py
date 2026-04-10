@@ -9,38 +9,37 @@ from nrc_ai.tupt_token_pruning import TUPTExclusionTokenPruning
 
 
 def test_tupt_token_pruning() -> None:
-    """Validates Enhancement #22: TUPT Exclusion Pruning successfully cuts down sequence.
+    """Validates Enhancement #22: TUPT Modular State Pruning.
 
-    processing complexity by mathematically identifying and shredding tokens that
-    map directly into Mod-2187 biological noise limits.
+    Optimizes processing complexity by identifying and gating tokens that align
+    with unstable modular residue classes in the TUPT domain.
     """
     batch_size = 1
     seq_len = 100
     embed_dim = 16
 
-    # Simulate a standard transformer batch holding 100 physical tokens
+    # Simulate a standard transformer batch holding 100 tokens
     hidden_states = torch.randn(batch_size, seq_len, embed_dim)
 
-    # Initialize the mathematical exclusion filter mapping
+    # Initialize the modular residue filter
     pruner = TUPTExclusionTokenPruning()
 
     pruned_states = pruner(hidden_states)
 
     # 1. Verification of structural dimensionality properties
-    # The embed_dim MUST remain entirely un-corrupted (Tokens are destroyed laterally, not vertically)
-    assert pruned_states.shape[2] == embed_dim, "Token Pruning accidentally deleted embedding representation depth."
+    # The embed_dim must remain uncorrupted
+    assert pruned_states.shape[2] == embed_dim, "Token Pruning corrupted embedding representation depth."
 
-    # 2. Verification of mathematical memory-save properties
-    # The output seq_len must be strictly smaller than the input seq_len because
-    # TUPT exclusions mathematically forbid 3-6-9-7 bounds natively.
+    # 2. Verification of mathematical optimization properties
+    # The output seq_len should be smaller than input seq_len due to stability gating.
     survived_seq_len = pruned_states.shape[1]
 
     print(f"Original Sequence Context: {seq_len} tokens.")
-    print(f"Resonant Sequence Context: {survived_seq_len} tokens.")
+    print(f"Stable Sequence Context:   {survived_seq_len} tokens.")
 
-    assert survived_seq_len < seq_len, "TUPT Token Matrix failed to sparsely trim inference contexts natively."
+    assert survived_seq_len < seq_len, "TUPT failed to trim tokens based on stability nodes."
 
-    print("Test passed: 1D Mod-2187 Exclusion grids dynamically stripped non-resonant trajectory sequences from tracking bounds.")
+    print("Test passed: TUPT Modular State Pruning successfully optimized inference context via stability gating.")
 
 
 if __name__ == "__main__":

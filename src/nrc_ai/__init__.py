@@ -12,15 +12,14 @@ from .e8_golden_basis import E8GoldenBasisEmbedding
 from .entropy_stopping import NRCEntropyAttractorEarlyStopping
 from .exclusion_gradient_router import BiologicalExclusionGradientRouter
 from .floor_sinh_activation import FloorSinhActivation
-from .giza_attention_bias import GizaSlopeAttentionBias
-from .giza_isomorphism import GizaLatticeIsomorphism
+from .geometric_isomorphism import GeometricLatticeIsomorphism
 from .golden_flow_norm import GoldenFlowNorm
 from .golden_spiral_rope import GoldenSpiralRotaryEmbedding
 from .gtt_entropy_regulariser import GTTEntropyCollapseRegularizer
 from .hodge_torsion_attention import HodgePhiTTorsionAttention
 from .lucas_pell_decay import LucasPellHybridWeightDecay
 from .lucas_sparse_mask import LucasWeightedSparseAttention
-from .memory import ExecutiveAgent, PhiSpiralMemory
+from .memory import ExecutiveAgent, PhiInfinityPersistentMemory
 from .modular_dropout import TUPTModularDropout
 from .mst_lyapunov_clipping import MSTLyapunovClipping
 from .navier_stokes_damping import NavierStokesDampingRegularizer
@@ -31,6 +30,7 @@ from .phi_resonant_weighting import PhiPoweredResonantWeighting
 from .phi_void_positional import PhiVoidResonancePositionalEncoding
 from .pisano_lr_schedule import PisanoModulatedLRSchedule
 from .prime_density_generation import PrimeDensityConditionedGeneration
+from .qrt_attention_bias import QRTGeometricAttentionBias
 from .qrt_convolution import QRTKernelConvolution
 from .qrt_optimizer import QRTTurbulenceOptimizer
 from .resonance_kv_cache import ResonanceShardKVCache
@@ -45,7 +45,7 @@ from .tupt_token_pruning import TUPTExclusionTokenPruning
 __all__ = [
     "__version__",
     "PhiInfinityShardFolding",
-    "PhiSpiralMemory",
+    "PhiInfinityPersistentMemory",
     "ExecutiveAgent",
     "NRCProteinFoldingEngine",
     "GoldenFlowNorm",
@@ -63,7 +63,7 @@ __all__ = [
     "QRTKernelConvolution",
     "LucasWeightedSparseAttention",
     "PhiPoweredResonantWeighting",
-    "GizaLatticeIsomorphism",
+    "GeometricLatticeIsomorphism",
     "MSTLyapunovClipping",
     "PisanoModulatedLRSchedule",
     "LucasPellHybridWeightDecay",
@@ -72,7 +72,7 @@ __all__ = [
     "InfiniteEInfinityContextUnfolder",
     "TUPTModularDropout",
     "QRTTurbulenceOptimizer",
-    "GizaSlopeAttentionBias",
+    "QRTGeometricAttentionBias",
     "FloorSinhActivation",
     "GoldenSpiralRotaryEmbedding",
     "NRCEntropyAttractorEarlyStopping",

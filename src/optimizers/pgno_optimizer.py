@@ -14,7 +14,8 @@ class PGNOptimizer(Optimizer):
     def __init__(self, params: Iterable[torch.Tensor] | Iterable[dict[str, Any]], lr: float = 1e-3, phi_momentum: float = 0.618):
         defaults = {"lr": lr, "phi_momentum": phi_momentum}
         super(PGNOptimizer, self).__init__(params, defaults)
-        self.giza_slope_rad = 51.827 * math.pi / 180.0
+        # Optimal geometric damping angle (theta_qrt ≈ 51.853 degrees)
+        self.qrt_damping_angle = 51.853 * math.pi / 180.0
 
     @overload
     def step(self, closure: None = ...) -> None: ...
@@ -38,25 +39,25 @@ class PGNOptimizer(Optimizer):
                     continue
                 grad = p.grad
 
-                # Apply Giza Slope Projection
-                # Rotate gradient by 51.827 degrees in phase space
-                cos_g = math.cos(self.giza_slope_rad)
-                sin_g = math.sin(self.giza_slope_rad)
+                # Apply Geometric Damping Projection
+                # Rotate gradient by optimal damping angle in phase space
+                cos_g = math.cos(self.qrt_damping_angle)
+                sin_g = math.sin(self.qrt_damping_angle)
                 grad_projected = grad * cos_g + torch.roll(grad, 1, dims=-1) * sin_g
 
-                # Apply 0, 3, 6, 9 Chaotic Void Filtration
-                # We logically drop gradients modifying coordinates aligned with 0, 3, 6, 9 mod 9
+                # Apply TTT Modular Residue Stability Alignment (Mod 9)
+                # We filter gradients based on coordinate alignment with modular stability nodes.
                 flat_grad = grad_projected.view(-1)
                 indices = torch.arange(flat_grad.size(0), device=grad.device)
                 mod_9 = indices % 9
 
-                # Create mask for stable nodes
+                # Create mask for stable nodes (TTT-aligned)
                 mask = torch.ones_like(flat_grad)
                 mask[(mod_9 == 0) | (mod_9 == 3) | (mod_9 == 6) | (mod_9 == 9)] = 0.0
 
                 filtered_grad = (flat_grad * mask).view_as(grad)
 
-                # Momentum is strictly geometric Phi
+                # Momentum is governed by the structural Golden Ratio (phi)
                 state = self.state[p]
                 if len(state) == 0:
                     state["step"] = 0

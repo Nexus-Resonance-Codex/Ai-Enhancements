@@ -27,6 +27,7 @@ class MSTLyapunovClipping(nn.Module):
     def __init__(self, clip_val: float = 0.381):
         super().__init__()
         self.clip_val = clip_val
+        self.mst_threshold = clip_val
 
     def forward(self, grad: torch.Tensor) -> torch.Tensor:
         """Applies the Lyapunov clip to the gradient manifold.

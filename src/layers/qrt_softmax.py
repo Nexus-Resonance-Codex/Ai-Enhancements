@@ -7,9 +7,9 @@
 
 """QRT Softmax: Quantum Residue Turbulence Normalization.
 
-This module implements a noise-stabilized softmax that avoids the
-chaotic 0-3-6-9 voids by projecting probabilities into a Golden Ratio
-normalized stable field.
+This module implements a noise-stabilized softmax that optimizes probability 
+distributions through TTT modular residue alignment, projecting scores into 
+a structural geometric stable field.
 """
 
 import torch

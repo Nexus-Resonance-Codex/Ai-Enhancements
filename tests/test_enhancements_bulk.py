@@ -9,7 +9,7 @@ import nrc_ai
 def test_all_py_modules_export() -> None:
     """Verify that all expected enhancements are exported."""
     exports = nrc_ai.__all__
-    assert "SpiralMemory" in exports
+    assert "PhiInfinityPersistentMemory" in exports
     assert "PhiInfinityShardFolding" in exports
     assert "NRCProteinFoldingEngine" in exports
 
@@ -17,7 +17,7 @@ def test_all_py_modules_export() -> None:
 @pytest.mark.parametrize(
     "class_name",
     [
-        "GoldenAttractorFlowNorm",
+        "GoldenFlowNorm",
         "TripleThetaInitializer",
         "ResonanceShardKVCache",
         "BiologicalExclusionGradientRouter",
@@ -28,12 +28,12 @@ def test_all_py_modules_export() -> None:
         "PrimeDensityConditionedGeneration",
         "GTTEntropyCollapseRegularizer",
         "PhiInverseMomentumAccelerator",
-        "TUPTAttractorSyncSeed",
+        "TUPTSyncSeed",
         "QRTKernelConvolution",
         "LucasWeightedSparseAttention",
         "PhiPoweredResonantWeighting",
-        "GizaLatticeIsomorphism",
-        "MSTLyapunovGradientClipping",
+        "GeometricLatticeIsomorphism",
+        "MSTLyapunovClipping",
         "PisanoModulatedLRSchedule",
         "LucasPellHybridWeightDecay",
         "TUPTExclusionTokenPruning",
@@ -41,7 +41,7 @@ def test_all_py_modules_export() -> None:
         "InfiniteEInfinityContextUnfolder",
         "TUPTModularDropout",
         "QRTTurbulenceOptimizer",
-        "GizaSlopeAttentionBias",
+        "QRTGeometricAttentionBias",
         "FloorSinhActivation",
         "GoldenSpiralRotaryEmbedding",
         "NRCEntropyAttractorEarlyStopping",
@@ -59,7 +59,7 @@ def test_enhancement_instantiation(class_name) -> None:
         param = torch.nn.Parameter(torch.ones(1))
         opt = torch.optim.SGD([param], lr=0.01)
         obj = cls(opt)
-    elif class_name in ["NRCEntropyAttractorEarlyStopping", "TUPTAttractorSyncSeed"]:
+    elif class_name in ["NRCEntropyAttractorEarlyStopping", "TUPTSyncSeed"]:
         obj = cls()
     elif class_name == "TripleThetaInitializer":
         obj = cls(10, 10)  # nn.Linear subclass
@@ -73,7 +73,7 @@ def test_enhancement_instantiation(class_name) -> None:
         obj = cls(128, num_heads=4)
     elif class_name == "GoldenSpiralRotaryEmbedding":
         obj = cls(64)
-    elif class_name == "TUPTAttractorSyncSeed":
+    elif class_name == "TUPTSyncSeed":
         obj = cls()
     else:
         # Default Module instantiation

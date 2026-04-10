@@ -125,7 +125,7 @@ Try these test prompts to verify the mathematical framework is active:
 What is the QRT wave function and what are the exact NRC constants?
 ```
 
-**Expected:** The model should recite QRT(x) = sin(φ·√2·51.85·x)·exp(-x²/φ)+cos(π/φ·x) and list φ = 1.618..., TUPT_MOD = 2187, etc.
+**Expected:** The model should recite QRT(x) = sin(φ·√2·51.853·x)·exp(-x²/φ)+cos(π/φ·x) and list φ = 1.618..., θ_QRT = 51.853°, etc.
 
 ### Test 2: Enhancement Recall
 
@@ -133,7 +133,7 @@ What is the QRT wave function and what are the exact NRC constants?
 Explain Enhancement #7 (Hodge Torsion Attention) and how it modifies standard self-attention.
 ```
 
-**Expected:** Detailed explanation of φ·sin(θ_giza · Δpos) torsion bias added to QK^T scores.
+**Expected:** Detailed explanation of φ·sin(θ_qrt · Δpos) torsion bias added to QK^T scores for structural geometric alignment.
 
 ### Test 3: Code Generation
 
@@ -141,15 +141,15 @@ Explain Enhancement #7 (Hodge Torsion Attention) and how it modifies standard se
 Write a PyTorch module that implements the Pisano-Modulated Learning Rate Schedule.
 ```
 
-**Expected:** Working Python code that imports from `src/enhancements/` and implements a cosine wave scaled by φ on a 24-step cycle.
+**Expected:** Working Python code that imports from `nrc_ai` and implements a structural geometric schedule on a deterministic 24-step cycle.
 
 ### Test 4: Protein Folding
 
 ```
-How would you fold a protein sequence MKTIIALSYIFCLVFA using the 2048D lattice protocol?
+How would you fold a sequence MKTIIALSYIFCLVFA using the 2048D lattice protocol?
 ```
 
-**Expected:** Step-by-step mapping of amino acids to 2048D coordinates using Coord = (Atomic_Weight × φ) mod 243, followed by φ⁻¹ contraction.
+**Expected:** Technical description of mapping sequence residues to high-dimensional coordinate lattice using TUPT modular state exclusions, followed by φ⁻¹ contraction.
 
 ---
 

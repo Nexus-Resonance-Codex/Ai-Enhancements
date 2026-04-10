@@ -1,39 +1,38 @@
-import os
-import sys
+#  Nexus Resonance Codex - 2025-2026 Breakthrough Series
+#  Copyright (c) 2026 James Trageser (@jtrag)
+#
+#  Licensed under CC-BY-NC-SA-4.0 + NRC-L
+#  "This work is part of the Nexus Resonance Codex (NRC) incorporating TTT
+#  modular exclusion, phi^inf compression, 256D->729D lattice, QRT, and MST."
+
+"""Tests for GoldenFlowNorm module."""
 
 import torch
-
-sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "../src")))
-
-from nrc_ai.golden_flow_norm import GoldenAttractorFlowNorm
+from nrc_ai.golden_flow_norm import GoldenFlowNorm
 
 
-def test_golden_attractor_flow_normalisation() -> None:
-    """Validates Enhancement #3: GAFEN successfully constrains tensors within the.
-
-    defined bounds of phi^-44 and phi^21, maintaining dimensionality.
-    """
-    batch_size = 4
-    seq_len = 128
-    hidden_dim = 256
-
-    # Simulating massive gradient explosion and outliers to trigger the clamping
-    x = torch.randn(batch_size, seq_len, hidden_dim) * 1e8
-    skip = torch.randn(batch_size, seq_len, hidden_dim)
-
-    norm_layer = GoldenAttractorFlowNorm(normalized_shape=hidden_dim)
-
-    normalized_output = norm_layer(x, skip=skip)
-
-    # 1. Shape preservation check
-    assert normalized_output.shape == x.shape, "GAFEN altered the fundamental tensor layout."
-
-    # 2. NaNs or infinities check
-    assert not torch.isnan(normalized_output).any(), "NaN found after Flow Normalization."
-    assert not torch.isinf(normalized_output).any(), "Inf found after Flow Normalization."
-
-    print("Test passed: Golden Attractor Flow Normalisation v3 (GAFEN) gracefully normalizes massive outliers using phi bounds.")
+def test_golden_flow_norm_initialization() -> None:
+    """Verify GoldenFlowNorm initialization."""
+    norm = GoldenFlowNorm(hidden_dim=128)
+    # phi constant is 1.618033988749895
+    assert torch.allclose(torch.tensor(norm.phi), torch.tensor(1.618033988749895))
 
 
-if __name__ == "__main__":
-    test_golden_attractor_flow_normalisation()
+def test_golden_flow_norm_forward() -> None:
+    """Verify GoldenFlowNorm forward pass handles outliers."""
+    hidden_dim = 128
+    norm = GoldenFlowNorm(hidden_dim=hidden_dim)
+    
+    # Test shape preservation
+    x = torch.randn(2, 4, hidden_dim)
+    out = norm(x)
+    assert out.shape == x.shape
+    
+    # Test outlier clamping behavior (massive explosion)
+    x_exploding = torch.randn(2, 4, hidden_dim) * 1e10
+    out_stabilized = norm(x_exploding)
+    
+    assert not torch.isnan(out_stabilized).any()
+    assert not torch.isinf(out_stabilized).any()
+    # Should be constrained within the geometric bounds (phi-based)
+    assert torch.max(torch.abs(out_stabilized)) < 1e5  # Reasonable bound for phi-scaling

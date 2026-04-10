@@ -28,8 +28,8 @@ class TUPTSyncSeed:
         # We merge [3, 6, 9, 7] into a massive structural integer bound.
         tupt_seed_base = int("".join(map(str, [3, 6, 9, 7])))  # 3697
 
-        # Multiply by 9 and add 7 to ensure Root-7 stability (seed % 9 == 7)
-        resonant_seed = (tupt_seed_base * 9 + 7) * base_multiplier
+        # Multiply by 9 and add 7 to ALWAYS ensure Root-7 stability (seed % 9 == 7)
+        resonant_seed = (tupt_seed_base * base_multiplier) * 9 + 7
 
         # 1. Lock CPU Generator
         torch.manual_seed(resonant_seed)

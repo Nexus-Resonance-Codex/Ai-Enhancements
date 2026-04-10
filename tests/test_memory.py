@@ -2,7 +2,7 @@
 
 import torch
 
-from nrc_ai import ExecutiveAgent, PhiInfinityShardFolding, SpiralMemory
+from nrc_ai import ExecutiveAgent, PhiInfinityShardFolding, PhiInfinityPersistentMemory
 
 
 def test_shard_folding_forward() -> None:
@@ -16,16 +16,17 @@ def test_shard_folding_forward() -> None:
     assert torch.all(torch.sign(out[mask]) == torch.sign(x[mask]))
 
 
-def test_spiral_memory_update() -> None:
-    """Verify spiral memory update cycle."""
-    mem = SpiralMemory(hidden_dim=128)
-    initial_state = mem.retrieve().clone()
+def test_persistent_memory_update() -> None:
+    """Verify persistent memory update cycle."""
+    mem = PhiInfinityPersistentMemory(hidden_dim=128)
+    initial_state = mem.lattice_state.clone()
 
     update_vec = torch.randn(1, 128)
     new_state = mem.update(update_vec)
 
     assert not torch.allclose(initial_state, new_state)
     assert new_state.shape == (1, 128)
+    assert torch.allclose(mem.lattice_state, new_state)
 
 
 def test_executive_agent_spawn() -> None:

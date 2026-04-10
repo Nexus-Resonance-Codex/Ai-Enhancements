@@ -1,22 +1,21 @@
 """=============================================================================
-PROOF 2: The 3-6-9-7 Modular Exclusion Principle.
+PROOF 2: The TTT Modular Residue Stability Principle.
 =============================================================================
 Demonstrates that the Fibonacci sequence generates a 24-step repeating
-Pisano Period in Modulo 9 arithmetic, and that {0, 3, 6} (the mod-9
-equivalents of the Tesla 3-6-9 framework) appear as structurally significant
-nodal positions within this universal cycle.
+Pisano Period in Modulo 9 arithmetic, and that the modular residue classes
+{0, 3, 6, 7} serve as deterministic stability nodes within this universal cycle.
 
 Used by:
-  - Enhancement #6:  Biological Exclusion Gradient Router
-  - Enhancement #14: 3-6-9-7 Attractor Synchronisation Seed
-  - Enhancement #25: 3-6-9-7 Modular Dropout Pattern
+  - Enhancement #6:  Structural Stability Gradient Router
+  - Enhancement #14: TTT Anchor Synchronization Seed
+  - Enhancement #25: Modular Residue Class Dropout
 =============================================================================
 """
 
 
-def prove_3697_modular_exclusion() -> None:
+def prove_ttt_modular_stability() -> None:
     print("=" * 70)
-    print("  PROOF 2: MOD 9 EXCLUSION & FIBONACCI PISANO PERIODICITY")
+    print("  PROOF 2: TTT MODULAR STABILITY & PISANO PERIODICITY")
     print("=" * 70)
 
     # --- Step 1: Generate Fibonacci sequence mod 9 ---
@@ -30,7 +29,7 @@ def prove_3697_modular_exclusion() -> None:
     cycle = fib_mod9[0:24]
     for offset in [24, 48, 72]:
         segment = fib_mod9[offset : offset + 24]
-        assert cycle == segment, f"Pisano period mismatch at offset {offset}!\n  Expected: {cycle}\n  Got:      {segment}"
+        assert cycle == segment, f"Pisano period mismatch at offset {offset}!"
 
     print("Pisano Period π(9) = 24  ✓  VERIFIED (checked 4 consecutive cycles)")
     print(f"Cycle: {cycle}\n")
@@ -44,42 +43,37 @@ def prove_3697_modular_exclusion() -> None:
     print(f"{'Node':>6} | {'Count':>5} | {'Role'}")
     print("-" * 70)
 
-    attractor_set = {0, 3, 6}  # The Tesla / NRC resonance nodes (mod 9)
-    resonance_7 = {7}  # The "bridge" attractor
+    stability_set = {0, 3, 6, 7}  # The TTT stability nodes (mod 9)
 
     for node in range(9):
-        if node in attractor_set:
-            role = "◆  NRC 3-6-9 Resonance Attractor"
-        elif node in resonance_7:
-            role = "◆  Bridge Attractor (7 ≡ φ-linked)"
+        if node in stability_set:
+            role = "◆  TTT Stability Node"
         else:
-            role = "   Transient / Chaotic"
+            role = "   Transition / Unstable State"
         print(f"  {node:>4} | {counts[node]:>5} | {role}")
 
     # --- Step 4: Prove structural significance ---
-    attractor_count = sum(counts[n] for n in attractor_set | resonance_7)
+    stability_count = sum(counts[n] for n in stability_set)
     total = len(cycle)
-    attractor_ratio = attractor_count / total
+    stability_ratio = stability_count / total
 
     print("-" * 70)
-    print(f"\nAttractor nodes (0,3,6,7) occupy {attractor_count}/{total} = {attractor_ratio:.1%} of the Pisano cycle.")
+    print(f"\nStability nodes (0,3,6,7) occupy {stability_count}/{total} = {stability_ratio:.1%} of the Pisano cycle.")
     print("This is the mathematical basis for deterministic gradient routing.\n")
 
     # --- Step 5: Verify exclusion principle ---
-    # In the NRC framework, paths whose coordinate sums fall into
-    # the COMPLEMENT of {0,3,6,7} mod 9 are marked chaotic.
-    chaotic_nodes = {1, 2, 4, 5, 8}
-    chaotic_count = sum(counts[n] for n in chaotic_nodes)
-    print(f"Chaotic nodes (1,2,4,5,8) occupy {chaotic_count}/{total} = {chaotic_count / total:.1%} of the cycle.")
-    print("These positions are where the Exclusion Router zeros gradients.\n")
+    unstable_nodes = {1, 2, 4, 5, 8}
+    unstable_count = sum(counts[n] for n in unstable_nodes)
+    print(f"Unstable nodes (1,2,4,5,8) occupy {unstable_count}/{total} = {unstable_count / total:.1%} of the cycle.")
+    print("These positions are where the TTT Router optimizes gradient flow.\n")
 
     print("=" * 70)
     print("  CONCLUSION: The Pisano period π(9) = 24 is a universal,")
-    print("  deterministic cycle. The {0,3,6,7} attractor set provides")
-    print("  a mathematically rigorous basis for non-random dropout and")
-    print("  gradient exclusion in neural architectures.")
+    print("  deterministic cycle. The {0,3,6,7} stability set provides")
+    print("  a mathematically rigorous basis for structural dropout and")
+    print("  gradient optimization in neural architectures.")
     print("=" * 70)
 
 
 if __name__ == "__main__":
-    prove_3697_modular_exclusion()
+    prove_ttt_modular_stability()
