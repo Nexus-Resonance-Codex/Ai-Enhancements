@@ -8,57 +8,59 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
         :root {
-            --bg-dark: #08080c;
-            --card-bg: rgba(20, 20, 30, 0.7);
-            --border: rgba(255, 255, 255, 0.08);
+            --bg-dark: #050508;
+            --glass-bg: rgba(15, 20, 30, 0.7);
+            --glass-border: rgba(255, 255, 255, 0.08);
             --accent-gold: #FFD700;
             --accent-cyan: #00F0FF;
-            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --phi: 1.618033988749895;
+            --transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
         }
 
         body {
             margin: 0;
-            padding: 2rem;
             background-color: var(--bg-dark);
             color: #fff;
             font-family: 'Outfit', sans-serif;
             min-height: 100vh;
             display: flex;
             flex-direction: column;
-            align-items: center;
+            overflow-x: hidden;
+            padding: 2rem;
         }
 
         header {
             text-align: center;
-            margin-bottom: 3rem;
-            max-width: 800px;
+            margin-bottom: 2rem;
+            max-width: 1000px;
+            margin-left: auto;
+            margin-right: auto;
         }
 
         h1 {
-            font-size: 2.5rem;
+            font-size: 2.2rem;
             background: linear-gradient(90deg, var(--accent-gold), var(--accent-cyan));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             font-weight: 700;
         }
 
-        .container {
+        .main-grid {
             width: 100%;
             max-width: 1100px;
+            margin: 0 auto;
             display: grid;
             grid-template-columns: 1fr 350px;
             gap: 2rem;
         }
 
-        .main-panel {
-            background: var(--card-bg);
+        .chart-container {
+            background: var(--glass-bg);
             backdrop-filter: blur(20px);
-            border: 1px solid var(--border);
-            border-radius: 24px;
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
             padding: 2rem;
-            height: 600px;
-            display: flex;
-            flex-direction: column;
+            height: 500px;
         }
 
         .side-panel {
@@ -68,28 +70,24 @@
         }
 
         .card {
-            background: var(--card-bg);
+            background: var(--glass-bg);
             backdrop-filter: blur(20px);
-            border: 1px solid var(--border);
+            border: 1px solid var(--glass-border);
             border-radius: 20px;
             padding: 1.5rem;
             display: flex;
             flex-direction: column;
-            gap: 1rem;
+            gap: 1.2rem;
         }
 
         .section-title {
             font-size: 0.8rem;
             font-weight: 700;
-            text-transform: uppercase;
             color: var(--accent-gold);
+            text-transform: uppercase;
             letter-spacing: 2px;
-        }
-
-        .controls {
-            display: flex;
-            flex-direction: column;
-            gap: 1.2rem;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            padding-bottom: 0.5rem;
         }
 
         .control-group {
@@ -136,176 +134,90 @@
             border-bottom: 1px solid rgba(255,255,255,0.05);
         }
 
-        .metric-label {
-            font-size: 0.8rem;
-            color: #888;
-        }
-
-        .metric-value {
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 1rem;
-            color: var(--accent-cyan);
-        }
-
-        #chart-container {
-            flex: 1;
-            position: relative;
-        }
-
-        .legend {
-            font-size: 0.75rem;
-            color: #555;
-            margin-top: 1rem;
-            text-align: center;
-        }
+        .m-label { font-size: 0.8rem; color: #888; }
+        .m-value { font-family: 'JetBrains Mono', monospace; font-size: 1rem; color: var(--accent-cyan); }
     </style>
 </head>
 <body>
     <header>
-        <h1>QRT OPTIMIZER TRACKER</h1>
-        <p style="color: rgba(255,255,255,0.4);">Quantized Residue Turbulence monitoring for accelerated model convergence.</p>
+        <h1>QRT OPTIMIZER TELEMETRY</h1>
+        <p style="color: #666;">High-dimensional resonance monitoring for training stability.</p>
     </header>
 
-    <div class="container">
-        <div class="main-panel">
-            <div class="section-title">Convergence Manifold</div>
-            <div id="chart-container">
-                <canvas id="lossChart"></canvas>
-            </div>
-            <div class="legend">Simulation of stochastic gradient descent with φ-scaled turbulence damping.</div>
+    <div class="main-grid">
+        <div class="chart-container">
+            <canvas id="optimizerChart"></canvas>
         </div>
 
         <div class="side-panel">
             <div class="card">
-                <div class="section-title">Optimizer Tuning</div>
-                <div class="controls">
-                    <div class="control-group">
-                        <label>Learning Rate <span id="lr-val">0.001</span></label>
-                        <input type="range" id="lr-slider" min="0.0001" max="0.01" step="0.0001" value="0.001">
-                    </div>
-                    <div class="control-group">
-                        <label>QRT Turbulence <span id="qrt-val">0.38</span></label>
-                        <input type="range" id="qrt-slider" min="0" max="1" step="0.01" value="0.38">
-                    </div>
-                    <div class="control-group">
-                        <label>Momentum <span id="mt-val">0.90</span></label>
-                        <input type="range" id="mt-slider" min="0" max="0.99" step="0.01" value="0.90">
-                    </div>
-                    <button class="btn" onclick="startSim()">Simulate Training</button>
-                    <button class="btn" style="background: rgba(255,255,255,0.05); color: #fff; margin-top: -0.5rem; border: 1px solid rgba(255,255,255,0.1);" onclick="resetSim()">Reset Weights</button>
+                <div class="section-title">Optimizer Parameters</div>
+                <div class="control-group">
+                    <label>Learning Rate <span id="lr-val">0.001</span></label>
+                    <input type="range" id="lr-slider" min="0.0001" max="0.01" step="0.0001" value="0.001">
                 </div>
+                <div class="control-group">
+                    <label>QRT Turbulence <span id="qrt-val">0.38</span></label>
+                    <input type="range" id="qrt-slider" min="0" max="1" step="0.01" value="0.38">
+                </div>
+                <button class="btn" onclick="runSim()">Step Manifold</button>
             </div>
 
             <div class="card">
-                <div class="section-title">Telemetry</div>
-                <div class="metric">
-                    <span class="metric-label">Current Loss</span>
-                    <span class="metric-value" id="loss-val">1.0000</span>
-                </div>
-                <div class="metric">
-                    <span class="metric-label">Convergence Rate</span>
-                    <span class="metric-value" id="conv-val">0.00%</span>
-                </div>
-                <div class="metric">
-                    <span class="metric-label">Stable Epochs</span>
-                    <span class="metric-value" id="epoch-val">0</span>
-                </div>
-                <div class="metric">
-                    <span class="metric-label">Resonance Parity</span>
-                    <span class="metric-value" style="color: #00ff00;">STABLE</span>
-                </div>
+                <div class="section-title">Manifold State</div>
+                <div class="metric"><span class="m-label">Current Loss</span><span class="m-value" id="loss-val">1.0000</span></div>
+                <div class="metric"><span class="m-label">Convergence</span><span class="m-value" id="conv-val">0.00%</span></div>
+                <div class="metric"><span class="m-label">Parity</span><span class="m-value" style="color: #00ff00;">STABLE</span></div>
             </div>
         </div>
     </div>
 
     <script>
-        const ctx = document.getElementById('lossChart').getContext('2d');
-        let chart;
+        const ctx = document.getElementById('optimizerChart').getContext('2d');
         let losses = [1.0];
         let labels = [0];
-
-        function initChart() {
-            if (chart) chart.destroy();
-            chart = new Chart(ctx, {
-                type: 'line',
-                data: {
-                    labels: labels,
-                    datasets: [{
-                        label: 'Training Loss',
-                        data: losses,
-                        borderColor: '#00F0FF',
-                        backgroundColor: 'rgba(0, 240, 255, 0.1)',
-                        borderWidth: 2,
-                        pointRadius: 0,
-                        fill: true,
-                        tension: 0.4
-                    }]
+        const chart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: 'Loss Manifold',
+                    data: losses,
+                    borderColor: '#00F0FF',
+                    backgroundColor: 'rgba(0, 240, 255, 0.1)',
+                    pointRadius: 0,
+                    fill: true,
+                    tension: 0.4
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    y: { grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: '#888' } },
+                    x: { grid: { display: false }, ticks: { color: '#888' } }
                 },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    scales: {
-                        y: {
-                            beginAtZero: true,
-                            grid: { color: 'rgba(255,255,255,0.05)' },
-                            ticks: { color: '#888' }
-                        },
-                        x: {
-                            grid: { display: false },
-                            ticks: { color: '#888' }
-                        }
-                    },
-                    plugins: {
-                        legend: { display: false }
-                    }
-                }
-            });
-        }
+                plugins: { legend: { display: false } }
+            }
+        });
 
-        initChart();
-
-        // Sliders
         document.getElementById('lr-slider').oninput = e => document.getElementById('lr-val').innerText = e.target.value;
         document.getElementById('qrt-slider').oninput = e => document.getElementById('qrt-val').innerText = e.target.value;
-        document.getElementById('mt-slider').oninput = e => document.getElementById('mt-val').innerText = e.target.value;
 
-        function startSim() {
+        function runSim() {
             const lr = parseFloat(document.getElementById('lr-slider').value);
             const qrt = parseFloat(document.getElementById('qrt-slider').value);
-            const mt = parseFloat(document.getElementById('mt-slider').value);
-            
-            let currentEpoch = labels[labels.length - 1];
-            
-            for (let i = 0; i < 50; i++) {
-                currentEpoch++;
-                const prevLoss = losses[losses.length - 1];
-                
-                // Simulated QRT Gradient Descent
-                // Turbulence (qrt) prevents getting stuck in local minima (simulated by noise)
-                const noise = (Math.random() - 0.5) * 0.1 * qrt * prevLoss;
-                const decay = prevLoss * lr * 10 * (1 + mt);
-                
-                let newLoss = prevLoss - decay + noise;
-                if (newLoss < 0.0001) newLoss = 0.0001 * (1 + Math.random() * 0.1);
-                
+            for(let i=0; i<20; i++) {
+                const prev = losses[losses.length-1];
+                const noise = (Math.random()-0.5) * 0.1 * qrt * prev;
+                const newLoss = Math.max(0.0001, prev - (prev * lr * 5) + noise);
                 losses.push(newLoss);
-                labels.push(currentEpoch);
+                labels.push(labels.length);
             }
-
             chart.update();
-            const lastLoss = losses[losses.length-1];
-            document.getElementById('loss-val').innerText = lastLoss.toFixed(4);
-            document.getElementById('conv-val').innerText = ((1 - lastLoss) * 100).toFixed(2) + "%";
-            document.getElementById('epoch-val').innerText = labels.length;
-        }
-
-        function resetSim() {
-            losses = [1.0];
-            labels = [0];
-            initChart();
-            document.getElementById('loss-val').innerText = "1.0000";
-            document.getElementById('conv-val').innerText = "0.00%";
-            document.getElementById('epoch-val').innerText = "0";
+            const last = losses[losses.length-1];
+            document.getElementById('loss-val').innerText = last.toFixed(4);
+            document.getElementById('conv-val').innerText = ((1-last)*100).toFixed(2) + "%";
         }
     </script>
 </body>

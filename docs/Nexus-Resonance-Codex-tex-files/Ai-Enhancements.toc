@@ -1,0 +1,13 @@
+\babel@toc {english}{}\relax 
+\contentsline {section}{\numberline {1}Introduction: The Limits of Stochastic Probability}{3}{section.1}%
+\contentsline {subsection}{\numberline {1.1}The Resonant Paradigm}{3}{subsection.1.1}%
+\contentsline {section}{\numberline {2}Theoretical Framework: Artificial Resonance}{3}{section.2}%
+\contentsline {subsection}{\numberline {2.1}The 512D Resonant Sublattice Algebra}{3}{subsection.2.1}%
+\contentsline {subsection}{\numberline {2.2}The Golden Tensor State}{3}{subsection.2.2}%
+\contentsline {subsection}{\numberline {2.3}The 3-6-9-7 Topological Void Router}{4}{subsection.2.3}%
+\contentsline {section}{\numberline {3}The NRC Architectural Enhancements: Technical Synthesis}{4}{section.3}%
+\contentsline {subsection}{\numberline {3.1}Part I\spacefactor \@m {}: Core Architecture \& Memory Scaling (Enhancements 1--10)}{4}{subsection.3.1}%
+\contentsline {subsection}{\numberline {3.2}Part II\spacefactor \@m {}: Generation, Sparsity, \& Projection Stability (Enhancements 11--20)}{6}{subsection.3.2}%
+\contentsline {subsection}{\numberline {3.3}Part III\spacefactor \@m {}: Automation, Boundaries, \& Context Compression (Enhancements 21--30)}{7}{subsection.3.3}%
+\contentsline {section}{\numberline {4}Conclusion: The Resonance Limit}{8}{section.4}%
+\contentsline {subsection}{\numberline {4.1}Performance Guarantees}{9}{subsection.4.1}%
