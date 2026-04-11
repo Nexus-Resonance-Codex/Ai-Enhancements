@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ai-Enhancements: QRT Optimizer Visualizer | Nexus Resonance Codex</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;500;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        :root {
+            --bg-dark: #0a0a0e;
+            --accent-gold: #FFD700;
+            --accent-cyan: #00F0FF;
+            --glass-bg: rgba(20, 20, 30, 0.6);
+            --glass-border: rgba(255, 255, 255, 0.1);
+        }
+
+        body {
+            margin: 0;
+            background-color: var(--bg-dark);
+            color: #fff;
+            font-family: 'Outfit', sans-serif;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            padding: 2rem;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        h1 {
+            font-size: 2.2rem;
+            background: linear-gradient(90deg, var(--accent-gold), var(--accent-cyan));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 0.5rem;
+        }
+
+        .main-grid {
+            display: grid;
+            grid-template-columns: 1fr 350px;
+            gap: 2rem;
+        }
+
+        .chart-container {
+            background: var(--glass-bg);
+            backdrop-filter: blur(15px);
+            border: 1px solid var(--glass-border);
+            border-radius: 16px;
+            padding: 1.5rem;
+            height: 500px;
+        }
+
+        .controls {
+            background: var(--glass-bg);
+            backdrop-filter: blur(15px);
+            border: 1px solid var(--glass-border);
+            border-radius: 16px;
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1.2rem;
+        }
+
+        .section-title {
+            font-weight: 500;
+            font-size: 1.1rem;
+            color: var(--accent-gold);
+            text-transform: uppercase;
+            border-bottom: 1px solid var(--glass-border);
+            padding-bottom: 0.5rem;
+        }
+
+        .control-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        label {
+            font-size: 0.8rem;
+            color: #aaa;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        input[type="range"] {
+            width: 100%;
+            cursor: pointer;
+        }
+
+        .metric-card {
+            background: rgba(0, 0, 0, 0.4);
+            border-radius: 8px;
+            padding: 1rem;
+            border-left: 4px solid var(--accent-cyan);
+        }
+
+        .metric-title {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            color: #aaa;
+        }
+
+        .metric-value {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 1.1rem;
+            margin-top: 0.3rem;
+        }
+
+        button {
+            background: linear-gradient(135deg, rgba(255, 215, 0, 0.2), rgba(0, 240, 255, 0.2));
+            color: #fff;
+            border: 1px solid var(--accent-cyan);
+            border-radius: 8px;
+            padding: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: 0.3s;
+            text-transform: uppercase;
+        }
+
+        button:hover {
+            box-shadow: 0 0 15px var(--accent-cyan);
+            transform: translateY(-2px);
+        }
+
+        footer {
+            margin-top: 3rem;
+            text-align: center;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.8rem;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Ai-Enhancements: QRT Optimizer</h1>
+            <p style="color: #888;">Dynamic Visualization of Quantum Residue Turbulence in Gradient Descent</p>
+        </header>
+
+        <div class="main-grid">
+            <div class="chart-container">
+                <canvas id="optimizerChart"></canvas>
+            </div>
+
+            <div class="controls">
+                <div class="section-title">Optimizer Parameters</div>
+                
+                <div class="control-group">
+                    <label>Learning Rate (η) <span id="lr-val">0.001</span></label>
+                    <input type="range" id="lr-slider" min="0.0001" max="0.01" step="0.0001" value="0.001">
+                </div>
+
+                <div class="control-group">
+                    <label>QRT Turbulence Factor <span id="qrt-val">0.38</span></label>
+                    <input type="range" id="qrt-slider" min="0" max="1" step="0.01" value="0.38">
+                </div>
+
+                <div class="control-group">
+                    <label>Noise Floor <span id="noise-val">0.05</span></label>
+                    <input type="range" id="noise-slider" min="0" max="0.2" step="0.01" value="0.05">
+                </div>
+
+                <button id="step-btn">Run 100 Epochs</button>
+                <button id="reset-btn" style="background: rgba(255,255,255,0.05); border-color: rgba(255,255,255,0.2);">Reset Manifold</button>
+
+                <div class="section-title">Live Metrics</div>
+                <div class="metric-card">
+                    <div class="metric-title">Current Loss</div>
+                    <div class="metric-value" id="loss-val">1.000000</div>
+                </div>
+                <div class="metric-card" style="border-left-color: var(--accent-gold);">
+                    <div class="metric-title">Learning Convergence</div>
+                    <div class="metric-value" id="convergence-val">0.0%</div>
+                </div>
+            </div>
+        </div>
+
+        <footer>
+            PROFESSIONAL GRADE AI OPTIMIZATION | POWERED BY φ^∞ | 2026
+        </footer>
+    </div>
+
+    <script>
+        const ctx = document.getElementById('optimizerChart').getContext('2d');
+        let chart;
+        let losses = [1.0];
+        let labels = [0];
+
+        const lrSlider = document.getElementById('lr-slider');
+        const qrtSlider = document.getElementById('qrt-slider');
+        const noiseSlider = document.getElementById('noise-slider');
+        const lrVal = document.getElementById('lr-val');
+        const qrtVal = document.getElementById('qrt-val');
+        const noiseVal = document.getElementById('noise-val');
+        const lossVal = document.getElementById('loss-val');
+        const convergenceVal = document.getElementById('convergence-val');
+
+        lrSlider.oninput = () => lrVal.innerText = lrSlider.value;
+        qrtSlider.oninput = () => qrtVal.innerText = qrtSlider.value;
+        noiseSlider.oninput = () => noiseVal.innerText = noiseSlider.value;
+
+        function initChart() {
+            if (chart) chart.destroy();
+            losses = [1.0];
+            labels = [0];
+            chart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: 'Training Loss',
+                        data: losses,
+                        borderColor: '#00F0FF',
+                        backgroundColor: 'rgba(0, 240, 255, 0.1)',
+                        borderWidth: 2,
+                        fill: true,
+                        tension: 0.4,
+                        pointRadius: 0
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            beginAtZero: false,
+                            grid: { color: 'rgba(255,255,255,0.05)' },
+                            ticks: { color: '#888' }
+                        },
+                        x: {
+                            grid: { display: false },
+                            ticks: { color: '#888' }
+                        }
+                    },
+                    plugins: {
+                        legend: { display: false }
+                    }
+                }
+            });
+        }
+
+        initChart();
+
+        document.getElementById('step-btn').onclick = () => {
+            const lr = parseFloat(lrSlider.value);
+            const qrt = parseFloat(qrtSlider.value);
+            const noise = parseFloat(noiseSlider.value);
+
+            for (let i = 0; i < 100; i++) {
+                let currentLoss = losses[losses.length - 1];
+                
+                // QRT Optimization Logic (Simulated)
+                // Turbulence prevents getting stuck in local minima
+                const turbulence = qrt * Math.sin(losses.length * 0.5) * currentLoss * 0.1;
+                const rndNoise = (Math.random() - 0.5) * noise * currentLoss;
+                const gradient = currentLoss * 0.05 + turbulence + rndNoise;
+                
+                currentLoss -= lr * gradient;
+                if (currentLoss < 0.000001) currentLoss = 0.000001;
+                
+                losses.push(currentLoss);
+                labels.push(labels.length);
+            }
+
+            chart.update();
+            const finalLoss = losses[losses.length - 1];
+            lossVal.innerText = finalLoss.toFixed(6);
+            convergenceVal.innerText = ((1 - finalLoss) * 100).toFixed(1) + "%";
+        };
+
+        document.getElementById('reset-btn').onclick = () => {
+            initChart();
+            lossVal.innerText = "1.000000";
+            convergenceVal.innerText = "0.0%";
+        };
+    </script>
+</body>
+</html>

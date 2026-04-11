@@ -21,7 +21,7 @@ def prove_qrt_damping_constant() -> bool:
     optimal_radians = math.atan(4 / math.pi)
     optimal_degrees = math.degrees(optimal_radians)
 
-    # 2. Institutional Standard Constant
+    # 2. Professional Standard Constant
     standard_qrt_degrees = 51.853
 
     # 3. Validation
@@ -29,7 +29,7 @@ def prove_qrt_damping_constant() -> bool:
     match_percentage = 100 - error
 
     print(f"Theoretical Convergence (arctan(4/π)):         {optimal_degrees:.5f}°")
-    print(f"NRC Institutional Standard (θ_QRT):            {standard_qrt_degrees:.5f}°")
+    print(f"NRC Professional Standard (θ_QRT):            {standard_qrt_degrees:.5f}°")
     print("-" * 60)
     print(f"Geometric Alignment Match:                      {match_percentage:.3f}%")
     print("=" * 60)

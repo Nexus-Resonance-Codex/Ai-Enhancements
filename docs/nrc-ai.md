@@ -1,6 +1,6 @@
 # Documentation: NRC Ai-Enhancements
 
-This repository provides institutional-grade AI enhancements derived from the Nexus Resonance Codex. By integrating deterministic $\varphi$-geometry into standard deep learning components, we achieve unprecedented stability and scaling.
+This repository provides professional-grade AI enhancements derived from the Nexus Resonance Codex. By integrating deterministic $\varphi$-geometry into standard deep learning components, we achieve unprecedented stability and scaling.
 
 ## Core Pillars
 
@@ -21,7 +21,7 @@ By initializing weights to the **E8 Golden Basis**, we ensure that the network s
 ### Requirements
 - Python 3.12+
 - PyTorch 2.2+
-- `nrc-math` (Institutional Core)
+- `nrc-math` (Professional Core)
 
 ### Installation
 ```bash

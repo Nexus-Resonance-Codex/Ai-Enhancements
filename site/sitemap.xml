@@ -2,14 +2,18 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
          <loc>https://Nexus-Resonance-Codex.github.io/Ai-Enhancements/</loc>
-         <lastmod>2026-04-09</lastmod>
+         <lastmod>2026-04-11</lastmod>
     </url>
     <url>
          <loc>https://Nexus-Resonance-Codex.github.io/Ai-Enhancements/OLLAMA_GUIDE/</loc>
-         <lastmod>2026-04-09</lastmod>
+         <lastmod>2026-04-11</lastmod>
     </url>
     <url>
          <loc>https://Nexus-Resonance-Codex.github.io/Ai-Enhancements/nrc-ai/</loc>
-         <lastmod>2026-04-09</lastmod>
+         <lastmod>2026-04-11</lastmod>
+    </url>
+    <url>
+         <loc>https://Nexus-Resonance-Codex.github.io/Ai-Enhancements/proofs/</loc>
+         <lastmod>2026-04-11</lastmod>
     </url>
 </urlset>

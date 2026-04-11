@@ -4,7 +4,7 @@
 # NRC Ai-Enhancements
 ## High-Stability Architectural Primitives via High-Dimensional Lattice Analysis
 
-[![License: CC-BY-NC-SA-4.0](https://img.shields.io/badge/License-CC--BY--NC--SA%204.0-00F0FF?style=for-the-badge&logo=creative-commons "Institutional License: CC-BY-NC-SA-4.0")](LICENSE)
+[![License: CC-BY-NC-SA-4.0](https://img.shields.io/badge/License-CC--BY--NC--SA%204.0-00F0FF?style=for-the-badge&logo=creative-commons "Professional License: CC-BY-NC-SA-4.0")](LICENSE)
 [![CI: Cognitive Audit](https://github.com/Nexus-Resonance-Codex/Ai-Enhancements/actions/workflows/ci.yml/badge.svg)](https://github.com/Nexus-Resonance-Codex/Ai-Enhancements/actions/workflows/ci.yml)
 [![Docs: Technical Specifications](https://img.shields.io/badge/Docs-Foundations-green?style=for-the-badge&logo=markdown "Mathematical Foundations Documentation")](https://nexus-resonance-codex.github.io/Ai-Enhancements/)
 [![Enhancements: 30+ Core](https://img.shields.io/badge/Enhancements-30+%20Core-00FF88?style=for-the-badge&logo=pytorch "Core Enhancement Primitives")](src/nrc_ai/)

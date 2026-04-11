@@ -1,5 +1,6 @@
 site_name: NRC Ai-Enhancements
-site_description: Institutional-Grade AI Scaling & Lattice Memory
+site_description: Professional AI Scaling Primitives & Lattice Memory Optimization
+site_author: James Trageser
 site_url: https://Nexus-Resonance-Codex.github.io/Ai-Enhancements/
 
 theme:
@@ -7,19 +8,18 @@ theme:
   palette:
     - media: "(prefers-color-scheme: dark)"
       scheme: slate
-      primary: blue
-      accent: cyan
+      primary: teal
+      accent: gold
     - media: "(prefers-color-scheme: light)"
       scheme: default
-      primary: white
-      accent: indigo
+      primary: teal
+      accent: gold
   features:
     - navigation.tabs
     - navigation.sections
-    - navigation.top
-    - search.suggest
-    - search.highlight
+    - navigation.expand
     - content.code.copy
+    - content.code.annotate
 
 markdown_extensions:
   - pymdownx.highlight:
@@ -29,9 +29,8 @@ markdown_extensions:
   - pymdownx.superfences
   - pymdownx.arithmatex:
       generic: true
-  - admonition
-  - footnotes
   - attr_list
+  - md_in_html
 
 extra_javascript:
   - javascripts/mathjax.js
@@ -40,5 +39,14 @@ extra_javascript:
 
 nav:
   - Home: index.md
-  - Architecture: nrc-ai.md
-  - Ollama Integration: OLLAMA_GUIDE.md
+  - Interactive Demos:
+      - QRT Optimizer: demos/optimizer-demo.html
+  - Technical Insights:
+      - AI Enhancement Manifold: nrc-ai.md
+  - Architecture:
+      - Resonance Shard Cache: proofs/index.md
+
+plugins:
+  - search
+  - minify:
+      minify_html: true
