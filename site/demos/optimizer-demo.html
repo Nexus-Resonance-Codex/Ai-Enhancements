@@ -3,81 +3,93 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ai-Enhancements: QRT Optimizer Visualizer | Nexus Resonance Codex</title>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;500;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <title>Ai-Enhancements: QRT Optimizer Tracker | Nexus Resonance Codex</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
         :root {
-            --bg-dark: #0a0a0e;
+            --bg-dark: #08080c;
+            --card-bg: rgba(20, 20, 30, 0.7);
+            --border: rgba(255, 255, 255, 0.08);
             --accent-gold: #FFD700;
             --accent-cyan: #00F0FF;
-            --glass-bg: rgba(20, 20, 30, 0.6);
-            --glass-border: rgba(255, 255, 255, 0.1);
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         body {
             margin: 0;
+            padding: 2rem;
             background-color: var(--bg-dark);
             color: #fff;
             font-family: 'Outfit', sans-serif;
+            min-height: 100vh;
             display: flex;
             flex-direction: column;
-            min-height: 100vh;
-            padding: 2rem;
-        }
-
-        .container {
-            max-width: 1000px;
-            margin: 0 auto;
-            width: 100%;
+            align-items: center;
         }
 
         header {
             text-align: center;
-            margin-bottom: 2rem;
+            margin-bottom: 3rem;
+            max-width: 800px;
         }
 
         h1 {
-            font-size: 2.2rem;
+            font-size: 2.5rem;
             background: linear-gradient(90deg, var(--accent-gold), var(--accent-cyan));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            margin-bottom: 0.5rem;
+            font-weight: 700;
         }
 
-        .main-grid {
+        .container {
+            width: 100%;
+            max-width: 1100px;
             display: grid;
             grid-template-columns: 1fr 350px;
             gap: 2rem;
         }
 
-        .chart-container {
-            background: var(--glass-bg);
-            backdrop-filter: blur(15px);
-            border: 1px solid var(--glass-border);
-            border-radius: 16px;
-            padding: 1.5rem;
-            height: 500px;
+        .main-panel {
+            background: var(--card-bg);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--border);
+            border-radius: 24px;
+            padding: 2rem;
+            height: 600px;
+            display: flex;
+            flex-direction: column;
         }
 
-        .controls {
-            background: var(--glass-bg);
-            backdrop-filter: blur(15px);
-            border: 1px solid var(--glass-border);
-            border-radius: 16px;
+        .side-panel {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .card {
+            background: var(--card-bg);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--border);
+            border-radius: 20px;
             padding: 1.5rem;
             display: flex;
             flex-direction: column;
-            gap: 1.2rem;
+            gap: 1rem;
         }
 
         .section-title {
-            font-weight: 500;
-            font-size: 1.1rem;
-            color: var(--accent-gold);
+            font-size: 0.8rem;
+            font-weight: 700;
             text-transform: uppercase;
-            border-bottom: 1px solid var(--glass-border);
-            padding-bottom: 0.5rem;
+            color: var(--accent-gold);
+            letter-spacing: 2px;
+        }
+
+        .controls {
+            display: flex;
+            flex-direction: column;
+            gap: 1.2rem;
         }
 
         .control-group {
@@ -87,135 +99,133 @@
         }
 
         label {
-            font-size: 0.8rem;
-            color: #aaa;
+            font-size: 0.85rem;
+            color: rgba(255, 255, 255, 0.4);
             display: flex;
             justify-content: space-between;
         }
 
         input[type="range"] {
             width: 100%;
+            accent-color: var(--accent-cyan);
             cursor: pointer;
         }
 
-        .metric-card {
-            background: rgba(0, 0, 0, 0.4);
-            border-radius: 8px;
+        .btn {
             padding: 1rem;
-            border-left: 4px solid var(--accent-cyan);
+            background: linear-gradient(135deg, var(--accent-gold), var(--accent-cyan));
+            border: none;
+            border-radius: 12px;
+            color: #000;
+            font-weight: 700;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: var(--transition);
         }
 
-        .metric-title {
-            font-size: 0.7rem;
-            text-transform: uppercase;
-            color: #aaa;
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 0 20px rgba(0, 240, 255, 0.4);
+        }
+
+        .metric {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.5rem 0;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .metric-label {
+            font-size: 0.8rem;
+            color: #888;
         }
 
         .metric-value {
             font-family: 'JetBrains Mono', monospace;
-            font-size: 1.1rem;
-            margin-top: 0.3rem;
+            font-size: 1rem;
+            color: var(--accent-cyan);
         }
 
-        button {
-            background: linear-gradient(135deg, rgba(255, 215, 0, 0.2), rgba(0, 240, 255, 0.2));
-            color: #fff;
-            border: 1px solid var(--accent-cyan);
-            border-radius: 8px;
-            padding: 1rem;
-            font-weight: 700;
-            cursor: pointer;
-            transition: 0.3s;
-            text-transform: uppercase;
+        #chart-container {
+            flex: 1;
+            position: relative;
         }
 
-        button:hover {
-            box-shadow: 0 0 15px var(--accent-cyan);
-            transform: translateY(-2px);
-        }
-
-        footer {
-            margin-top: 3rem;
+        .legend {
+            font-size: 0.75rem;
+            color: #555;
+            margin-top: 1rem;
             text-align: center;
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.8rem;
-            color: #666;
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <header>
-            <h1>Ai-Enhancements: QRT Optimizer</h1>
-            <p style="color: #888;">Dynamic Visualization of Quantum Residue Turbulence in Gradient Descent</p>
-        </header>
+    <header>
+        <h1>QRT OPTIMIZER TRACKER</h1>
+        <p style="color: rgba(255,255,255,0.4);">Quantized Residue Turbulence monitoring for accelerated model convergence.</p>
+    </header>
 
-        <div class="main-grid">
-            <div class="chart-container">
-                <canvas id="optimizerChart"></canvas>
+    <div class="container">
+        <div class="main-panel">
+            <div class="section-title">Convergence Manifold</div>
+            <div id="chart-container">
+                <canvas id="lossChart"></canvas>
+            </div>
+            <div class="legend">Simulation of stochastic gradient descent with φ-scaled turbulence damping.</div>
+        </div>
+
+        <div class="side-panel">
+            <div class="card">
+                <div class="section-title">Optimizer Tuning</div>
+                <div class="controls">
+                    <div class="control-group">
+                        <label>Learning Rate <span id="lr-val">0.001</span></label>
+                        <input type="range" id="lr-slider" min="0.0001" max="0.01" step="0.0001" value="0.001">
+                    </div>
+                    <div class="control-group">
+                        <label>QRT Turbulence <span id="qrt-val">0.38</span></label>
+                        <input type="range" id="qrt-slider" min="0" max="1" step="0.01" value="0.38">
+                    </div>
+                    <div class="control-group">
+                        <label>Momentum <span id="mt-val">0.90</span></label>
+                        <input type="range" id="mt-slider" min="0" max="0.99" step="0.01" value="0.90">
+                    </div>
+                    <button class="btn" onclick="startSim()">Simulate Training</button>
+                    <button class="btn" style="background: rgba(255,255,255,0.05); color: #fff; margin-top: -0.5rem; border: 1px solid rgba(255,255,255,0.1);" onclick="resetSim()">Reset Weights</button>
+                </div>
             </div>
 
-            <div class="controls">
-                <div class="section-title">Optimizer Parameters</div>
-                
-                <div class="control-group">
-                    <label>Learning Rate (η) <span id="lr-val">0.001</span></label>
-                    <input type="range" id="lr-slider" min="0.0001" max="0.01" step="0.0001" value="0.001">
+            <div class="card">
+                <div class="section-title">Telemetry</div>
+                <div class="metric">
+                    <span class="metric-label">Current Loss</span>
+                    <span class="metric-value" id="loss-val">1.0000</span>
                 </div>
-
-                <div class="control-group">
-                    <label>QRT Turbulence Factor <span id="qrt-val">0.38</span></label>
-                    <input type="range" id="qrt-slider" min="0" max="1" step="0.01" value="0.38">
+                <div class="metric">
+                    <span class="metric-label">Convergence Rate</span>
+                    <span class="metric-value" id="conv-val">0.00%</span>
                 </div>
-
-                <div class="control-group">
-                    <label>Noise Floor <span id="noise-val">0.05</span></label>
-                    <input type="range" id="noise-slider" min="0" max="0.2" step="0.01" value="0.05">
+                <div class="metric">
+                    <span class="metric-label">Stable Epochs</span>
+                    <span class="metric-value" id="epoch-val">0</span>
                 </div>
-
-                <button id="step-btn">Run 100 Epochs</button>
-                <button id="reset-btn" style="background: rgba(255,255,255,0.05); border-color: rgba(255,255,255,0.2);">Reset Manifold</button>
-
-                <div class="section-title">Live Metrics</div>
-                <div class="metric-card">
-                    <div class="metric-title">Current Loss</div>
-                    <div class="metric-value" id="loss-val">1.000000</div>
-                </div>
-                <div class="metric-card" style="border-left-color: var(--accent-gold);">
-                    <div class="metric-title">Learning Convergence</div>
-                    <div class="metric-value" id="convergence-val">0.0%</div>
+                <div class="metric">
+                    <span class="metric-label">Resonance Parity</span>
+                    <span class="metric-value" style="color: #00ff00;">STABLE</span>
                 </div>
             </div>
         </div>
-
-        <footer>
-            PROFESSIONAL GRADE AI OPTIMIZATION | POWERED BY φ^∞ | 2026
-        </footer>
     </div>
 
     <script>
-        const ctx = document.getElementById('optimizerChart').getContext('2d');
+        const ctx = document.getElementById('lossChart').getContext('2d');
         let chart;
         let losses = [1.0];
         let labels = [0];
 
-        const lrSlider = document.getElementById('lr-slider');
-        const qrtSlider = document.getElementById('qrt-slider');
-        const noiseSlider = document.getElementById('noise-slider');
-        const lrVal = document.getElementById('lr-val');
-        const qrtVal = document.getElementById('qrt-val');
-        const noiseVal = document.getElementById('noise-val');
-        const lossVal = document.getElementById('loss-val');
-        const convergenceVal = document.getElementById('convergence-val');
-
-        lrSlider.oninput = () => lrVal.innerText = lrSlider.value;
-        qrtSlider.oninput = () => qrtVal.innerText = qrtSlider.value;
-        noiseSlider.oninput = () => noiseVal.innerText = noiseSlider.value;
-
         function initChart() {
             if (chart) chart.destroy();
-            losses = [1.0];
-            labels = [0];
             chart = new Chart(ctx, {
                 type: 'line',
                 data: {
@@ -226,9 +236,9 @@
                         borderColor: '#00F0FF',
                         backgroundColor: 'rgba(0, 240, 255, 0.1)',
                         borderWidth: 2,
+                        pointRadius: 0,
                         fill: true,
-                        tension: 0.4,
-                        pointRadius: 0
+                        tension: 0.4
                     }]
                 },
                 options: {
@@ -236,7 +246,7 @@
                     maintainAspectRatio: false,
                     scales: {
                         y: {
-                            beginAtZero: false,
+                            beginAtZero: true,
                             grid: { color: 'rgba(255,255,255,0.05)' },
                             ticks: { color: '#888' }
                         },
@@ -254,38 +264,49 @@
 
         initChart();
 
-        document.getElementById('step-btn').onclick = () => {
-            const lr = parseFloat(lrSlider.value);
-            const qrt = parseFloat(qrtSlider.value);
-            const noise = parseFloat(noiseSlider.value);
+        // Sliders
+        document.getElementById('lr-slider').oninput = e => document.getElementById('lr-val').innerText = e.target.value;
+        document.getElementById('qrt-slider').oninput = e => document.getElementById('qrt-val').innerText = e.target.value;
+        document.getElementById('mt-slider').oninput = e => document.getElementById('mt-val').innerText = e.target.value;
 
-            for (let i = 0; i < 100; i++) {
-                let currentLoss = losses[losses.length - 1];
+        function startSim() {
+            const lr = parseFloat(document.getElementById('lr-slider').value);
+            const qrt = parseFloat(document.getElementById('qrt-slider').value);
+            const mt = parseFloat(document.getElementById('mt-slider').value);
+            
+            let currentEpoch = labels[labels.length - 1];
+            
+            for (let i = 0; i < 50; i++) {
+                currentEpoch++;
+                const prevLoss = losses[losses.length - 1];
                 
-                // QRT Optimization Logic (Simulated)
-                // Turbulence prevents getting stuck in local minima
-                const turbulence = qrt * Math.sin(losses.length * 0.5) * currentLoss * 0.1;
-                const rndNoise = (Math.random() - 0.5) * noise * currentLoss;
-                const gradient = currentLoss * 0.05 + turbulence + rndNoise;
+                // Simulated QRT Gradient Descent
+                // Turbulence (qrt) prevents getting stuck in local minima (simulated by noise)
+                const noise = (Math.random() - 0.5) * 0.1 * qrt * prevLoss;
+                const decay = prevLoss * lr * 10 * (1 + mt);
                 
-                currentLoss -= lr * gradient;
-                if (currentLoss < 0.000001) currentLoss = 0.000001;
+                let newLoss = prevLoss - decay + noise;
+                if (newLoss < 0.0001) newLoss = 0.0001 * (1 + Math.random() * 0.1);
                 
-                losses.push(currentLoss);
-                labels.push(labels.length);
+                losses.push(newLoss);
+                labels.push(currentEpoch);
             }
 
             chart.update();
-            const finalLoss = losses[losses.length - 1];
-            lossVal.innerText = finalLoss.toFixed(6);
-            convergenceVal.innerText = ((1 - finalLoss) * 100).toFixed(1) + "%";
-        };
+            const lastLoss = losses[losses.length-1];
+            document.getElementById('loss-val').innerText = lastLoss.toFixed(4);
+            document.getElementById('conv-val').innerText = ((1 - lastLoss) * 100).toFixed(2) + "%";
+            document.getElementById('epoch-val').innerText = labels.length;
+        }
 
-        document.getElementById('reset-btn').onclick = () => {
+        function resetSim() {
+            losses = [1.0];
+            labels = [0];
             initChart();
-            lossVal.innerText = "1.000000";
-            convergenceVal.innerText = "0.0%";
-        };
+            document.getElementById('loss-val').innerText = "1.0000";
+            document.getElementById('conv-val').innerText = "0.00%";
+            document.getElementById('epoch-val').innerText = "0";
+        }
     </script>
 </body>
 </html>

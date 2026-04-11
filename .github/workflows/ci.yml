@@ -8,7 +8,7 @@ on:
 
 jobs:
   cognitive-audit:
-    name: Institutional AI Audit
+    name: Professional AI Audit
     runs-on: ubuntu-latest
 
     steps:
