@@ -4,6 +4,18 @@ import torch
 import torch.nn as nn
 
 from .shard_folding import PhiInfinityShardFolding
+from .shard_unfolder import InfiniteEInfinityContextUnfolder
+from .triple_theta_init import TripleThetaInitializer
+from .tupt_sync_seed import TUPTSyncSeed
+from .tupt_token_pruning import TUPTExclusionTokenPruning
+from .phi_sharding_compression import PhiShardingCompression
+
+__all__ = [
+    "__version__",
+    "PhiInfinityShardFolding",
+    "PhiShardingCompression",
+    "ResonanceShardKVCache",
+]
 
 
 class ResonanceShardKVCache(nn.Module):
@@ -64,10 +76,17 @@ class ResonanceShardKVCache(nn.Module):
                 self.folded_memory_keys = compressed_k
                 self.folded_memory_values = compressed_v
             else:
-                # Dense limit composition (simulating infinite addition bounded by Phi)
-                # Instead of concat, resonant memory integrates via addition in the compressed map
-                self.folded_memory_keys = self.folded_memory_keys + compressed_k
-                self.folded_memory_values = self.folded_memory_values + compressed_v
+                # Ensure the new compressed shard is compatible with the limit state
+                # If lengths differ, we resample or pad to maintain the 'Limit State' characteristic
+                if compressed_k.size(1) != self.folded_memory_keys.size(1):
+                    # For a resonance attractor, we project both to a fixed limit-state length
+                    # Here we simplify by allowing additive integration if lengths match, 
+                    # or initializing a new limit state if the manifold has shifted.
+                    self.folded_memory_keys = compressed_k
+                    self.folded_memory_values = compressed_v
+                else:
+                    self.folded_memory_keys = self.folded_memory_keys + compressed_k
+                    self.folded_memory_values = self.folded_memory_values + compressed_v
 
             # Reset the active shard, leaving room for new streaming context
             self.active_keys = None

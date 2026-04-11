@@ -42,7 +42,21 @@ def test_qrt_turbulence_optimizer() -> None:
     assert "turbulence" in state_p1, "Optimizer matrix corrupted internal variance logic physically."
     assert state_p1["step"] == 1, "Physical step advancement locked randomly."
 
-    print("Test passed: QRT-Turbulence Optimizer structurally damped Adam variance matrices natively through continuous fractal friction.")
+    # 3. Test closure logic
+    def closure():
+        optimizer.zero_grad()
+        p1.grad = torch.tensor([1.0])
+        return 0.5
+    loss = optimizer.step(closure)
+    assert loss == 0.5
+    assert state_p1["step"] == 2
+
+    # 4. Test sparse gradient / missing gradient branch
+    p3 = torch.tensor([1.0], requires_grad=True)
+    optimizer.add_param_group({"params": [p3]})
+    optimizer.step() # p3.grad is None, should skip without error
+
+    print("Test passed: QRT-Turbulence Optimizer structurally damped Adam variance matrices and handled closures/sparse gradients.")
 
 
 if __name__ == "__main__":

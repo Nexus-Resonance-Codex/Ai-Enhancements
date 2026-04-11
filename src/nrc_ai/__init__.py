@@ -1,10 +1,8 @@
 """NRC AI Enhancements Library.
 
 ===========================
-30 mathematically rigid PyTorch deep learning enhancements based on the
-
-30 mathematically rigid PyTorch deep learning enhancements based on theNexus Resonance Codex. These modules replace stochastic heuristics with
-deterministic Golden Ratio geometry.
+30 mathematically rigid PyTorch deep learning enhancements based on the Nexus Resonance Codex. 
+These modules replace stochastic heuristics with deterministic Golden Ratio geometry.
 """
 
 from .__about__ import __version__
@@ -27,6 +25,7 @@ from .nrc_protein_engine import NRCProteinFoldingEngine
 from .phi_lora_adapter import PhiInfinityLosslessLoRA
 from .phi_momentum_accelerator import PhiInverseMomentumAccelerator
 from .phi_resonant_weighting import PhiPoweredResonantWeighting
+from .phi_sharding_compression import PhiShardingCompression
 from .phi_void_positional import PhiVoidResonancePositionalEncoding
 from .pisano_lr_schedule import PisanoModulatedLRSchedule
 from .prime_density_generation import PrimeDensityConditionedGeneration
@@ -45,6 +44,7 @@ from .tupt_token_pruning import TUPTExclusionTokenPruning
 __all__ = [
     "__version__",
     "PhiInfinityShardFolding",
+    "PhiShardingCompression",
     "PhiInfinityPersistentMemory",
     "ExecutiveAgent",
     "NRCProteinFoldingEngine",
