@@ -10,7 +10,7 @@
 [![Enhancements: 30+ Core](https://img.shields.io/badge/Enhancements-30+%20Core-00FF88?style=for-the-badge&logo=pytorch "Core Enhancement Primitives")](src/nrc_ai/)
 [![AI-Optimizer Evaluations](https://github.com/Nexus-Resonance-Codex/Ai-Enhancements/actions/workflows/prompt-evals.yml/badge.svg)](https://github.com/Nexus-Resonance-Codex/Ai-Enhancements/actions/workflows/prompt-evals.yml)
 
-[Enhancements](src/nrc_ai/) • [NRC Playground](#-nrc-playground) • [Memory Architecture](src/nrc_ai/memory.py) • [Demos](examples/) • [Scaling Matrix](docs/roadmap.md)
+[Enhancements](src/nrc_ai/) • [NRC Playground](#-nrc-playground) • [Memory Architecture](src/nrc_ai/memory.py) • [Demos](examples/) • [Scaling Matrix](https://nexus-resonance-codex.github.io/Ai-Enhancements/roadmap.html)
 
 </div>
 
@@ -54,7 +54,7 @@ Optimize AI performance and analyze resonant architectural primitives directly w
 | **QRT Optimizer** | [Simulate Training](https://github.com/Nexus-Resonance-Codex/Ai-Enhancements/blob/main/.github/prompts/qrt-optimizer-tracker.prompt.yml) | GPT-4o |
 | **KV-Cache Folding** | [Analyze VRAM Efficiency](https://github.com/Nexus-Resonance-Codex/Ai-Enhancements/blob/main/.github/prompts/resonance-kv-cache-folding.prompt.yml) | o1-preview |
 
-Refer to the [**NRC Playground Guide**](docs/NRC-Playground-Guide.md) for step-by-step instructions on high-stability AI testing.
+Refer to the [**NRC Playground Guide**](https://nexus-resonance-codex.github.io/Ai-Enhancements/NRC-Playground-Guide.html) for step-by-step instructions on high-stability AI testing.
 
 ---
 
