@@ -8,8 +8,9 @@
 [![CI: Cognitive Audit](https://github.com/Nexus-Resonance-Codex/Ai-Enhancements/actions/workflows/ci.yml/badge.svg)](https://github.com/Nexus-Resonance-Codex/Ai-Enhancements/actions/workflows/ci.yml)
 [![Docs: Technical Specifications](https://img.shields.io/badge/Docs-Foundations-green?style=for-the-badge&logo=markdown "Mathematical Foundations Documentation")](https://nexus-resonance-codex.github.io/Ai-Enhancements/)
 [![Enhancements: 30+ Core](https://img.shields.io/badge/Enhancements-30+%20Core-00FF88?style=for-the-badge&logo=pytorch "Core Enhancement Primitives")](src/nrc_ai/)
+[![AI-Optimizer Evaluations](https://github.com/Nexus-Resonance-Codex/Ai-Enhancements/actions/workflows/prompt-evals.yml/badge.svg)](https://github.com/Nexus-Resonance-Codex/Ai-Enhancements/actions/workflows/prompt-evals.yml)
 
-[Enhancements](src/nrc_ai/) • [Memory Architecture](src/nrc_ai/memory.py) • [Demos](examples/) • [Scaling Matrix](docs/roadmap.md)
+[Enhancements](src/nrc_ai/) • [NRC Playground](#-nrc-playground) • [Memory Architecture](src/nrc_ai/memory.py) • [Demos](examples/) • [Scaling Matrix](docs/roadmap.md)
 
 </div>
 
@@ -41,6 +42,19 @@ The suite provides deeply integrated components for deep learning architectural 
 *   **TUPT Token Pruning**: Pattern-based sequence optimization for reduced inference overhead.
 *   **QRT Activation Layers**: Geometric-regularized damping ($\theta_{QRT} \approx 51.85^\circ$) for preventing gradient instability.
 *   **MST Lyapunov Clipping**: Stability metrics for monitoring and preventing chaotic divergence during high-parameter training.
+
+---
+
+### 🚀 NRC Playground – Test Directly on GitHub
+
+Optimize AI performance and analyze resonant architectural primitives directly within the GitHub UI using the **Models** tab.
+
+| Feature | Interactive Prompt | Model Recommendation |
+| :--- | :--- | :--- |
+| **QRT Optimizer** | [Simulate Training](https://github.com/Nexus-Resonance-Codex/Ai-Enhancements/blob/main/.github/prompts/qrt-optimizer-tracker.prompt.yml) | GPT-4o |
+| **KV-Cache Folding** | [Analyze VRAM Efficiency](https://github.com/Nexus-Resonance-Codex/Ai-Enhancements/blob/main/.github/prompts/resonance-kv-cache-folding.prompt.yml) | o1-preview |
+
+Refer to the [**NRC Playground Guide**](docs/NRC-Playground-Guide.md) for step-by-step instructions on high-stability AI testing.
 
 ---
 

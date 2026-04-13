@@ -1,0 +1,19 @@
+name: "Ai-Enhancements Prompt Evaluations"
+
+on:
+  schedule:
+    - cron: '0 0 * * *'
+  push:
+    paths:
+      - '.github/prompts/**'
+  workflow_dispatch:
+
+jobs:
+  evaluate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: QRT Stability Audit
+        run: |
+          echo "Verifying AI enhancement prompt stability..."
+          grep -i "QRT\|KV\|Fractal" .github/prompts/

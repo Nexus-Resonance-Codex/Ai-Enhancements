@@ -1,0 +1,19 @@
+name: "Resonance KV-Cache Folding"
+description: "Demonstrates the efficiency of shard-folding and KV-cache compression using the φ^∞ protocol. Compares memory growth of standard vs NRC context."
+model: "openai/gpt-4o"
+modelParameters:
+  temperature: 0.2
+variables:
+  sequence_length: "The current token count (e.g., 64k, 128k)."
+messages:
+  - role: system
+    content: "You are an AI hardware architect specializing in memory-efficient attention mechanisms and resonant KV-cache compression."
+  - role: user
+    content: |
+      Analyze the memory footprint for a context length of {{sequence_length}} tokens.
+
+      Comparison Analysis:
+      1. Standard Transformer KV-Cache (linear growth in GB).
+      2. NRC φ^∞ Shard Folding (fixed manifold overhead).
+      3. Compression Ratio (HRE-fidelity).
+      4. Impact on Inference Latency (O(1) vs O(N)).

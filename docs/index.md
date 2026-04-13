@@ -40,6 +40,16 @@
 
 ---
 
+### 🚀 NRC Playground
+
+Test AI architectural stability and resonant optimization directly on GitHub:
+
+- **[QRT Optimizer Tracker](https://github.com/Nexus-Resonance-Codex/Ai-Enhancements/blob/main/.github/prompts/qrt-optimizer-tracker.prompt.yml)** — Simulate fractal-damped convergence.
+- **[KV-Cache Folding Demo](https://github.com/Nexus-Resonance-Codex/Ai-Enhancements/blob/main/.github/prompts/resonance-kv-cache-folding.prompt.yml)** — Analyze shard-folding efficiency.
+- **[Playground Guide](NRC-Playground-Guide.md)** — Comprehensive usage instructions.
+
+---
+
 ### 🛠 Setup
 Built for high-integrity research using [uv](https://github.com/astral-sh/uv).
 
