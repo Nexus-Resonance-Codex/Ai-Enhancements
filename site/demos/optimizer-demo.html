@@ -3,222 +3,67 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ai-Enhancements: QRT Optimizer Tracker | Nexus Resonance Codex</title>
+    <title>Protein Lattice Visualizer | NRC</title>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <style>
-        :root {
-            --bg-dark: #050508;
-            --glass-bg: rgba(15, 20, 30, 0.7);
-            --glass-border: rgba(255, 255, 255, 0.08);
-            --accent-gold: #FFD700;
-            --accent-cyan: #00F0FF;
-            --phi: 1.618033988749895;
-            --transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
-        }
-
-        body {
-            margin: 0;
-            background-color: var(--bg-dark);
-            color: #fff;
-            font-family: 'Outfit', sans-serif;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            overflow-x: hidden;
-            padding: 2rem;
-        }
-
-        header {
-            text-align: center;
-            margin-bottom: 2rem;
-            max-width: 1000px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        h1 {
-            font-size: 2.2rem;
-            background: linear-gradient(90deg, var(--accent-gold), var(--accent-cyan));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            font-weight: 700;
-        }
-
-        .main-grid {
-            width: 100%;
-            max-width: 1100px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: 1fr 350px;
-            gap: 2rem;
-        }
-
-        .chart-container {
-            background: var(--glass-bg);
-            backdrop-filter: blur(20px);
-            border: 1px solid var(--glass-border);
-            border-radius: 20px;
-            padding: 2rem;
-            height: 500px;
-        }
-
-        .side-panel {
-            display: flex;
-            flex-direction: column;
-            gap: 1.5rem;
-        }
-
-        .card {
-            background: var(--glass-bg);
-            backdrop-filter: blur(20px);
-            border: 1px solid var(--glass-border);
-            border-radius: 20px;
-            padding: 1.5rem;
-            display: flex;
-            flex-direction: column;
-            gap: 1.2rem;
-        }
-
-        .section-title {
-            font-size: 0.8rem;
-            font-weight: 700;
-            color: var(--accent-gold);
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            border-bottom: 1px solid rgba(255,255,255,0.05);
-            padding-bottom: 0.5rem;
-        }
-
-        .control-group {
-            display: flex;
-            flex-direction: column;
-            gap: 0.5rem;
-        }
-
-        label {
-            font-size: 0.85rem;
-            color: rgba(255, 255, 255, 0.4);
-            display: flex;
-            justify-content: space-between;
-        }
-
-        input[type="range"] {
-            width: 100%;
-            accent-color: var(--accent-cyan);
-            cursor: pointer;
-        }
-
-        .btn {
-            padding: 1rem;
-            background: linear-gradient(135deg, var(--accent-gold), var(--accent-cyan));
-            border: none;
-            border-radius: 12px;
-            color: #000;
-            font-weight: 700;
-            text-transform: uppercase;
-            cursor: pointer;
-            transition: var(--transition);
-        }
-
-        .btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 0 20px rgba(0, 240, 255, 0.4);
-        }
-
-        .metric {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 0.5rem 0;
-            border-bottom: 1px solid rgba(255,255,255,0.05);
-        }
-
-        .m-label { font-size: 0.8rem; color: #888; }
-        .m-value { font-family: 'JetBrains Mono', monospace; font-size: 1rem; color: var(--accent-cyan); }
+        body { margin: 0; background: #000; color: #fff; font-family: 'Outfit'; overflow: hidden; }
+        .ui { position: absolute; top: 2rem; left: 2rem; width: 300px; padding: 2rem; background: rgba(10,10,20,0.8); backdrop-filter: blur(20px); border: 1px solid rgba(255,255,255,0.1); border-radius: 24px; }
+        input { width: 100%; background: #000; border: 1px solid #333; color: #fff; padding: 0.8rem; border-radius: 8px; font-family: 'JetBrains Mono'; margin-top: 1rem; }
+        .label { font-size: 0.7rem; color: #666; text-transform: uppercase; letter-spacing: 1px; }
+        #canvas-container { width: 100vw; height: 100vh; }
     </style>
 </head>
 <body>
-    <header>
-        <h1>QRT OPTIMIZER TELEMETRY</h1>
-        <p style="color: #666;">High-dimensional resonance monitoring for training stability.</p>
-    </header>
-
-    <div class="main-grid">
-        <div class="chart-container">
-            <canvas id="optimizerChart"></canvas>
-        </div>
-
-        <div class="side-panel">
-            <div class="card">
-                <div class="section-title">Optimizer Parameters</div>
-                <div class="control-group">
-                    <label>Learning Rate <span id="lr-val">0.001</span></label>
-                    <input type="range" id="lr-slider" min="0.0001" max="0.01" step="0.0001" value="0.001">
-                </div>
-                <div class="control-group">
-                    <label>QRT Turbulence <span id="qrt-val">0.38</span></label>
-                    <input type="range" id="qrt-slider" min="0" max="1" step="0.01" value="0.38">
-                </div>
-                <button class="btn" onclick="runSim()">Step Manifold</button>
-            </div>
-
-            <div class="card">
-                <div class="section-title">Manifold State</div>
-                <div class="metric"><span class="m-label">Current Loss</span><span class="m-value" id="loss-val">1.0000</span></div>
-                <div class="metric"><span class="m-label">Convergence</span><span class="m-value" id="conv-val">0.00%</span></div>
-                <div class="metric"><span class="m-label">Parity</span><span class="m-value" style="color: #00ff00;">STABLE</span></div>
-            </div>
-        </div>
+    <div class="ui">
+        <div class="label">NRC Protein Lattice Visualizer</div>
+        <div style="font-size: 1.2rem; margin-top: 5px; font-weight: 700;">8192D Manifold Mode</div>
+        <input type="text" id="seq" value="MQIFVKTLTGKTITLEVEPSDTIENVKAKIQDKEGIPPDQQRLIFAGKQLEDGRTLSDYNIQKESTLHLVLRLRGG">
+        <div class="label" style="margin-top: 2rem;">Lattice Anchor Count: <span id="anchors">24388</span></div>
     </div>
-
+    <div id="canvas-container"></div>
     <script>
-        const ctx = document.getElementById('optimizerChart').getContext('2d');
-        let losses = [1.0];
-        let labels = [0];
-        const chart = new Chart(ctx, {
-            type: 'line',
-            data: {
-                labels: labels,
-                datasets: [{
-                    label: 'Loss Manifold',
-                    data: losses,
-                    borderColor: '#00F0FF',
-                    backgroundColor: 'rgba(0, 240, 255, 0.1)',
-                    pointRadius: 0,
-                    fill: true,
-                    tension: 0.4
-                }]
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                scales: {
-                    y: { grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: '#888' } },
-                    x: { grid: { display: false }, ticks: { color: '#888' } }
-                },
-                plugins: { legend: { display: false } }
-            }
-        });
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth/window.innerHeight, 0.1, 1000);
+        const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        document.getElementById('canvas-container').appendChild(renderer.domElement);
 
-        document.getElementById('lr-slider').oninput = e => document.getElementById('lr-val').innerText = e.target.value;
-        document.getElementById('qrt-slider').oninput = e => document.getElementById('qrt-val').innerText = e.target.value;
+        camera.position.z = 100;
 
-        function runSim() {
-            const lr = parseFloat(document.getElementById('lr-slider').value);
-            const qrt = parseFloat(document.getElementById('qrt-slider').value);
-            for(let i=0; i<20; i++) {
-                const prev = losses[losses.length-1];
-                const noise = (Math.random()-0.5) * 0.1 * qrt * prev;
-                const newLoss = Math.max(0.0001, prev - (prev * lr * 5) + noise);
-                losses.push(newLoss);
-                labels.push(labels.length);
+        const group = new THREE.Group();
+        scene.add(group);
+
+        function createLattice() {
+            group.clear();
+            const len = document.getElementById('seq').value.length;
+            const geo = new THREE.BufferGeometry();
+            const pos = [];
+            const col = [];
+            for(let i=0; i<3000; i++) {
+                const phi = 1.618033988;
+                const angle = i * 137.5 * (Math.PI / 180);
+                const r = Math.sqrt(i) * 3;
+                pos.push(Math.cos(angle)*r, Math.sin(angle)*r, (i % len) * 5 - (len*2.5));
+                const c = new THREE.Color().setHSL((i % len)/len, 1, 0.5);
+                col.push(c.r, c.g, c.b);
             }
-            chart.update();
-            const last = losses[losses.length-1];
-            document.getElementById('loss-val').innerText = last.toFixed(4);
-            document.getElementById('conv-val').innerText = ((1-last)*100).toFixed(2) + "%";
+            geo.setAttribute('position', new THREE.Float32BufferAttribute(pos, 3));
+            geo.setAttribute('color', new THREE.Float32BufferAttribute(col, 3));
+            const mat = new THREE.PointsMaterial({ size: 1.5, vertexColors: true, transparent: true, opacity: 0.6 });
+            group.add(new THREE.Points(geo, mat));
         }
+
+        createLattice();
+        document.getElementById('seq').oninput = createLattice;
+
+        function animate() {
+            requestAnimationFrame(animate);
+            group.rotation.y += 0.002;
+            group.rotation.x += 0.001;
+            renderer.render(scene, camera);
+        }
+        animate();
     </script>
 </body>
 </html>
