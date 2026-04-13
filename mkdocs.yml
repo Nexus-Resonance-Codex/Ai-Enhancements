@@ -1,25 +1,37 @@
 site_name: NRC Ai-Enhancements
-site_description: Professional AI Scaling Primitives & Lattice Memory Optimization
+site_description: Institutional-grade AI scaling primitives and high-dimensional lattice memory optimization.
 site_author: James Trageser
-site_url: https://Nexus-Resonance-Codex.github.io/Ai-Enhancements/
+site_url: https://nexus-resonance-codex.github.io/Ai-Enhancements/
+repo_url: https://github.com/Nexus-Resonance-Codex/Ai-Enhancements
+use_directory_urls: false
 
 theme:
   name: material
   palette:
     - media: "(prefers-color-scheme: dark)"
       scheme: slate
-      primary: teal
-      accent: gold
-    - media: "(prefers-color-scheme: light)"
-      scheme: default
-      primary: teal
-      accent: gold
+      primary: black
+      accent: deep purple
+  font:
+    text: Outfit
+    code: JetBrains Mono
   features:
-    - navigation.tabs
     - navigation.sections
     - navigation.expand
+    - navigation.top
     - content.code.copy
     - content.code.annotate
+    - content.tooltips
+  logo: https://raw.githubusercontent.com/Nexus-Resonance-Codex/Phi-Infinity-Lattice-Compression/main/docs/assets/phi_spiral_banner.png
+  favicon: https://raw.githubusercontent.com/Nexus-Resonance-Codex/Phi-Infinity-Lattice-Compression/main/docs/assets/phi_spiral_banner.png
+
+extra:
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/Nexus-Resonance-Codex/Ai-Enhancements
+  status:
+    new: AI-Scaling v2.2.0
+  social_image: assets/images/social-preview.png
 
 markdown_extensions:
   - pymdownx.highlight:
@@ -39,14 +51,15 @@ extra_javascript:
 
 nav:
   - Home: index.md
-  - Interactive Demos:
-      - QRT Optimizer: demos/optimizer-demo.html
-  - Technical Insights:
-      - AI Enhancement Manifold: nrc-ai.md
-  - Architecture:
-      - Resonance Shard Cache: proofs/index.md
+  - '🧠 Interactive Hub':
+      - 'QRT Optimizer': demos/optimizer-demo.html
+  - '📐 Technical Insights':
+      - 'AI Enhancement Manifold': nrc-ai.md
+  - '🏗 Architecture':
+      - 'Resonance Shard Cache': proofs/index.md
 
 plugins:
   - search
   - minify:
       minify_html: true
+
