@@ -1,22 +1,19 @@
 # Ai-Enhancements Playground – Testing Directly on GitHub
 
-The **Ai-Enhancements** repository utilizes GitHub Models to demonstrate the optimization and efficiency gains of the Nexus Resonance Codex.
+The **Ai-Enhancements** repository utilizes the GitHub Models ecosystem to demonstrate the optimization and efficiency gains of the Nexus Resonance Codex.
 
-## 🚀 Interactive Optimizers
+## 🚀 How to Run AI-Prompts
 
-1.  **Navigate to the Models Tab**: Click on the **Models** tab at the top of the repository.
-2.  **Select a Model**: GPT-4o is recommended for simulating convergence curves.
-3.  **Load an AI-Prompt**:
-    *   **QRT Optimizer Tracker**: Observe the effect of fractal-damped regularization on training loss.
-    *   **Resonance KV-Cache Folding**: Compare the VRAM efficiency of NRC shard-folding against standard attention.
-4.  **Analyze**: Use the **Comparisons** feature to see how different model sizes handle QRT damping.
+To optimize and enhance your AI models interactively:
+1.  **Navigate to the Models Tab**: Click on the **Models** tab at the top of this repository on GitHub.com.
+2.  **Select a Base Model**: GPT-4o is recommended for simulating convergence curves.
+3.  **Find the Prompts Section**: Click on **Prompts** in the left sidebar.
+4.  **Load an NRC AI-Prompt**: Select `QRT Optimizer Tracker` or `Resonance KV-Cache Folding`.
+5.  **Run Experiment**: Enter your training step or sequence length as a variable and click **Run**.
+
+## 🔗 Direct View Links
+*   [QRT Optimizer Tracker](https://github.com/Nexus-Resonance-Codex/Ai-Enhancements/blob/main/.github/prompts/qrt-optimizer-tracker.prompt.yml)
+*   [Resonance KV-Cache Folding](https://github.com/Nexus-Resonance-Codex/Ai-Enhancements/blob/main/.github/prompts/resonance-kv-cache-folding.prompt.yml)
 
 ## 📊 Evaluation Metrics
-
-Ai-Enhancement prompts are monitored for:
-*   **Convergence Fidelity**: Accuracy of the simulated loss decay.
-*   **Memory Efficiency**: Predicted VRAM savings across sequence scales.
-*   **TTT-Compliance**: Ensuring optimized gradients reside within stable modular residues.
-
----
-*Optimizing the future of intelligence through geometric resonance.*
+Ai-Enhancement prompts are monitored for convergence fidelity and resonance stability. View results in the **Actions** tab.
