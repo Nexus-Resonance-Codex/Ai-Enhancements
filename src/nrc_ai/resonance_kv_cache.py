@@ -20,6 +20,7 @@ class ResonanceShardKVCache(nn.Module):
     derived as arctan(\sqrt{\phi}), as a foundational stability constant. This
     enhancement applies the cosine of this angle as a structural phase-shift bias
     to the attention logit matrices. This mathematically biases global memory
+
     routing toward stable manifold states within high-dimensional attention spaces.
 
     A context memory mechanism redefining standard Transformer KV caches.
