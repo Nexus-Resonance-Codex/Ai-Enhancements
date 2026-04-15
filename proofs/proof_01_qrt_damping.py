@@ -1,7 +1,5 @@
 import math
 
-from nrc_ai.qrt_attention_bias import QRTGeometricAttentionBias
-
 
 def prove_qrt_damping_constant() -> bool:
     """Mathematical Proof 1: The Optimal Geometric Damping Constant (\theta_{QRT}).

@@ -8,13 +8,13 @@ from nrc_math import PHI_FLOAT
 class QRTGeometricAttentionBias(nn.Module):
     """Enhancement #27: Geometric Damping Angle (THETA_QRT ≈ 51.85°) Attention Bias.
 
-    Standard Transformer sequence logits are unbounded until normalized by the 
+    Standard Transformer sequence logits are unbounded until normalized by the
     Softmax distribution block.
 
-    The NRC framework utilizes the optimal geometric damping angle (\theta_{QRT} \approx 51.85^\circ),
-    derived as arctan(\sqrt{\phi}), as a foundational stability constant. This 
-    enhancement applies the cosine of this angle as a structural phase-shift bias 
-    to the attention logit matrices. This mathematically biases global memory 
+    The NRC framework utilizes the optimal geometric damping angle (\theta_{QRT} \approx 51.85^\\circ),
+    derived as arctan(\\sqrt{\\phi}), as a foundational stability constant. This
+    enhancement applies the cosine of this angle as a structural phase-shift bias
+    to the attention logit matrices. This mathematically biases global memory
     routing toward stable manifold states within high-dimensional attention spaces.
     """
 

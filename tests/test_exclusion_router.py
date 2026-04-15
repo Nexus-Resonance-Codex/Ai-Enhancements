@@ -18,7 +18,7 @@ def test_exclusion_gradient_router() -> None:
     # Use randint then cast to float for the nn.Module
     scaled_x = torch.randint(0, 100, (2, 16, dim)).float()
     scaled_x.requires_grad_(True)
-    x = scaled_x # Track for grad check
+    x = scaled_x  # Track for grad check
     output = router(scaled_x)
 
     assert output.shape == x.shape

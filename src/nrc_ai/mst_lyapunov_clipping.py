@@ -12,7 +12,6 @@ latent state divergence by projecting gradients back into the
 Lyapunov stability boundary of the Golden Attractor.
 """
 
-
 import torch
 import torch.nn as nn
 

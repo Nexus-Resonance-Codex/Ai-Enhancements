@@ -47,6 +47,7 @@ def test_qrt_turbulence_optimizer() -> None:
         optimizer.zero_grad()
         p1.grad = torch.tensor([1.0])
         return 0.5
+
     loss = optimizer.step(closure)
     assert loss == 0.5
     assert state_p1["step"] == 2
@@ -54,7 +55,7 @@ def test_qrt_turbulence_optimizer() -> None:
     # 4. Test sparse gradient / missing gradient branch
     p3 = torch.tensor([1.0], requires_grad=True)
     optimizer.add_param_group({"params": [p3]})
-    optimizer.step() # p3.grad is None, should skip without error
+    optimizer.step()  # p3.grad is None, should skip without error
 
     print("Test passed: QRT-Turbulence Optimizer structurally damped Adam variance matrices and handled closures/sparse gradients.")
 

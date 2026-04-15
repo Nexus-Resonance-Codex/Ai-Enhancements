@@ -47,9 +47,7 @@ def test_modular_dropout() -> None:
     # If starting val is 1.0, and Scaler is 1/(1-0.1) = 1/0.9 = 1.111
     expected_scaler = 1.0 / 0.9
 
-    assert torch.allclose(surviving_values, torch.tensor(expected_scaler), rtol=1e-3), (
-        "Dropout scaling mechanism failed sum-conservation check."
-    )
+    assert torch.allclose(surviving_values, torch.tensor(expected_scaler), rtol=1e-3), "Dropout scaling mechanism failed sum-conservation check."
 
     print("Test passed: TTT Modular Dropout successfully aligned structural sparsity via deterministic placement.")
 

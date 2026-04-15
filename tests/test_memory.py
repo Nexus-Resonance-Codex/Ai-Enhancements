@@ -2,7 +2,7 @@
 
 import torch
 
-from nrc_ai import ExecutiveAgent, PhiInfinityShardFolding, PhiInfinityPersistentMemory
+from nrc_ai import ExecutiveAgent, PhiInfinityPersistentMemory, PhiInfinityShardFolding
 
 
 def test_shard_folding_forward() -> None:

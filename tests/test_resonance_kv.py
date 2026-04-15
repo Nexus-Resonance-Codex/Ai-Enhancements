@@ -51,7 +51,7 @@ def test_resonance_kv_cache() -> None:
     seq_block_3 = 100
     k3 = torch.randn(batch_size, seq_block_3, num_heads, head_dim)
     v3 = torch.randn(batch_size, seq_block_3, num_heads, head_dim)
-    
+
     # self.active_keys is None, so step 1 returns k3. size=100.
     out_k3, out_v3 = kv_cache(k3, v3)
     assert out_k3.size(1) == 100
@@ -80,16 +80,16 @@ def test_resonance_kv_cache() -> None:
 
     # 6. Test sequence length mismatch handling (Step 1 Reset Branch inside Forward)
     # Setting active_keys to None and changing capacity triggers a fresh shard setup.
-    kv_cache.active_keys = None # Force Step 1
+    kv_cache.active_keys = None  # Force Step 1
     seq_block_6 = 850
     k6 = torch.randn(batch_size, seq_block_6, num_heads, head_dim)
     v6 = torch.randn(batch_size, seq_block_6, num_heads, head_dim)
     out_k6, _ = kv_cache(k6, v6)
     assert out_k6.size(1) == 850
-    
+
     # Now push past capacity (current shard_capacity is 500)
     # current active is 850 >= 500. Folding triggers NEXT call.
-    # Wait, Step 2 cats, then Step 3 checks. 
+    # Wait, Step 2 cats, then Step 3 checks.
     # To trigger the mismatch addition branch (85 != 81), we need to fold an 850-length shard.
     # The next call with any size will trigger Step 2 (cat) then Step 3 (fold).
     seq_block_7 = 10

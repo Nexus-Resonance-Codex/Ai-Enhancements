@@ -3,12 +3,8 @@ from typing import Optional, Tuple
 import torch
 import torch.nn as nn
 
-from .shard_folding import PhiInfinityShardFolding
-from .shard_unfolder import InfiniteEInfinityContextUnfolder
-from .triple_theta_init import TripleThetaInitializer
-from .tupt_sync_seed import TUPTSyncSeed
-from .tupt_token_pruning import TUPTExclusionTokenPruning
 from .phi_sharding_compression import PhiShardingCompression
+from .shard_folding import PhiInfinityShardFolding
 
 __all__ = [
     "__version__",
@@ -80,7 +76,7 @@ class ResonanceShardKVCache(nn.Module):
                 # If lengths differ, we resample or pad to maintain the 'Limit State' characteristic
                 if compressed_k.size(1) != self.folded_memory_keys.size(1):
                     # For a resonance attractor, we project both to a fixed limit-state length
-                    # Here we simplify by allowing additive integration if lengths match, 
+                    # Here we simplify by allowing additive integration if lengths match,
                     # or initializing a new limit state if the manifold has shifted.
                     self.folded_memory_keys = compressed_k
                     self.folded_memory_values = compressed_v

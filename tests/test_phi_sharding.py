@@ -16,7 +16,7 @@ def test_phi_sharding_compression() -> None:
 
     # 1. Test instantiation and matrix initialization
     assert phi_sharding.golden_matrix.shape == (compress_dim, input_dim)
-    
+
     # 2. Test forward projection
     x = torch.randn(2, 8, input_dim)  # (batch, seq, dim)
     out = phi_sharding(x)

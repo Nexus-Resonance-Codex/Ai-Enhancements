@@ -8,6 +8,7 @@
 """Tests for GoldenFlowNorm module."""
 
 import torch
+
 from nrc_ai.golden_flow_norm import GoldenFlowNorm
 
 
@@ -22,16 +23,16 @@ def test_golden_flow_norm_forward() -> None:
     """Verify GoldenFlowNorm forward pass handles outliers."""
     hidden_dim = 128
     norm = GoldenFlowNorm(hidden_dim=hidden_dim)
-    
+
     # Test shape preservation
     x = torch.randn(2, 4, hidden_dim)
     out = norm(x)
     assert out.shape == x.shape
-    
+
     # Test outlier clamping behavior (massive explosion)
     x_exploding = torch.randn(2, 4, hidden_dim) * 1e10
     out_stabilized = norm(x_exploding)
-    
+
     assert not torch.isnan(out_stabilized).any()
     assert not torch.isinf(out_stabilized).any()
     # Should be constrained within the geometric bounds (phi-based)

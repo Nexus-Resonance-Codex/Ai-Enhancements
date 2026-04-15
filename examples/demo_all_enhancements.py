@@ -27,6 +27,16 @@ import torch
 # ---------------------------------------------------------------------------
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "src")))
 
+from nrc_math import (
+    PHI_FLOAT,
+    PHI_INVERSE_FLOAT,
+    apply_exclusion_gate,
+    binet_formula,
+    execute_qrt_damping_tensor,
+    mst_step,
+    qrt_damping,
+)
+
 from nrc_ai import (
     BiologicalExclusionGradientRouter,
     E8GoldenBasisEmbedding,
@@ -55,18 +65,9 @@ from nrc_ai import (
     QRTTurbulenceOptimizer,
     ResonanceShardKVCache,
     TripleThetaInitializer,
-    TUPTSyncSeed,
     TUPTExclusionTokenPruning,
     TUPTModularDropout,
-)
-from nrc_math import (
-    PHI_FLOAT,
-    PHI_INVERSE_FLOAT,
-    apply_exclusion_gate,
-    binet_formula,
-    execute_qrt_damping_tensor,
-    mst_step,
-    qrt_damping,
+    TUPTSyncSeed,
 )
 
 

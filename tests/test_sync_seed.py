@@ -8,6 +8,7 @@
 """Tests for TUPTSyncSeed module."""
 
 import torch
+
 from nrc_ai.tupt_sync_seed import TUPTSyncSeed
 
 
@@ -15,7 +16,7 @@ def test_tupt_sync_seed_generation() -> None:
     """Verify TUPTSyncSeed deterministic synchronization and modular stability."""
     base_multiplier = 42
     TUPTSyncSeed.synchronize(base_multiplier=base_multiplier)
-    
+
     # Verify consistent modular stability class (e.g., Mod 9 alignment)
     # The seeder should produce seeds meeting the TTT modular residue stability criteria.
     # Since we can't easily check the global seed, we check if global state is set.

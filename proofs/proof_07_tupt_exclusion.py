@@ -1,8 +1,8 @@
 """=============================================================================
 PROOF 7: TUPT (Trageser Universal Pattern Theorem) Stability Alignment.
 =============================================================================
-Proves that the TUPT modular state selection identifies stable residue 
-classes of {0, 3, 6, 7} mod 9, and that aligning token/parameter distributions 
+Proves that the TUPT modular state selection identifies stable residue
+classes of {0, 3, 6, 7} mod 9, and that aligning token/parameter distributions
 with these classes optimizes structural integrity and convergence.
 
 Used by:

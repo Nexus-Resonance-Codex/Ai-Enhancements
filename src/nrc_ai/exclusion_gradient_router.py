@@ -59,4 +59,4 @@ class BiologicalExclusionGradientRouter(nn.Module):
         super().__init__()
 
     def forward(self, x: torch.Tensor) -> torch.Tensor:
-        return cast(torch.Tensor, ExclusionGradientRouterFunction.apply(x)) # type: ignore[no-untyped-call]
+        return cast(torch.Tensor, ExclusionGradientRouterFunction.apply(x))  # type: ignore[no-untyped-call]

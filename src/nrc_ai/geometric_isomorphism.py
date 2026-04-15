@@ -9,15 +9,15 @@ from nrc_math import PHI_FLOAT
 class GeometricLatticeIsomorphism(nn.Module):
     """Enhancement #18: Geometric Lattice Isomorphism Projection Protocol.
 
-    A technical structural transformation matrix. Deep network representations 
+    A technical structural transformation matrix. Deep network representations
     traditionally exist within arbitrary Euclidean vector spaces.
 
-    This enhancement projects matrix representations strictly onto a topology 
-    defined by the optimal geometric damping angle (\theta_{QRT} \approx 51.85^\circ)
+    This enhancement projects matrix representations strictly onto a topology
+    defined by the optimal geometric damping angle (\theta_{QRT} \approx 51.85^\\circ)
     interleaved with logarithmic Phi expansions.
 
-    By passing a tensor through this isomorphism, the information is aligned 
-    with a high-dimensional coordinate grid designed to maximize structural 
+    By passing a tensor through this isomorphism, the information is aligned
+    with a high-dimensional coordinate grid designed to maximize structural
     stability and signal-to-noise ratio.
     """
 
