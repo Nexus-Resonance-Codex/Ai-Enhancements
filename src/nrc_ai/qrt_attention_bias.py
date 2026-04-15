@@ -6,7 +6,7 @@ from nrc_math import PHI_FLOAT
 
 
 class QRTGeometricAttentionBias(nn.Module):
-    """Enhancement #27: Geometric Damping Angle (THETA_QRT ≈ 51.85°) Attention Bias.
+    r"""Enhancement #27: Geometric Damping Angle (THETA_QRT ≈ 51.85°) Attention Bias.
 
     Standard Transformer sequence logits are unbounded until normalized by the
     Softmax distribution block.
