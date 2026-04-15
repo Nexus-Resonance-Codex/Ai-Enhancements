@@ -7,7 +7,7 @@ from nrc_math import PHI_FLOAT
 
 
 class GeometricLatticeIsomorphism(nn.Module):
-    """Enhancement #18: Geometric Lattice Isomorphism Projection Protocol.
+    r"""Enhancement #18: Geometric Lattice Isomorphism Projection Protocol.
 
     A technical structural transformation matrix. Deep network representations
     traditionally exist within arbitrary Euclidean vector spaces.
