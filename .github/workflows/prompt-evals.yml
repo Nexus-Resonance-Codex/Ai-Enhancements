@@ -19,4 +19,4 @@ jobs:
       - uses: actions/checkout@v4
       - name: QRT Stability Audit
         run: |
-          grep -i "QRT\|KV\|Fractal" .github/prompts/
+          grep -ri "QRT\|KV\|Fractal" .github/prompts/
