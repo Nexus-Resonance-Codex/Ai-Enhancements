@@ -59,6 +59,7 @@ ignore = ["D100", "D104", "ANN101", "ANN204", "ANN001", "ANN201", "ANN205", "D10
 convention = "google"
 
 [tool.mypy]
+exclude = ["examples"]
 explicit_package_bases = true
 namespace_packages = true
 mypy_path = "src"
