@@ -17,7 +17,8 @@ __all__ = [
 
 class ResonanceShardKVCache(nn.Module):
     r"""The NRC framework utilizes the optimal geometric damping angle (\theta_{QRT} \approx 51.85^\circ).
-    derived as arctan(\sqrt{\phi}), as a foundational stability constant. This
+
+    Derived as arctan(\sqrt{\phi}), as a foundational stability constant. This
     enhancement applies the cosine of this angle as a structural phase-shift bias
     to the attention logit matrices. This mathematically biases global memory.
 
