@@ -7,7 +7,7 @@ name = "nrc-ai"
 version = "1.0.0"
 description = "Professional-Grade AI Enhancements via φ^∞ Lattice Resonance"
 readme = "README.md"
-requires-python = ">=3.12,<3.13"
+requires-python = ">=3.10,<3.13"
 license = {text = "CC-BY-NC-SA-4.0"}
 authors = [
     {name = "James Trageser", email = "NexusResonanceCodex@gmail.com"}
