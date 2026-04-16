@@ -59,6 +59,7 @@ ignore = ["D100", "D104", "ANN101", "ANN204", "ANN001", "ANN201", "ANN205", "D10
 convention = "google"
 
 [tool.mypy]
+mypy_path = "src"
 strict = true
 python_version = "3.12"
 warn_return_any = true
