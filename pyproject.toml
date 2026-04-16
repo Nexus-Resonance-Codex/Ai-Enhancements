@@ -58,24 +58,6 @@ ignore = ["D100", "D104", "ANN101", "ANN204", "ANN001", "ANN201", "ANN205", "D10
 [tool.ruff.lint.pydocstyle]
 convention = "google"
 
-[tool.mypy]
-exclude = ["examples"]
-explicit_package_bases = true
-namespace_packages = true
-mypy_path = "src"
-strict = true
-python_version = "3.12"
-warn_return_any = true
-warn_unused_configs = true
-disallow_untyped_defs = true
-check_untyped_defs = true
-no_implicit_optional = true
-
-[[tool.mypy.overrides]]
-module = ["examples.*", "tests.*", "nrc_math.*", "transformers.*"]
-ignore_missing_imports = true
-disallow_untyped_defs = false
-
 [tool.pytest.ini_options]
 testpaths = ["tests"]
 addopts = "--cov=nrc_ai --cov-report=term-missing --cov-fail-under=95"
