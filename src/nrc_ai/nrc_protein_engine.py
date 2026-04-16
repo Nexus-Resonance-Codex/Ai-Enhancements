@@ -1,7 +1,7 @@
 from typing import cast
 
 import torch
-from nrc_math import apply_exclusion_gate
+from nrc.math import apply_exclusion_gate
 
 
 class NRCProteinFoldingEngine(torch.nn.Module):

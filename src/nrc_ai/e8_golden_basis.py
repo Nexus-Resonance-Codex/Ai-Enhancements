@@ -2,7 +2,7 @@ from typing import cast
 
 import torch
 import torch.nn as nn
-from nrc_math import PHI_FLOAT, apply_exclusion_gate
+from nrc.math import PHI_FLOAT, apply_exclusion_gate
 
 
 class E8GoldenBasisEmbedding(nn.Module):

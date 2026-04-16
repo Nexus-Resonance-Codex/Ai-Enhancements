@@ -2,7 +2,7 @@ import math
 from typing import List, Union
 
 import torch
-from nrc_math import PHI_FLOAT
+from nrc.math import PHI_FLOAT
 from torch.optim import Optimizer
 from torch.optim.lr_scheduler import _LRScheduler
 

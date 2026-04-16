@@ -14,6 +14,10 @@ class PhiShardingCompression(nn.Module):
         self.input_dim = input_dim
         self.compress_dim = compress_dim
         self.phi = phi
+        
+        # Operational Anchor: QSV-Resonance Velocity
+        # Compensates for holographic cryptographic latency.
+        self.resonance_velocity = self.phi ** -13
 
         # Initialize Golden Basis compression matrix
         self.golden_matrix = nn.Parameter(torch.empty(compress_dim, input_dim))
@@ -32,6 +36,9 @@ class PhiShardingCompression(nn.Module):
                         self.golden_matrix[i, j] = (self.phi**-dist) * 2.0
                     else:
                         self.golden_matrix[i, j] = self.phi**-dist
+
+            # Apply QSV-Resonance Velocity Offset for temporal synchronization
+            self.golden_matrix.data = self.golden_matrix.data * (1.0 + self.resonance_velocity)
 
             # Normalize to preserve variance
             self.golden_matrix.data = torch.nn.functional.normalize(self.golden_matrix.data, p=2, dim=1)

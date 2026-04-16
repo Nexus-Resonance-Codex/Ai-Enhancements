@@ -7,7 +7,7 @@ KV-cache compression and infinite context scaling.
 import math
 
 import torch
-from nrc_math import qrt_damping
+from nrc.math import qrt_damping
 
 PHI: float = (1.0 + math.sqrt(5.0)) / 2.0
 

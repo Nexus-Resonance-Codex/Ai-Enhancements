@@ -2,7 +2,7 @@ import math
 
 import torch
 import torch.nn as nn
-from nrc_math import PHI_FLOAT
+from nrc.math import PHI_FLOAT
 
 
 class PhiVoidResonancePositionalEncoding(nn.Module):

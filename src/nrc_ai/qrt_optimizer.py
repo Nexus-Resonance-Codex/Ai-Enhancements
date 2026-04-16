@@ -1,7 +1,7 @@
 from typing import Callable, Iterable, Optional, overload
 
 import torch
-from nrc_math import qrt_damping
+from nrc.math import qrt_damping
 from torch.optim import Optimizer
 
 

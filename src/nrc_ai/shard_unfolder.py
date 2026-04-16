@@ -1,6 +1,6 @@
 import torch
 import torch.nn as nn
-from nrc_math import PHI_FLOAT
+from nrc.math import PHI_FLOAT
 
 
 class InfiniteEInfinityContextUnfolder(nn.Module):

@@ -1,6 +1,6 @@
 import torch
 import torch.nn as nn
-from nrc_math import TUPT_PATTERN as TUPT_CHAOTIC
+from nrc.math import TUPT_PATTERN as TUPT_CHAOTIC
 
 
 class TUPTModularDropout(nn.Module):

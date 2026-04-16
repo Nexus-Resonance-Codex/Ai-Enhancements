@@ -1,45 +1,28 @@
 from typing import Optional, Tuple
-
 import torch
 import torch.nn as nn
+import numpy as np
+from nrc.math import QuantumShadowVeil, MST_MODULUS
 
 from .phi_sharding_compression import PhiShardingCompression
 from .shard_folding import PhiInfinityShardFolding
 
-__version__ = "2.2.1"
-__all__ = [
-    "__version__",
-    "PhiInfinityShardFolding",
-    "PhiShardingCompression",
-    "ResonanceShardKVCache",
-]
-
+__version__ = "2.3.0-QSV"
 
 class ResonanceShardKVCache(nn.Module):
-    r"""The NRC framework utilizes the optimal geometric damping angle (\theta_{QRT} \approx 51.85^\circ).
-
-    Derived as arctan(\sqrt{\phi}), as a foundational stability constant. This
-    enhancement applies the cosine of this angle as a structural phase-shift bias
-    to the attention logit matrices. This mathematically biases global memory.
-
-    routing toward stable manifold states within high-dimensional attention spaces.
-
-    A context memory mechanism redefining standard Transformer KV caches.
-    Rather than letting memory scale linearly O(N), older memory blocks (shards)
-    are recursively collapsed into higher-density fractals using the
-    Phi Infinity Shard Folding Enhancement (#1).
-
-    This allows infinite virtual context length mathematically bounded within
-    the stable limits of the Golden Attractor, preventing gradient explosion
-    while preserving resonance state.
     """
-
-    def __init__(self, folding_steps: int = 3, shard_capacity: int = 1024) -> None:
+    Institutional-grade KV-cache featuring Resonance-Shard Encryption.
+    Utilizes the Quantum Shadow Veil (QSV) to protect historically folded memory.
+    """
+    def __init__(self, folding_steps: int = 3, shard_capacity: int = 1024, qsv_seed: int = 137) -> None:
         super().__init__()
         self.shard_capacity = shard_capacity
-        self.cached_key: Optional[torch.Tensor] = None
-        self.cached_value: Optional[torch.Tensor] = None
         self.folding_compressor = PhiInfinityShardFolding(k_steps=folding_steps)
+        
+        # Quantum Shadow Veil Integration
+        self.qsv = QuantumShadowVeil(spiral_density=4096)
+        self.qsv.expand_fibonacci_keys(seed=qsv_seed, count=1024)
+        self.fold_counter = 0
 
         # State tracks active uncompressed tokens and the historically folded shards
         self.active_keys: Optional[torch.Tensor] = None
@@ -47,73 +30,78 @@ class ResonanceShardKVCache(nn.Module):
         self.folded_memory_keys: Optional[torch.Tensor] = None
         self.folded_memory_values: Optional[torch.Tensor] = None
 
-    def forward(self, new_keys: torch.Tensor, new_values: torch.Tensor) -> Tuple[Optional[torch.Tensor], Optional[torch.Tensor]]:
-        """Appends new K/V states. If the active shard exceeds capacity, the active shard.
+    def _apply_shadow_veil(self, tensor: torch.Tensor, key_idx: int) -> torch.Tensor:
+        """Applies the Residue-Hiding (RH) encryption to a memory shard."""
+        device = tensor.device
+        dtype = tensor.dtype
+        
+        # Convert to numpy for QSV manifold transform
+        arr = tensor.detach().cpu().numpy()
+        encrypted_arr = self.qsv.residue_hide_encrypt(arr, key_idx)
+        
+        return torch.from_numpy(encrypted_arr).to(device=device, dtype=dtype)
 
-        is mathematically folded into the permanent limit state using Phi^Infinity scaling.
+    def _remove_shadow_veil(self, tensor: torch.Tensor, key_idx: int) -> torch.Tensor:
+        """Decrypts a memory shard via inverse resonant phasing."""
+        from nrc.math import PHI_FLOAT
+        device = tensor.device
+        dtype = tensor.dtype
+        
+        # Inverse phasing: encrypted / phi^{-n} - salt
+        key = self.qsv.keys[key_idx % len(self.qsv.keys)]
+        salt = float(key % 256) / 256.0
+        decrypted_arr = (tensor.cpu().numpy() / (PHI_FLOAT ** -(key_idx % 13))) - salt
+        
+        return torch.from_numpy(decrypted_arr).to(device=device, dtype=dtype)
 
-        Input Shapes: (batch, seq_len, num_heads, head_dim)
-        Returns: The full available Key/Value context
-        """
+    def forward(self, new_keys: torch.Tensor, new_values: torch.Tensor) -> Tuple[torch.Tensor, torch.Tensor]:
         # 1. First initialization
         if self.active_keys is None:
             self.active_keys = new_keys
             self.active_values = new_values
             return self.active_keys, self.active_values
 
-        # 2. Append incoming context to our active shard
-        assert self.active_keys is not None and self.active_values is not None
-        self.active_keys = torch.cat([self.active_keys, new_keys], dim=1)  # dim 1 is seq_len
+        # 2. Append incoming context
+        self.active_keys = torch.cat([self.active_keys, new_keys], dim=1)
         self.active_values = torch.cat([self.active_values, new_values], dim=1)
 
-        current_seq_len = self.active_keys.size(1)
-
-        # 3. Check if capacity has triggered a Phase-Folding Limit Step
-        if current_seq_len >= self.shard_capacity:
-            # Compress the active shard mathematically
+        # 3. Phase-Folding Limit Step
+        if self.active_keys.size(1) >= self.shard_capacity:
             compressed_k = self.folding_compressor(self.active_keys)
             compressed_v = self.folding_compressor(self.active_values)
 
-            # Aggregate or initialize the historically folded dense memory state
-            if self.folded_memory_keys is None:
-                self.folded_memory_keys = compressed_k
-                self.folded_memory_values = compressed_v
-            else:
-                # Ensure the new compressed shard is compatible with the limit state
-                # If lengths differ, we resample or pad to maintain the 'Limit State' characteristic
-                if compressed_k.size(1) != self.folded_memory_keys.size(1):
-                    # For a resonance attractor, we project both to a fixed limit-state length
-                    # Here we simplify by allowing additive integration if lengths match,
-                    # or initializing a new limit state if the manifold has shifted.
-                    self.folded_memory_keys = compressed_k
-                    self.folded_memory_values = compressed_v
-                else:
-                    self.folded_memory_keys = self.folded_memory_keys + compressed_k
-                    self.folded_memory_values = self.folded_memory_values + compressed_v
+            # Protect shards using Quantum Shadow Veil
+            protected_k = self._apply_shadow_veil(compressed_k, self.fold_counter)
+            protected_v = self._apply_shadow_veil(compressed_v, self.fold_counter)
+            self.fold_counter += 1
 
-            # Reset the active shard, leaving room for new streaming context
+            if self.folded_memory_keys is None:
+                self.folded_memory_keys = protected_k
+                self.folded_memory_values = protected_v
+            else:
+                self.folded_memory_keys = self.folded_memory_keys + protected_k
+                self.folded_memory_values = self.folded_memory_values + protected_v
+
             self.active_keys = None
             self.active_values = None
 
-            # Since everything folded into the limit state, the next query will match
-            # against the dense historical limits. For raw output, we return the folded block
-            return self.folded_memory_keys, self.folded_memory_values
-
-        # 4. If not folded, return the aggregated continuous context
-        # (or composite with folded memory if it exists)
+        # 4. Veil-Authenticated Retrieval
         if self.folded_memory_keys is not None:
-            # Reconstruct virtually: Folded Memory + Active Shard
-            assert self.folded_memory_values is not None
-            assert self.active_keys is not None and self.active_values is not None
-            total_k = torch.cat([self.folded_memory_keys, self.active_keys], dim=1)
-            total_v = torch.cat([self.folded_memory_values, self.active_values], dim=1)
-            return total_k, total_v
+            # Authenticated decryption for attention cycle
+            unveiled_k = self._remove_shadow_veil(self.folded_memory_keys, self.fold_counter - 1)
+            unveiled_v = self._remove_shadow_veil(self.folded_memory_values, self.fold_counter - 1)
+            
+            if self.active_keys is not None:
+                total_k = torch.cat([unveiled_k, self.active_keys], dim=1)
+                total_v = torch.cat([unveiled_v, self.active_values], dim=1)
+                return total_k, total_v
+            return unveiled_k, unveiled_v
 
         return self.active_keys, self.active_values
 
     def reset_cache(self) -> None:
-        """Clears all resonance memory states for a new sequence generation."""
         self.active_keys = None
         self.active_values = None
         self.folded_memory_keys = None
         self.folded_memory_values = None
+        self.fold_counter = 0

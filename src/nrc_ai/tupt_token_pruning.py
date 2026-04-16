@@ -1,6 +1,6 @@
 import torch
 import torch.nn as nn
-from nrc_math import apply_exclusion_gate
+from nrc.math import apply_exclusion_gate
 
 
 class TUPTExclusionTokenPruning(nn.Module):
