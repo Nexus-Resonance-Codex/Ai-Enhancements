@@ -26,7 +26,7 @@ class ResonanceShardKVCache(nn.Module):
     A context memory mechanism redefining standard Transformer KV caches.
     Rather than letting memory scale linearly O(N), older memory blocks (shards)
     are recursively collapsed into higher-density fractals using the
-    Phi Infinity Shard Folding Enhancement (#1).
+    Phi Infinity Shard Folding Enhancement (#1)..
 
     This allows infinite virtual context length mathematically bounded within
     the stable limits of the Golden Attractor, preventing gradient explosion
