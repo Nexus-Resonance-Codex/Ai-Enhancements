@@ -26,8 +26,8 @@ To maintain absolute structural phasing across the visual manifold, the visualiz
 | :--- | :--- | :--- |
 | **[Getting Started](Getting-Started.md)** | Phasing your local visualizer environment and dependencies. | ✅ STABLE |
 | **[Usage Guide](Usage.md)** | Interactive hotkeys and Python API interaction protocols. | ✅ ACTIVE |
-| **[API Reference](API-Reference.md)** | Technical ledger for the core `nrc.visualizer` primitives. | ✅ PLANNED |
-| **[Visual Assets](Visual-Assets.md)** | Gallery of certified 256D resonance projections. | 🔘 FUTURE |
+| **[API Reference](../../NRC/wiki/API-Reference.md)** | Technical ledger for the core `nrc.visualizer` primitives. | ✅ ACTIVE |
+| **[Lattice Documentation](../../NRC/wiki/Home.md)** | Gallery of certified 256D resonance projections. | 🔘 ACTIVE |
 
 ### 🛡️ Institutional Certification
 ![Version](https://img.shields.io/badge/Version-v1.4.2-blue?style=for-the-badge&logo=blueprint)
