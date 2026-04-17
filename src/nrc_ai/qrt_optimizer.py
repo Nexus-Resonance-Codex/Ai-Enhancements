@@ -83,7 +83,10 @@ class QRTTurbulenceOptimizer(Optimizer):
                 # The raw gradient magnitude (v_hat squared) is passed into the physical QRT tensor limit
                 sqrt_turbulence = torch.sqrt(v_hat)
 
-                qrt_damped_friction = qrt_damping(sqrt_turbulence)
+                # Ensure we pass numpy to the damping engine
+                sqrt_turbulence_np = sqrt_turbulence.detach().cpu().numpy()
+                qrt_damped_friction_np = qrt_damping(sqrt_turbulence_np)
+                qrt_damped_friction = torch.as_tensor(qrt_damped_friction_np, device=v_hat.device, dtype=v_hat.dtype)
 
                 # 4. Integrate the structurally safe vectors
                 update_step = (m_hat / (qrt_damped_friction + 1e-8)) * lr

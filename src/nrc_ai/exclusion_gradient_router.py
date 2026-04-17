@@ -19,9 +19,10 @@ class ExclusionGradientRouterFunction(Function):
 
     @staticmethod
     def forward(ctx: Any, inputs: torch.Tensor) -> torch.Tensor:  # noqa: ANN401
-        # Apply the exact Mod 9 gate from NRC
-        # apply_exclusion_gate returns 0.0 for elements triggering the biological lockout
-        routed_inputs = apply_exclusion_gate(inputs)
+        # Apply institutional residue-hiding to incoming gradients
+        # Ensure we pass numpy to the gate
+        gated_grad_np = apply_exclusion_gate(inputs.detach().cpu().numpy())
+        routed_inputs = torch.as_tensor(gated_grad_np, device=inputs.device, dtype=inputs.dtype)
 
         # Save the mask itself (1.0 for pass, 0.0 for blocked) to use in gradient routing
         mask = (routed_inputs != 0.0).type(inputs.dtype)

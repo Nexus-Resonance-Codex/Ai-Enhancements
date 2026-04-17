@@ -34,7 +34,9 @@ class NavierStokesDampingRegularizer(nn.Module):
         # Calculate the pure QRT topological landscape for the given tensor block
         # The equation forces extreme outliers exponentially downwards towards 0,
         # while gently oscillating stable regions.
-        qrt_damped_states = execute_qrt_damping_tensor(hidden_states)
+        # Ensure we pass numpy to the damping engine
+        qrt_damped_states_np = execute_qrt_damping_tensor(hidden_states.detach().cpu().numpy())
+        qrt_damped_states = torch.as_tensor(qrt_damped_states_np, device=hidden_states.device, dtype=hidden_states.dtype)
 
         # Apply the damping friction as a bounded residual correction.
         # When hidden_states are massive, QRT naturally decays to ~cos bounds,

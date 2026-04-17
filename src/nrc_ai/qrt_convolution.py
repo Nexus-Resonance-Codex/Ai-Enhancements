@@ -56,7 +56,9 @@ class QRTKernelConvolution(nn.Module):
         """
         # 1. Subject the raw convolution kernels to the Mathematical Friction Boundary
         # This locks the learned geometries onto stable fractal bounds natively.
-        qrt_damped_kernel = execute_qrt_damping_tensor(self.weight)
+        # Ensure we pass numpy to the damping engine
+        qrt_damped_kernel_np = execute_qrt_damping_tensor(self.weight.detach().cpu().numpy())
+        qrt_damped_kernel = torch.as_tensor(qrt_damped_kernel_np, device=self.weight.device, dtype=self.weight.dtype)
 
         # 2. Execute standard 2D extraction using the stable fractal kernels
         output = F.conv2d(x, cast(torch.Tensor, qrt_damped_kernel), self.bias, self.stride, self.padding)

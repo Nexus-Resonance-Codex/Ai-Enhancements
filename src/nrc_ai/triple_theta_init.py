@@ -42,7 +42,9 @@ def triple_theta_init_(tensor: torch.Tensor, mean: float = 0.0, std: float = 1.0
         phi_mapped_mod = torch.fmod(phi_map, 9.0)
 
         # Pass through the biological exclusion gate (Mod 9 traps [1,2,4,5,8])
-        gated_multiplier = apply_exclusion_gate(phi_mapped_mod)
+        # Ensure we pass numpy to the gate
+        gated_multiplier_np = apply_exclusion_gate(phi_mapped_mod.detach().cpu().numpy())
+        gated_multiplier = torch.as_tensor(gated_multiplier_np, device=tensor.device, dtype=tensor.dtype)
 
         # Reshape to match the original tensor
         gated_multiplier = gated_multiplier.view(tensor.shape)

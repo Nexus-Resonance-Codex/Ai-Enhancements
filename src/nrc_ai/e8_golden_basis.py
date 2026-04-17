@@ -43,7 +43,9 @@ class E8GoldenBasisEmbedding(nn.Module):
             scaled_weights = self.embedding.weight * 5000.0
 
             # Mod 9 biological exclusion (Sets chaotic [1, 2, 4, 5, 8] paths to true 0.0)
-            gated_weights = apply_exclusion_gate(scaled_weights)
+            # Ensure we pass numpy to the gate
+            gated_weights_np = apply_exclusion_gate(scaled_weights.cpu().numpy())
+            gated_weights = torch.as_tensor(gated_weights_np, device=scaled_weights.device, dtype=scaled_weights.dtype)
 
             # Normalize surviving points back down to phi bounds
             # For surviving active paths, we project onto the E8-proxy shell
@@ -51,7 +53,7 @@ class E8GoldenBasisEmbedding(nn.Module):
             stable_weights = gated_weights / (5000.0 * PHI_FLOAT)
 
             # Commit the basis locked weights
-            self.embedding.weight.copy_(stable_weights)
+            self.embedding.weight.copy_(torch.as_tensor(stable_weights, device=self.embedding.weight.device, dtype=self.embedding.weight.dtype))
 
     def forward(self, input_ids: torch.Tensor) -> torch.Tensor:
         """Retrieves the golden-basis vectors for the given token IDs."""

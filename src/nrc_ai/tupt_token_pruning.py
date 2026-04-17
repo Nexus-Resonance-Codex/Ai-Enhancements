@@ -38,11 +38,13 @@ class TUPTExclusionTokenPruning(nn.Module):
         # (This is a 1D implementation of the 2D gate applied in the Attention layers earlier).
         # Any token whose index modulo 9 triggers a TUPT Exclusion returns 0.0 mathematically.
         # Any token that survives the resonance test returns 1.0
-        survival_mask = apply_exclusion_gate(indices)
+        # Ensure we pass numpy to the gate
+        survival_mask_np = apply_exclusion_gate(indices.detach().cpu().numpy())
+        survival_mask = torch.as_tensor(survival_mask_np, device=indices.device, dtype=indices.dtype)
 
         # 3. Collect strictly the tokens that survived the biological structural check
         # We index across all batches seamlessly
-        surviving_indices = (survival_mask == 1.0).nonzero(as_tuple=True)[0]
+        surviving_indices = (survival_mask != 0.0).nonzero(as_tuple=True)[0]
 
         # Proceed with physically pruning the block
         pruned_states = hidden_states[:, surviving_indices, :]

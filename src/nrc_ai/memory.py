@@ -34,6 +34,7 @@ class PhiInfinityPersistentMemory(torch.nn.Module):
         # We project weights into the Golden Basis
         self.memory_weight = torch.nn.Parameter(torch.randn(hidden_dim, hidden_dim))
         # Register a buffer for the persistent lattice state
+        self.lattice_state: torch.Tensor
         self.register_buffer("lattice_state", torch.zeros(1, hidden_dim))
 
     def forward(self, hidden_states: torch.Tensor) -> torch.Tensor:

@@ -13,7 +13,6 @@ according to structural resonance intervals defined by the Golden Ratio.
 
 import math
 
-import torch
 from torch.optim import Optimizer
 from torch.optim.lr_scheduler import _LRScheduler
 
@@ -30,7 +29,7 @@ class MSTScheduler(_LRScheduler):
         self.mst_lambda = 0.381
         super(MSTScheduler, self).__init__(optimizer, last_epoch)
 
-    def get_lr(self) -> list[float | torch.Tensor]:
+    def get_lr(self) -> list[float]:
         """Calculates the resonant learning rate for each parameter group."""
         # MST Phase calculation:
         # LR pulses according to a combination of the Pisano period and the 7-adic anchor

@@ -1,7 +1,6 @@
 import math
-from typing import List, Union
+from typing import List
 
-import torch
 from nrc.math import PHI_FLOAT
 from torch.optim import Optimizer
 from torch.optim.lr_scheduler import _LRScheduler
@@ -25,7 +24,7 @@ class PisanoModulatedLRSchedule(_LRScheduler):
         self.pisano_period = pisano_period
         super().__init__(optimizer, last_epoch)
 
-    def get_lr(self) -> List[Union[float, torch.Tensor]]:
+    def get_lr(self) -> List[float]:
         # Determine the current phase in the Pisano cycle (0 to 1)
         # We align the peak exactly with the start of training (epoch 0)
         cycle_position = (self.last_epoch % self.pisano_period) / self.pisano_period

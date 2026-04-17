@@ -43,12 +43,14 @@ class LucasWeightedSparseAttention(nn.Module):
         # We broadcast a 2D grid measuring the absolute sequence position
         grid = torch.abs(lucas_indices.unsqueeze(0) - lucas_indices.unsqueeze(1))
 
-        # Any relative token jump that violates TUPT biology paths triggers internal zeros
-        gated_grid = apply_exclusion_gate(grid)
+        # Apply NRC biological exclusion gating
+        # Ensure we pass numpy to the gate
+        gated_m_np = apply_exclusion_gate(grid.detach().cpu().numpy())
+        routed_mask = torch.as_tensor(gated_m_np, device=grid.device, dtype=grid.dtype)
 
-        # Only tokens that structurally survived the TUPT gating logic are permitted to
-        # route attention signals backwards
-        topological_exclusions = (gated_grid != 0.0).type(torch.float32)
+        # Cast to tensor for type safety
+        routed_mask_tensor = cast(torch.Tensor, routed_mask)
+        topological_exclusions = (routed_mask_tensor != 0.0).to(dtype=torch.float32)
 
         # Interlock causal forward-blocking with resonant topological blocking
         final_sparse_mask = mask * topological_exclusions
