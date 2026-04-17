@@ -26,18 +26,18 @@ jobs:
 
     - name: Install Dependencies
       run: |
-        uv pip install --system --system --index-url https://download.pytorch.org/whl/cpu torch torchvision torchaudio
-        uv pip install --system --system git+https://github.com/Nexus-Resonance-Codex/NRC.git
-        uv pip install --system --system -e .[dev]
+        uv pip install --system --index-url https://download.pytorch.org/whl/cpu torch torchvision torchaudio
+        uv pip install --system git+https://github.com/Nexus-Resonance-Codex/NRC.git
+        uv pip install --system -e .[dev]
 
     - name: Format Check (Ruff)
-      run: uv run ruff format --check .
+      run: ruff format --check .
 
     - name: Lint Check (Ruff)
-      run: uv run ruff check .
+      run: ruff check .
 
     - name: Type Compliance (Mypy)
-      run: uv run mypy .
+      run: mypy .
 
     - name: Verification Suite (Pytest)
-      run: uv run pytest tests/
+      run: pytest tests/

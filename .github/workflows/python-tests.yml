@@ -1,8 +1,7 @@
 # ============================================================
 # nrc_ai — Python CI
-# Tests all 30 NRC AI Enhancement PyTorch modules across
-# Python 3.10, 3.11, 3.12 with the core `nrc` library
-# installed directly from the NRC repo.
+# Tests NRC AI Enhancement PyTorch modules across
+# Python 3.10, 3.11, 3.12 with the core `nrc` library.
 # ============================================================
 name: Python CI — nrc_ai library
 
@@ -32,21 +31,14 @@ jobs:
           python-version: ${{ matrix.python-version }}
           cache: "pip"
 
-      # Install the NRC core math library first (required dependency)
-      - name: Install nrc core library from GitHub
-        run: |
-          pip install "nrc @ git+https://github.com/Nexus-Resonance-Codex/NRC.git"
-
-      # PyTorch CPU-only (avoids needing CUDA on GitHub runners)
       - name: Install PyTorch CPU
-        run: |
-          pip install torch --index-url https://download.pytorch.org/whl/cpu
+        run: pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cpu
 
-      - name: Install nrc_ai package and dev tools
-        run: |
-          # Override the torch dep since we already installed CPU version
-          pip install -e ".[dev]" --no-deps
-          pip install pytest ruff mypy pyyaml numpy
+      - name: Install NRC core library
+        run: pip install "nrc @ git+https://github.com/Nexus-Resonance-Codex/NRC.git"
+
+      - name: Install nrc_ai and dev tools
+        run: pip install -e ".[dev]"
 
       - name: Lint with ruff
         run: |
@@ -54,8 +46,7 @@ jobs:
           ruff check src/ --exit-zero --output-format=github
 
       - name: Run tests with pytest
-        run: |
-          pytest tests/ -v --tb=short
+        run: pytest tests/ -v --tb=short
 
   coverage:
     name: Coverage Report
@@ -69,13 +60,11 @@ jobs:
           cache: "pip"
       - name: Install all dependencies
         run: |
-          pip install "nrc @ git+https://github.com/Nexus-Resonance-Codex/NRC.git"
           pip install torch --index-url https://download.pytorch.org/whl/cpu
-          pip install pytest pytest-cov ruff pyyaml numpy
-          pip install -e . --no-deps
+          pip install "nrc @ git+https://github.com/Nexus-Resonance-Codex/NRC.git"
+          pip install -e ".[dev]" pytest-cov
       - name: Run tests with coverage
-        run: |
-          pytest tests/ --cov=src/nrc_ai --cov-report=term-missing --cov-report=xml
+        run: pytest tests/ --cov=src/nrc_ai --cov-report=term-missing --cov-report=xml
       - name: Upload coverage
         uses: codecov/codecov-action@v4
         with:
