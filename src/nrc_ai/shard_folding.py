@@ -50,10 +50,9 @@ class PhiInfinityShardFolding(torch.nn.Module):
         damping_factor = 1.0
 
         for k in range(1, self.k_steps + 1):
-            # Compute QRT response
-            # Note: We expect nrc_math to be available as a dependency
-            qrt_active_np = qrt_damping(mantissa.detach().cpu().numpy())
-            qrt_active = torch.from_numpy(qrt_active_np).to(x.device)
+            # Compute QRT response (Torch-Native)
+            qrt_active = qrt_damping(mantissa)
+            assert isinstance(qrt_active, torch.Tensor)
 
             # Phi alignment
             phi_pow = PHI ** (6 * k)
