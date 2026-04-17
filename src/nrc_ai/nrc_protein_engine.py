@@ -44,6 +44,6 @@ class NRCProteinFoldingEngine(torch.nn.Module):
 
         # Step 4: Mod 9 Exclusion filtering (biological lockouts)
         # Any chaotic value falling on the sequence [1, 2, 4, 5, 8] mod 9 is gated to zero
-        final_conformation = apply_exclusion_gate(gtt_aligned)
+        final_conformation = apply_exclusion_gate(gtt_aligned)  # type: ignore[arg-type]
 
         return cast(torch.Tensor, final_conformation)

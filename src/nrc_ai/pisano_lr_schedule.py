@@ -37,4 +37,4 @@ class PisanoModulatedLRSchedule(_LRScheduler):
         # Blend the structural wave with the extreme bounds of Phi
         phi_bounds = (structural_modifier * PHI_FLOAT) + ((1.0 - structural_modifier) * (1.0 / PHI_FLOAT))
 
-        return [base_lr * phi_bounds for base_lr in self.base_lrs]
+        return [float(base_lr * phi_bounds) for base_lr in self.base_lrs]
