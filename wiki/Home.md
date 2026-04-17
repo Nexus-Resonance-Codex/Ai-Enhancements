@@ -26,6 +26,7 @@ To maintain absolute structural phasing across the visual manifold, the visualiz
 | :--- | :--- | :--- |
 | **[Getting Started](Getting-Started.md)** | Phasing your local visualizer environment and dependencies. | ✅ STABLE |
 | **[Usage Guide](Usage.md)** | Interactive hotkeys and Python API interaction protocols. | ✅ ACTIVE |
+- [Models](Models.md)
 | **[API Reference](../../NRC/wiki/API-Reference.md)** | Technical ledger for the core `nrc.visualizer` primitives. | ✅ ACTIVE |
 | **[Lattice Documentation](../../NRC/wiki/Home.md)** | Gallery of certified 256D resonance projections. | 🔘 ACTIVE |
 
@@ -70,6 +71,7 @@ To ensure absolute structural phasing across the visual manifold, the visualizer
 ### ⏭️ Next Steps
 
 Phasing complete. Proceed to the **[Getting Started](Getting-Started.md)** guide to initialize your local environment or the **[Usage Guide](Usage.md)** for interactive hotkey protocols.
+- [Models](Models.md)
 
 ---
 ← [Back to Core Home](../../NRC/wiki/Home.md) | [Back to Visualizer Home](Home.md) | [Table of Contents](#project-overview) | [Back to Top](#256d-lattice-visualizer-wiki)
