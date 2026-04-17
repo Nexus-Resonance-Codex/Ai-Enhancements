@@ -60,5 +60,5 @@ class PrimeDensityConditionedGeneration(nn.Module):
         # 1. Structural Coupling
         # Projected field resonance is added back to original logits
         # We use the precomputed density boost mask.
-        output = logits + self.density_boost_mask
+        output = logits + cast(torch.Tensor, self.density_boost_mask)
         return cast(torch.Tensor, output)

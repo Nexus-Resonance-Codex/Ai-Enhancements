@@ -29,7 +29,7 @@ class MSTScheduler(_LRScheduler):
         self.mst_lambda = 0.381
         super(MSTScheduler, self).__init__(optimizer, last_epoch)
 
-    def get_lr(self) -> list[float]:
+    def get_lr(self) -> list[float]:  # type: ignore[override]
         """Calculates the resonant learning rate for each parameter group."""
         # MST Phase calculation:
         # LR pulses according to a combination of the Pisano period and the 7-adic anchor

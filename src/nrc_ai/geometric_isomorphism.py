@@ -52,5 +52,5 @@ class GeometricLatticeIsomorphism(nn.Module):
     def forward(self, hidden_states: torch.Tensor) -> torch.Tensor:
         """Projects arbitrary vectors onto the stabilized lattice grid."""
         # Matrix multiply the hidden states by the rigid isomorphism lattice
-        projected_states = torch.matmul(hidden_states, self.isomorphism_matrix)
+        projected_states = torch.matmul(hidden_states, cast(torch.Tensor, self.isomorphism_matrix))
         return cast(torch.Tensor, projected_states)
