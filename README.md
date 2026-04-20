@@ -13,11 +13,11 @@
 [![License: CC-BY-NC-SA-4.0](https://img.shields.io/badge/License-CC--BY--NC--SA%204.0-00F0FF?style=for-the-badge&logo=creative-commons "Professional License: CC-BY-NC-SA-4.0")](LICENSE)
 [![CI: Cognitive Audit](https://github.com/Nexus-Resonance-Codex/Ai-Enhancements/actions/workflows/ci.yml/badge.svg)](https://github.com/Nexus-Resonance-Codex/Ai-Enhancements/actions/workflows/ci.yml)
 [![Docs: Technical Specifications](https://img.shields.io/badge/Docs-Foundations-green?style=for-the-badge&logo=markdown "Mathematical Foundations Documentation")](https://nexus-resonance-codex.github.io/Ai-Enhancements/)
-[![Hugging Face Space](https://img.shields.io/badge/HF%20Space-Infinite%20Engine-FFD21E?style=for-the-badge&logo=huggingface "Interactive φ^∞ Infinite Engine")](https://huggingface.co/spaces/jtrag/NRC-Phi-Infinity-Engine)
+[![Hugging Face Space](https://img.shields.io/badge/HF%20Space-Infinite%20Engine-FFD21E?style=for-the-badge&logo=huggingface "Interactive φ^∞ Infinite Engine")](https://huggingface.co/spaces/Nexus-Resonance-Codex/LLM-Infinite-Context-Engine)
 [![Enhancements: 30+ Core](https://img.shields.io/badge/Enhancements-30+%20Core-00FF88?style=for-the-badge&logo=pytorch "Core Enhancement Primitives")](src/nrc_ai/)
 [![AI-Optimizer Evaluations](https://github.com/Nexus-Resonance-Codex/Ai-Enhancements/actions/workflows/prompt-evals.yml/badge.svg)](https://github.com/Nexus-Resonance-Codex/Ai-Enhancements/actions/workflows/prompt-evals.yml)
 
-[Enhancements](src/nrc_ai/) • [Interactive Engine (HF)](https://huggingface.co/spaces/jtrag/NRC-Phi-Infinity-Engine) • [NRC Playground](#-nrc-playground) • [Memory Architecture](src/nrc_ai/memory.py) • [Demos](examples/) • [Scaling Matrix](https://nexus-resonance-codex.github.io/Ai-Enhancements/roadmap.html)
+[Enhancements](src/nrc_ai/) • [Interactive Engine (HF)](https://huggingface.co/spaces/Nexus-Resonance-Codex/LLM-Infinite-Context-Engine) • [NRC Playground](#-nrc-playground) • [Memory Architecture](src/nrc_ai/memory.py) • [Demos](examples/) • [Scaling Matrix](https://nexus-resonance-codex.github.io/Ai-Enhancements/roadmap.html)
 
 </div>
 

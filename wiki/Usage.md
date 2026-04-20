@@ -52,7 +52,7 @@ Follow these strictly phased steps to master the visual manifold:
 
 ## Advanced Projection and Manifold Mapping
 
-Beyond basic navigation, the visualizer allows for the direct injection of research vectors from the `NRC` core and `Protein-Folding` manifolds. This provides a direct physical verification of computed states within the 729D lattice, enabling researchers to observe emergent convergence in real-time.
+Beyond basic navigation, the visualizer allows for the direct injection of research vectors from the `NRC` core and `Resonance-Fold` manifolds. This provides a direct physical verification of computed states within the 729D lattice, enabling researchers to observe emergent convergence in real-time.
 
 ### 🐍 1-2-4-5-7 Remote API Sequence
 
@@ -93,13 +93,13 @@ Use the `LatticeClient` to synchronize your external research environment with t
 
 ### 💾 Data Persistence and Exports
 
-The visualizer supports the extraction of high-integrity structural data for further analysis in the `Phi-Infinity` or `Protein-Folding` modules.
+The visualizer supports the extraction of high-integrity structural data for further analysis in the `Phi-Infinity` or `Resonance-Fold` modules.
 
 *   **OBJ Export**: Full holographic mesh for external 3D analysis and 3D printing of resonance states.
 *   **JSON Residue**: Raw state vector coordinates and TTT-phasing metadata for archival analysis.
 *   **PNG Spectrum**: High-dynamic-range color spectral maps for publication-grade visual reporting.
 *   **YAML Metadata**: Institutional-grade log of all phasing transformations and QRT damping levels.
-*   **PPD Mapping**: Binary projection data compatible with the Protein Resonance Accelerator.
+*   **PPD Mapping**: Binary projection data compatible with the Resonance-Fold Accelerator.
 
 ---
 
