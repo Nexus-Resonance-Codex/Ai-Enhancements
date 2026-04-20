@@ -14,10 +14,11 @@
 [![CI: Cognitive Audit](https://github.com/Nexus-Resonance-Codex/Ai-Enhancements/actions/workflows/ci.yml/badge.svg)](https://github.com/Nexus-Resonance-Codex/Ai-Enhancements/actions/workflows/ci.yml)
 [![Docs: Technical Specifications](https://img.shields.io/badge/Docs-Foundations-green?style=for-the-badge&logo=markdown "Mathematical Foundations Documentation")](https://nexus-resonance-codex.github.io/Ai-Enhancements/)
 [![Hugging Face Space](https://img.shields.io/badge/HF%20Space-Infinite%20Engine-FFD21E?style=for-the-badge&logo=huggingface "Interactive φ^∞ Infinite Engine")](https://huggingface.co/spaces/Nexus-Resonance-Codex/LLM-Infinite-Context-Engine)
+[![Hugging Face Space](https://img.shields.io/badge/HF%20Space-Resonance--Fold-gold?style=for-the-badge&logo=huggingface "Resonance-Fold Protein Prediction")](https://huggingface.co/spaces/Nexus-Resonance-Codex/Resonance-Fold)
 [![Enhancements: 30+ Core](https://img.shields.io/badge/Enhancements-30+%20Core-00FF88?style=for-the-badge&logo=pytorch "Core Enhancement Primitives")](src/nrc_ai/)
 [![AI-Optimizer Evaluations](https://github.com/Nexus-Resonance-Codex/Ai-Enhancements/actions/workflows/prompt-evals.yml/badge.svg)](https://github.com/Nexus-Resonance-Codex/Ai-Enhancements/actions/workflows/prompt-evals.yml)
 
-[Enhancements](src/nrc_ai/) • [Interactive Engine (HF)](https://huggingface.co/spaces/Nexus-Resonance-Codex/LLM-Infinite-Context-Engine) • [NRC Playground](#-nrc-playground) • [Memory Architecture](src/nrc_ai/memory.py) • [Demos](examples/) • [Scaling Matrix](https://nexus-resonance-codex.github.io/Ai-Enhancements/roadmap.html)
+[Enhancements](src/nrc_ai/) • [Infinite Engine (HF)](https://huggingface.co/spaces/Nexus-Resonance-Codex/LLM-Infinite-Context-Engine) • [Resonance-Fold (HF)](https://huggingface.co/spaces/Nexus-Resonance-Codex/Resonance-Fold) • [NRC Playground](#-nrc-playground) • [Memory Architecture](src/nrc_ai/memory.py) • [Demos](examples/) • [Scaling Matrix](https://nexus-resonance-codex.github.io/Ai-Enhancements/roadmap.html)
 
 </div>
 
