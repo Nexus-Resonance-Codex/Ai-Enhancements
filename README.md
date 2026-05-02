@@ -42,11 +42,14 @@ Scaling experiments and architectural stability verifications reported in this r
 
 ### Methodology
 
-The suite provides deeply integrated components for deep learning architectural stability. Primitives utilize the Trageser Transformation Theorem (TTT) and the Trageser Universal Pattern Theorem (TUPT) for sequence-invariant resonant projections. By utilizing a 2048-dimensional fractal lattice and $\varphi^{-1}$ projection limits, the framework achieves high-efficiency context scaling and deterministic gradient regularization across structural manifolds.
+The suite provides deeply integrated components for deep learning architectural stability. Primitives utilize the **3-6-9-7 Resonance Field** (modulated by $\phi^{-2}$) and the Trageser Tensor Theorem (TTT) for sequence-invariant resonant projections. By utilizing a 2048-dimensional fractal lattice and $\phi^{-1}$ projection limits, the framework achieves high-efficiency context scaling and deterministic gradient regularization across structural manifolds.
+
+For the complete origins of the 3-6-9-7 resonance cycle, refer to the **[NRC Foundational History](https://github.com/Nexus-Resonance-Codex/NRC#--foundational-history)**.
 
 ### Core Architectural Enhancements
 
-*   **$\varphi^\infty$ Contextual Memory**: $O(1)$ scaling architecture utilizing hierarchical coordinate folding.
+*   **3-6-9-7 Resonance Field**: The core mathematical backbone for high-dimensional stability and phi-modulated field equations.
+*   **$\varphi^\infty$ Contextual Memory**: $O(1)$ scaling architecture utilizing hierarchical coordinate folding and the 512-byte Resonance Pointer.
 *   **TTT Gradient Routing**: Modular residue stability logic for high-fidelity reasoning and gradient regularisation.
 *   **TUPT Token Pruning**: Pattern-based sequence optimization for reduced inference overhead.
 *   **QRT Activation Layers**: Geometric-regularized damping ($\theta_{QRT} \approx 51.85^\circ$) for preventing gradient instability.
