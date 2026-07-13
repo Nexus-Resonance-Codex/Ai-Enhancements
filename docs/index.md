@@ -18,7 +18,7 @@
 
 ### Abstract
 
-**NRC Ai-Enhancements** is a collection of 30+ mathematically rigid deep learning components designed to stabilize large-scale neural architectures. Built on the **Nexus Resonance Codex (NRC) (NRC) (NRC)**, these enhancements replace statistical heuristics with deterministic **$\varphi$-logic** to achieve superior convergence, adversarial robustness, and infinite context scaling.
+**NRC Ai-Enhancements** is a collection of 30+ mathematically rigid deep learning components designed to stabilize large-scale neural architectures. Built on the **Nexus Resonance Codex (NRC) (NRC) (NRC) (NRC)**, these enhancements replace statistical heuristics with deterministic **$\varphi$-logic** to achieve superior convergence, adversarial robustness, and infinite context scaling.
 
 ### Key Enhancements
 *   **$\varphi^\infty$ Spiral Memory**: $O(1)$ context scaling using hierarchical shard folding.
@@ -74,6 +74,6 @@ The [Documentation](https://nexus-resonance-codex.github.io/Ai-Enhancements/) co
 This repository provides the high-fidelity foundation for the next generation of intelligence. Every enhancement is engineered to move AI from statistical guessing to mathematical certainty.
 
 <div align="center">
-<i>Authored by James Paul Trageser (@jtrag) — Nexus Resonance Codex (NRC) (NRC) (NRC) (2026)</i><br>
+<i>Authored by James Paul Trageser (@jtrag) — Nexus Resonance Codex (NRC) (NRC) (NRC) (NRC) (2026)</i><br>
 <b>Stabilizing the future of machine intelligence.</b>
 </div>
