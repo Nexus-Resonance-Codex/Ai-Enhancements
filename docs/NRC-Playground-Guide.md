@@ -1,6 +1,6 @@
 # Ai-Enhancements Playground – Testing Directly on GitHub
 
-The **Ai-Enhancements** repository utilizes the GitHub Models ecosystem to demonstrate the optimization and efficiency gains of the Nexus Resonance Codex (NRC) (NRC).
+The **Ai-Enhancements** repository utilizes the GitHub Models ecosystem to demonstrate the optimization and efficiency gains of the Nexus Resonance Codex (NRC) (NRC) (NRC).
 
 ## 🚀 How to Run AI-Prompts
 

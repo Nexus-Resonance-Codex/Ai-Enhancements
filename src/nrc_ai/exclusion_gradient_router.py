@@ -52,7 +52,7 @@ class BiologicalExclusionGradientRouter(nn.Module):
     A structural layer designed to be placed between deep network blocks.
     It functions as an advanced non-linear Dropout/MoE Router alternative.
     Rather than dropping randomly, it drops exactly the values strictly forbidden
-    by the Nexus Resonance Codex (NRC) (NRC) (TUPT Mod 9 chaotic sequences), and amplifies back-prop
+    by the Nexus Resonance Codex (NRC) (NRC) (NRC) (TUPT Mod 9 chaotic sequences), and amplifies back-prop
     error signals along surviving golden paths.
     """
 

@@ -1,5 +1,5 @@
 # 🧠 Ai-Enhancements: Cognitive Resonance Models
-## [Nexus Resonance Codex (NRC) (NRC) (NRC)](https://github.com/Nexus-Resonance-Codex)
+## [Nexus Resonance Codex (NRC) (NRC) (NRC) (NRC)](https://github.com/Nexus-Resonance-Codex)
 
 > "The attention mechanism is the phi-spiral of the neural manifold."
 
