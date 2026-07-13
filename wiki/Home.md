@@ -1,6 +1,6 @@
 # 256D Lattice Visualizer Wiki
 
-The **256D Lattice Visualizer** is the primary diagnostic and exploratory interface for the Nexus Resonance Codex (NRC). By projecting high-dimensional state vectors from the 256D $\to$ 729D $\phi$-tensor manifold into a 3D-phased interactive space, it enables researchers to physically observe the emergent stability of the TTT_7 locus.
+The **256D Lattice Visualizer** is the primary diagnostic and exploratory interface for the Nexus Resonance Codex (NRC) (NRC). By projecting high-dimensional state vectors from the 256D $\to$ 729D $\phi$-tensor manifold into a 3D-phased interactive space, it enables researchers to physically observe the emergent stability of the TTT_7 locus.
 
 ## Project Overview
 
