@@ -2,7 +2,7 @@
 """=======================================================================
   NRC AI Enhancement Suite — Full Demo (All 30 Enhancements).
 =======================================================================
-  Author:   James Trageser (@jtrag)
+  Author:   James Paul Trageser (@jtrag)
   Repo:     https://github.com/Nexus-Resonance-Codex/Ai-Enhancements
   License:  NRC-L
 

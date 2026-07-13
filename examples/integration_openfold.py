@@ -2,7 +2,7 @@
 """=======================================================================
   NRC × OpenFold — Integration Example.
 =======================================================================
-  Author:   James Trageser (@jtrag)
+  Author:   James Paul Trageser (@jtrag)
   Repo:     https://github.com/Nexus-Resonance-Codex/Ai-Enhancements
   License:  NRC-L
 

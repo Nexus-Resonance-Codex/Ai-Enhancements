@@ -7,7 +7,7 @@ from nrc.math import apply_exclusion_gate
 class NRCProteinFoldingEngine(torch.nn.Module):
     """Enhancement #2: NRC Protein Folding Engine v2.
 
-    This engine leverages the Nexus Resonance Codex (NRC) sequences, specifically
+    This engine leverages the Nexus Resonance Codex (NRC) (NRC) sequences, specifically
     TUPT_E256 over Z_12289, and mathematically locks out invalid configurations
     through Mod 9 exclusion filters. It binds the sequences towards the
     GTT Entropy target of ~10.96 nats.

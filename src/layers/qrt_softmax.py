@@ -1,11 +1,11 @@
-#  Nexus Resonance Codex - 2025-2026 Breakthrough Series
-#  Copyright (c) 2026 James Trageser (@jtrag)
+#  Nexus Resonance Codex (NRC) - 2025-2026 Breakthrough Series
+#  Copyright (c) 2026 James Paul Trageser (@jtrag)
 #
 #  Licensed under CC-BY-NC-SA-4.0 + NRC-L
-#  "This work is part of the Nexus Resonance Codex (NRC) incorporating TTT
+#  "This work is part of the Nexus Resonance Codex (NRC) (NRC) incorporating TTT
 #  modular exclusion, phi^inf compression, 256D->729D lattice, QRT, and MST."
 
-"""QRT Softmax: Quantum Residue Turbulence Normalization.
+"""QRT Softmax: Quantum Resonance Transform (QRT) Normalization.
 
 This module implements a noise-stabilized softmax that optimizes probability
 distributions through TTT modular residue alignment, projecting scores into
@@ -17,7 +17,7 @@ import torch.nn as nn
 
 
 class QRTSoftmax(nn.Module):
-    """Enhancement #12: Quantum Residue Turbulence (QRT) Softmax.
+    """Enhancement #12: Quantum Resonance Transform (QRT) (QRT) Softmax.
 
     Projects standard energy scores into a noise-less, Golden-stabilized
     probability field by suppressing spectral residue in the lattice.

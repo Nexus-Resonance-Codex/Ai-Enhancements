@@ -13,7 +13,7 @@ class TUPTModularDropout(nn.Module):
     The NRC Modular Dropout Pattern replaces random attenuation with structured
     stability alignment. It generates a structural dropout mask aligned to the
     Mod-9 domain. Connections that correspond to unstable modular residue classes
-    as defined by the Trageser Transformation Theorem (TTT) are prioritized for
+    as defined by the Trageser Tensor Theorem (TTT-7) (TTT) are prioritized for
     gating, preserving structurally stable pathways.
     """
 

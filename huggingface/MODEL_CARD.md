@@ -25,7 +25,7 @@ model_type: nrc-enhancement-modules
 # NRC AI Enhancements
 
 **30 Mathematically Rigid PyTorch Enhancement Modules**
-_Based on the Nexus Resonance Codex — replacing stochastic heuristics with Golden Ratio geometry_
+_Based on the Nexus Resonance Codex (NRC) — replacing stochastic heuristics with Golden Ratio geometry_
 
 [![GitHub](https://img.shields.io/badge/GitHub-ai--enhancements-181717?logo=github)](https://github.com/Nexus-Resonance-Codex/Ai-Enhancements)
 [![Python](https://img.shields.io/badge/Python-3.10%2B-3776AB?logo=python)](https://python.org)
@@ -38,7 +38,7 @@ _Based on the Nexus Resonance Codex — replacing stochastic heuristics with Gol
 
 ## Overview
 
-The NRC AI Enhancements library provides **30 drop-in PyTorch modules** that replace conventional stochastic deep learning operations with **deterministic, geometrically grounded** alternatives derived from the Nexus Resonance Codex mathematical framework.
+The NRC AI Enhancements library provides **30 drop-in PyTorch modules** that replace conventional stochastic deep learning operations with **deterministic, geometrically grounded** alternatives derived from the Nexus Resonance Codex (NRC) mathematical framework.
 
 The foundational principle: **the Golden Ratio φ = 1.6180339887...** is not merely aesthetic — it is a structural attractor that governs stable energy distributions in physics, biology, and information systems. These enhancements embed that structure directly into neural network operations.
 
@@ -52,7 +52,7 @@ pip install "nrc_ai @ git+https://github.com/Nexus-Resonance-Codex/Ai-Enhancemen
 
 All 30 modules derive from four foundational equations:
 
-### 1. Quantum Resonance Theory (QRT)
+### 1. Quantum Resonance Transform (QRT) (QRT)
 
 Replaces stochastic dropout with fractal wave damping:
 

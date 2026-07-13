@@ -1,6 +1,6 @@
 # Documentation: NRC Ai-Enhancements
 
-This repository provides professional-grade AI enhancements derived from the Nexus Resonance Codex. By integrating deterministic $\varphi$-geometry into standard deep learning components, we achieve unprecedented stability and scaling.
+This repository provides professional-grade AI enhancements derived from the Nexus Resonance Codex (NRC). By integrating deterministic $\varphi$-geometry into standard deep learning components, we achieve unprecedented stability and scaling.
 
 ## Core Pillars
 
@@ -45,4 +45,4 @@ print(f"Lattice Resonance: {memory.retrieve().mean():.4f}")
 
 ---
 
-*Verified by the Nexus Resonance Codex AI Division (2026).*
+*Verified by the Nexus Resonance Codex (NRC) AI Division (2026).*
