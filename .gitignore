@@ -34,3 +34,15 @@ venv/
 .venv/
 __pycache__/
 
+# Internal Agents & Security Exclusions
+.agents/
+ORIGINAL_REQUEST.md
+scratch/
+.solomd/
+.hypothesis/
+.coverage
+*_keys.json
+docs/whitepapers/nim_generator.py
+proofs/proof_*.py
+
+
