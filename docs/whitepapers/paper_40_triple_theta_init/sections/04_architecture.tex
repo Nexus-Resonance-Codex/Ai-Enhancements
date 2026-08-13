@@ -1,0 +1,38 @@
+\section{Architecture \& Implementation}
+The \texttt{triple\_theta\_init\_} function and \texttt{TripleThetaInitializer} class are implemented in \texttt{nrc\_ai/triple\_theta\_init.py}.
+
+\subsection{PyTorch Implementation}
+\begin{lstlisting}[language=Python]
+import torch
+import torch.nn as nn
+from nrc.math import PHI_FLOAT, apply_exclusion_gate
+
+def triple_theta_init_(tensor: torch.Tensor, mean: float = 0.0, std: float = 1.0) -> torch.Tensor:
+    with torch.no_grad():
+        torch.nn.init.normal_(tensor, mean=mean, std=std)
+
+        num_elements = tensor.numel()
+        indices = torch.arange(num_elements, dtype=torch.float32, device=tensor.device)
+
+        phi_scaled_idx = torch.round(indices * PHI_FLOAT)
+        theta_power = torch.fmod(phi_scaled_idx, 100.0)
+
+        phi_map = PHI_FLOAT ** theta_power
+        phi_mapped_mod = torch.fmod(phi_map, 9.0)
+
+        gated_multiplier_np = apply_exclusion_gate(phi_mapped_mod.detach().cpu().numpy())
+        gated_multiplier = torch.as_tensor(gated_multiplier_np, device=tensor.device, dtype=tensor.dtype)
+        gated_multiplier = gated_multiplier.view(tensor.shape)
+
+        tensor.mul_(gated_multiplier / 1000.0)
+        return tensor
+
+class TripleThetaInitializer(nn.Linear):
+    def reset_parameters(self) -> None:
+        triple_theta_init_(self.weight, std=0.02)
+        if self.bias is not None:
+            nn.init.zeros_(self.bias)
+\end{lstlisting}
+
+\subsection{Usage Pattern}
+Replacing standard \texttt{nn.Linear} instances with \texttt{TripleThetaInitializer} automatically applies Triple-Theta Initialization upon instantiation, requiring zero post-processing steps in training pipelines.

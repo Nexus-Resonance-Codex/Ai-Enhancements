@@ -1,0 +1,72 @@
+\section{Architecture \& Implementation}
+The \texttt{QRTTurbulenceOptimizer} is implemented as an institutional-grade PyTorch \texttt{Optimizer} subclass within \texttt{nrc\_ai/qrt\_optimizer.py}.
+
+\subsection{Production PyTorch Implementation}
+\begin{lstlisting}[language=Python]
+from typing import Callable, Iterable, Optional, overload
+import torch
+from torch.optim import Optimizer
+from nrc.math import qrt_damping
+
+class QRTTurbulenceOptimizer(Optimizer):
+    def __init__(
+        self,
+        params: Iterable[torch.Tensor],
+        lr: float = 1e-3,
+        beta1: float = 0.9,
+        beta2: float = 0.999,
+    ):
+        defaults = {"lr": lr, "beta1": beta1, "beta2": beta2}
+        super(QRTTurbulenceOptimizer, self).__init__(params, defaults)
+
+    @torch.no_grad()
+    def step(self, closure: Optional[Callable[[], float]] = None) -> Optional[float]:
+        loss = None
+        if closure is not None:
+            with torch.enable_grad():
+                loss = closure()
+
+        for group in self.param_groups:
+            lr, beta1, beta2 = group["lr"], group["beta1"], group["beta2"]
+
+            for p in group["params"]:
+                if p.grad is None:
+                    continue
+
+                grad = p.grad
+                state = self.state[p]
+
+                if len(state) == 0:
+                    state["step"] = 0
+                    state["momentum"] = torch.zeros_like(p)
+                    state["turbulence"] = torch.zeros_like(p)
+
+                state["step"] += 1
+                m, v = state["momentum"], state["turbulence"]
+
+                # Exponential momentum and turbulence accumulation
+                m.mul_(beta1).add_(grad, alpha=1.0 - beta1)
+                v.mul_(beta2).addcmul_(grad, grad, value=1.0 - beta2)
+
+                bias_correction1 = 1.0 - beta1 ** state["step"]
+                bias_correction2 = 1.0 - beta2 ** state["step"]
+
+                m_hat = m / bias_correction1
+                v_hat = v / bias_correction2
+
+                # QRT Continuous Damping Engine
+                sqrt_turbulence = torch.sqrt(v_hat)
+                sqrt_turbulence_np = sqrt_turbulence.detach().cpu().numpy()
+                qrt_damped_friction_np = qrt_damping(sqrt_turbulence_np)
+                qrt_damped_friction = torch.as_tensor(
+                    qrt_damped_friction_np, device=v_hat.device, dtype=v_hat.dtype
+                )
+
+                update_step = (m_hat / (qrt_damped_friction + 1e-8)) * lr
+                p.sub_(update_step)
+
+        return loss
+\end{lstlisting}
+
+\subsection{Pipeline Integration}
+\texttt{QRTTurbulenceOptimizer} plugs directly into standard PyTorch training loops, substituting for \texttt{torch.optim.AdamW} with zero modification to loss functions or model definitions.

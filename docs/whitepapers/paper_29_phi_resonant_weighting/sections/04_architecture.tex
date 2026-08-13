@@ -1,0 +1,28 @@
+\section{Architecture \& Implementation}
+Implemented in PyTorch as a parameter-containing module \texttt{PhiPoweredResonantWeighting}.
+
+\subsection{PyTorch Production Source Code}
+\begin{lstlisting}[language=Python]
+import torch
+import torch.nn as nn
+from nrc.math import PHI_FLOAT
+
+class PhiPoweredResonantWeighting(nn.Module):
+    '''Enhancement #17: phi-Powered Resonant Weighting.
+    
+    Formula:
+    variance = var(hidden_states)
+    scale = where(variance < 1.0, phi, 1/phi)
+    output = hidden_states * (gating * scale)
+    '''
+    def __init__(self, in_features: int):
+        super().__init__()
+        self.resonance_gate = nn.Parameter(torch.ones(in_features))
+
+    def forward(self, hidden_states: torch.Tensor) -> torch.Tensor:
+        variance = torch.var(hidden_states, dim=-1, keepdim=True)
+        scale_factor = torch.where(variance < 1.0, PHI_FLOAT, 1.0 / PHI_FLOAT)
+        adaptive_weighting = self.resonance_gate * scale_factor
+        resonant_states = hidden_states * adaptive_weighting
+        return resonant_states
+\end{lstlisting}

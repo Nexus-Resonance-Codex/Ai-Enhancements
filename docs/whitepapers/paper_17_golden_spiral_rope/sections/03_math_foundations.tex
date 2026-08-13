@@ -1,0 +1,30 @@
+\section{Mathematical Foundations}
+Let $x \in \mathbb{R}^{B \times S \times D}$ be a hidden activation tensor with dimension $D$. The Golden Ratio constant is $\Phi = \frac{1+\sqrt{5}}{2} \approx 1.61803398875$.
+
+\subsection{Golden Spiral Frequency Spectrum}
+For feature dimension index $k \in \{0, 2, 4, \dots, D-2\}$, the Golden Spiral inverse frequency $\omega_k$ is defined as:
+\begin{equation}
+    \omega_k = \frac{1}{\Phi^{k / D}} = \Phi^{-k / D}
+\end{equation}
+For sequence position index $t \in \{0, 1, \dots, S-1\}$, the composite rotational angle matrix $\Theta \in \mathbb{R}^{S \times (D/2)}$ is formed via the outer product:
+\begin{equation}
+    \Theta_{t, k} = t \cdot \omega_k = t \cdot \Phi^{-k / D}
+\end{equation}
+
+\subsection{Trigonometric Expansion \& Vector Rotation}
+The rotational embedding matrix $E \in \mathbb{R}^{S \times D}$ is constructed by concatenating $\Theta$ with itself along the feature dimension:
+\begin{equation}
+    E = [\Theta \;\|\; \Theta] \in \mathbb{R}^{S \times D}
+\end{equation}
+Cosine and sine transformation matrices are computed elementwise:
+\begin{equation}
+    R_{\text{cos}} = \cos(E), \quad R_{\text{sin}} = \sin(E)
+\end{equation}
+Let $x = [x^{(1)} \;\|\; x^{(2)}]$ where $x^{(1)}, x^{(2)} \in \mathbb{R}^{B \times S \times (D/2)}$. The half-rotated vector $\tilde{x}$ is defined by:
+\begin{equation}
+    \tilde{x} = [-x^{(2)} \;\|\; x^{(1)}]
+\end{equation}
+The final GSRoPE transformed embedding $x_{\text{GSRoPE}}$ is given by:
+\begin{equation}
+    x_{\text{GSRoPE}} = x \odot R_{\text{cos}} + \tilde{x} \odot R_{\text{sin}}
+\end{equation}

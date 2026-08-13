@@ -1,0 +1,38 @@
+\section{Mathematical Foundations}
+Let $v \in \mathbb{R}^+$ represent a continuous inference score produced by an upstream model or cross-manifold reasoning engine (e.g., RBSI weighted score). The auditor evaluates stability with respect to the golden ratio constant $\phi = \frac{1+\sqrt{5}}{2} \approx 1.618033988749895$.
+
+\subsection{Digital Root Operator Specification}
+To audit continuous scalar value $v$, the score is scaled to an integer domain using scaling factor $10^7$:
+\begin{equation}
+    N = \lfloor |v| \cdot 10^7 \rfloor \in \mathbb{Z}_{\ge 0}
+\end{equation}
+The digital root operator $dr: \mathbb{Z}_{\ge 0} \to \{0, 1, 2, \dots, 9\}$ is defined as:
+\begin{equation}
+    dr(v) = \begin{cases}
+        0, & \text{if } N = 0 \\
+        N \bmod 9, & \text{if } N \bmod 9 \neq 0 \\
+        9, & \text{if } N \bmod 9 = 0 \text{ and } N > 0
+    \end{cases}
+\end{equation}
+The \textbf{Target Resonant Anchor} is designated as $dr^* = 7$.
+
+\subsection{Resonance Re-Anchoring Operator}
+If $dr(v) = 7$, the value is certified as \texttt{PASSED} with action \texttt{CLEARED}.
+If $dr(v) \neq 7$, the system initiates the \textbf{Resonance Re-Anchoring} map $\mathcal{R}(v)$:
+For $n = 1, 2, \dots, 9$:
+\begin{align}
+    v_n^+ &= v + \phi^{-n} \\
+    v_n^- &= v - \phi^{-n}
+\end{align}
+The re-anchoring function returns the first candidate $v_n^+$ or $v_n^-$ satisfying:
+\begin{equation}
+    dr(v_n^\pm) = 7
+\end{equation}
+If no $n \in \{1, \dots, 9\}$ satisfies $dr = 7$, the function returns $v$ as a fallback, marking status as \texttt{FAILED} and action \texttt{RE\_ANCHORING\_REQUIRED}.
+
+\subsection{Lyapunov Energy Potential for Stability Audit}
+We define the digital root energy potential $\mathcal{V}(v)$ over $\mathbb{Z}_9$ as:
+\begin{equation}
+    \mathcal{V}(v) = (dr(v) - 7)^2 \ge 0
+\end{equation}
+The system reaches absolute ground state equilibrium if and only if $\mathcal{V}(v) = 0$.

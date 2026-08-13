@@ -1,0 +1,31 @@
+\section{Formal Mathematical Proofs}
+
+\begin{theorem}[Exact Morphism Invertibility]
+Let $\mathcal{V}$ be a finite-dimensional vector space over $\mathbb{R}$. The linear operator $T_N: \mathcal{V} \to \mathcal{V}$ defined by $T_N(v) = \phi^N v$ is an automorphism for every $N \in \mathbb{Z}$.
+\end{theorem}
+
+\begin{proof}
+Since $\phi = \frac{1+\sqrt{5}}{2} > 0$, $\phi^N \neq 0$ for all $N \in \mathbb{Z}$.
+The matrix representation of $T_N$ relative to any basis is $M(T_N) = \phi^N I_D$, where $I_D$ is the $D \times D$ identity matrix.
+The determinant $\det(M(T_N)) = \det(\phi^N I_D) = (\phi^N)^D \neq 0$.
+By the Invertible Matrix Theorem, $T_N$ is bijective and invertible, with inverse $T_N^{-1}(v) = \phi^{-N} v$.
+Thus, \texttt{InfiniteEInfinityContextUnfolder} constitutes a continuous linear isomorphism with zero kernel nullity ($\ker(T_N) = \{0\}$).
+\end{proof}
+
+\begin{theorem}[Condition Number Invariance]
+For any non-zero matrix $A \in \mathbb{R}^{M \times N}$, the condition number $\kappa(A) = \|A\|_2 \|A^+\|_2$ under 2-norm metric is invariant under \texttt{InfiniteEInfinityContextUnfolder} scaling:
+\begin{equation}
+    \kappa(\mathcal{U}_N(A)) = \kappa(A)
+\end{equation}
+\end{theorem}
+
+\begin{proof}
+The 2-norm of the scaled matrix $\mathcal{U}_N(A) = \phi^N A$ is \|\phi^N A\|_2 = |\phi^N| \|A\|_2 = \phi^N \|A\|_2.
+The Moore-Penrose pseudoinverse of $\phi^N A$ is $(\phi^N A)^+ = \phi^{-N} A^+$.
+Its norm is \|\phi^{-N} A^+\|_2 = \phi^{-N} \|A^+\|_2.
+Taking the product of norms:
+\begin{equation}
+    \kappa(\mathcal{U}_N(A)) = \|\phi^N A\|_2 \|(\phi^N A)^+\|_2 = (\phi^N \|A\|_2) \cdot (\phi^{-N} \|A^+\|_2) = (\phi^N \cdot \phi^{-N}) \|A\|_2 \|A^+\|_2 = \kappa(A)
+\end{equation}
+Hence, context unfolding introduces zero ill-conditioning into attention matrices, preserving numerical stability.
+\end{proof}

@@ -1,0 +1,11 @@
+\section{Introduction}
+Deep neural networks operate as non-equilibrium open thermodynamic systems. As activation signals cascade through successive Transformer blocks, noisy feature representations accumulate thermodynamic entropy. If unconstrained, this entropy growth triggers catastrophic hallucination, where token probability distributions flatten into high-entropy noise.
+
+The Nexus Resonance Codex introduces \textbf{Global Tensor Thermodynamics (GTT)}, mapping safe information capacity limits to an exact thermodynamic boundary $H_{\text{safe}} = 10.96\text{ nats}$. The \textbf{GTT Entropy Collapse Regularizer} acts as a real-time thermodynamic Governor, inspecting feature distributions at intermediate layers and applying targeted Golden Ratio ($\Phi^{-1}$) friction damping whenever entropy violations occur.
+
+\subsection{Key Contributions}
+\begin{enumerate}[label=\textbf{\arabic*.}]
+    \item \textbf{Mid-Flight Entropy Monitoring}: Real-time Shannon entropy computation $H(x) = -\sum P(x) \ln P(x)$ over activation slices.
+    \item \textbf{Targeted Phi-Collapse}: Selective damping of high-entropy token states via $x \leftarrow x / \Phi$, leaving low-entropy states unperturbed.
+    \item \textbf{Thermodynamic Stabilization Proof}: Mathematical proof that $\Phi^{-1}$ scaling monotonically decreases entropy below $H_{\text{safe}}$.
+\end{enumerate}

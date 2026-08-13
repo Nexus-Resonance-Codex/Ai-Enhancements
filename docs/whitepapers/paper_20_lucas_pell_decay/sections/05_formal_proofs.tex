@@ -1,0 +1,26 @@
+\section{Formal Mathematical Proofs}
+
+\begin{theorem}[Selective Noise Shredding Ratio Theorem]
+Let $\theta_{\text{noise}}$ satisfy $|\theta_{\text{noise}}| \le 1.0$ and $\theta_{\text{macro}}$ satisfy $|\theta_{\text{macro}}| > 1.0$. Under Lucas-Pell Hybrid Weight Decay, the decay rate ratio of noise to macro-structure parameters is exactly $\Phi \cdot \delta_{\text{Pell}} = \frac{1+\sqrt{5}}{2}(1+\sqrt{2}) \approx 3.90623$, shredding noise nearly $3.9\times$ faster.
+\end{theorem}
+
+\begin{proof}
+Comparing the decay modifiers:
+\begin{equation}
+    \frac{\eta(\theta_{\text{noise}})}{\eta(\theta_{\text{macro}})} = \frac{\Phi}{\delta_{\text{Pell}}^{-1}} = \Phi \cdot \delta_{\text{Pell}}
+\end{equation}
+Substituting numerical values $\Phi \approx 1.61803399$ and $\delta_{\text{Pell}} \approx 2.41421356$:
+\begin{equation}
+    \Phi \cdot \delta_{\text{Pell}} = 1.61803399 \times 2.41421356 \approx 3.9062326
+\end{equation}
+Thus, chaotic background noise undergoes exponential decay at $3.906\times$ the rate of dominant structural weights, establishing selective noise shredding.
+\end{proof}
+
+\begin{theorem}[Macro-Structure Bounded Conservation Theorem]
+For dominant weights $|\theta| > 1.0$, the parameter retention factor per step is $1 - \lambda_{\text{base}} \delta_{\text{Pell}}^{-1} \approx 1 - 0.414 \lambda_{\text{base}}$, preserving structural capacity compared to standard L2 decay ($1 - \lambda_{\text{base}}$).
+\end{theorem}
+
+\begin{proof}
+Under standard L2 decay, the retention factor is $1 - \lambda_{\text{base}}$. Under Lucas-Pell decay for $|\theta| > 1.0$, the retention factor is $1 - \frac{\lambda_{\text{base}}}{1+\sqrt{2}} \approx 1 - 0.4142 \lambda_{\text{base}}$.
+Since $0.4142 < 1.0$, $1 - 0.4142 \lambda_{\text{base}} > 1 - \lambda_{\text{base}}$, proving superior macro-structural parameter retention.
+\end{proof}

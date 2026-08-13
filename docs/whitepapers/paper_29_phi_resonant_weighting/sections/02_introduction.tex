@@ -1,0 +1,11 @@
+\section{Introduction}
+Feature variance propagation across deep neural network layers governs gradient dynamics during backpropagation. Traditional static normalization layers normalize hidden representations to zero mean and unit variance. While effective, fixed unit normalization restricts feature variance dynamics and forces representations into rigid Euclidean spheres.
+
+The \textbf{Nexus Resonance Codex (NRC)} introduces \textbf{PhiPoweredResonantWeighting}, an adaptive layer wrapper that replaces rigid static scaling with golden ratio fractal resonance. By monitoring activation variance per sequence block, the layer dynamically injects fractal scaling to align tensor variance with the golden attractor.
+
+\subsection{Key Contributions}
+\begin{enumerate}[label=\textbf{\arabic*.}]
+    \item \textbf{Fractal Variance Conditioning}: Dynamic scaling factor $\Phi(\sigma^2) = \text{where}(\sigma^2 < 1.0, \phi, \phi^{-1})$.
+    \item \textbf{Learnable Gating Combination}: Element-wise product of learnable parameter vector $\mathbf{g} \in \mathbb{R}^D$ with golden fractal scale.
+    \item \textbf{Attractor Interval Proof}: Proof establishing bounded variance convergence into $[\phi^{-2}, \phi^2]$.
+\end{enumerate}

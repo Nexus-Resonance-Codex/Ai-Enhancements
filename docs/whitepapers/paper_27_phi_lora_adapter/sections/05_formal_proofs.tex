@@ -1,0 +1,22 @@
+\section{Formal Mathematical Proofs}
+
+\begin{theorem}[Spectral Norm Boundedness of Lossless LoRA Update]
+Let $\Delta W(x) = \mathcal{S}_1(B(\mathcal{S}_1(A(x)))) \cdot \gamma_{\phi}$. If $\|A\|_2 \le \sigma_A$ and $\|B\|_2 \le \sigma_B$, then the effective operator norm $\|\Delta W\|_2$ satisfies $\|\Delta W\|_2 \le \phi^{-2} \sigma_A \sigma_B \gamma_{\phi}$.
+\end{theorem}
+
+\begin{proof}
+1. By properties of \texttt{PhiInfinityShardFolding} with $k=1$, the operator $\mathcal{S}_1$ satisfies $\|\mathcal{S}_1(z)\|_2 \le \phi^{-1} \|z\|_2$ for any feature vector $z$.
+
+2. Evaluating the nested composition for input $x$:
+\begin{align}
+    \|\mathcal{S}_1(A(x))\|_2 &\le \phi^{-1} \|A(x)\|_2 \le \phi^{-1} \sigma_A \|x\|_2 \\
+    \|B(\mathcal{S}_1(A(x)))\|_2 &\le \sigma_B \|\mathcal{S}_1(A(x))\|_2 \le \phi^{-1} \sigma_A \sigma_B \|x\|_2 \\
+    \|\mathcal{S}_1(B(\mathcal{S}_1(A(x))))\|_2 &\le \phi^{-1} \|B(\mathcal{S}_1(A(x)))\|_2 \le \phi^{-2} \sigma_A \sigma_B \|x\|_2
+\end{align}
+
+3. Multiplying by scalar $\gamma_{\phi}$:
+\begin{equation}
+    \|\Delta W(x)\|_2 \le \phi^{-2} \sigma_A \sigma_B \gamma_{\phi} \|x\|_2
+\end{equation}
+Since $\phi^{-2} \approx 0.381966 < 1$, double shard folding strictly contracts the operator norm by $\phi^{-2}$, preventing gradient explosion across low-rank bottlenecks.
+\end{proof}

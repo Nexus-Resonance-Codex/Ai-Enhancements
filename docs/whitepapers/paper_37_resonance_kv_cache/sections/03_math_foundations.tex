@@ -1,0 +1,26 @@
+\section{Mathematical Foundations}
+Let $K, V \in \mathbb{R}^{B \times L \times D}$ represent Key and Value tensors. The Quantum Shadow Veil maintains a key sequence $\{k_i\}_{i=0}^{1023}$ expanded from seed $S_0 = 137$ via Fibonacci modular recurrence.
+
+\subsection{Residue-Hiding (RH) Encryption Transformation}
+For a target memory shard $T \in \mathbb{R}^{B \times C \times D}$ at fold counter index $i$, the salt parameter $\delta_i$ is computed as:
+\begin{equation}
+    \delta_i = \frac{k_i \bmod 256}{256.0}
+\end{equation}
+The forward Residue-Hiding encryption map $\mathcal{E}_i(T)$ applies PHI-based resonant phasing:
+\begin{equation}
+    \mathcal{E}_i(T) = (T + \delta_i) \cdot \phi^{-(i \bmod 13)}
+\end{equation}
+where $\phi = \frac{1+\sqrt{5}}{2} \approx 1.61803398875$.
+
+\subsection{Inverse Resonant Phasing & Decryption}
+During attention evaluation cycles, the Veil-Authenticated decryption operator $\mathcal{D}_i$ reverses the phase transformation:
+\begin{equation}
+    \mathcal{D}_i(\hat{T}) = \frac{\hat{T}}{\phi^{-(i \bmod 13)}} - \delta_i
+\end{equation}
+Substitution confirms exact algebraic identity:
+\begin{equation}
+    \mathcal{D}_i(\mathcal{E}_i(T)) = \frac{(T + \delta_i) \cdot \phi^{-(i \bmod 13)}}{\phi^{-(i \bmod 13)}} - \delta_i = T + \delta_i - \delta_i = T
+\end{equation}
+
+\subsection{TTT-7 Digital Root Audit}
+Encrypted shard vectors $\hat{T}$ are subjected to digital root audit $dr(\hat{T}) = (\lfloor \|\hat{T}\| \cdot 10^7 \rfloor - 1) \bmod 9 + 1$. Residue classes are validated to ensure $dr \in \{1, 2, 4, 5, 7, 8\}$.

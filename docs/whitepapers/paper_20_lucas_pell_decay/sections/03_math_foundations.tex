@@ -1,0 +1,24 @@
+\section{Mathematical Foundations}
+Let $\theta \in \mathbb{R}^d$ be a trainable model parameter tensor. Let $\lambda_{\text{base}} > 0$ be the base weight decay hyperparameter.
+
+\subsection{Mathematical Sequence Limits}
+The Golden Ratio $\Phi$ and Silver Ratio $\delta_{\text{Pell}}$ are defined as:
+\begin{equation}
+    \Phi = \frac{1 + \sqrt{5}}{2} \approx 1.618033988749895, \quad \delta_{\text{Pell}} = 1 + \sqrt{2} \approx 2.414213562373095
+\end{equation}
+
+\subsection{Topological Indicator \& Decay Modifier}
+For each scalar weight $\theta_i$, we construct the binary macro-structure indicator $I(\theta_i)$:
+\begin{equation}
+    I(\theta_i) = \begin{cases} 1 & \text{if } |\theta_i| > 1.0 \\ 0 & \text{if } |\theta_i| \le 1.0 \end{cases}
+\end{equation}
+The topological decay modifier $\eta(\theta_i)$ is determined conditionally by:
+\begin{equation}
+    \eta(\theta_i) = \begin{cases} \frac{1}{\delta_{\text{Pell}}} = \frac{1}{1 + \sqrt{2}} \approx 0.41421356 & \text{if } I(\theta_i) = 1 \text{ (Dominant Macro-Weight)} \\ \Phi = \frac{1 + \sqrt{5}}{2} \approx 1.61803398 & \text{if } I(\theta_i) = 0 \text{ (Chaotic Micro-Noise)} \end{cases}
+\end{equation}
+
+\subsection{In-Place Parameter Update Rule}
+The effective decay rate $\lambda_{\text{eff}}(\theta_i) = \lambda_{\text{base}} \cdot \eta(\theta_i)$. The parameter is updated in-place via:
+\begin{equation}
+    \theta_i \leftarrow \theta_i - \theta_i \cdot \left( \lambda_{\text{base}} \cdot \eta(\theta_i) \right) = \theta_i \left( 1 - \lambda_{\text{base}} \eta(\theta_i) \right)
+\end{equation}

@@ -1,0 +1,19 @@
+\section{Mathematical Foundations}
+Let $X \in \mathbb{R}^{B \times L \times D}$ denote an active key-value tensor. When folded at depth $N \in \mathbb{N}_{\ge 1}$, the compressed state is $X_{\text{folded}} = X \cdot \phi^{-N}$.
+
+\subsection{Algebraic Unfolding Equation}
+The restoration operator $\mathcal{U}_N: \mathbb{R}^{B \times L \times D} \to \mathbb{R}^{B \times L \times D}$ applies the inverse golden expansion factor $\alpha_N = \phi^N$:
+\begin{equation}
+    \mathcal{U}_N(X_{\text{folded}}) = X_{\text{folded}} \cdot \phi^N
+\end{equation}
+where $\phi = \frac{1+\sqrt{5}}{2} \approx 1.61803398875$.
+
+\subsection{Composition Identity & Perfect Recovery}
+Composing the folding operator $\mathcal{F}_N(X) = X \cdot \phi^{-N}$ with the unfolding operator $\mathcal{U}_N$ yields the exact identity map:
+\begin{equation}
+    (\mathcal{U}_N \circ \mathcal{F}_N)(X) = \mathcal{U}_N(X \cdot \phi^{-N}) = (X \cdot \phi^{-N}) \cdot \phi^N = X \cdot (\phi^{-N} \cdot \phi^N) = X \cdot 1 = X
+\end{equation}
+Since matrix multiplication by a scalar is distributive and associative, perfect reconstruction holds identically across all tensor dimensions $B, L, D$.
+
+\subsection{TTT-7 Digital Root Compliance}
+The restored tensor components $x_{ijk}$ are audited via $dr(\lfloor |x_{ijk}| \cdot 10^7 \rfloor) = (\lfloor |x_{ijk}| \cdot 10^7 \rfloor - 1) \bmod 9 + 1$. Values residing in $\{1, 2, 4, 5, 7, 8\}$ are admitted directly, preserving structural parity across long-context retrieval cycles.

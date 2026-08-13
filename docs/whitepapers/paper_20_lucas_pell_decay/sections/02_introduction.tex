@@ -1,0 +1,11 @@
+\section{Introduction}
+L2 weight decay is standard in deep learning optimizers (AdamW, SGDW) to prevent parameter explosion. However, uniform scalar decay treats all weights identically: critical macro-structural pathways that encode high-level representations are decayed at the exact same rate as zero-information background noise.
+
+The Nexus Resonance Codex introduces \textbf{Lucas-Pell Hybrid Weight Decay}, unifying biological Lucas sequences ($L_n = F_{n-1} + F_{n+1}$) and Silver Ratio Pell number sequences ($P_n = 2P_{n-1} + P_{n-2}$). By inspecting local weight magnitudes, Lucas-Pell Hybrid Weight Decay applies non-uniform regularization: protecting dominant core weights while friction-shredding chaotic noise.
+
+\subsection{Key Contributions}
+\begin{enumerate}[label=\textbf{\arabic*.}]
+    \item \textbf{Silver Ratio Boundary}: Formalization of structural threshold limit $\delta_{\text{Pell}} = 1 + \sqrt{2} \approx 2.41421356$.
+    \item \textbf{Topological Weight Split}: Categorization into dominant macro-structures ($|\theta| > 1.0$) and chaotic micro-noise ($|\theta| \le 1.0$).
+    \item \textbf{In-Place Optimizer Integration}: High-performance PyTorch implementation applying static hybrid decay in-place without memory allocation.
+\end{enumerate}

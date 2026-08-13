@@ -1,0 +1,25 @@
+\section{Formal Mathematical Proofs}
+
+\begin{theorem}[Anti-Symmetric Torsion Flow Theorem]
+The Hodge Torsion Bias matrix $\mathbf{B}^{(\text{torsion})}$ is strictly anti-symmetric: $\mathbf{B}_{i,j}^{(\text{torsion})} = -\mathbf{B}_{j,i}^{(\text{torsion})}$, with zero diagonal $\mathbf{B}_{i,i}^{(\text{torsion})} = 0$.
+\end{theorem}
+
+\begin{proof}
+Using the identity $\sin(-\theta) = -\sin(\theta)$:
+\begin{equation}
+    \mathbf{B}_{j,i}^{(\text{torsion})} = \Phi \sin(\theta_{\text{QRT}}(j - i)) = \Phi \sin(-\theta_{\text{QRT}}(i - j)) = -\Phi \sin(\theta_{\text{QRT}}(i - j)) = -\mathbf{B}_{i,j}^{(\text{torsion})}
+\end{equation}
+For $i = j$, $\Delta_{i,i} = 0$, so $\mathbf{B}_{i,i}^{(\text{torsion})} = \Phi \sin(0) = 0$. Anti-symmetry is established.
+\end{proof}
+
+\begin{theorem}[Bounded Attention Bias Supremum]
+The absolute magnitude of the Hodge Torsion Bias is strictly bounded by the Golden Ratio: $\|\mathbf{B}^{(\text{torsion})}\|_{\infty} \le \Phi \approx 1.61803398875$.
+\end{theorem}
+
+\begin{proof}
+Since $|\sin(x)| \le 1$ for all $x \in \mathbb{R}$:
+\begin{equation}
+    |\mathbf{B}_{i,j}^{(\text{torsion})}| = |\Phi \sin(\theta_{\text{QRT}}(i - j))| = \Phi |\sin(\theta_{\text{QRT}}(i - j))| \le \Phi \cdot 1 = \Phi
+\end{equation}
+Thus, the torsion bias cannot induce numerical overflow or destabilize Softmax operations.
+\end{proof}

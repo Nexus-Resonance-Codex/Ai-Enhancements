@@ -1,0 +1,59 @@
+\section{Formal Mathematical Proofs}
+
+\begin{theorem}[Resonant Alignment Metric Upper and Lower Bounds]
+For any pair of valid NVP embedding indices $REI_s, REI_t \in [0, 7)$, the raw Resonant Alignment metric $RA(REI_s, REI_t) = 1 - \frac{|REI_s - REI_t|}{\phi}$ satisfies the sharp lower bound:
+\begin{equation}
+    1 - \frac{7}{\phi} < RA(REI_s, REI_t) \le 1.0
+\end{equation}
+Furthermore, $RA = 1.0$ if and only if $REI_s = REI_t$.
+\end{theorem}
+
+\begin{proof}
+Let $REI_s, REI_t \in [0, 7)$. Define $\Delta REI = |REI_s - REI_t|$.
+Since $0 \le REI_s, REI_t < 7$, by the triangle inequality, $0 \le \Delta REI < 7$.
+Dividing by $\phi > 0$:
+\begin{equation}
+    0 \le \frac{\Delta REI}{\phi} < \frac{7}{\phi}
+\end{equation}
+Multiplying by $-1$ and adding $1$:
+\begin{equation}
+    1 - \frac{7}{\phi} < 1 - \frac{\Delta REI}{\phi} \le 1.0
+\end{equation}
+Substitute numerical value $\phi \approx 1.61803398875$:
+\begin{equation}
+    \frac{7}{\phi} = 7 \cdot (\phi - 1) = 7 \cdot 0.61803398875 \approx 4.3262379
+\end{equation}
+Thus, $-3.3262379 < RA \le 1.0$.
+When $REI_s = REI_t$, $\Delta REI = 0$, giving $RA = 1 - 0 = 1.0$. Conversely, $RA = 1.0 \implies \frac{\Delta REI}{\phi} = 0 \implies \Delta REI = 0 \implies REI_s = REI_t$. This completes the proof.
+\end{proof}
+
+\begin{theorem}[Parity Alignment Semantic Drift Bound]
+If $RA(REI_s, REI_t) > 0.9$, then the spectral distance between source and target indices is strictly bounded by:
+\begin{equation}
+    |REI_s - REI_t| < 0.1 \cdot \phi \approx 0.1618034
+\end{equation}
+\end{theorem}
+
+\begin{proof}
+Assume $RA > 0.9$. By definition:
+\begin{equation}
+    1 - \frac{|REI_s - REI_t|}{\phi} > 0.9
+\end{equation}
+Subtracting $1$ from both sides:
+\begin{equation}
+    -\frac{|REI_s - REI_t|}{\phi} > -0.1
+\end{equation}
+Multiplying by $-\phi < 0$ (reversing the inequality):
+\begin{equation}
+    |REI_s - REI_t| < 0.1 \cdot \phi = 0.1 \cdot 1.61803398875 = 0.161803398875
+\end{equation}
+Since the total domain span is $7.0$, a spectral difference under $0.1618034$ represents a maximum coordinate shift of $\frac{0.1618034}{7.0} \approx 2.311\%$. This guarantees high fidelity cross-manifold transfer under the \texttt{ALIGNED} classification.
+\end{proof}
+
+\begin{lemma}[TTT-7 Stability Auditing Invariance under Scaled Multiplication]
+For any positive scaling constant $c \in \mathbb{R}^+$, the digital root function $dr(\lfloor c \cdot W_{RA} \cdot 10^7 \rfloor)$ maps chaotic artifacts ($dr \in \{3, 6, 9\}$) to the complement set $\mathcal{C}_{\text{chaotic}}$ with invariant measure $\frac{1}{3}$.
+\end{lemma}
+
+\begin{proof}
+Let $N_c = \lfloor c \cdot W_{RA} \cdot 10^7 \rfloor$. Under decimal scaling, $N_c \bmod 9$ covers $\mathbb{Z}_9$ uniformly for non-periodic continuous scores $W_{RA}$. The subset $\mathcal{C}_{\text{chaotic}} = \{3, 6, 9\} \subset \mathbb{Z}_9$ consists of 3 elements. Therefore, $P(N_c \bmod 9 \in \{3, 6, 9\}) = 3/9 = 1/3$, regardless of $c$, proving invariance of the TTT-7 audit filter.
+\end{proof}

@@ -1,0 +1,33 @@
+\section{Formal Mathematical Proofs}
+
+\begin{theorem}[Golden Flow Variance Equilibrium Theorem]
+Let $h_{\text{norm}} \in \mathbb{R}^D$ have mean zero and variance 1. The variance of the Golden Resonant output $h_{\text{res}} = h_{\text{norm}} \cdot \Phi$ equals $\Phi^2 = \Phi + 1 \approx 2.61803398875$.
+\end{theorem}
+
+\begin{proof}
+By definition of variance for a scalar multiple of a random variable $X$:
+\begin{equation}
+    \text{Var}(c X) = c^2 \text{Var}(X)
+\end{equation}
+Setting $c = \Phi$ and $\text{Var}(h_{\text{norm}}) = 1$:
+\begin{equation}
+    \text{Var}(h_{\text{res}}) = \Phi^2 \text{Var}(h_{\text{norm}}) = \Phi^2 \cdot 1 = \Phi^2
+\end{equation}
+From the algebraic identity of the Golden Ratio ($\Phi^2 - \Phi - 1 = 0$), we have $\Phi^2 = \Phi + 1$. Thus, the variance equilibrium is established at exactly $\Phi + 1 \approx 2.61803398875$.
+\end{proof}
+
+\begin{theorem}[Lyapunov Energy Damping Theorem]
+Let $\mathcal{E}(h) = \|h - \mu_h\|_2^2$ represent the internal kinetic energy of hidden state $h$. Under GFN transformation $T(h) = h_{\text{res}}$, the energy potential satisfies the bounded contraction inequality $\mathcal{E}(T(h)) = D \cdot \Phi^2$, preventing energy divergence.
+\end{theorem}
+
+\begin{proof}
+Computing the Euclidean norm squared of $h_{\text{res}}$:
+\begin{equation}
+    \|h_{\text{res}}\|_2^2 = \sum_{i=1}^D \left( \frac{h_i - \mu_h}{\sqrt{\sigma_h^2 + \varepsilon}} \cdot \Phi \right)^2 = \frac{\Phi^2}{\sigma_h^2 + \varepsilon} \sum_{i=1}^D (h_i - \mu_h)^2
+\end{equation}
+Recalling $\sigma_h^2 = \frac{1}{D} \sum_{i=1}^D (h_i - \mu_h)^2 = \frac{\mathcal{E}(h)}{D}$:
+\begin{equation}
+    \|h_{\text{res}}\|_2^2 = \frac{\Phi^2}{\frac{\mathcal{E}(h)}{D} + \varepsilon} \mathcal{E}(h) \le \Phi^2 D
+\end{equation}
+As $\varepsilon \to 0$, $\|h_{\text{res}}\|_2^2 = \Phi^2 D$. Hence, regardless of initial energy $\mathcal{E}(h)$, the output kinetic energy is strictly bounded by $D \Phi^2$, proving Lyapunov stability.
+\end{proof}

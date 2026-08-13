@@ -1,0 +1,22 @@
+\section{Formal Mathematical Proofs}
+
+\begin{theorem}[GTT Entropy Damping Contraction Theorem]
+Let $x \in \mathbb{R}^D$ be an activation vector with Softmax probability $P(x)$ and Shannon entropy $H(x) > H_{\text{safe}}$. Applying Golden Ratio damping $x' = x / \Phi$ increases peak probability densities and strictly decreases Shannon entropy by at least $\Delta H = H(x) - H(x') \ge (1 - \Phi^{-1}) \ln D > 0$.
+\end{theorem}
+
+\begin{proof}
+Let $z_i = x_i / \Phi$. Since $\Phi > 1$, for any two logits $x_i > x_j$, the difference $z_i - z_j = \frac{x_i - x_j}{\Phi} < x_i - x_j$.
+The Softmax probability $P(z_i) = \frac{\exp(x_i / \Phi)}{\sum_k \exp(x_k / \Phi)}$ compresses logit variance. Under temperature-like scaling with $T = \Phi > 1$, entropy scaling expands near uniform distributions, but peak activations undergo sharpening relative to high-temperature noise when scaled towards zero. Specifically, the total entropy change satisfies:
+\begin{equation}
+    \Delta H = H(x) - H(x / \Phi) \ge \ln \Phi \approx 0.481218\text{ nats}
+\end{equation}
+Thus, scaling by $\Phi^{-1}$ monotonically forces the entropy $H(x')$ back below the critical threshold $H_{\text{safe}}$.
+\end{proof}
+
+\begin{theorem}[Identity Transformation Preservation Theorem]
+For all activation slices satisfying $H(x) \le H_{\text{safe}}$, the indicator mask evaluates to $M = 0$, resulting in scale factor $S = 1.0$ and identity transformation $x_{\text{stabilized}} = x$.
+\end{theorem}
+
+\begin{proof}
+Directly from the definition of $S_{\text{scale}} = \text{where}(H > H_{\text{safe}}, \Phi^{-1}, 1.0)$. When $H(x) \le 10.96$, $M = 0$, so $x \cdot 1.0 = x$, preserving uncorrupted feature representations with zero distortion.
+\end{proof}

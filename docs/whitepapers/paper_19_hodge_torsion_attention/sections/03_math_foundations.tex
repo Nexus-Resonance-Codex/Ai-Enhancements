@@ -1,0 +1,30 @@
+\section{Mathematical Foundations}
+Let $h \in \mathbb{R}^{B \times S \times D}$ be input hidden states. Let $H$ be the number of attention heads and $d_k = D / H$ be head dimension. The Golden Ratio is $\Phi = \frac{1+\sqrt{5}}{2} \approx 1.61803398875$.
+
+\subsection{Optimal Damping Angle \& Torsion Matrix}
+The optimal geometric damping angle $\theta_{\text{QRT}}$ is defined analytically as:
+\begin{equation}
+    \theta_{\text{QRT}} = \arctan(\sqrt{\Phi}) \approx \arctan(1.27201964951) \approx 0.9045568943\text{ rad}
+\end{equation}
+For sequence positions $i, j \in \{0, 1, \dots, S-1\}$, the relative distance is $\Delta_{i,j} = i - j$. The Hodge Torsion Bias matrix $\mathbf{B}^{(\text{torsion})} \in \mathbb{R}^{S \times S}$ is defined by:
+\begin{equation}
+    \mathbf{B}_{i,j}^{(\text{torsion})} = \Phi \cdot \sin(\theta_{\text{QRT}} \cdot (i - j))
+\end{equation}
+
+\subsection{Torsion-Augmented Attention Score Computation}
+Query, Key, and Value projections are computed via linear transformations:
+\begin{equation}
+    Q = h W_Q, \quad K = h W_K, \quad V = h W_V \quad \in \mathbb{R}^{B \times H \times S \times d_k}
+\end{equation}
+The scaled dot-product attention logits $\mathbf{A} \in \mathbb{R}^{B \times H \times S \times S}$ are computed as:
+\begin{equation}
+    \mathbf{A} = \frac{Q K^T}{\sqrt{d_k}}
+\end{equation}
+The torsion bias $\mathbf{B}^{(\text{torsion})}$ is broadcast across batch $B$ and heads $H$ and added directly to $\mathbf{A}$:
+\begin{equation}
+    \mathbf{S} = \mathbf{A} + \mathbf{B}^{(\text{torsion})} + \mathbf{M}_{\text{attn}}
+\end{equation}
+Softmax probabilities and final output projection yield:
+\begin{equation}
+    P = \text{Softmax}(\mathbf{S}), \quad Y = P V, \quad Z = Y W_O
+\end{equation}

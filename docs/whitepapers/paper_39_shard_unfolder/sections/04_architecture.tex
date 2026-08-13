@@ -1,0 +1,28 @@
+\section{Architecture \& Implementation}
+The \texttt{InfiniteEInfinityContextUnfolder} class is implemented in \texttt{nrc\_ai/shard\_unfolder.py}.
+
+\subsection{PyTorch Implementation}
+\begin{lstlisting}[language=Python]
+import torch
+import torch.nn as nn
+from nrc.math import PHI_FLOAT
+
+class InfiniteEInfinityContextUnfolder(nn.Module):
+    def __init__(self, folding_threshold: int = 4096):
+        super().__init__()
+        self.folding_threshold = folding_threshold
+
+    def forward(self, compressed_kv_block: torch.Tensor, depth_layer: int) -> torch.Tensor:
+        """Dynamically restores states mathematically folded deep inside the structural cache.
+
+        Args:
+            compressed_kv_block: The historically preserved compressed state vectors.
+            depth_layer: The integer depth index of how many times it was folded.
+        """
+        expansion_factor = PHI_FLOAT ** depth_layer
+        restored_kv_states = compressed_kv_block * expansion_factor
+        return restored_kv_states
+\end{lstlisting}
+
+\subsection{Operational Pipeline}
+During long-context decoding, when the attention mechanism requests historical context blocks from deep cache layers, \texttt{InfiniteEInfinityContextUnfolder} accepts the compressed block and its integer depth index \texttt{depth\_layer}, executing an in-place scalar multiplication to restore full resolution.

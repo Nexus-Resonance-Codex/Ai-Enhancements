@@ -1,0 +1,23 @@
+\section{Mathematical Foundations}
+Let $\mathbf{H} \in \mathbb{R}^{B \times L \times D}$ be the hidden state activation tensor.
+
+\subsection{Normalized Block Variance Computation}
+The feature variance $\sigma^2 \in \mathbb{R}^{B \times L \times 1}$ is computed across the hidden feature dimension $D$:
+\begin{equation}
+    \sigma^2 = \frac{1}{D} \sum_{k=1}^D \left( \mathbf{H}_{i,j,k} - \mu_{i,j} \right)^2, \quad \mu_{i,j} = \frac{1}{D} \sum_{k=1}^D \mathbf{H}_{i,j,k}
+\end{equation}
+
+\subsection{Fractal Scale Factor}
+The golden ratio factor $\Phi(\sigma^2)$ is evaluated element-wise:
+\begin{equation}
+    \Phi(\sigma^2) = \begin{cases} 
+        \phi \approx 1.61803398875 & \text{if } \sigma^2 < 1.0 \quad \text{(Low Variance Expansion)} \\ 
+        \phi^{-1} \approx 0.61803398875 & \text{if } \sigma^2 \ge 1.0 \quad \text{(High Variance Damping)} 
+    \end{cases}
+\end{equation}
+
+\subsection{Resonant State Transformation}
+With learnable gating parameter $\mathbf{g} \in \mathbb{R}^D$, the output resonant state $\tilde{\mathbf{H}}$ is:
+\begin{equation}
+    \tilde{\mathbf{H}} = \mathbf{H} \odot \left( \mathbf{g} \otimes \Phi(\sigma^2) \right)
+\end{equation}

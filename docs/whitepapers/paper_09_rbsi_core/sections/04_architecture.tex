@@ -1,0 +1,86 @@
+\section{Architecture \& Implementation}
+The implementation of the \texttt{RBSICore} engine is contained within \texttt{rbsi\_core.py}. It provides high-performance JSON parsing, cross-manifold query execution, priority weighting, and digital root audit validation.
+
+\subsection{Python Production Source Listing}
+Below is the complete production implementation from \texttt{rbsi\_core.py}:
+
+\begin{lstlisting}[language=Python]
+"""NEXUS RESONANCE CODEX - Phase 4: Multi-Manifold Synthetic Intelligence (MSI).
+
+Module: rbsi_core.py
+Architecture: Resonance-Based Synthetic Intelligence (RBSI).
+"""
+
+import json
+from typing import Any, Dict, List
+
+
+class RBSICore:
+    """The RBSI Core performs cross-manifold inference.
+
+    It calculates the Resonant Coherence between disparate NVP embeddings.
+    """
+
+    def __init__(self, phi: float = 1.61803398875):
+        self.phi = phi
+        self.manifold_weights = {
+            "PROTEIN_FOLDING": 1.0,
+            "META_MATERIALS": 1.618,
+            "QUANTUM_BRIDGE": 2.618,
+        }
+
+    def cross_manifold_inference(
+        self, source_nvp: str, target_nvp_list: List[str]
+    ) -> Dict[str, Any]:
+        """Queries target manifolds for resonance alignment with the source."""
+        source = json.loads(source_nvp)
+        source_rei = source["embedding"]["rei"]
+        source_manifold = source["nrc_header"]["manifold"]
+
+        results = []
+        for t_nvp in target_nvp_list:
+            target = json.loads(t_nvp)
+            target_rei = target["embedding"]["rei"]
+            target_manifold = target["nrc_header"]["manifold"]
+
+            # Calculate Resonant Alignment (RA)
+            # RA = 1 - abs(Source_REI - Target_REI) / Phi
+            ra = 1 - (abs(source_rei - target_rei) / self.phi)
+
+            # Weigh by manifold priority
+            weighted_ra = ra * self.manifold_weights.get(target_manifold, 1.0)
+
+            results.append(
+                {
+                    "target_manifold": target_manifold,
+                    "resonant_alignment": round(ra, 7),
+                    "weighted_score": round(weighted_ra, 7),
+                    "ttt7_stable": self._check_ttt7(weighted_ra),
+                }
+            )
+
+        # Sort by best resonance
+        results.sort(key=lambda x: x["weighted_score"], reverse=True)
+
+        return {
+            "source_manifold": source_manifold,
+            "inference_result": results[0],
+            "manifold_parity": (
+                "ALIGNED" if results[0]["resonant_alignment"] > 0.9 else "DRIFTING"
+            ),
+        }
+
+    def _check_ttt7(self, val: float) -> bool:
+        scaled = int(val * 1e7)
+        if scaled == 0:
+            return True
+        dr = scaled % 9
+        return (dr if dr != 0 else 9) in {1, 2, 4, 5, 7, 8}
+\end{lstlisting}
+
+\subsection{Execution Workflow}
+1. \textbf{Ingestion}: \texttt{cross\_manifold_inference} receives a source NVP JSON string and a list of target NVP JSON strings.
+2. \textbf{Alignment Computation}: Extracts $REI$ values and calculates $RA = 1 - |\Delta REI|/\phi$ for each target.
+3. \textbf{Priority Scaling}: Multiplies $RA$ by the manifold priority weight ($1.0, 1.618, 2.618$).
+4. \textbf{Audit \& Sorting}: Evaluates TTT-7 digital root stability for each candidate and ranks candidates descending by weighted score.
+5. \textbf{Parity Decision}: Emits \texttt{ALIGNED} if best $RA > 0.9$, otherwise flags \texttt{DRIFTING}.

@@ -1,0 +1,49 @@
+\section{Architecture \& Implementation}
+
+The \texttt{NRCEntropyAttractorEarlyStopping} class provides a lightweight, zero-dependency Python interface for deep learning training loops.
+
+\subsection{Python Production Code}
+
+\begin{lstlisting}[language=Python]
+import math
+
+class NRCEntropyAttractorEarlyStopping:
+    """Enhancement #30: NRC Entropy-Attractor Early Stopping Criterion."""
+
+    def __init__(self, phi_tolerance: float = 1e-4):
+        self.best_loss = float("inf")
+        self.previous_loss = float("inf")
+        self.tolerance = phi_tolerance
+        self.golden_target = (1.0 + math.sqrt(5.0)) / 2.0
+        self.inverse_golden = 1.0 / self.golden_target
+
+    def __call__(self, current_loss: float) -> bool:
+        if self.previous_loss == float("inf"):
+            self.previous_loss = current_loss
+            self.best_loss = current_loss
+            return False
+
+        if current_loss == 0.0:
+            return True  # Absolute entropy destruction
+
+        ratio = self.previous_loss / current_loss
+        phi_hit = abs(ratio - self.golden_target) < self.tolerance
+        inverse_phi_hit = abs(ratio - self.inverse_golden) < self.tolerance
+
+        if phi_hit or inverse_phi_hit:
+            print(f"TERMINATION: Structural Loss mapped natively onto NRC Golden bounds. Ratio: {ratio:.5f}")
+            return True
+
+        if current_loss < self.best_loss:
+            self.best_loss = current_loss
+
+        self.previous_loss = current_loss
+        return False
+\end{lstlisting}
+
+\subsection{Training Loop Integration}
+\begin{enumerate}
+    \item \textbf{Instantiation}: Initialize `stopper = NRCEntropyAttractorEarlyStopping(phi_tolerance=1e-4)`.
+    \item \textbf{Epoch Evaluation}: At the end of each training/validation epoch, pass `loss_val` to `stopper(loss_val)`.
+    \item \textbf{Dynamic Exit}: If `stopper(loss_val)` evaluates to `True`, break the training loop cleanly.
+\end{enumerate}

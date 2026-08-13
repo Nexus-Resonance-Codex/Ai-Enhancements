@@ -1,0 +1,12 @@
+\section{Introduction}
+
+Regularization and routing are fundamental challenges in deep neural network design. Standard methods such as Dropout \cite{srivastava2014dropout} randomly drop activations according to a Bernoulli distribution $p$, destroying deterministic geometric relationships and requiring uniform scale corrections ($1/(1-p)$). Similarly, Mixture-of-Experts (MoE) architectures \cite{shazeer2017outrageously} employ Gumbel-Softmax or top-$k$ routing heuristics that suffer from router collapse, expert imbalance, and discontinuous gradient backpropagation.
+
+The \textbf{Nexus Resonance Codex (NRC)} introduces the \texttt{BiologicalExclusionGradientRouter} module. Operating as a custom PyTorch Autograd function \cite{paszke2019pytorch}, the module executes a deterministic forward-backward routing cycle governed by TTT-7 Mod 9 biological exclusion arithmetic and golden ratio acceleration.
+
+\subsection{Key Contributions}
+\begin{enumerate}[label=\textbf{\arabic*.}]
+    \item \textbf{Deterministic Exclusion Forward Gate}: Applies Mod 9 biological exclusion to forward activations, filtering out forbidden chaotic sequences $\{1, 2, 4, 5, 8\}$ and saving the exact binary pass mask.
+    \item \textbf{Golden Gradient Acceleration}: Amplifies backpropagating error gradients along surviving paths by $\phi \approx 1.61803398875$, compensating for energy loss induced by exclusion masking.
+    \item \textbf{Subgradient Stability}: Proves subgradient convergence and zero gradient vanishing/explosion across arbitrarily deep residual architectures.
+\end{enumerate}

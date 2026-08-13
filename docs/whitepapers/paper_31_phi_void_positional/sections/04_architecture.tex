@@ -1,0 +1,24 @@
+Our Phi-Void Positional Encoding scheme is implemented using PyTorch, a popular deep learning framework. The architecture consists of a single layer, which calculates the positional embeddings based on the phi^6 void resonance. The layer is defined as follows:
+
+```python
+class PhiVoidResonancePositionalEncoding(nn.Module):
+    def __init__(self, d_model: int, max_seq_len: int = 8192) -> None:
+        super().__init__()
+        self.d_model = d_model
+        self.phi_six_void = PHI_FLOAT**6
+        self.register_buffer("pe_matrix", self._build_positional_matrix(max_seq_len))
+
+    def _build_positional_matrix(self, max_len: int) -> torch.Tensor:
+        pe = torch.zeros(max_len, self.d_model)
+        position = torch.arange(0, max_len, dtype=torch.float32).unsqueeze(1)
+        div_term = torch.exp(torch.arange(0, self.d_model, 2).float() * (-math.log(self.phi_six_void) / self.d_model))
+        pe[:, 0::2] = torch.sin(position * div_term)
+        pe[:, 1::2] = torch.cos(position * div_term)
+        return pe.unsqueeze(0)
+
+    def forward(self, x: torch.Tensor) -> torch.Tensor:
+        seq_len = x.size(1)
+        return x + self.pe_matrix[:, :seq_len, :]
+```
+
+The `PhiVoidResonancePositionalEncoding` layer calculates the positional embeddings based on the phi^6 void resonance and adds them to the input sequence embeddings.

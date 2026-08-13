@@ -1,0 +1,21 @@
+\section{Mathematical Foundations}
+Consider a frozen weight matrix $W_0 \in \mathbb{R}^{d_{out} \times d_{in}}$ and input tensor $x \in \mathbb{R}^{B \times L \times d_{in}}$.
+
+\subsection{Golden Ratio Rank Scaling}
+Standard LoRA defines output $y = W_0 x + \frac{\alpha}{r} B A x$. In \textbf{PhiInfinityLosslessLoRA}, the scaling factor is modulated by the golden ratio $\phi$:
+\begin{equation}
+    \gamma_{\phi} = \frac{\alpha}{r} \cdot \phi \approx \frac{\alpha}{r} \cdot 1.61803398875
+\end{equation}
+
+\subsection{Shard Folding Compression Operator}
+The \texttt{PhiInfinityShardFolding} operator $\mathcal{S}_k$ applies $k$-step recursive fractal sharding to bound feature tensors within golden attractor limits:
+\begin{equation}
+    \mathcal{S}_k(Z) = Z \cdot \left(1 + \phi^{-2k} \sin(\theta Z)\right)^{-1}
+\end{equation}
+For $k=1$, the down-projected feature $Z_A = A(x) \in \mathbb{R}^{r}$ is transformed to $\hat{Z}_A = \mathcal{S}_1(Z_A)$, and the up-projected feature $Z_B = B(\hat{Z}_A) \in \mathbb{R}^{d_{out}}$ is transformed to $\hat{Z}_B = \mathcal{S}_1(Z_B)$.
+
+\subsection{Complete Adapter Forward Transformation}
+The total output equation is:
+\begin{equation}
+    y = W_0(x) + \mathcal{S}_1\left( B\left( \mathcal{S}_1( A(x) ) \right) \right) \cdot \gamma_{\phi}
+\end{equation}

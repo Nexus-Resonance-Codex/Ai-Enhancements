@@ -1,0 +1,26 @@
+\section{Mathematical Foundations}
+
+Let $x \in \mathbb{R}$ be a scalar input activation.
+
+\subsection{Hyperbolic Sine Mapping}
+The hyperbolic sine function $\sinh: \mathbb{R} \to \mathbb{R}$ is defined as:
+\begin{equation}
+\sinh(x) = \frac{e^x - e^{-x}}{2} = \sum_{k=0}^{\infty} \frac{x^{2k+1}}{(2k+1)!}
+\end{equation}
+$\sinh(x)$ is strictly monotonic, odd ($-\sinh(-x) = \sinh(x)$), and smooth ($C^{\infty}$).
+
+\subsection{Clamped Floor Transformation}
+Given a physical floor threshold $c_{\text{floor}} \in \mathbb{R}^-$ (default $c_{\text{floor}} = -1.0$), the Floor-Sinh activation function $f(x)$ is defined by:
+\begin{equation}
+f(x) = \text{clamp}(\sinh(x), \text{min}=c_{\text{floor}}) = \max\left( \frac{e^x - e^{-x}}{2}, c_{\text{floor}} \right)
+\end{equation}
+
+\subsection{First Derivative \& Gradient Transmission}
+The derivative $f'(x) = \frac{df}{dx}$ is given by:
+\begin{equation}
+f'(x) = \begin{cases}
+\cosh(x) = \frac{e^x + e^{-x}}{2}, & \text{if } \sinh(x) > c_{\text{floor}} \\
+0, & \text{if } \sinh(x) < c_{\text{floor}}
+\end{cases}
+\end{equation}
+For $c_{\text{floor}} = -1.0$, the transition point occurs at $x_{\text{floor}} = \text{arcsinh}(-1.0) = \ln(-1 + \sqrt{2}) \approx -0.88137$. For all $x > x_{\text{floor}}$, $f'(x) = \cosh(x) \ge 1.0$.

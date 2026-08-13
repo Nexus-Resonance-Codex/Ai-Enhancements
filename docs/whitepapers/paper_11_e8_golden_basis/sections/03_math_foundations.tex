@@ -1,0 +1,39 @@
+\section{Mathematical Foundations}
+
+Let $\mathcal{M} \subset \mathbb{R}^D$ ($D = 256$) represent the embedding target space. The mathematical foundation of \texttt{E8GoldenBasisEmbedding} fuses Lie algebraic root lattices with TTT-7 modular arithmetic.
+
+\subsection{E8 Root System and Lattice Geometry}
+The $E_8$ root lattice $\Gamma_8 \subset \mathbb{R}^8$ is defined as:
+\begin{equation}
+\Gamma_8 = \left\{ x \in \mathbb{Z}^8 \cup \left( \mathbb{Z} + \frac{1}{2} \right)^8 : \sum_{i=1}^8 x_i \equiv 0 \pmod{2} \right\}
+\end{equation}
+$\Gamma_8$ contains exactly $240$ minimal vectors of norm $\|x\|_2^2 = 2$, forming the $E_8$ root system. Extending $\Gamma_8$ across 32 block dimensions yields the 256-dimensional lattice space $\Gamma_{256} = \Gamma_8^{\otimes 32} \subset \mathbb{R}^{256}$.
+
+\subsection{Mod 9 Biological Exclusion Operator}
+The digital root function $dr: \mathbb{Z} \to \{1, 2, \dots, 9\}$ is defined by:
+\begin{equation}
+dr(n) = (n - 1) \bmod 9 + 1
+\end{equation}
+We define the biological exclusion gate operator $\mathcal{G}_{\text{excl}}$ on a tensor element $w \in \mathbb{R}$ scaled to integer domain $N = \lfloor |w| \cdot 10^7 \rfloor$ as:
+\begin{equation}
+\mathcal{G}_{\text{excl}}(w) = \begin{cases}
+0.0, & \text{if } dr(\lfloor |w| \cdot 10^7 \rfloor) \in \{1, 2, 4, 5, 8\} \\
+w, & \text{otherwise}
+\end{cases}
+\end{equation}
+
+\subsection{Golden Trajectory Normalization}
+Let $W_{\text{unif}} \in \mathbb{R}^{V \times D}$ be uniform initialization weights in $[-1, 1]$. The lattice-projected weight matrix $W_{\text{stable}}$ is obtained via:
+\begin{equation}
+W_{\text{scaled}} = 5000.0 \cdot W_{\text{unif}}
+\end{equation}
+\begin{equation}
+W_{\text{gated}} = \mathcal{G}_{\text{excl}}(W_{\text{scaled}})
+\end{equation}
+\begin{equation}
+W_{\text{stable}} = \frac{W_{\text{gated}}}{5000.0 \cdot \phi}
+\end{equation}
+where $\phi = \frac{1+\sqrt{5}}{2} \approx 1.61803398875$. During forward execution, token representations are dynamically accelerated along the golden trajectory:
+\begin{equation}
+H(x) = E(x) \cdot \phi
+\end{equation}

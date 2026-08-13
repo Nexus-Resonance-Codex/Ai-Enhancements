@@ -1,0 +1,83 @@
+\documentclass[11pt,a4paper,oneside]{article}
+
+% =============================================================================
+%      NEXUS RESONANCE CODEX (NRC) - INSTITUTIONAL WHITEPAPER TEMPLATE
+% =============================================================================
+\usepackage{nrc}
+\usepackage{amsmath,amssymb,amsthm,amsfonts,mathtools}
+\usepackage{algorithm}
+\usepackage{algorithmicx}
+\usepackage{algpseudocode}
+\usepackage{float}
+\usepackage{enumitem}
+\usepackage{listings}
+\usepackage{color}
+
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.96,0.96,0.94}
+
+\lstdefinestyle{nrcpython}{
+    backgroundcolor=\color{backcolour},   
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{nrcblue},
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codepurple},
+    basicstyle=\ttfamily\footnotesize,
+    breakatwhitespace=false,         
+    breaklines=true,                 
+    captionpos=b,                    
+    keepspaces=true,                 
+    numbers=left,                    
+    numbersep=5pt,                  
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=4
+}
+
+\lstset{style=nrcpython}
+
+% --- Metadata ---
+\hypersetup{
+	colorlinks=true,
+	linkcolor=nrcblue,
+	citecolor=nrcgold,
+	urlcolor=nrcblue,
+	pdftitle={Paper 27: Nexus Resonance Codex --- Phi-Infinity Lossless LoRA Adapter},
+	pdfauthor={James Paul Trageser},
+	pdfsubject={Nexus Resonance Codex (NRC) Ai-Enhancements},
+	pdfkeywords={Deep Learning, High-Dimensional Manifolds, TTT-7 Stability, Golden Ratio}
+}
+
+\title{\textbf{\Huge Paper 27: Nexus Resonance Codex --- Phi-Infinity Lossless LoRA Adapter}\\[0.5em] \LARGE Golden Attractor Bottleneck Compression, Double Shard Folding, and Lossless Low-Rank Fine-Tuning}
+
+\author{\textbf{James Paul Trageser} \\
+	\textit{NRC Architect} \\
+	\href{https://NRC.onl}{NRC.onl} -- \href{https://MathCodex.com}{MathCodex.com} \\
+	\small \href{mailto:NexusResonanceCodex@gmail.com}{NexusResonanceCodex@gmail.com}
+}
+\date{\today}
+
+\begin{document}
+
+	\maketitle
+
+	\input{sections/01_abstract.tex}
+
+	\newpage
+	\tableofcontents
+	\newpage
+
+	\input{sections/02_introduction.tex}
+	\input{sections/03_math_foundations.tex}
+	\input{sections/04_architecture.tex}
+	\input{sections/05_formal_proofs.tex}
+	\input{sections/06_conclusion.tex}
+
+	\newpage
+	\bibliographystyle{alpha}
+	\bibliography{references}
+
+\end{document}

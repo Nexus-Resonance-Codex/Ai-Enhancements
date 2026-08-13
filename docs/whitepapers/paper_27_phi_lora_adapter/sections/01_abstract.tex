@@ -1,0 +1,3 @@
+\begin{abstractbox}
+Standard Low-Rank Adaptation (LoRA) compresses weight updates $\Delta W = B \cdot A$ using scalar rank ratio $\alpha / r$, but introduces structural approximation loss across rank bottlenecks. This whitepaper introduces \textbf{PhiInfinityLosslessLoRA}, an advanced adaptation module that replaces standard rank scaling with golden-ratio modulation $\gamma = (\alpha / r) \cdot \phi$ and wraps down-projection $A$ and up-projection $B$ within \texttt{PhiInfinityShardFolding} bounds ($k=1$). We prove that double shard compression eliminates destructive interference in low-rank bottlenecks and bounds singular value spectra without catastrophic gradient drift.
+\end{abstractbox}

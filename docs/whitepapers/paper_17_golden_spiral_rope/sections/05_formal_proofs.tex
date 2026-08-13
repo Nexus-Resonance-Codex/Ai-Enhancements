@@ -1,0 +1,26 @@
+\section{Formal Mathematical Proofs}
+
+\begin{theorem}[Golden Spiral Phase Non-Collision Theorem]
+Let $\omega_k = \Phi^{-k/D}$ and $\omega_m = \Phi^{-m/D}$ be two distinct frequency channels ($k \neq m$). For any non-zero integer sequence distance $\Delta = t_1 - t_2 \neq 0$, the ratio of phase angles $\frac{\Delta \omega_k}{\Delta \omega_m} = \Phi^{(m-k)/D}$ is irrational, guaranteeing zero periodic phase collision across all sequence offsets.
+\end{theorem}
+
+\begin{proof}
+The phase ratio simplifies to:
+\begin{equation}
+    \frac{\Delta \omega_k}{\Delta \omega_m} = \frac{\Delta \Phi^{-k/D}}{\Delta \Phi^{-m/D}} = \Phi^{(m-k)/D}
+\end{equation}
+Since $\Phi = \frac{1+\sqrt{5}}{2}$ is an algebraic irrational number, any rational power $\Phi^{q}$ ($q \in \mathbb{Q} \setminus \{0\}$) is irrational. Consequently, there exist no non-zero integers $p, q \in \mathbb{Z}$ such that $p \Delta \omega_k = q \Delta \omega_m$. Thus, the trajectories on the Golden Spiral never intersect periodically, eliminating phase-collision aliasing.
+\end{proof}
+
+\begin{theorem}[Relative Distance Preservation Theorem]
+Let $q, k \in \mathbb{R}^D$ be query and key vectors at positions $m$ and $n$ respectively. Under GSRoPE transformation $R(m)q$ and $R(n)k$, the inner product $\langle R(m)q, R(n)k \rangle$ depends strictly on relative sequence offset $\Delta = m - n$.
+\end{theorem}
+
+\begin{proof}
+In 2D subspace component $j$, let $q_j = (q_1, q_2)^T$ and $k_j = (k_1, k_2)^T$. The rotated vectors are $R(m \omega_j) q_j$ and $R(n \omega_j) k_j$ where $R(\theta) = \begin{pmatrix} \cos\theta & -\sin\theta \\ \sin\theta & \cos\theta \end{pmatrix}$.
+Using orthogonality of rotation matrices $R(\alpha)^T R(\beta) = R(\beta - \alpha)$:
+\begin{equation}
+    \langle R(m \omega_j) q_j, R(n \omega_j) k_j \rangle = q_j^T R(m \omega_j)^T R(n \omega_j) k_j = q_j^T R((n - m) \omega_j) k_j
+\end{equation}
+Summing over all $D/2$ 2D subspaces, the inner product depends exclusively on $(m - n) \omega_j$, preserving relative spatial distance logic.
+\end{proof}

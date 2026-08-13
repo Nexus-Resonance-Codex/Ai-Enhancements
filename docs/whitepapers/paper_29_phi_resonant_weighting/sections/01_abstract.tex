@@ -1,0 +1,3 @@
+\begin{abstractbox}
+Deep neural networks require balanced variance propagation across residual blocks to prevent gradient vanishing or explosion. Standard normalization techniques (LayerNorm, RMSNorm) enforce fixed unit variance ($\sigma^2 = 1$), which restricts representation expressivity. This whitepaper presents \textbf{PhiPoweredResonantWeighting}, a structural layer module that scales feature activations by $\phi \approx 1.618034$ when variance collapses below critical threshold ($\sigma^2 < 1.0$) and damps by $\phi^{-1} \approx 0.618034$ when variance expands ($\sigma^2 \ge 1.0$). We prove that this dynamic fractal gating establishes an invariant variance attractor within $[\phi^{-2}, \phi^2]$.
+\end{abstractbox}

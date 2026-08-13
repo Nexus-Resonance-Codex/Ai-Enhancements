@@ -1,0 +1,11 @@
+\section{Introduction}
+Gradient descent optimizers, including Classical Momentum, Nesterov Accelerated Gradient, and Adam, accumulate past gradient vectors to smooth optimization trajectories. Standard momentum updates decay exponential historical weights using fixed coefficient $\beta \in (0,1)$.
+
+However, static momentum fails to distinguish between directional alignment (moving down a smooth ravine) and directional conflict (oscillating across steep canyon walls). The \textbf{Nexus Resonance Codex (NRC)} resolves this limitation by introducing \textbf{PhiInverseMomentumAccelerator}, which scales update vectors using golden ratio mechanics based on instantaneous sign agreement.
+
+\subsection{Key Contributions}
+\begin{enumerate}[label=\textbf{\arabic*.}]
+    \item \textbf{Sign-Agreement Acceleration}: Dynamic multiplication of momentum by $\phi$ when gradient and momentum signs agree.
+    \item \textbf{Golden Friction Damping}: Exponential damping by $\phi^{-1}$ when gradient and momentum signs conflict.
+    \item \textbf{Resonant Convergence Proof}: Formal proof of accelerated convergence along quadratic ravines and suppression of non-convex oscillations.
+\end{enumerate}

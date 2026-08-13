@@ -1,0 +1,27 @@
+\section{Mathematical Foundations}
+Let $W \in \mathbb{R}^{d_{\text{out}} \times d_{\text{in}}}$ be a weight tensor with $N = d_{\text{out}} \times d_{\text{in}}$ total elements. Let $i \in \{0, 1, \dots, N-1\}$ denote the flattened element index.
+
+\subsection{Triple-Theta Fractal Equation}
+Initial parameters are sampled from a baseline normal distribution $W_{\text{raw}} \sim \mathcal{N}(0, \sigma^2)$ with $\sigma = 0.02$. Each element index $i$ is mapped to a golden exponent power:
+\begin{equation}
+    p_i = \lfloor i \cdot \phi \rceil \bmod 100
+\end{equation}
+where $\phi = \frac{1+\sqrt{5}}{2} \approx 1.61803398875$.
+
+The golden exponent mapping produces the continuous scale sequence:
+\begin{equation}
+    m_i = (\phi^{p_i}) \bmod 9.0
+\end{equation}
+
+\subsection{Biological Exclusion Gate Filtering}
+The scalar scale $m_i$ is passed through the biological exclusion operator $\mathcal{G}_{\text{excl}}$:
+\begin{equation}
+    g_i = \mathcal{G}_{\text{excl}}(m_i)
+\end{equation}
+The exclusion gate returns zero whenever $m_i$ falls into chaotic modular basins, retaining active multipliers only for stable residue classes $\{1, 2, 4, 5, 7, 8\}$.
+
+The final initialized weight value $w_i$ is given by:
+\begin{equation}
+    w_i = w_{\text{raw}, i} \cdot \frac{g_i}{1000.0}
+\end{equation}
+The division by $1000.0$ normalizes variance bounds, preserving stability across deep layer stacks.

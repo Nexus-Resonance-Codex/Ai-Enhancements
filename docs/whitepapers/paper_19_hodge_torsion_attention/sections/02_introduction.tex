@@ -1,0 +1,11 @@
+\section{Introduction}
+Multi-Head Attention (MHA) is the core routing mechanism of modern Transformers. Standard MHA computes attention scores strictly via the inner product of Query ($Q$) and Key ($K$) vectors: $\mathbf{A} = \text{Softmax}(Q K^T / \sqrt{d_k})$. Because $Q K^T$ is symmetric with respect to vector transposition in similarity space, attention fields are fundamentally isotropic, lacking directional vorticity or spatial curl.
+
+In high-dimensional physics and differential geometry, information transport along non-Euclidean manifolds is governed by \textit{torsion tensors}. The Nexus Resonance Codex introduces \textbf{Hodge-$\phi^T$ Torsion Attention}, incorporating a deterministic Hodge differential form bias that applies a Golden Ratio phase twist across sequence distances.
+
+\subsection{Key Contributions}
+\begin{enumerate}[label=\textbf{\arabic*.}]
+    \item \textbf{Golden Tangent Angle}: Analytical formulation of optimal damping angle $\theta_{\text{QRT}} = \arctan(\sqrt{\Phi}) \approx 0.9045568\text{ rad}$.
+    \item \textbf{Hodge Torsion Bias Matrix}: Derivation of anti-symmetric torsion bias $\mathbf{B}_{i,j}^{(\text{torsion})} = \Phi \sin(\theta_{\text{QRT}}(i - j))$.
+    \item \textbf{Non-Isotropic Routing Proof}: Mathematical proof that torsion bias induces non-vanishing exterior derivative (curl) in attention manifolds.
+\end{enumerate}

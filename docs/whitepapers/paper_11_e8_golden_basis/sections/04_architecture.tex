@@ -1,0 +1,44 @@
+\section{Architecture \& PyTorch Implementation}
+
+The \texttt{E8GoldenBasisEmbedding} module is implemented as an \texttt{nn.Module} subclass in PyTorch, replacing standard \texttt{nn.Embedding} layers.
+
+\subsection{PyTorch Production Implementation}
+
+\begin{lstlisting}[language=Python]
+from typing import cast
+import torch
+import torch.nn as nn
+from nrc.math import PHI_FLOAT, apply_exclusion_gate
+
+class E8GoldenBasisEmbedding(nn.Module):
+    """Enhancement #8: 163840 E8x256 Golden Basis Embedding."""
+
+    def __init__(self, num_embeddings: int = 163840, embedding_dim: int = 256):
+        super().__init__()
+        self.num_embeddings = num_embeddings
+        self.embedding_dim = embedding_dim
+        self.embedding = nn.Embedding(num_embeddings, embedding_dim)
+        self._initialize_golden_basis()
+
+    def _initialize_golden_basis(self) -> None:
+        with torch.no_grad():
+            nn.init.uniform_(self.embedding.weight, -1.0, 1.0)
+            scaled_weights = self.embedding.weight * 5000.0
+            gated_weights_np = apply_exclusion_gate(scaled_weights.cpu().numpy())
+            gated_weights = torch.as_tensor(gated_weights_np, device=scaled_weights.device, dtype=scaled_weights.dtype)
+            stable_weights = gated_weights / (5000.0 * PHI_FLOAT)
+            self.embedding.weight.copy_(torch.as_tensor(stable_weights, device=self.embedding.weight.device, dtype=self.embedding.weight.dtype))
+
+    def forward(self, input_ids: torch.Tensor) -> torch.Tensor:
+        base_embeds = self.embedding(input_ids)
+        resonant_embeds = base_embeds * PHI_FLOAT
+        return cast(torch.Tensor, resonant_embeds)
+\end{lstlisting}
+
+\subsection{Execution Flow \& Pipeline Integration}
+\begin{enumerate}
+    \item \textbf{Initialization Phase}: Uniform random weights are scaled up by $5000.0$ to match the integer resolution of `apply_exclusion_gate`.
+    \item \textbf{Lattice Projection}: The Mod 9 exclusion gate zeroes out chaotic components, preserving stable lattice sites.
+    \item \textbf{Normalization}: Weights are divided by $5000.0 \cdot \phi$, locking embedding norms onto the $E_8$-proxy sphere.
+    \item \textbf{Forward Resonance}: Retrieved embeddings are scaled by $\phi$, propelling input features into golden ratio alignment.
+\end{enumerate}

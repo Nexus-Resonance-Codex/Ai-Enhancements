@@ -1,0 +1,21 @@
+\section{Mathematical Foundations}
+Let $x \in \mathbb{R}^D$ be an input activation or parameter tensor. We decompose $x$ into its sign vector $s = \text{sign}(x)$ and its fractional mantissa proxy $m = \text{frac}(|x|) \in [0, 1)^D$.
+
+\subsection{Recursive Shard Equation}
+For each recursive folding step $k \in \{1, 2, \dots, k_{\text{steps}}\}$, the QRT damping operator $\mathcal{Q}(m) = \texttt{qrt\_damping}(m)$ evaluates the nonlinear physical response of the mantissa. The phase-folded resonant response is:
+\begin{equation}
+    f_k(m) = \mathcal{Q}(m) \cdot \phi^{6k}
+\end{equation}
+where $\phi = \frac{1+\sqrt{5}}{2} \approx 1.61803398875$.
+
+To prevent numerical overflow while maintaining finite representation precision, $f_k(m)$ is scaled by the virtual modulus $M = 10^8$ and modulo-wrapped:
+\begin{equation}
+    S_k = \frac{\left(\lfloor f_k(m) \cdot M \rceil \bmod M\right)}{M}
+\end{equation}
+
+\subsection{Progressive Damping Accumulation}
+The final compressed tensor $\hat{x}$ is computed by accumulating shard states $S_k$ weighted by inverse golden damping factors:
+\begin{equation}
+    \hat{x} = \left(\sum_{k=1}^{k_{\text{steps}}} S_k \cdot \phi^{-(k-1)}\right) \odot s
+\end{equation}
+This formulation guarantees that higher-order residual details ($k > 1$) occupy exponentially smaller magnitude ranges, forming a convergent fractal sequence.

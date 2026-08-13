@@ -1,0 +1,29 @@
+\section{Architecture \& Implementation}
+
+The \texttt{FloorSinhActivation} module is implemented as a lightweight PyTorch \texttt{nn.Module}.
+
+\subsection{PyTorch Production Code}
+
+\begin{lstlisting}[language=Python]
+import torch
+import torch.nn as nn
+
+class FloorSinhActivation(nn.Module):
+    """Enhancement #28: Floor-Sinh Activation Regularizer."""
+
+    def __init__(self, physical_floor: float = -1.0):
+        super().__init__()
+        self.floor = physical_floor
+
+    def forward(self, x: torch.Tensor) -> torch.Tensor:
+        sinh_tensor = torch.sinh(x)
+        regularized_tensor = torch.clamp(sinh_tensor, min=self.floor)
+        return regularized_tensor
+\end{lstlisting}
+
+\subsection{Computational Graph Optimization}
+\begin{enumerate}
+    \item \textbf{Hyperbolic Pass}: `torch.sinh(x)` is evaluated in a single vector kernel on GPU/CPU.
+    \item \textbf{Tensor Clamping}: `torch.clamp(..., min=self.floor)` applies elementwise lower bounding in place or via fused CUDA ops.
+    \item \textbf{Feedforward Integration}: Functions as a drop-in replacement for `nn.ReLU()` or `nn.GELU()` in NRC transformer feedforward blocks.
+\end{enumerate}

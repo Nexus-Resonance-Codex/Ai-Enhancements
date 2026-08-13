@@ -1,0 +1,34 @@
+\section{Mathematical Foundations}
+
+Let $\mathcal{L}_k \in \mathbb{R}^+$ represent the scalar loss at epoch/step $k$. We construct a dynamic state space mapping over consecutive loss transitions.
+
+\subsection{Non-Dimensional Loss Ratio & Entropy Field}
+We define the non-dimensional step transition ratio $\Delta_k$ as:
+\begin{equation}
+\Delta_k = \frac{\mathcal{L}_{k-1}}{\mathcal{L}_k}, \quad \text{for } \mathcal{L}_k > 0
+\end{equation}
+The underlying continuous loss differential forms a discrete Shannon entropy rate:
+\begin{equation}
+\mathcal{S}_k = -\log\left( \frac{\mathcal{L}_k}{\mathcal{L}_{k-1}} \right) = \log(\Delta_k)
+\end{equation}
+
+\subsection{Golden Ratio Limit Attractor Field}
+The golden ratio constant $\phi$ and its inverse $\phi^{-1}$ satisfy:
+\begin{equation}
+\phi = \frac{1 + \sqrt{5}}{2} \approx 1.618033988749895, \quad \phi^{-1} = \phi - 1 \approx 0.618033988749895
+\end{equation}
+The golden ratio attractor field is defined as the discrete set $\mathcal{A}_{\phi} = \{\phi, \phi^{-1}\}$. The distance metric $d_{\phi}(\Delta_k)$ from the current transition ratio to the attractor manifold is:
+\begin{equation}
+d_{\phi}(\Delta_k) = \min\left( |\Delta_k - \phi|, |\Delta_k - \phi^{-1}| \right)
+\end{equation}
+
+\subsection{Dynamic Termination Criterion}
+Given a strict physical tolerance $\varepsilon > 0$ (default $\varepsilon = 10^{-4}$), training termination is governed by the boolean decision function $\Theta(\mathcal{L}_k)$:
+\begin{equation}
+\Theta(\mathcal{L}_k) = \begin{cases}
+\text{True}, & \text{if } \mathcal{L}_k = 0.0 \\
+\text{True}, & \text{if } d_{\phi}(\Delta_k) < \varepsilon \\
+\text{False}, & \text{otherwise}
+\end{cases}
+\end{equation}
+When $\Theta(\mathcal{L}_k) = \text{True}$, optimization is immediately halted.

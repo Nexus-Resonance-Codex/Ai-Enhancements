@@ -1,0 +1,43 @@
+\section{Architecture \& Implementation}
+Implemented in PyTorch with custom parameter initialization.
+
+\subsection{PyTorch Production Source Code}
+\begin{lstlisting}[language=Python]
+import torch
+import torch.nn as nn
+
+class PhiShardingCompression(nn.Module):
+    '''Phi Sharding Compression Matrix (2048D).
+    
+    Formula:
+    Y = X @ golden_matrix.T
+    where golden_matrix is initialized with phi^-dist and Mod-9 void exclusions.
+    '''
+    def __init__(self, input_dim: int, compress_dim: int = 512, phi: float = 1.6180339887):
+        super().__init__()
+        self.input_dim = input_dim
+        self.compress_dim = compress_dim
+        self.phi = phi
+        self.resonance_velocity = self.phi**-13
+
+        self.golden_matrix = nn.Parameter(torch.empty(compress_dim, input_dim))
+        self._initialize_golden_matrix()
+
+    def _initialize_golden_matrix(self) -> None:
+        with torch.no_grad():
+            for i in range(self.compress_dim):
+                for j in range(self.input_dim):
+                    dist = abs(i - j)
+                    if j % 9 in [0, 3, 6]:
+                        self.golden_matrix[i, j] = 0.0
+                    elif j % 9 == 7:
+                        self.golden_matrix[i, j] = (self.phi**-dist) * 2.0
+                    else:
+                        self.golden_matrix[i, j] = self.phi**-dist
+
+            self.golden_matrix.data = self.golden_matrix.data * (1.0 + self.resonance_velocity)
+            self.golden_matrix.data = torch.nn.functional.normalize(self.golden_matrix.data, p=2, dim=1)
+
+    def forward(self, x: torch.Tensor) -> torch.Tensor:
+        return torch.matmul(x, self.golden_matrix.t())
+\end{lstlisting}

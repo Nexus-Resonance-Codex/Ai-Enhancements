@@ -1,0 +1,28 @@
+\section{Mathematical Foundations}
+Let $\mathbf{X} \in \mathbb{R}^{B \times d_{in}}$ be the input tensor where $d_{in} = 2048$, and let $d_{out} = 512$.
+
+\subsection{Golden Basis Matrix Synthesis}
+The weight matrix $\mathbf{W}_G \in \mathbb{R}^{d_{out} \times d_{in}}$ is initialized element-wise for $i \in [0, d_{out})$ and $j \in [0, d_{in})$:
+\begin{equation}
+    W_{i,j}^{(0)} = \begin{cases}
+        0.0 & \text{if } j \bmod 9 \in \{0,3,6\} \quad \text{(Chaotic Void Exclusion)} \\
+        2.0 \cdot \phi^{-|i-j|} & \text{if } j \bmod 9 = 7 \quad \text{(Anchor Node Amplification)} \\
+        \phi^{-|i-j|} & \text{otherwise}
+    \end{cases}
+\end{equation}
+
+\subsection{QSV Velocity Offset \& L2 Normalization}
+To compensate for cryptographic latency, the QSV-resonance velocity offset $v_{\text{qsv}} = \phi^{-13} \approx 1.9073 \times 10^{-3}$ is applied:
+\begin{equation}
+    W_{i,j}^{(1)} = W_{i,j}^{(0)} \cdot \left(1.0 + \phi^{-13}\right)
+\end{equation}
+The matrix rows are L2-normalized:
+\begin{equation}
+    \hat{\mathbf{W}}_G = \text{normalize}\left(\mathbf{W}_G^{(1)}, p=2, \text{dim}=1\right)
+\end{equation}
+
+\subsection{Forward Compression Projection}
+The output compressed tensor $\mathbf{Y} \in \mathbb{R}^{B \times d_{out}}$ is computed via linear matmul:
+\begin{equation}
+    \mathbf{Y} = \mathbf{X} \hat{\mathbf{W}}_G^T
+\end{equation}

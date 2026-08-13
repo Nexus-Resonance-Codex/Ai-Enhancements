@@ -1,0 +1,13 @@
+\section{Introduction}
+Positional encodings are vital for Transformer architectures to capture sequential order. While absolute positional embeddings and relative bias matrices provide local order, Rotary Positional Embeddings (RoPE) gained widespread adoption due to their elegant formulation: rotating key and query vectors in 2D plane subspaces by angle $\theta = t \cdot \omega_k$.
+
+However, standard RoPE assumes a closed circular domain, where rotational frequencies $\omega_k = 10000^{-2k/d}$ scale along arbitrary geometric bases. When sequence lengths extend to extreme limits ($S > 128\text{K}$), circular rotations undergo periodic phase alignment collisions, causing attention resolution to collapse into boundary aliasing.
+
+\textbf{Golden Spiral Rotary Positional Embeddings (GSRoPE)} resolve this limitation by embedding positional rotation into the explicit geometry of the \textit{Golden Logarithmic Spiral}. As sequence position $t$ increases, angular rotation expands along golden ratio scaling invariants, maintaining topological self-similarity and preventing phase collapse across infinite context windows.
+
+\subsection{Key Contributions}
+\begin{enumerate}[label=\textbf{\arabic*.}]
+    \item \textbf{Golden Frequency Manifold}: Derivation of frequency spectrum $\text{inv\_freq}_k = \Phi^{-2k/d}$ grounded in Golden Ratio dynamics.
+    \item \textbf{Einsum Frequency Synthesis}: Efficient outer product generation $\Theta = t \otimes \text{inv\_freq}$ avoiding explicit loop operations.
+    \item \textbf{Phase Non-Collision Theorem}: Proof that golden ratio logarithmic frequencies prevent periodic phase collisions for all sequence distance deltas.
+\end{enumerate}

@@ -1,0 +1,56 @@
+\section{Architecture \& Implementation}
+Implemented as a subclass of \texttt{torch.optim.Optimizer}.
+
+\subsection{PyTorch Production Source Code}
+\begin{lstlisting}[language=Python]
+from typing import Callable, Iterable, Optional, overload
+import torch
+from nrc.math import PHI_FLOAT
+from torch.optim import Optimizer
+
+class PhiInverseMomentumAccelerator(Optimizer):
+    '''Enhancement #13: phi^-1 Momentum Accelerator v2.
+    
+    Formula:
+    v_t = beta * v_{t-1} + (1 - beta) * grad
+    theta_t = theta_{t-1} - lr * [v_t * (1 / phi) or v_t * phi]
+    '''
+    def __init__(self, params: Iterable[torch.Tensor], lr: float = 1e-3, beta: float = 0.9):
+        defaults = {"lr": lr, "beta": beta}
+        super(PhiInverseMomentumAccelerator, self).__init__(params, defaults)
+
+    @torch.no_grad()
+    def step(self, closure: Optional[Callable[[], float]] = None) -> Optional[float]:
+        loss = None
+        if closure is not None:
+            with torch.enable_grad():
+                loss = closure()
+
+        for group in self.param_groups:
+            lr = group["lr"]
+            beta = group["beta"]
+
+            for p in group["params"]:
+                if p.grad is None:
+                    continue
+
+                grad = p.grad
+                state = self.state[p]
+
+                if len(state) == 0:
+                    state["step"] = 0
+                    state["momentum_buffer"] = torch.zeros_like(p)
+
+                state["step"] += 1
+                v_t = state["momentum_buffer"]
+
+                v_t.mul_(beta).add_(grad, alpha=1 - beta)
+
+                sign_agreement = (grad.sign() == v_t.sign()).type(grad.dtype)
+                phi_accelerator = torch.where(sign_agreement == 1.0, PHI_FLOAT, 1.0 / PHI_FLOAT)
+                structural_update = v_t * phi_accelerator
+
+                p.sub_(structural_update, alpha=lr)
+
+        return loss
+\end{lstlisting}

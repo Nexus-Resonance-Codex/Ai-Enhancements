@@ -1,0 +1,11 @@
+\section{Introduction}
+In processing million-token sequence contexts, long-range dependencies often remain dormant until specific queries trigger detailed memory retrieval from historical token blocks. While hierarchical residual shard folding effectively compresses inactive context blocks, querying these compressed representations requires returning them to their uncompressed physical vector spaces without introducing floating-point distortion.
+
+\textbf{Infinite $E_\infty$ Context Shard Unfolding} (\texttt{InfiniteEInfinityContextUnfolder}) provides the linear algebraic inverse to shard folding. Given a compressed KV block $B_{\text{compressed}}$ folded to integer depth $N$, the unfolder computes the exact physical scaling factor $\phi^N$ ($\phi = \frac{1+\sqrt{5}}{2}$), restoring the full dimensional state resolution required for high-fidelity attention scoring.
+
+\subsection{Key Technical Contributions}
+\begin{enumerate}[label=\textbf{\arabic*.}]
+    \item \textbf{Exact Inverse Scaling}: Linear algebraic expansion of folded tensors via $\phi^N$ power multiplication.
+    \item \textbf{Layer-Depth Resolution Invariance}: Reconstruction accuracy remains constant regardless of historical folding depth $N$.
+    \item \textbf{Zero-Overhead Linear Operations}: Execution complexity is bounded by $\mathcal{O}(1)$ elementwise matrix scaling.
+\end{enumerate}

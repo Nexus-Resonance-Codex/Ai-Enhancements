@@ -1,0 +1,27 @@
+The NRC Protein Folding Engine is implemented as a PyTorch module, leveraging the flexibility and expressiveness of the PyTorch framework. The engine consists of four primary components:
+
+1. TUPT_E256 projection: The engine applies a linear transformation to the input sequence, projecting it onto the TUPT_E256 sequence over Z_12289.
+2. GTT Entropy alignment: The engine aligns the local sum magnitude ratio of the projected sequence to the GTT Entropy target of ~10.96 nats.
+3. Kronecker/Tensor product approximation: The engine applies a Kronecker/Tensor product approximation to the aligned sequence, weighted by the GTT scaling factor.
+4. Mod 9 exclusion filtering: The engine applies Mod 9 exclusion filters to the resulting sequence, locking out invalid configurations and ensuring biologically plausible conformations.
+
+The engine can be implemented in PyTorch as follows:
+```python
+import torch
+from nrc.math import apply_exclusion_gate
+
+class NRCProteinFoldingEngine(torch.nn.Module):
+    def __init__(self, sequence_dim: int = 256, gtt_target_nats: float = 10.96) -> None:
+        super().__init__()
+        self.sequence_dim = sequence_dim
+        self.gtt_target_nats = gtt_target_nats
+        self.tupt_e256_proj = torch.nn.Linear(sequence_dim, sequence_dim, bias=False)
+
+    def forward(self, seq_embeddings: torch.Tensor) -> torch.Tensor:
+        tupt_mapped = self.tupt_e256_proj(seq_embeddings)
+        tupt_mapped = torch.fmod(torch.abs(tupt_mapped), 12289.0)
+        local_entropy_proxy = torch.log(torch.abs(tupt_mapped) + 1e-6).mean(dim=-1, keepdim=True)
+        gtt_scaling = self.gtt_target_nats / (local_entropy_proxy + 1e-6)
+        gtt_aligned = tupt_mapped * gtt_scaling
+        final_conformation = apply_exclusion_gate(gtt_aligned)
+        return final_conformation

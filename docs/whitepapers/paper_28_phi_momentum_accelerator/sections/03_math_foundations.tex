@@ -1,0 +1,27 @@
+\section{Mathematical Foundations}
+Let $\theta_t \in \mathbb{R}^D$ represent the parameter vector at step $t$, and $g_t = \nabla_{\theta} \mathcal{L}(\theta_t)$ be the instantaneous gradient.
+
+\subsection{Exponential Moving Average Momentum}
+The unscaled momentum buffer $v_t$ accumulates gradients with momentum factor $\beta$:
+\begin{equation}
+    v_t = \beta v_{t-1} + (1 - \beta) g_t
+\end{equation}
+
+\subsection{Golden Sign-Agreement Indicator \& Accelerator}
+We evaluate element-wise sign agreement between current gradient $g_t$ and accumulated momentum buffer $v_t$:
+\begin{equation}
+    S_t = \mathbb{I}\left( \text{sgn}(g_t) == \text{sgn}(v_t) \right)
+\end{equation}
+The golden acceleration vector $\mathbf{\alpha}_t \in \mathbb{R}^D$ is computed as:
+\begin{equation}
+    \alpha_{t, i} = \begin{cases} 
+        \phi & \text{if } S_{t,i} = 1 \quad \text{(Coherent Direction)} \\ 
+        \phi^{-1} & \text{if } S_{t,i} = 0 \quad \text{(Oscillatory Friction)} 
+    \end{cases}
+\end{equation}
+
+\subsection{Structural Weight Update}
+The structural update vector is $\Delta \theta_t = v_t \odot \mathbf{\alpha}_t$, and parameters step according to learning rate $\eta$:
+\begin{equation}
+    \theta_{t+1} = \theta_t - \eta \left( v_t \odot \mathbf{\alpha}_t \right)
+\end{equation}

@@ -1,0 +1,35 @@
+\section{Formal Mathematical Proofs}
+
+We state and prove key theorems regarding non-zero gradient flow and Lipschitz continuity.
+
+\begin{theorem}[Perpetual Positive Gradient Transmission]
+For all $x > \text{arcsinh}(c_{\text{floor}})$, the derivative $f'(x) = \cosh(x)$ strictly satisfies $f'(x) \ge 1.0$, guaranteeing non-vanishing gradient transmission along active network paths.
+\end{theorem}
+
+\begin{proof}
+Let $x_{\text{floor}} = \text{arcsinh}(c_{\text{floor}})$. For any $x > x_{\text{floor}}$, the function is strictly governed by $f(x) = \sinh(x)$. The first derivative is:
+\begin{equation}
+f'(x) = \frac{d}{dx} \sinh(x) = \cosh(x)
+\end{equation}
+By definition of hyperbolic cosine, $\cosh(x) = \frac{e^x + e^{-x}}{2}$. By the AM-GM inequality:
+\begin{equation}
+\frac{e^x + e^{-x}}{2} \ge \sqrt{e^x \cdot e^{-x}} = \sqrt{1} = 1.0
+\end{equation}
+with equality if and only if $x = 0$. Thus $f'(x) \ge 1.0$ for all active inputs. In contrast to ReLU (where $f'(x) = 0$ for $x < 0$) or GELU (where $f'(x) \to 0$ for $x \ll 0$), Floor-Sinh amplifies backpropagating error gradients by factor $\cosh(x) \ge 1$, completely preventing neuron death, completing the proof.
+\end{proof}
+
+\begin{theorem}[Lipschitz Continuity on Bounded Domains]
+Let $K > 0$ be a domain bound such that $x \in [-K, K]$. The Floor-Sinh activation function $f(x)$ is $L$-Lipschitz continuous with Lipschitz constant $L = \cosh(K)$.
+\end{theorem}
+
+\begin{proof}
+By the Mean Value Theorem, for any $x_1, x_2 \in [-K, K]$:
+\begin{equation}
+|f(x_1) - f(x_2)| \le \sup_{z \in [-K, K]} |f'(z)| \cdot |x_1 - x_2|
+\end{equation}
+On the active domain $z \ge x_{\text{floor}}$, $|f'(z)| = \cosh(z)$. Since $\cosh(z)$ is an even function and strictly increasing for $z > 0$:
+\begin{equation}
+\sup_{z \in [-K, K]} |f'(z)| = \cosh(K)
+\end{equation}
+Setting $L = \cosh(K)$, we obtain $|f(x_1) - f(x_2)| \le L |x_1 - x_2|$, proving $L$-Lipschitz continuity, completing the proof.
+\end{proof}

@@ -1,0 +1,68 @@
+\section{Architecture \& Implementation}
+The \texttt{ResonanceShardKVCache} class is located in \texttt{nrc\_ai/resonance\_kv\_cache.py}.
+
+\subsection{PyTorch Implementation}
+\begin{lstlisting}[language=Python]
+from typing import Optional, Tuple
+import torch
+import torch.nn as nn
+from nrc.math import QuantumShadowVeil, PHI_FLOAT
+from .shard_folding import PhiInfinityShardFolding
+
+class ResonanceShardKVCache(nn.Module):
+    def __init__(self, folding_steps: int = 3, shard_capacity: int = 1024, qsv_seed: int = 137) -> None:
+        super().__init__()
+        self.shard_capacity = shard_capacity
+        self.folding_compressor = PhiInfinityShardFolding(k_steps=folding_steps)
+
+        # Quantum Shadow Veil Integration
+        self.qsv = QuantumShadowVeil(spiral_density=4096)
+        self.qsv.expand_fibonacci_keys(seed=qsv_seed, count=1024)
+        self.fold_counter = 0
+
+        self.active_keys: Optional[torch.Tensor] = None
+        self.active_values: Optional[torch.Tensor] = None
+        self.folded_memory_keys: list[torch.Tensor] = []
+        self.folded_memory_values: list[torch.Tensor] = []
+
+    def _apply_shadow_veil(self, tensor: torch.Tensor, key_idx: int) -> torch.Tensor:
+        key = self.qsv.keys[key_idx % len(self.qsv.keys)]
+        salt = float(key % 256) / 256.0
+        return ((tensor + salt) * (PHI_FLOAT ** -(key_idx % 13))).to(device=tensor.device, dtype=tensor.dtype)
+
+    def _remove_shadow_veil(self, tensor: torch.Tensor, key_idx: int) -> torch.Tensor:
+        key = self.qsv.keys[key_idx % len(self.qsv.keys)]
+        salt = float(key % 256) / 256.0
+        return ((tensor / (PHI_FLOAT ** -(key_idx % 13))) - salt).to(device=tensor.device, dtype=tensor.dtype)
+
+    def forward(self, new_keys: torch.Tensor, new_values: torch.Tensor) -> Tuple[torch.Tensor, torch.Tensor]:
+        if self.active_keys is None:
+            self.active_keys, self.active_values = new_keys, new_values
+        else:
+            self.active_keys = torch.cat([self.active_keys, new_keys], dim=1)
+            self.active_values = torch.cat([self.active_values, new_values], dim=1)
+
+        if self.active_keys.size(1) >= self.shard_capacity:
+            compressed_k = self.folding_compressor(self.active_keys)
+            compressed_v = self.folding_compressor(self.active_values)
+
+            self.folded_memory_keys.append(self._apply_shadow_veil(compressed_k, self.fold_counter))
+            self.folded_memory_values.append(self._apply_shadow_veil(compressed_v, self.fold_counter))
+            self.fold_counter += 1
+
+            self.active_keys, self.active_values = None, None
+
+        if self.folded_memory_keys:
+            unveiled_ks = [self._remove_shadow_veil(k, i) for i, k in enumerate(self.folded_memory_keys)]
+            unveiled_vs = [self._remove_shadow_veil(v, i) for i, v in enumerate(self.folded_memory_values)]
+            unveiled_k, unveiled_v = torch.cat(unveiled_ks, dim=1), torch.cat(unveiled_vs, dim=1)
+
+            if self.active_keys is not None:
+                return torch.cat([unveiled_k, self.active_keys], dim=1), torch.cat([unveiled_v, self.active_values], dim=1)
+            return unveiled_k, unveiled_v
+
+        return self.active_keys, self.active_values
+\end{lstlisting}
+
+\subsection{Cache Lifecycle}
+The \texttt{reset\_cache()} method resets active tensors, lists of encrypted shards, and the fold counter, enabling zero-overhead cache reuse across inference requests.

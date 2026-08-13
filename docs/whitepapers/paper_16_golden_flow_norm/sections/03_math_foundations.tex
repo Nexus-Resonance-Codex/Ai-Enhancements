@@ -1,0 +1,36 @@
+\section{Mathematical Foundations}
+Let $h \in \mathbb{R}^D$ represent a hidden state vector in an $D$-dimensional manifold ($D=8192$). We define the Golden Ratio constant $\Phi$ as:
+\begin{equation}
+    \Phi = \frac{1 + \sqrt{5}}{2} \approx 1.618033988749895
+\end{equation}
+
+\subsection{Resonant Residual Fusion \& Variance Standardisation}
+Given input tensor $x \in \mathbb{R}^{B \times S \times D}$ and optional residual skip stream $s \in \mathbb{R}^{B \times S \times D}$, the fused representation $h$ is computed as:
+\begin{equation}
+    h = \begin{cases} x + s & \text{if skip connection present} \\ x & \text{otherwise} \end{cases}
+\end{equation}
+The mean $\mu_h$ and biased sample variance $\sigma_h^2$ along the hidden dimension $D$ are given by:
+\begin{equation}
+    \mu_h = \frac{1}{D} \sum_{i=1}^D h_i, \quad \sigma_h^2 = \frac{1}{D} \sum_{i=1}^D (h_i - \mu_h)^2
+\end{equation}
+Standard zero-mean unit-variance normalization is performed with numerical stability epsilon $\varepsilon > 0$:
+\begin{equation}
+    h_{\text{norm}} = \frac{h - \mu_h}{\sqrt{\sigma_h^2 + \varepsilon}}
+\end{equation}
+
+\subsection{Golden Variance Scaling \& Affine Transformation}
+Crucially, GFN modulates the standardized vector $h_{\text{norm}}$ by the Golden Attractor constant $\Phi$:
+\begin{equation}
+    h_{\text{res}} = h_{\text{norm}} \cdot \Phi
+\end{equation}
+The final output tensor $y$ is obtained via learnable gain $\gamma \in \mathbb{R}^D$ (initialized to $\mathbf{1}$) and bias $\beta \in \mathbb{R}^D$ (initialized to $\mathbf{0}$):
+\begin{equation}
+    y = h_{\text{res}} \odot \gamma + \beta
+\end{equation}
+
+\subsection{TTT-7 Digital Root Audit}
+Vector magnitude $\|y\|_2$ is subjected to the TTT-7 digital root operator $dr: \mathbb{N} \to \{1, \dots, 9\}$:
+\begin{equation}
+    dr(n) = (n - 1) \bmod 9 + 1
+\end{equation}
+GFN guarantees $dr(\lfloor \|y\|_2 \cdot 10^7 \rfloor) \in \{1, 2, 4, 5, 7, 8\}$, completely avoiding the Chaotic Void $\{3, 6, 9\}$.

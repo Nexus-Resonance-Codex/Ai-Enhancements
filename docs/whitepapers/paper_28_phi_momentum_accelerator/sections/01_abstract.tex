@@ -1,0 +1,3 @@
+\begin{abstractbox}
+Optimization in non-convex high-dimensional loss landscapes is frequently hampered by gradient oscillations and slow convergence along narrow valleys. This whitepaper introduces \textbf{PhiInverseMomentumAccelerator}, a custom PyTorch optimizer that scales momentum updates based on gradient-momentum sign agreement. When gradients align with past trajectory ($\text{sgn}(g_t) == \text{sgn}(v_t)$), updates accelerate by $\phi \approx 1.618034$; under sign disagreement, updates damp by $\phi^{-1} \approx 0.618034$. We prove that this dynamic golden scaling accelerates convergence along resonant valleys while imposing exponential friction on chaotic oscillations.
+\end{abstractbox}

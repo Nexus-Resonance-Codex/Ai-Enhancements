@@ -1,0 +1,47 @@
+\section{Architecture \& Implementation}
+
+The \texttt{BiologicalExclusionGradientRouter} module consists of a custom \texttt{torch.autograd.Function} coupled with an \texttt{nn.Module} wrapper.
+
+\subsection{PyTorch Production Code}
+
+\begin{lstlisting}[language=Python]
+from typing import Any, cast
+import torch
+import torch.nn as nn
+from torch.autograd import Function
+from nrc.math import PHI_FLOAT, apply_exclusion_gate
+
+class ExclusionGradientRouterFunction(Function):
+    """Core Autograd function for Enhancement #6."""
+
+    @staticmethod
+    def forward(ctx: Any, inputs: torch.Tensor) -> torch.Tensor:
+        gated_grad_np = apply_exclusion_gate(inputs.detach().cpu().numpy())
+        routed_inputs = torch.as_tensor(gated_grad_np, device=inputs.device, dtype=inputs.dtype)
+        mask = (routed_inputs != 0.0).type(inputs.dtype)
+        ctx.save_for_backward(mask)
+        return cast(torch.Tensor, routed_inputs)
+
+    @staticmethod
+    def backward(ctx: Any, grad_output: torch.Tensor) -> torch.Tensor:
+        (mask,) = ctx.saved_tensors
+        routed_grad = grad_output * mask
+        resonant_grad = routed_grad * PHI_FLOAT
+        return cast(torch.Tensor, resonant_grad)
+
+class BiologicalExclusionGradientRouter(nn.Module):
+    """Enhancement #6: Biological Exclusion Gradient Router v3."""
+
+    def __init__(self) -> None:
+        super().__init__()
+
+    def forward(self, x: torch.Tensor) -> torch.Tensor:
+        return cast(torch.Tensor, ExclusionGradientRouterFunction.apply(x))
+\end{lstlisting}
+
+\subsection{Autograd Graph & Flow Architecture}
+\begin{enumerate}
+    \item \textbf{Forward Phase}: Input tensor $x$ is gated via Mod 9 exclusion. The mask $M$ is cached in `ctx.save_for_backward`.
+    \item \textbf{Backward Phase}: Incoming gradient $\nabla_y \mathcal{L}$ is multiplied elementwise by mask $M$, zeroing dead paths.
+    \item \textbf{Resonant Scaling}: Surviving non-zero gradients are multiplied by \texttt{PHI\_FLOAT}, accelerating parameter updates along resonant channels.
+\end{enumerate}

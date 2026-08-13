@@ -1,0 +1,17 @@
+\section{Formal Mathematical Proofs}
+
+\begin{theorem}[Attractor Variance Convergence Theorem]
+Let $\sigma_0^2 > 0$ be the initial variance of hidden state $\mathbf{H}_0$. Under repeated application of \texttt{PhiPoweredResonantWeighting} with unit gate $\mathbf{g} = \mathbf{1}$, the variance sequence $\sigma_k^2$ converges to the invariant interval $[\phi^{-2}, \phi^2]$.
+\end{theorem}
+
+\begin{proof}
+1. Consider the variance update relation $\sigma_{k+1}^2 = \text{Var}(\tilde{\mathbf{H}}_k) = \sigma_k^2 \cdot (\Phi(\sigma_k^2))^2$.
+
+2. Case 1 ($\sigma_k^2 < 1.0$): $\Phi(\sigma_k^2) = \phi$. Then $\sigma_{k+1}^2 = \sigma_k^2 \cdot \phi^2 = \sigma_k^2 (\phi + 1) > \sigma_k^2$. The variance expands by factor $\phi^2 \approx 2.618$.
+
+3. Case 2 ($\sigma_k^2 \ge 1.0$): $\Phi(\sigma_k^2) = \phi^{-1}$. Then $\sigma_{k+1}^2 = \sigma_k^2 \cdot \phi^{-2} \approx 0.382 \cdot \sigma_k^2 < \sigma_k^2$. The variance contracts by factor $\phi^{-2}$.
+
+4. If $\sigma_k^2 \in [\phi^{-2}, 1.0)$, then after step $k+1$, $\sigma_{k+1}^2 = \sigma_k^2 \phi^2 < 1.0 \cdot \phi^2 = \phi^2$. If $\sigma_k^2 \in [1.0, \phi^2]$, then $\sigma_{k+1}^2 = \sigma_k^2 \phi^{-2} \ge 1.0 \cdot \phi^{-2} = \phi^{-2}$.
+
+5. Thus, the interval $[\phi^{-2}, \phi^2]$ is a strictly trapped invariant domain under the mapping. This completes the proof.
+\end{proof}

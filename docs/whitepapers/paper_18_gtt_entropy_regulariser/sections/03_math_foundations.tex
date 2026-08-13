@@ -1,0 +1,26 @@
+\section{Mathematical Foundations}
+Let $x \in \mathbb{R}^{B \times S \times D}$ represent hidden activation states across batch size $B$, sequence length $S$, and hidden dimension $D$. The Golden Ratio is $\Phi = \frac{1+\sqrt{5}}{2} \approx 1.61803398875$.
+
+\subsection{Shannon Entropy Computation}
+To evaluate the thermodynamic entropy of activation slice $x_{b, s} \in \mathbb{R}^D$, we map activations to a categorical probability distribution $P_{b, s} \in \mathbb{R}^D$ using Softmax:
+\begin{equation}
+    P_{b, s, i} = \frac{\exp(x_{b, s, i})}{\sum_{j=1}^D \exp(x_{b, s, j})}
+\end{equation}
+With numerical epsilon $\varepsilon = 10^{-9}$, the Shannon entropy $H_{b, s}$ (in nats) is:
+\begin{equation}
+    H_{b, s} = -\sum_{i=1}^D P_{b, s, i} \ln(P_{b, s, i} + \varepsilon)
+\end{equation}
+
+\subsection{Thermodynamic Thresholding \& Phi Damping}
+The GTT safe thermodynamic limit is $H_{\text{safe}} = 10.96\text{ nats}$. An indicator collapse mask $M \in \{0, 1\}^{B \times S \times 1}$ is computed via:
+\begin{equation}
+    M_{b, s, 1} = \begin{cases} 1 & \text{if } H_{b, s} > H_{\text{safe}} \\ 0 & \text{otherwise} \end{cases}
+\end{equation}
+The resonant scaling factor tensor $S_{\text{scale}} \in \mathbb{R}^{B \times S \times 1}$ is assigned elementwise:
+\begin{equation}
+    S_{\text{scale}, b, s, 1} = \begin{cases} \Phi^{-1} = \frac{1}{\Phi} \approx 0.61803398875 & \text{if } M_{b, s, 1} = 1 \\ 1.0 & \text{if } M_{b, s, 1} = 0 \end{cases}
+\end{equation}
+The stabilized activation output $x_{\text{stabilized}}$ is obtained via Hadamard product:
+\begin{equation}
+    x_{\text{stabilized}} = x \odot S_{\text{scale}}
+\end{equation}

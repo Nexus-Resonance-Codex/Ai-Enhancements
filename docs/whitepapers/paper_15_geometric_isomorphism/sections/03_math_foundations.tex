@@ -1,0 +1,31 @@
+\section{Mathematical Foundations}
+
+Let $D$ be the high-dimensional feature dimension. The golden ratio $\phi$ and QRT optimal damping angle $\theta_{\text{QRT}}$ are defined by:
+\begin{equation}
+\phi = \frac{1 + \sqrt{5}}{2} \approx 1.618033988749895
+\end{equation}
+\begin{equation}
+\theta_{\text{QRT}} = \arctan(\sqrt{\phi}) \approx 0.905021235 \text{ rad} \approx 51.8539^\circ
+\end{equation}
+
+\subsection{2D Rotational-Scale Generator Block}
+Across pairs of adjacent feature channels $(2i, 2i+1)$ for $i=0, 1, \dots, \lfloor D/2 \rfloor - 1$, we define the 2D fundamental isomorphism block $R_{2\text{D}} \in \mathbb{R}^{2 \times 2}$ as:
+\begin{equation}
+R_{2\text{D}} = \begin{bmatrix}
+\phi \cos\theta_{\text{QRT}} & -\frac{\sin\theta_{\text{QRT}}}{\phi} \\[0.5em]
+\frac{\sin\theta_{\text{QRT}}}{\phi} & \phi \cos\theta_{\text{QRT}}
+\end{bmatrix}
+\end{equation}
+
+\subsection{Full Isomorphism Matrix Construction}
+The static $D \times D$ transformation matrix $M_{\text{iso}}$ is initialized as the identity matrix $I_D$, with $R_{2\text{D}}$ blocks injected along the main diagonal:
+\begin{equation}
+M_{\text{iso}} = \text{diag}\left( R_{2\text{D}}^{(1)}, R_{2\text{D}}^{(2)}, \dots, R_{2\text{D}}^{(\lfloor D/2 \rfloor)} \right)
+\end{equation}
+
+\subsection{Forward Isomorphism Transformation}
+For a hidden state tensor $H_{\text{in}} \in \mathbb{R}^{B \times D}$, the forward projection computes:
+\begin{equation}
+H_{\text{out}} = H_{\text{in}} \cdot M_{\text{iso}}
+\end{equation}
+Since $M_{\text{iso}}$ is static, it is registered as a non-trainable PyTorch buffer (`self.register_buffer`).

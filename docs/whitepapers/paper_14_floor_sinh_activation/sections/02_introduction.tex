@@ -1,0 +1,17 @@
+\section{Introduction}
+
+Activation functions govern non-linear expressivity and gradient flow in deep neural network architectures. Despite widespread adoption, standard functions present major structural drawbacks:
+\begin{enumerate}
+    \item \textbf{Dying ReLU Problem}: $\text{ReLU}(x) = \max(0, x)$ sets gradients to zero for all $x \le 0$, resulting in permanent neuron inactivation.
+    \item \textbf{Negative Information Loss}: GELU and Swish suppress negative activation signals into shallow valleys, destroying valuable geometric anti-correlations.
+    \item \textbf{Unbounded Hyperbolic Collapse}: Pure hyperbolic functions ($\sinh(x)$, $\tanh(x)$) either saturate or explode exponentially along negative input trajectories.
+\end{enumerate}
+
+The \textbf{Nexus Resonance Codex (NRC)} resolves these issues with \texttt{FloorSinhActivation}. By evaluating $\sinh(x)$ and clamping lower values to a rigid physical floor $c_{\text{floor}} = -1.0$, our function retains smooth exponential growth for positive signals and bounded hyperbolic geometry for negative signals, ensuring perpetual gradient flow.
+
+\subsection{Key Contributions}
+\begin{enumerate}[label=\textbf{\arabic*.}]
+    \item \textbf{Hyperbolic Non-Linearity}: Utilizes $\sinh(x)$ to preserve smooth, symmetric, transcendental feature scaling.
+    \item \textbf{Rigid Physical Floor Constraint}: Enforces $\text{clamp}(\cdot, \text{min}=c_{\text{floor}})$, guaranteeing that activation dimensions never collapse to zero.
+    \item \textbf{Lipschitz Boundedness}: Proves $L$-Lipschitz continuity and non-zero gradient transmission across bounded activation intervals.
+\end{enumerate}
