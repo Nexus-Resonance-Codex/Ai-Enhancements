@@ -1,4 +1,4 @@
-# Nexus Resonance Codex: AI Enhancements (nrc-ai)
+# Nexus Resonance Codex (NRC): AI Enhancements
 
 <p align="center">
   <img src="https://raw.githubusercontent.com/Nexus-Resonance-Codex/.github/main/profile/nrc_logo.png" alt="NRC AI Enhancements Logo" width="380">
