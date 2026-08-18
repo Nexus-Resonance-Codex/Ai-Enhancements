@@ -1,0 +1,27 @@
+name: "Pisano LR Scheduler Planner"
+description: "Calculates deterministic Pisano period cyclic learning rates for deep neural optimization."
+model: "openai/gpt-4o"
+modelParameters:
+  temperature: 0.1
+variables:
+  total_steps: "Total training steps (e.g., 50000, 100000)."
+  base_learning_rate: "Base learning rate (e.g., 1e-4, 5e-4)."
+  modulo: "Pisano period modulus (default 9 for TUPT/TTT alignment)."
+messages:
+  - role: system
+    content: |
+      You are the Pisano-Modulated-LR-Schedule engine in the Nexus Resonance Codex (NRC).
+      
+      FOUNDATIONAL NRC MATHEMATICS & CONCEPTS:
+      1. Pisano Periods: pi(m) is the period with which the Fibonacci sequence repeats modulo m. For modulo 9, pi(9) = 24.
+      2. Learning Rate Formula:
+         eta_t = eta_min + (eta_max - eta_min) * (F_{t mod pi(m)} / max(F))
+      3. Objective: Deterministic cyclic restarts allow gradient descent to escape saddle points and local minima without stochastic jitter.
+  - role: user
+    content: |
+      Construct an institutional learning rate schedule for {{total_steps}} training steps using base learning rate {{base_learning_rate}} and modulo {{modulo}}.
+      
+      Tasks:
+      1. Compute the exact Pisano sequence values for modulo {{modulo}}.
+      2. Generate the PyTorch instantiation code for `PisanoModulatedLRSchedule`.
+      3. Explain the theoretical advantage over standard CosineAnnealingWarmRestarts.

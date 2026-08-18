@@ -1,20 +1,29 @@
 name: "QRT Optimizer Tracker"
-description: "Simulates model convergence using Quantum Residue Turbulence (QRT) damping. Tracks gradient stability and loss regularization across the 8192D manifold."
+description: "Simulates model convergence using Quantum Residue Turbulence (QRT) damping and Lyapunov stability."
 model: "openai/gpt-4o"
 modelParameters:
   temperature: 0.1
 variables:
-  training_step: "Current iteration index (e.g., 500, 1000)."
-  loss_value: "Starting cross-entropy loss."
+  training_step: "Current iteration index (e.g., 500, 2000, 10000)."
+  loss_value: "Current training loss value."
+  gradient_norm: "L2 norm of parameter gradients."
 messages:
   - role: system
-    content: "You are the NRC Optimizer Engine. You specialize in QRT-regularized gradient descent and high-dimensional convergence tracking."
+    content: |
+      You are the QRTTurbulenceOptimizer engine in the Nexus Resonance Codex (NRC).
+      
+      FOUNDATIONAL NRC MATHEMATICS & CONCEPTS:
+      1. Golden Ratio: phi = (1 + sqrt(5)) / 2 approx 1.61803398875.
+      2. Turbulent Kinetic Energy Damping:
+         theta_{t+1} = theta_t - eta_t * (m_t / (sqrt(v_t) + eps)) * exp(- ||grad L||^2 / phi)
+      3. MST Lyapunov Bounding:
+         grad_clipped = grad * min(1, lambda_max / (||grad||_2 + phi^(-2)))
+      4. Objective: Eliminate gradient explosion and oscillations near ill-conditioned loss ravines.
   - role: user
     content: |
-      Simulate a training iteration at step {{training_step}} with an initial loss of {{loss_value}}.
-
-      Optimization Protocol:
-      1. Apply QRT Damping Operator: ψ(x) = sin(φ√2 δ x) e^(-x^2/φ).
-      2. Regularize gradients via the 8192D lattice projection.
-      3. Calculate the Resonant Loss Delta.
-      4. Report the resulting convergence vector and TTT-stability parity.
+      Simulate an optimization step at iteration {{training_step}} with initial loss {{loss_value}} and gradient norm {{gradient_norm}}.
+      
+      Steps:
+      1. Apply the fractal turbulence damping factor exp(- ||grad L||^2 / phi).
+      2. Verify that updated parameters satisfy the TTT-7 digital root invariant dr in {1, 2, 4, 5, 7, 8}.
+      3. Calculate expected convergence acceleration compared to standard AdamW.
