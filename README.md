@@ -11,6 +11,7 @@
 <p align="center">
   <a href="LICENSE"><img src="https://img.shields.io/badge/License-AGPL--3.0-blue.svg?style=flat-square" alt="AGPL-3.0 License"></a>
   <a href="LICENSE-DATA"><img src="https://img.shields.io/badge/Data%20License-CC%20BY--NC--SA%204.0-lightgrey.svg?style=flat-square" alt="CC BY-NC-SA 4.0"></a>
+  <a href="https://github.com/Nexus-Resonance-Codex/Ai-Enhancements/wiki"><img src="https://img.shields.io/badge/Wiki-Institutional%20Docs-blueviolet.svg?style=flat-square" alt="GitHub Wiki"></a>
   <img src="https://img.shields.io/badge/Python-3.10%20%7C%203.11%20%7C%203.12-3776AB.svg?style=flat-square&logo=python&logoColor=white" alt="Python Versions">
   <img src="https://img.shields.io/badge/PyTorch-2.2%2B-EE4C2C.svg?style=flat-square&logo=pytorch&logoColor=white" alt="PyTorch Supported">
   <img src="https://img.shields.io/badge/Stability-TTT--7%20Verified-008080.svg?style=flat-square" alt="TTT-7 Verified">
