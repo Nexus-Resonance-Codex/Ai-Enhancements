@@ -1,14 +1,15 @@
 <div align="center">
-  <img src="https://raw.githubusercontent.com/Nexus-Resonance-Codex/Phi-Infinity-Lattice-Compression/main/docs/assets/phi_spiral_banner.png" width="100%" alt="NRC Ai-Enhancements Banner">
+  <img src="https://raw.githubusercontent.com/Nexus-Resonance-Codex/.github/main/profile/nrc_logo.png" width="380" alt="NRC Ai-Enhancements Banner">
 
 # NRC Ai-Enhancements
 ## High-Stability AI Scaling via φ^∞ Lattice Resonance
 
-[![License: CC-BY-NC-SA-4.0](https://img.shields.io/badge/License-CC--BY--NC--SA%204.0-00F0FF?style=for-the-badge&logo=creative-commons)](LICENSE)
-[![CI: Cognitive Audit](https://github.com/Nexus-Resonance-Codex/Ai-Enhancements/actions/workflows/ci.yml/badge.svg)](https://github.com/Nexus-Resonance-Codex/Ai-Enhancements/actions/workflows/ci.yml)
-[![Enhancements: 30+ Core](https://img.shields.io/badge/Enhancements-30+%20Core-00FF88?style=for-the-badge&logo=pytorch)](src/nrc_ai/)
+[![License: AGPL-3.0](https://img.shields.io/badge/License-AGPL--3.0-blue.svg?style=flat-square)](https://github.com/Nexus-Resonance-Codex/Ai-Enhancements/blob/main/LICENSE)
+[![License: CC-BY-NC-SA-4.0](https://img.shields.io/badge/Data%20License-CC%20BY--NC--SA%204.0-lightgrey.svg?style=flat-square)](https://github.com/Nexus-Resonance-Codex/Ai-Enhancements/blob/main/LICENSE-DATA)
+[![PyTorch: Supported](https://img.shields.io/badge/PyTorch-2.2%2B-EE4C2C.svg?style=flat-square&logo=pytorch&logoColor=white)](https://pytorch.org/)
+[![Enhancements: 30+ Core](https://img.shields.io/badge/Enhancements-30+%20Core-008080.svg?style=flat-square)](src/nrc_ai/)
 
-[Enhancements](src/nrc_ai/) • [Spiral Memory](src/nrc_ai/memory.py) • [Demos](examples/) • [Scaling Roadmap](roadmap.md)
+[Enhancements](src/nrc_ai/) • [Memory Architecture](src/nrc_ai/memory.py) • [Demos](../examples/) • [Proofs](../proofs/)
 
 **"Eliminating hallucination and quadratic complexity through geometric convergence and TTT logic."**
 
@@ -18,39 +19,29 @@
 
 ### Abstract
 
-**NRC Ai-Enhancements** is a collection of 30+ mathematically rigid deep learning components designed to stabilize large-scale neural architectures. Built on the **Nexus Resonance Codex (NRC)**, these enhancements replace statistical heuristics with deterministic **$\varphi$-logic** to achieve superior convergence, adversarial robustness, and infinite context scaling.
+**NRC Ai-Enhancements** is a collection of 30+ mathematically rigid deep learning components designed to stabilize large-scale neural architectures. Built on the **Nexus Resonance Codex (NRC)**, these enhancements replace statistical heuristics with deterministic **$\phi$-logic** to achieve superior convergence, adversarial robustness, and infinite context scaling.
 
-### Key Enhancements
-*   **$\varphi^\infty$ Spiral Memory**: $O(1)$ context scaling using hierarchical shard folding.
-*   **TTT Exclusion (Mod-9)**: Gradient routing that avoids chaotic voids ($3, 6, 9$ mod 9) for high-fidelity logic.
-*   **QRT Activation & Damping**: Fractal-regularized layers that prevent vanishing/exploding gradients.
-*   **MST Lyapunov Clipping**: Stability monitoring that prevents chaotic collapse during training.
-*   **256D Lattice Embeddings**: High-dimensional semantic positioning for precise tokenization.
+### Key Functional Families
+* **Attention & Positional Encoding**: Hodge-Phi Torsion Attention, Lucas Sparse Tension Masks, Golden Spiral RoPE, and Phi-Void Encoding.
+* **Context Memory & Compression**: Resonance Shard KV-Cache, Phi-Infinity Shard Folding, and Infinite Context Unfolding.
+* **Optimizers & Schedulers**: QRT Turbulence Optimizer, Phi-Inverse Momentum, Pisano-Modulated LR Schedules, and MST Lyapunov Clipping.
+* **Layers & Activations**: E8 Golden Basis Embeddings, Floor-Sinh Activations, Golden Flow Normalization, and Lossless LoRA.
 
 ---
 
-### ⚡ Performance Comparison Matrix
+### Performance Comparison Matrix
 
-| Problem Space | Industry Baseline (Transformers) | NRC Enhanced Architecture | Advantage |
+| Problem Space | Industry Baseline (Standard Transformers) | NRC Enhanced Architecture | Advantage |
 | :--- | :--- | :--- | :--- |
-| **Context Length** | $O(N^2)$ (Attention) | **$O(1)$ ($\varphi^\infty$ Shards)** | Infinite Logic Window |
-| **Convergence** | Statistical Sampling | **Deterministic (Resonant)** | 2x-5x Faster Training |
-| **Hallucination** | High Entropy Drifts | **TTT Stabilized (Root 7)** | High-Fidelity Knowledge |
-| **Robustness** | Gradient Vulnerable | **QRT / MST Masking** | Side-Channel Immunity |
+| **Context Retention** | Quadratic $O(N^2)$ KV-Growth / Truncation | **$O(1)$ ($\phi^\infty$ Shards)** | Functionally Unbounded Memory |
+| **Optimization** | Heuristic Momentum ($\beta=0.9$) | **Deterministic ($\phi^{-1} \approx 0.618$)** | Faster Convergence without Ravine Oscillation |
+| **Representation Drift** | Unbounded Latent Variance | **TTT Stabilized (Root 7)** | Zero Representation Collapse |
+| **Gradient Stability** | Vulnerable to Explosion / Drift | **QRT / MST Lyapunov Bounding** | Strict Sub-Chaotic Mitigation |
 
 ---
 
-### 🚀 NRC Playground
+### Setup & Development
 
-Test AI architectural stability and resonant optimization directly on GitHub:
-
-- **[QRT Optimizer Tracker](https://github.com/Nexus-Resonance-Codex/Ai-Enhancements/blob/main/.github/prompts/qrt-optimizer-tracker.prompt.yml)** — Simulate fractal-damped convergence.
-- **[KV-Cache Folding Demo](https://github.com/Nexus-Resonance-Codex/Ai-Enhancements/blob/main/.github/prompts/resonance-kv-cache-folding.prompt.yml)** — Analyze shard-folding efficiency.
-- **[Playground Guide](NRC-Playground-Guide.md)** — Comprehensive usage instructions.
-
----
-
-### 🛠 Setup
 Built for high-integrity research using [uv](https://github.com/astral-sh/uv).
 
 ```bash
@@ -59,19 +50,14 @@ uv venv
 source .venv/bin/activate
 uv pip install -e .[dev]
 
-# Run the cognitive audit
+# Run the test suite
 pytest tests/
 ```
 
 ---
 
-### 📜 Mathematical Foundations
-The [Documentation](https://nexus-resonance-codex.github.io/Ai-Enhancements/) contains the formal proofs for the **Modular Sieve Training** and **Shard Folding Convergence**.
-
----
-
-### 🤝 Strategic Mission
-This repository provides the high-fidelity foundation for the next generation of intelligence. Every enhancement is engineered to move AI from statistical guessing to mathematical certainty.
+### Strategic Mission
+This repository provides the high-fidelity foundation for the next generation of artificial intelligence. Every enhancement is engineered to move machine learning from statistical heuristics to mathematical certainty.
 
 <div align="center">
 <i>Authored by James Paul Trageser (@jtrag) — Nexus Resonance Codex (NRC) (2026)</i><br>

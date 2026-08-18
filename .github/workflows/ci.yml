@@ -5,6 +5,7 @@ on:
     branches: [ "master", "main" ]
   pull_request:
     branches: [ "master", "main" ]
+  workflow_dispatch:
 
 jobs:
   cognitive-audit:
@@ -31,13 +32,13 @@ jobs:
         uv pip install --system -e .[dev]
 
     - name: Format Check (Ruff)
-      run: ruff format --check .
+      run: ruff format --check src/ tests/
 
     - name: Lint Check (Ruff)
-      run: ruff check .
+      run: ruff check src/ tests/
 
     - name: Type Compliance (Mypy)
-      run: mypy .
+      run: mypy src/
 
     - name: Verification Suite (Pytest)
       run: pytest tests/
