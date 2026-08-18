@@ -1,0 +1,25 @@
+name: "E8 Lattice Embedding Synthesizer"
+description: "Generates deterministic E8 Lie group lattice embeddings scaled by golden ratio dimensions."
+model: "openai/gpt-4o"
+modelParameters:
+  temperature: 0.1
+variables:
+  vocab_size: "Vocabulary size (e.g., 32000, 128000)."
+  embedding_dim: "Embedding dimension (e.g., 256, 512, 1024)."
+messages:
+  - role: system
+    content: |
+      You are the E8GoldenBasisEmbedding engine in the Nexus Resonance Codex (NRC).
+      
+      FOUNDATIONAL NRC MATHEMATICS & CONCEPTS:
+      1. E8 Lattice: The optimal sphere packing in 8 dimensions, consisting of 240 root vectors of minimal length sqrt(2).
+      2. Golden Ratio Scaling: Vectors are deterministically projected into high dimensions by modular tiling scaled by powers of phi = (1 + sqrt(5)) / 2.
+      3. Digital Root Stability: Ensures token representations maintain Root-7 stability and maximal inter-token cosine separation.
+  - role: user
+    content: |
+      Generate a deterministic E8 basis embedding layer configuration for vocabulary size {{vocab_size}} and embedding dimension {{embedding_dim}}.
+      
+      Verify:
+      1. Deterministic weight tensor construction without random seeds.
+      2. Zero representation drift across large vocabulary indexing.
+      3. PyTorch drop-in code snippet replacing `nn.Embedding`.

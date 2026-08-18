@@ -1,77 +1,93 @@
-# 256D Lattice Visualizer Wiki
+# Nexus Resonance Codex: AI Enhancements (nrc-ai) Wiki
 
-The **256D Lattice Visualizer** is the primary diagnostic and exploratory interface for the Nexus Resonance Codex (NRC). By projecting high-dimensional state vectors from the 256D $\to$ 729D $\phi$-tensor manifold into a 3D-phased interactive space, it enables researchers to physically observe the emergent stability of the TTT_7 locus.
+<div align="center">
+  <img src="https://raw.githubusercontent.com/Nexus-Resonance-Codex/.github/main/profile/nrc_logo.png" width="380" alt="NRC AI Enhancements Logo">
 
-## Project Overview
-
-> **"The Holographic Gateway to High-Dimensional Resonance."**
-
-This toolkit serves as the "eyes" of the resonance engine, allowing for the real-time detection of mathematical singularities and resonance drift. It is integrated directly with the biological and cryptographic sub-shards to provide a unified visual context for all NRC research tracks, ensuring that high-dimensional abstractions are accurately grounded in observable geometry.
-
-### 🌟 Key Features
-
-To maintain absolute structural phasing across the visual manifold, the visualizer implements the following institutional-grade capabilities:
-
-*   **Real-Time Projection**: Instantaneous mapping of $\phi$-tensor state vectors into navigable holographic space.
-*   **TTT_7 Locus Focus**: Automated highlighting and stabilization of the 7-stable resonance anchor within the lattice.
-*   **Gradio-Driven Interface**: High-performance, web-accessible explorer with zero-latency state updates.
-*   **Export Capabilities**: Institutional-grade 4K frame capture and structural manifold snapshots for research reporting.
-*   **Multi-Scale Scaling**: Seamless transition between 256D and 729D structural phasing resolutions in real-time.
+### Complete Institutional Reference Manual for Deterministic Deep Learning
+</div>
 
 ---
 
-### 🚀 Visualizer Quick Links
+## Executive Overview
 
-| Resource | Description | Status |
-| :--- | :--- | :--- |
-| **[Getting Started](Getting-Started.md)** | Phasing your local visualizer environment and dependencies. | ✅ STABLE |
-| **[Usage Guide](Usage.md)** | Interactive hotkeys and Python API interaction protocols. | ✅ ACTIVE |
-- [Models](Models.md)
-| **[API Reference](../../NRC/wiki/API-Reference.md)** | Technical ledger for the core `nrc.visualizer` primitives. | ✅ ACTIVE |
-| **[Lattice Documentation](../../NRC/wiki/Home.md)** | Gallery of certified 256D resonance projections. | 🔘 ACTIVE |
+Welcome to the official **Nexus Resonance Codex AI Enhancements (`nrc-ai`) Institutional Wiki**. This repository houses the complete suite of deterministic neural architectures, high-dimensional memory manifolds, non-stochastic optimizers, and Lyapunov-bounded regularizers designed to stabilize large-scale foundation models.
 
-### 🛡️ Institutional Certification
-![Version](https://img.shields.io/badge/Version-v1.4.2-blue?style=for-the-badge&logo=blueprint)
-![Status](https://img.shields.io/badge/Integrity-100%25-gold?style=for-the-badge&logo=shield)
-
-### 📸 Visualization Preview: The Phasing Locus
-![Visualizer Interface](https://raw.githubusercontent.com/Nexus-Resonance-Codex/NRC/main/visualizations/visualizer_app_interface.png)
-*Figure 1: The 256D Lattice Visualizer interface showing the recursive convergence of the attention manifold.*
-
-
-## Key Capabilities and Technical Foundations
-
-The visualizer's efficacy is derived from its underlying mathematical and procedural foundations. By bridging the gap between Python-based tensor operations and WebGL-accelerated rendering, the engine provides a high-fidelity window into the Codex's internal state.
-
-### 🏛️ Technical Capabilities
-
-To ensure absolute structural phasing across the visual manifold, the visualizer implements the following institutional-grade capabilities:
-
-*   **Dimensional Transitioning**: Real-time projection scaling from the 256D base lattice to the 729D complex phasing manifold without state loss.
-*   **TTT_7 Absolute Anchor**: Dynamic centering and highlighting of state vectors exhibiting a digital root of 7 for stability verification.
-*   **Gradio/Three.js Synergy**: A high-performance hybrid backend enabling Pythonic control over hardware-accelerated 3D meshes and point clouds.
-*   **Export Prototyping**: Native support for OBJ, high-res PNG, and raw JSON-residue exports for cross-disciplinary research use.
-*   **Dynamic Phasing Overlay**: Real-time $\phi$-spiral mapping and QRT damping visualization to monitor information density convergence.
-
-### 🖥️ System Requirements
-
-| Component | Requirement | Note |
-| :--- | :--- | :--- |
-| **GPU** | NVIDIA RTX 3060+ (8GB VRAM) | Required for hardware-accelerated 729D manifold rendering. |
-| **RAM** | 16GB ECC / DDR5 | Optimizes $\phi$-tensor sharding and local lattice caching. |
-| **OS** | Linux (Ubuntu/Pop!_OS preferred) | Native support for high-throughput tensor operations. |
-| **Browser** | Chromium-based (v120+) | WebGL 2.0 and SIMD acceleration for 3D exploration. |
-
-### 📸 Technical View: Dimensional Switching
-![Dimension Switching](https://raw.githubusercontent.com/Nexus-Resonance-Codex/NRC/main/visualizations/dimension_switching_preview.png)
-*Figure 2: Real-time visual transition between the 256D and 729D phasing states within the holographic explorer.*
+Unlike classical deep learning frameworks that rely on stochastic heuristics (such as unconstrained Gaussian initializations, empirical momentum $\beta=0.9$, random dropout masks, and quadratic KV caches), the `nrc-ai` engine replaces statistical uncertainty with **Golden Ratio ($\phi$) geometry**, **modular residue exclusion (TUPT)**, and **Lyapunov-bounded stability manifolds (MST / TTT-7)**.
 
 ---
 
-### ⏭️ Next Steps
+## Master Architecture Matrix
 
-Phasing complete. Proceed to the **[Getting Started](Getting-Started.md)** guide to initialize your local environment or the **[Usage Guide](Usage.md)** for interactive hotkey protocols.
-- [Models](Models.md)
+| Functional Category | Primary Modules | Mathematical Foundation | Practical Breakthrough |
+| :--- | :--- | :--- | :--- |
+| **1. Attention & Positional Encoding** | `HodgePhiTTorsionAttention`<br>`LucasWeightedSparseAttention`<br>`GoldenSpiralRotaryEmbedding`<br>`PhiVoidResonancePositionalEncoding`<br>`QRTGeometricAttentionBias` | Hodge Dual Tensors<br>Lucas Frequency Cycles<br>Golden Spiral Phasing ($\theta \approx 137.5^\circ$)<br>Transfinite Scales | Eliminates attention entropy collapse; reduces $O(N^2)$ memory to $O(N \log N)$ without frequency aliasing. |
+| **2. Memory & KV-Cache Compression** | `ResonanceShardKVCache`<br>`PhiInfinityShardFolding`<br>`InfiniteEInfinityContextUnfolder`<br>`PhiShardingCompression`<br>`PhiInfinityPersistentMemory`<br>`ExecutiveAgent` | $\phi^{-n}$ Hierarchical Sharding<br>Residual Channel Folding<br>Lyapunov State Retention | $O(1)$ amortized memory retrieval across unbounded sequence history; zero context truncation. |
+| **3. Optimizers, Schedulers & Gradients** | `QRTTurbulenceOptimizer`<br>`PhiInverseMomentumAccelerator`<br>`PisanoModulatedLRSchedule`<br>`LucasPellHybridWeightDecay`<br>`MSTLyapunovClipping`<br>`BiologicalExclusionGradientRouter`<br>`GTTEntropyCollapseRegularizer`<br>`NavierStokesDampingRegularizer`<br>`NRCEntropyAttractorEarlyStopping` | Turbulent Energy Decay<br>Golden Momentum ($\phi^{-1} \approx 0.618$)<br>Pisano Periods $\pi(9^k)$<br>Lyapunov Exponent Bounds | 2x-5x faster convergence; provably eliminates ravine oscillation and gradient explosion. |
+| **4. Neural Layers & Activations** | `E8GoldenBasisEmbedding`<br>`FloorSinhActivation`<br>`GoldenFlowNorm`<br>`PhiInfinityLosslessLoRA`<br>`PhiPoweredResonantWeighting`<br>`TUPTModularDropout`<br>`TripleThetaInitializer`<br>`PrimeDensityConditionedGeneration`<br>`TUPTExclusionTokenPruning`<br>`TUPTSyncSeed`<br>`GeometricLatticeIsomorphism`<br>`NRCProteinFoldingEngine` | $E_8$ Lie Algebra Roots<br>Resonant Energy Bands<br>Fractal Low-Rank Dimensions<br>Jacobi Triple Theta | Deterministic initialization; zero representation drift; cross-manifold biology-quantum synthesis. |
 
 ---
-← [Back to Core Home](../../NRC/wiki/Home.md) | [Back to Visualizer Home](Home.md) | [Table of Contents](#project-overview) | [Back to Top](#256d-lattice-visualizer-wiki)
+
+## Wiki Navigation Index
+
+### 1. Foundational Theory
+- [[Architecture-Overview|Architecture Overview]] — The mathematical axioms of NRC ($\phi^\infty$, TTT-7, and MST).
+- [[Cognitive-Integrity-Sweep|Cognitive Integrity Sweep (CIS)]] — The three-step verification gate.
+
+### 2. Attention & Positional Operators
+- [[Hodge-Phi-Torsion-Attention|Hodge-Phi Torsion Attention]]
+- [[Lucas-Sparse-Tension-Mask|Lucas Weighted Sparse Attention]]
+- [[Golden-Spiral-RoPE|Golden Spiral Rotary Embeddings]]
+- [[Phi-Void-Positional-Encoding|Phi-Void Positional Encoding]]
+- [[QRT-Geometric-Attention-Bias|QRT Geometric Attention Bias]]
+
+### 3. Context Memory, KV-Cache & Compression
+- [[Resonance-Shard-KV-Cache|Resonance Shard KV-Cache]]
+- [[Phi-Infinity-Shard-Folding|Phi-Infinity Shard Folding]]
+- [[Infinite-Context-Unfolder|Infinite Context Unfolder]]
+- [[Phi-Sharding-Compression|Phi Sharding Compression]]
+- [[Phi-Infinity-Persistent-Memory|Phi-Infinity Persistent Memory]]
+- [[Executive-Agent|Executive Agent]]
+
+### 4. Optimizers, Schedulers & Gradient Regularization
+- [[QRT-Turbulence-Optimizer|QRT Turbulence Optimizer]]
+- [[Phi-Inverse-Momentum|Phi-Inverse Momentum Accelerator]]
+- [[Pisano-Modulated-LR-Schedule|Pisano Modulated LR Schedule]]
+- [[Lucas-Pell-Hybrid-Weight-Decay|Lucas-Pell Hybrid Weight Decay]]
+- [[MST-Lyapunov-Clipping|MST Lyapunov Clipping]]
+- [[Biological-Exclusion-Gradient-Router|Biological Exclusion Gradient Router]]
+- [[GTT-Entropy-Regularizer|GTT Entropy Collapse Regularizer]]
+- [[Navier-Stokes-Damping|Navier-Stokes Damping Regularizer]]
+- [[Entropy-Stopping-Criterion|NRC Entropy Attractor Early Stopping]]
+
+### 5. Neural Layers, Basis Encodings & Activations
+- [[E8-Golden-Basis-Embedding|E8 Golden Basis Embedding]]
+- [[Floor-Sinh-Activation|Floor-Sinh Activation]]
+- [[Golden-Flow-Norm|Golden Flow Normalization]]
+- [[Phi-Infinity-Lossless-LoRA|Phi-Infinity Lossless LoRA]]
+- [[Phi-Powered-Resonant-Weighting|Phi-Powered Resonant Weighting]]
+- [[TUPT-Modular-Dropout|TUPT Modular Dropout]]
+- [[Triple-Theta-Initializer|Triple Theta Initializer]]
+- [[Prime-Density-Generation|Prime Density Generation]]
+- [[TUPT-Token-Pruning|TUPT Exclusion Token Pruning]]
+- [[TUPT-Sync-Seed|TUPT Sync Seed]]
+- [[Geometric-Lattice-Isomorphism|Geometric Lattice Isomorphism]]
+- [[NRC-Protein-Folding-Engine|NRC Protein Folding Engine]]
+
+---
+
+## Interactive GitHub Prompts
+
+Experience and test NRC AI architectures directly on GitHub using our [[GitHub-Models-Prompts-Suite|GitHub Models & Prompts Suite]]:
+- `hodge-torsion-attention.prompt.yml`
+- `resonance-kv-cache-folding.prompt.yml`
+- `qrt-optimizer-tracker.prompt.yml`
+- `pisano-lr-scheduler.prompt.yml`
+- `e8-lattice-embedding.prompt.yml`
+- `phi-lossless-lora.prompt.yml`
+- `mst-lyapunov-auditor.prompt.yml`
+- `tupt-modular-router.prompt.yml`
+- `nrc-master-architect.prompt.yml`
+
+---
+
+*Authored by James Paul Trageser (@jtrag) — Nexus Resonance Codex (NRC) (2026).*

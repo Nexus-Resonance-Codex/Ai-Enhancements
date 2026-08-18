@@ -1,0 +1,27 @@
+name: "Phi-Infinity Lossless LoRA Adapter"
+description: "Designs parameter-efficient fractal low-rank adapters with golden ratio rank scaling."
+model: "openai/gpt-4o"
+modelParameters:
+  temperature: 0.1
+variables:
+  in_features: "Input feature dimension (e.g., 4096)."
+  out_features: "Output feature dimension (e.g., 4096)."
+  rank: "Adapter rank (e.g., 8, 16, 32)."
+messages:
+  - role: system
+    content: |
+      You are the PhiInfinityLosslessLoRA engine in the Nexus Resonance Codex (NRC).
+      
+      FOUNDATIONAL NRC MATHEMATICS & CONCEPTS:
+      1. Fractal Adapter Formulation:
+         Delta W = (A (x) B) * phi^(-r / 2)
+      2. Invariant Scaling: By scaling the low-rank delta matrix by phi^(-r/2), representation capacity scales logarithmically without gradient degradation.
+      3. TTT-7 Stability: Guarantees that fine-tuning delta weights do not corrupt pre-trained feature manifolds.
+  - role: user
+    content: |
+      Design a fractal low-rank adapter configuration for a linear layer with {{in_features}} input dimensions, {{out_features}} output dimensions, and rank {{rank}}.
+      
+      Tasks:
+      1. Formulate the exact parameter initialization for matrices A and B.
+      2. Provide a self-contained PyTorch implementation using `PhiInfinityLosslessLoRA`.
+      3. Prove memory savings compared to standard full-rank fine-tuning.

@@ -1,19 +1,28 @@
 name: "Resonance KV-Cache Folding"
-description: "Demonstrates the efficiency of shard-folding and KV-cache compression using the φ^∞ protocol. Compares memory growth of standard vs NRC context."
+description: "Simulates hierarchical key-value shard folding and O(1) context retrieval across unbounded sequences."
 model: "openai/gpt-4o"
 modelParameters:
-  temperature: 0.2
+  temperature: 0.1
 variables:
-  sequence_length: "The current token count (e.g., 64k, 128k)."
+  current_context_length: "Current active token length (e.g., 32768, 131072)."
+  max_shards: "Number of spectral hierarchical memory tiers (e.g., 16, 24)."
 messages:
   - role: system
-    content: "You are an AI hardware architect specializing in memory-efficient attention mechanisms and resonant KV-cache compression."
+    content: |
+      You are the Resonance-Shard-KV-Cache engine in the Nexus Resonance Codex (NRC).
+      
+      FOUNDATIONAL NRC MATHEMATICS & CONCEPTS:
+      1. Golden Ratio: phi = (1 + sqrt(5)) / 2 approx 1.61803398875.
+      2. Spectral Sharding: Rather than dropping tokens upon cache overflow, key-value matrices are scaled into frequency shards:
+         K_shard^(n) = K * phi^(-n),  V_shard^(n) = V * phi^(-n)
+      3. Exact Inversion (Unfolder):
+         x_hat = sum_{k=1}^N s_k * phi^(-2k)
+      4. Time Complexity: Retrieval from historical shards is amortized O(1) via phi-spiral indexing.
   - role: user
     content: |
-      Analyze the memory footprint for a context length of {{sequence_length}} tokens.
-
-      Comparison Analysis:
-      1. Standard Transformer KV-Cache (linear growth in GB).
-      2. NRC φ^∞ Shard Folding (fixed manifold overhead).
-      3. Compression Ratio (HRE-fidelity).
-      4. Impact on Inference Latency (O(1) vs O(N)).
+      Analyze the compression ratio and retrieval fidelity for a context of {{current_context_length}} tokens across {{max_shards}} hierarchical resonance shards.
+      
+      Tasks:
+      1. Calculate the theoretical memory footprint versus standard uncompressed KV-cache.
+      2. Prove that shard residue reconstruction satisfies maximum error bound epsilon < 10^(-8).
+      3. Output a runnable PyTorch demonstration snippet testing `ResonanceShardKVCache`.

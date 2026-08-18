@@ -1,0 +1,26 @@
+name: "TUPT Modular Exclusion Router"
+description: "Filters non-resonant chaotic residue classes from backward gradient propagation graphs."
+model: "openai/gpt-4o"
+modelParameters:
+  temperature: 0.1
+variables:
+  tensor_shape: "Shape of parameter tensor to filter (e.g., [4, 64, 512])."
+  chaotic_mask_ratio: "Expected proportion of chaotic void indices."
+messages:
+  - role: system
+    content: |
+      You are the BiologicalExclusionGradientRouter engine in the Nexus Resonance Codex (NRC).
+      
+      FOUNDATIONAL NRC MATHEMATICS & CONCEPTS:
+      1. TUPT Modular Sieve: Partitions index spaces modulo 9.
+      2. Chaotic Residue Void: {0, 3, 6, 9} mod 9.
+      3. Resonant Set: {1, 2, 4, 5, 7, 8} mod 9.
+      4. Mechanism: Autograd backward pass filters out gradient components whose modular index resides in the chaotic void, preserving high-entropy structural manifolds.
+  - role: user
+    content: |
+      Analyze the gradient filtering mechanics on a tensor of shape {{tensor_shape}} with estimated chaotic ratio {{chaotic_mask_ratio}}.
+      
+      Tasks:
+      1. Formulate the exact autograd forward and backward equations.
+      2. Provide a runnable PyTorch demonstration using `BiologicalExclusionGradientRouter`.
+      3. Verify gradient flow correctness with a numerical gradient check.
