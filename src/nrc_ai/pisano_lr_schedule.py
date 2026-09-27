@@ -1,9 +1,10 @@
 import math
 from typing import List
 
-from nrc.math import PHI_FLOAT
 from torch.optim import Optimizer
 from torch.optim.lr_scheduler import _LRScheduler
+
+from nrc_ai._nrc_math import PHI_FLOAT
 
 
 class PisanoModulatedLRSchedule(_LRScheduler):

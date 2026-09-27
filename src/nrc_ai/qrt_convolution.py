@@ -4,7 +4,8 @@ from typing import cast
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
-from nrc.math import execute_qrt_damping_tensor
+
+from nrc_ai._nrc_math import execute_qrt_damping_tensor
 
 
 class QRTKernelConvolution(nn.Module):

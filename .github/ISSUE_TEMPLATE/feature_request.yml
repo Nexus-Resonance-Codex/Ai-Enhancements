@@ -1,0 +1,68 @@
+name: Feature request
+description: Suggest an idea, enhancement, or new NRC module for nrc-ai
+title: "[feature]: "
+labels: ["enhancement"]
+assignees: []
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for suggesting an improvement. Feature requests should fit the
+        project's scope: deterministic, mathematically grounded PyTorch
+        primitives based on Nexus Resonance Codex geometry.
+
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem or motivation
+      description: What limitation or use case motivates this request?
+    validations:
+      required: true
+
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed solution
+      description: |
+        Describe the enhancement or new module. If it involves new mathematics,
+        sketch the formulation (e.g. φ-harmonic equations, Lyapunov bounds) and
+        the expected API.
+      placeholder: |
+        ```python
+        from nrc_ai import NewModule
+        layer = NewModule(dim=512)
+        ```
+      render: python
+    validations:
+      required: true
+
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives considered
+      description: Other approaches you considered and why they fall short
+
+  - type: dropdown
+    id: scope
+    attributes:
+      label: Scope
+      description: Which part of the library does this touch?
+      multiple: true
+      options:
+        - Attention & positional encoding
+        - Context memory & KV-cache
+        - Optimizers & schedulers
+        - Layers, encodings & activations
+        - Packaging / CI / docs
+        - Other
+
+  - type: checkboxes
+    id: checklist
+    attributes:
+      label: Checklist
+      options:
+        - label: I searched existing issues and did not find a duplicate
+          required: true
+        - label: This proposal fits the NRC mathematical scope of the project
+          required: true

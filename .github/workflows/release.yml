@@ -1,0 +1,62 @@
+# ============================================================
+# Release to PyPI
+#
+# Triggered on version tags (v*). Builds sdist + wheel with hatchling
+# and publishes to PyPI via trusted publishing (OIDC).
+#
+# No API tokens or secrets are stored: the publish job uses only the
+# short-lived OIDC identity (`id-token: write`). The PyPI project must
+# have this repository configured as a trusted publisher.
+# ============================================================
+name: Release to PyPI
+
+on:
+  push:
+    tags: ["v*"]
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    name: Build sdist and wheel
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python 3.12
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: "pip"
+
+      - name: Install hatchling
+        run: pip install hatchling
+
+      - name: Build distributions
+        run: python -m hatchling build
+
+      - name: Upload distributions
+        uses: actions/upload-artifact@v4
+        with:
+          name: dist
+          path: dist/
+
+  publish:
+    name: Publish to PyPI
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write # OIDC trusted publishing — no tokens or secrets
+
+    steps:
+      - name: Download distributions
+        uses: actions/download-artifact@v4
+        with:
+          name: dist
+          path: dist/
+
+      - name: Publish to PyPI
+        uses: pypa/gh-action-pypi-publish@release/v1

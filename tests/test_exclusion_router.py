@@ -1,6 +1,6 @@
 import torch
-from nrc_math import PHI_FLOAT
 
+from nrc_ai._nrc_math import PHI_FLOAT
 from nrc_ai.exclusion_gradient_router import BiologicalExclusionGradientRouter
 
 

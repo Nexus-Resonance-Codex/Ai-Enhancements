@@ -6,8 +6,7 @@ from torch.optim import SGD
 
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "../src")))
 
-from nrc_math import PHI_FLOAT
-
+from nrc_ai._nrc_math import PHI_FLOAT
 from nrc_ai.pisano_lr_schedule import PisanoModulatedLRSchedule
 
 

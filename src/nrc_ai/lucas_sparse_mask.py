@@ -2,7 +2,8 @@ from typing import cast
 
 import torch
 import torch.nn as nn
-from nrc.math import apply_exclusion_gate
+
+from nrc_ai._nrc_math import apply_exclusion_gate
 
 
 class LucasWeightedSparseAttention(nn.Module):

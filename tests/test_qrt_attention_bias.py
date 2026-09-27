@@ -1,6 +1,6 @@
 import torch
-from nrc_math import PHI_FLOAT
 
+from nrc_ai._nrc_math import PHI_FLOAT
 from nrc_ai.qrt_attention_bias import QRTGeometricAttentionBias
 
 

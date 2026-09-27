@@ -67,6 +67,11 @@ def test_enhancement_instantiation(class_name) -> None:
         obj = cls(100, 16)
     elif class_name == "QRTKernelConvolution":
         obj = cls(1, 1, 3)
+    elif class_name == "PhiInfinityLosslessLoRA":
+        obj = cls(64, 64, 8)
+    elif class_name == "PhiInverseMomentumAccelerator":
+        param = torch.nn.Parameter(torch.ones(1))
+        obj = cls([param], lr=0.01)
     elif class_name == "PhiVoidResonancePositionalEncoding":
         obj = cls(128)
     elif class_name == "HodgePhiTTorsionAttention":

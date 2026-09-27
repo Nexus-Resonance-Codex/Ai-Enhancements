@@ -4,17 +4,17 @@ build-backend = "hatchling.build"
 
 [project]
 name = "nrc-ai"
-version = "1.0.0"
+version = "0.1.0b1"
 description = "Professional-Grade AI Enhancements via φ^∞ Lattice Resonance"
 readme = "README.md"
-requires-python = ">=3.10,<3.13"
+requires-python = ">=3.10,<3.14"
 license = {text = "CC-BY-NC-SA-4.0"}
 authors = [
     {name = "James Trageser", email = "NexusResonanceCodex@gmail.com"}
 ]
 keywords = ["nexus-resonance-codex", "pytorch", "deep-learning", "phi-infinity", "lattice-resonance", "transformers"]
 classifiers = [
-    "Development Status :: 5 - Production/Stable",
+    "Development Status :: 4 - Beta",
     "Intended Audience :: Science/Research",
     "License :: Other/Proprietary License",
     "Programming Language :: Python :: 3.12",
@@ -54,6 +54,9 @@ ignore = ["D100", "D104", "ANN101", "ANN204", "ANN001", "ANN201", "ANN205", "D10
 "tests/*" = ["D", "ANN", "C901", "E722", "B018"]
 "examples/*" = ["D", "ANN", "C901", "E722"]
 "proofs/*" = ["D", "ANN", "C901", "E722"]
+# Vendored NRC core math (copied verbatim from the public NRC repo);
+# exempt from docstring-style rules so upstream formatting stays intact.
+"src/nrc_ai/_nrc_math/*" = ["D"]
 
 [tool.ruff.lint.pydocstyle]
 convention = "google"
