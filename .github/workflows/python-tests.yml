@@ -9,13 +9,16 @@
 # ============================================================
 name: Python CI — nrc_ai library
 
+
 on:
   push:
   pull_request:
   workflow_dispatch:
 
+
 permissions:
   contents: read
+
 
 jobs:
   test:
@@ -35,9 +38,11 @@ jobs:
           - python-version: "3.13"
             experimental: true
 
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+
 
       - name: Set up Python ${{ matrix.python-version }}
         uses: actions/setup-python@v5
@@ -45,14 +50,20 @@ jobs:
           python-version: ${{ matrix.python-version }}
           cache: "pip"
 
+
       - name: Install PyTorch CPU
         run: pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cpu
 
+
       - name: Install NRC core library
-        run: pip install "nrc @ git+https://github.com/Nexus-Resonance-Codex/NRC.git"
+        # Upstream nrc still caps requires-python at <3.13. Ignore the cap so the
+        # experimental 3.13 leg tests real compatibility instead of pip metadata.
+        run: pip install --ignore-requires-python "nrc @ git+https://github.com/Nexus-Resonance-Codex/NRC.git"
+
 
       - name: Install nrc_ai and dev tools
         run: pip install -e ".[dev]"
+
 
       - name: Run tests with pytest
         run: pytest tests/ -v --tb=short
