@@ -1,0 +1,17 @@
+{
+  "name": "NRC Ai-Enhancements",
+  "image": "mcr.microsoft.com/devcontainers/python:3.12",
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "ms-python.python",
+        "ms-toolsai.jupyter"
+      ],
+      "settings": {
+        "python.defaultInterpreterPath": "/usr/local/bin/python"
+      }
+    }
+  },
+  "postCreateCommand": "pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cpu; pip install -e \".[dev]\"; python -c \"import torch, nrc_ai; print('nrc-ai ready:', torch.__version__, nrc_ai.__version__)\"",
+  "remoteUser": "vscode"
+}

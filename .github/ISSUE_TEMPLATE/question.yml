@@ -1,0 +1,41 @@
+name: Question
+description: Ask a question about using the nrc-ai package
+title: "[question]: "
+labels: ["question"]
+assignees: []
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Have a question about using the NRC AI Enhancements? Ask away! Please check the
+        [wiki](https://github.com/Nexus-Resonance-Codex/Ai-Enhancements/wiki) and the
+        [FAQ](https://github.com/Nexus-Resonance-Codex/Ai-Enhancements/wiki/FAQ) first —
+        your question may already be answered there.
+
+  - type: textarea
+    id: question
+    attributes:
+      label: Your question
+      description: What do you want to know?
+      placeholder: "e.g. How do I plug HodgePhiTTorsionAttention into my existing transformer?"
+    validations:
+      required: true
+
+  - type: textarea
+    id: context
+    attributes:
+      label: Context
+      description: What are you trying to build? Share relevant code, your model setup, and environment details.
+      placeholder: "e.g. Fine-tuning a small transformer on CPU; nrc-ai 0.1.0b1 with PyTorch 2.4."
+    validations:
+      required: true
+
+  - type: textarea
+    id: tried
+    attributes:
+      label: What have you tried?
+      description: Docs, examples, or wiki pages you already looked at, and what happened.
+      placeholder: "e.g. Ran the quickstart notebook; got <error message> when calling attn(norm(x))."
+    validations:
+      required: false
