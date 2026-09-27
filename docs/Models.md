@@ -31,7 +31,7 @@ Below are seven optimized prompts designed to enhance 3D projection and interact
 
 ### ⏭️ Next Steps
 
-Phasing complete. Proceed to the **[Getting Started](Getting-Started.md)** guide to initialize your local visualizer or the **[Usage Guide](Usage.md)** for advanced projection hotkeys.
+Phasing complete. Proceed to the **[Getting Started](getting-started.md)** guide to initialize your local visualizer or the **[Usage Guide](https://github.com/Nexus-Resonance-Codex/Ai-Enhancements/wiki)** for advanced projection hotkeys.
 
 ---
-← [Back to Home](Home.md) | [Back to Core Home](../../NRC/wiki/Home.md)
+← [Back to Home](index.md) | [Back to Wiki Home](https://github.com/Nexus-Resonance-Codex/Ai-Enhancements/wiki)

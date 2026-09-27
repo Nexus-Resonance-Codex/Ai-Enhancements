@@ -32,7 +32,7 @@ For development (tests, lint, type checks), install the dev extras instead:
 pip install -e ".[dev]"
 ```
 
-See [CONTRIBUTING.md](../CONTRIBUTING.md) for the full contributor workflow
+See [CONTRIBUTING.md](https://github.com/Nexus-Resonance-Codex/Ai-Enhancements/blob/main/CONTRIBUTING.md) for the full contributor workflow
 (`pytest`, `ruff`, `mypy`).
 
 ## Quickstart
@@ -78,7 +78,7 @@ print(sched.get_last_lr())
 
 ## Next steps
 
-- Browse the full module taxonomy in the [README](../README.md#architectural-taxonomy).
+- Browse the full module taxonomy in the [README](https://github.com/Nexus-Resonance-Codex/Ai-Enhancements#architectural-taxonomy).
 - Read the module guides in the [wiki](https://github.com/Nexus-Resonance-Codex/Ai-Enhancements/wiki).
 - Run the test suite with `pytest tests/` to verify your environment.
 - See the [Ollama guide](OLLAMA_GUIDE.md) for running NRC models locally.
