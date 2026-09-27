@@ -6,7 +6,8 @@
 # Python CI workflow completes, then verifies that BOTH required
 # workflows concluded successfully for the same head SHA.
 #
-# Branch protection should require the single `ci-success` check.
+# CI is advisory-only by maintainer decision: it runs and reports on every
+# branch and PR, but is NOT a required branch-protection check.
 # ============================================================
 name: CI Success Gate
 
