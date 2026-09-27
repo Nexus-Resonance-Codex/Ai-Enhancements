@@ -42,7 +42,7 @@ from nrc_ai import (
     E8GoldenBasisEmbedding,
     FloorSinhActivation,
     GeometricLatticeIsomorphism,
-    GoldenAttractorFlowNorm,
+    GoldenFlowNorm,
     GoldenSpiralRotaryEmbedding,
     GTTEntropyCollapseRegularizer,
     HodgePhiTTorsionAttention,
@@ -129,21 +129,19 @@ def main() -> None:
     check_tensor("#01 Shard Folding", e1(x))
 
     # 2. Protein Engine
-    e2 = NRCProteinFoldingEngine()
+    e2 = NRCProteinFoldingEngine(sequence_dim=EMBED_DIM)
     check_tensor("#02 Protein Engine", e2(x))
 
-    # 3. GAFEN
-    e3 = GoldenAttractorFlowNorm(normalized_shape=EMBED_DIM)
-    check_tensor("#03 GAFEN", e3(x))
+    # 3. Golden Flow Norm
+    e3 = GoldenFlowNorm(hidden_dim=EMBED_DIM)
+    check_tensor("#03 Golden Flow Norm", e3(x))
 
-    # 4. Triple-Theta Init
-    e4 = TripleThetaInitializer()
-    w = torch.empty(EMBED_DIM, EMBED_DIM)
-    e4.initialise(w)
-    check_tensor("#04 Triple-Theta Init", w)
+    # 4. Triple-Theta Init (an nn.Linear subclass; weights init at construction)
+    e4 = TripleThetaInitializer(EMBED_DIM, EMBED_DIM)
+    check_tensor("#04 Triple-Theta Init", e4.weight)
 
     # 5. Resonance KV Cache
-    e5 = ResonanceShardKVCache(head_dim=HEAD_DIM)
+    e5 = ResonanceShardKVCache()
     k_cache = torch.randn(BATCH, NUM_HEADS, SEQ_LEN, HEAD_DIM)
     v_cache = torch.randn(BATCH, NUM_HEADS, SEQ_LEN, HEAD_DIM)
     k_out, v_out = e5(k_cache, v_cache)
@@ -159,7 +157,7 @@ def main() -> None:
     check_tensor("#07 Hodge Torsion Attention", e7(x))
 
     # 8. E8 Golden Basis Embedding
-    e8 = E8GoldenBasisEmbedding(vocab_size=VOCAB, embed_dim=EMBED_DIM)
+    e8 = E8GoldenBasisEmbedding(num_embeddings=VOCAB, embedding_dim=EMBED_DIM)
     check_tensor("#08 E8 Golden Basis", e8(tokens))
 
     # 9. Phi Lossless LoRA
@@ -174,10 +172,10 @@ def main() -> None:
     print("\n── Enhancements 11-20 (Generation & Stability) ─────────────")
     # ------------------------------------------------------------------
 
-    # 11. Prime Density Generation
+    # 11. Prime Density Generation (forward takes input_ids + next-step logits)
     e11 = PrimeDensityConditionedGeneration(vocab_size=VOCAB)
-    logits_in = torch.randn(BATCH, SEQ_LEN, VOCAB)
-    check_tensor("#11 Prime Density Gen", e11(logits_in))
+    logits_in = torch.randn(BATCH, VOCAB)
+    check_tensor("#11 Prime Density Gen", e11(tokens, logits_in))
 
     # 12. GTT Entropy Regulariser
     e12 = GTTEntropyCollapseRegularizer()
@@ -191,23 +189,25 @@ def main() -> None:
     e13.step()
     print(f"  ✓ {'#13 Phi Momentum Accelerator':.<55s} optimizer step OK")
 
-    # 14. TTT Sync Seed
+    # 14. TUPT Sync Seed
     e14 = TUPTSyncSeed()
-    e14.seed()
-    print(f"  ✓ {'#14 TTT Sync Seed':.<55s} deterministic seed set")
+    e14.synchronize()
+    print(f"  ✓ {'#14 TUPT Sync Seed':.<55s} RNGs synchronized")
 
-    # 15. QRT Convolution
-    e15 = QRTKernelConvolution(in_channels=EMBED_DIM, out_channels=EMBED_DIM)
-    conv_in = torch.randn(BATCH, EMBED_DIM, SEQ_LEN)
+    # 15. QRT Convolution (forward uses F.conv2d — input must be 4-D)
+    e15 = QRTKernelConvolution(
+        in_channels=EMBED_DIM, out_channels=EMBED_DIM, kernel_size=3, padding=1
+    )
+    conv_in = torch.randn(BATCH, EMBED_DIM, 8, SEQ_LEN)
     check_tensor("#15 QRT Convolution", e15(conv_in))
 
-    # 16. Lucas Sparse Attention
-    e16 = LucasWeightedSparseAttention(seq_len=SEQ_LEN)
-    mask = e16()
+    # 16. Lucas Sparse Attention (returns a (seq_len, seq_len) mask)
+    e16 = LucasWeightedSparseAttention(max_seq_length=SEQ_LEN)
+    mask = e16(SEQ_LEN)
     check_tensor("#16 Lucas Sparse Mask", mask)
 
     # 17. Phi Resonant Weighting
-    e17 = PhiPoweredResonantWeighting()
+    e17 = PhiPoweredResonantWeighting(in_features=EMBED_DIM)
     check_tensor("#17 Phi Resonant Weighting", e17(x))
 
     # 18. Geometric Isomorphism
@@ -230,24 +230,21 @@ def main() -> None:
     print("\n── Enhancements 21-30 (Automation & Boundaries) ─────────────")
     # ------------------------------------------------------------------
 
-    # 21. Lucas-Pell Weight Decay
-    e21 = LucasPellHybridWeightDecay(dummy_model.parameters(), lr=1e-3)
-    loss2 = dummy_model(x.mean(dim=1)).sum()
-    loss2.backward()
-    e21.step()
-    print(f"  ✓ {'#21 Lucas-Pell Weight Decay':.<55s} optimizer step OK")
+    # 21. Lucas-Pell Weight Decay (static utility, not an optimizer)
+    LucasPellHybridWeightDecay.apply_hybrid_decay_(dummy_model.parameters())
+    print(f"  ✓ {'#21 Lucas-Pell Weight Decay':.<55s} apply_hybrid_decay_ OK")
 
-    # 22. TUPT Token Pruning
+    # 22. TUPT Token Pruning (forward takes hidden states, not token ids)
     e22 = TUPTExclusionTokenPruning()
-    check_tensor("#22 TUPT Token Pruning", e22(tokens))
+    check_tensor("#22 TUPT Token Pruning", e22(x))
 
     # 23. Phi Void Positional Encoding
-    e23 = PhiVoidResonancePositionalEncoding(dim=EMBED_DIM)
+    e23 = PhiVoidResonancePositionalEncoding(d_model=EMBED_DIM)
     check_tensor("#23 Phi Void Positional", e23(x))
 
-    # 24. Infinite Context Shard Unfolder
+    # 24. Infinite Context Shard Unfolder (forward requires the fold depth_layer)
     e24 = InfiniteEInfinityContextUnfolder()
-    check_tensor("#24 Shard Unfolder", e24(x))
+    check_tensor("#24 Shard Unfolder", e24(x, 2))
 
     # 25. TUPT Modular Dropout
     e25 = TUPTModularDropout()

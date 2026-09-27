@@ -77,7 +77,7 @@ Across 30+ PyTorch modules, `nrc-ai` provides drop-in replacements for standard 
 
   attn = HodgePhiTTorsionAttention(embed_dim=512, num_heads=8)
   x = torch.randn(2, 64, 512)
-  out, weights = attn(x)
+  out = attn(x)
   print("Attention output shape:", out.shape)  # torch.Size([2, 64, 512])
   ```
 
@@ -90,9 +90,9 @@ Across 30+ PyTorch modules, `nrc-ai` provides drop-in replacements for standard 
   ```python
   from nrc_ai import LucasWeightedSparseAttention
 
-  sparse_attn = LucasWeightedSparseAttention(embed_dim=256, num_heads=4)
-  x = torch.randn(1, 128, 256)
-  out = sparse_attn(x)
+  sparse_attn = LucasWeightedSparseAttention(max_seq_length=128)
+  mask = sparse_attn(128)
+  print("Sparse mask shape:", mask.shape)  # torch.Size([128, 128])
   ```
 
 ### 1.3 Golden Spiral Rotary Position Embedding (`GoldenSpiralRotaryEmbedding`)
@@ -103,9 +103,10 @@ Across 30+ PyTorch modules, `nrc-ai` provides drop-in replacements for standard 
   ```python
   from nrc_ai import GoldenSpiralRotaryEmbedding
 
-  rope = GoldenSpiralRotaryEmbedding(dim=64, max_seq_len=8192)
-  q = torch.randn(2, 8, 128, 64)
-  q_rot = rope(q)
+  rope = GoldenSpiralRotaryEmbedding(dim=64)
+  q = torch.randn(2, 8, 128, 64)   # (batch, heads, seq_len, head_dim)
+  q_rot = rope(q, seq_dim=2)
+  print("Rotated queries shape:", q_rot.shape)  # torch.Size([2, 8, 128, 64])
   ```
 
 ### 1.4 Phi-Void Positional Encoding (`PhiVoidResonancePositionalEncoding`)
@@ -116,7 +117,7 @@ Across 30+ PyTorch modules, `nrc-ai` provides drop-in replacements for standard 
   ```python
   from nrc_ai import PhiVoidResonancePositionalEncoding
 
-  pos_enc = PhiVoidResonancePositionalEncoding(d_model=512, max_len=4096)
+  pos_enc = PhiVoidResonancePositionalEncoding(d_model=512, max_seq_len=4096)
   emb = pos_enc(torch.zeros(1, 100, 512))
   ```
 
@@ -128,8 +129,9 @@ Across 30+ PyTorch modules, `nrc-ai` provides drop-in replacements for standard 
   ```python
   from nrc_ai import QRTGeometricAttentionBias
 
-  bias_layer = QRTGeometricAttentionBias(num_heads=8)
-  bias_matrix = bias_layer(seq_len=64)
+  bias_layer = QRTGeometricAttentionBias(max_seq_len=64)
+  bias_matrix = bias_layer(torch.zeros(2, 8, 64, 64))
+  print("Bias matrix shape:", bias_matrix.shape)  # torch.Size([2, 8, 64, 64])
   ```
 
 ---
@@ -144,11 +146,11 @@ Across 30+ PyTorch modules, `nrc-ai` provides drop-in replacements for standard 
   ```python
   from nrc_ai import ResonanceShardKVCache
 
-  kv_cache = ResonanceShardKVCache(dim=64, num_heads=8, max_shards=16)
+  kv_cache = ResonanceShardKVCache(folding_steps=3, shard_capacity=1024)
   k = torch.randn(1, 8, 32, 64)
   v = torch.randn(1, 8, 32, 64)
-  kv_cache.update(k, v)
-  k_all, v_all = kv_cache.get_context()
+  k_all, v_all = kv_cache(k, v)
+  print("Cache K shape:", k_all.shape, "| V shape:", v_all.shape)
   ```
 
 ### 2.2 Phi-Infinity Shard Folding (`PhiInfinityShardFolding`)
@@ -159,7 +161,7 @@ Across 30+ PyTorch modules, `nrc-ai` provides drop-in replacements for standard 
   ```python
   from nrc_ai import PhiInfinityShardFolding
 
-  folder = PhiInfinityShardFolding(dim=256, depth=8)
+  folder = PhiInfinityShardFolding(k_steps=3)
   tensor = torch.randn(2, 64, 256)
   folded = folder(tensor)
   ```
@@ -172,8 +174,8 @@ Across 30+ PyTorch modules, `nrc-ai` provides drop-in replacements for standard 
   ```python
   from nrc_ai import InfiniteEInfinityContextUnfolder
 
-  unfolder = InfiniteEInfinityContextUnfolder(dim=256, depth=8)
-  restored = unfolder(folded)
+  unfolder = InfiniteEInfinityContextUnfolder()
+  restored = unfolder(folded, 2)
   ```
 
 ### 2.4 Phi Sharding Compression (`PhiShardingCompression`)
@@ -184,7 +186,7 @@ Across 30+ PyTorch modules, `nrc-ai` provides drop-in replacements for standard 
   ```python
   from nrc_ai import PhiShardingCompression
 
-  compressor = PhiShardingCompression(in_features=512, out_features=128)
+  compressor = PhiShardingCompression(input_dim=512, compress_dim=128)
   out = compressor(torch.randn(4, 512))
   ```
 
@@ -195,9 +197,14 @@ Across 30+ PyTorch modules, `nrc-ai` provides drop-in replacements for standard 
   ```python
   from nrc_ai import ExecutiveAgent, PhiInfinityPersistentMemory
 
-  memory = PhiInfinityPersistentMemory(memory_dim=512)
-  memory.store("session_1", torch.randn(512))
-  retrieved = memory.recall("session_1")
+  memory = PhiInfinityPersistentMemory(hidden_dim=512)
+  projected = memory(torch.randn(2, 8, 512))      # (2, 8, 512)
+  state = memory.update(torch.randn(1, 512))      # fold into lattice_state
+  print("Projected:", projected.shape, "| Lattice state:", state.shape)
+
+  agent = ExecutiveAgent(name="Planner")
+  ctx = agent.spawn_sub_model("Summarize the session")
+  print("Spawned:", ctx["agent"], "| Status:", ctx["resonance"])
   ```
 
 ---
@@ -214,7 +221,7 @@ Across 30+ PyTorch modules, `nrc-ai` provides drop-in replacements for standard 
   from nrc_ai import QRTTurbulenceOptimizer
 
   model = nn.Linear(10, 2)
-  optimizer = QRTTurbulenceOptimizer(model.parameters(), lr=1e-3, phi_damping=1.618)
+  optimizer = QRTTurbulenceOptimizer(model.parameters(), lr=1e-3)
   ```
 
 ### 3.2 Phi-Inverse Momentum Accelerator (`PhiInverseMomentumAccelerator`)
@@ -223,8 +230,10 @@ Across 30+ PyTorch modules, `nrc-ai` provides drop-in replacements for standard 
 - **Intuitive Explanation:** Traditional momentum parameters ($\beta = 0.9$) are empirically chosen heuristics. This optimizer anchors momentum directly to the golden attractor $\phi^{-1}$, provably minimizing oscillations near ill-conditioned ravines.
 - **Usage Example:**
   ```python
+  import torch.nn as nn
   from nrc_ai import PhiInverseMomentumAccelerator
 
+  model = nn.Linear(10, 2)
   optimizer = PhiInverseMomentumAccelerator(model.parameters(), lr=1e-3)
   ```
 
@@ -235,9 +244,11 @@ Across 30+ PyTorch modules, `nrc-ai` provides drop-in replacements for standard 
 - **Intuitive Explanation:** Replaces standard cosine or linear warmups with cyclic Pisano sequence modulations. Periodic harmonic resets allow gradient descent to escape local minima and saddle points deterministically.
 - **Usage Example:**
   ```python
+  import torch
   from nrc_ai import PisanoModulatedLRSchedule
 
-  scheduler = PisanoModulatedLRSchedule(optimizer, modulo=9, base_lr=1e-3)
+  optimizer = torch.optim.Adam(model.parameters(), lr=1e-3)
+  scheduler = PisanoModulatedLRSchedule(optimizer, pisano_period=24)
   ```
 
 ### 3.4 Lucas-Pell Hybrid Weight Decay (`LucasPellHybridWeightDecay`)
@@ -248,8 +259,7 @@ Across 30+ PyTorch modules, `nrc-ai` provides drop-in replacements for standard 
   ```python
   from nrc_ai import LucasPellHybridWeightDecay
 
-  decay = LucasPellHybridWeightDecay(base_decay=1e-4)
-  penalty = decay(model.parameters())
+  LucasPellHybridWeightDecay.apply_hybrid_decay_(model.parameters())
   ```
 
 ### 3.5 MST Lyapunov Clipping (`MSTLyapunovClipping`)
@@ -260,8 +270,13 @@ Across 30+ PyTorch modules, `nrc-ai` provides drop-in replacements for standard 
   ```python
   from nrc_ai import MSTLyapunovClipping
 
-  clipper = MSTLyapunovClipping(max_lyapunov=1.0)
-  clipper.clip_gradients(model)
+  import torch
+  from nrc_ai import MSTLyapunovClipping
+
+  clipper = MSTLyapunovClipping(clip_val=0.381)
+  grad = torch.randn(256, 256) * 100
+  clipped = clipper(grad)
+  print("Clipped grad max abs:", clipped.abs().max().item())
   ```
 
 ### 3.6 Biological Exclusion Gradient Router (`BiologicalExclusionGradientRouter`)
@@ -271,7 +286,11 @@ Across 30+ PyTorch modules, `nrc-ai` provides drop-in replacements for standard 
   ```python
   from nrc_ai import BiologicalExclusionGradientRouter
 
+  import torch
+  from nrc_ai import BiologicalExclusionGradientRouter
+
   router = BiologicalExclusionGradientRouter()
+  raw_features = torch.randn(2, 64, 512)
   filtered_grad = router(raw_features)
   ```
 
@@ -281,9 +300,13 @@ Across 30+ PyTorch modules, `nrc-ai` provides drop-in replacements for standard 
   ```python
   from nrc_ai import GTTEntropyCollapseRegularizer, NavierStokesDampingRegularizer
 
-  gtt_reg = GTTEntropyCollapseRegularizer(weight=0.01)
-  ns_reg = NavierStokesDampingRegularizer(viscosity=0.05)
-  loss = loss + gtt_reg(activations) + ns_reg(activations)
+  import torch
+  from nrc_ai import GTTEntropyCollapseRegularizer, NavierStokesDampingRegularizer
+
+  gtt_reg = GTTEntropyCollapseRegularizer(gtt_safe_boundary=10.96)
+  ns_reg = NavierStokesDampingRegularizer(damping_strength=0.05)
+  activations = torch.randn(2, 64, 512)
+  loss = torch.tensor(1.0) + gtt_reg(activations) + ns_reg(activations)
   ```
 
 ### 3.8 NRC Entropy Attractor Early Stopping (`NRCEntropyAttractorEarlyStopping`)
@@ -292,7 +315,8 @@ Across 30+ PyTorch modules, `nrc-ai` provides drop-in replacements for standard 
   ```python
   from nrc_ai import NRCEntropyAttractorEarlyStopping
 
-  early_stopper = NRCEntropyAttractorEarlyStopping(patience=5, min_delta=1e-4)
+  early_stopper = NRCEntropyAttractorEarlyStopping(phi_tolerance=1e-4)
+  val_loss = 0.35
   if early_stopper(val_loss):
       print("Optimal resonance reached. Stopping training.")
   ```
@@ -333,7 +357,7 @@ Across 30+ PyTorch modules, `nrc-ai` provides drop-in replacements for standard 
   ```python
   from nrc_ai import GoldenFlowNorm
 
-  norm = GoldenFlowNorm(normalized_shape=512)
+  norm = GoldenFlowNorm(hidden_dim=512)
   normalized = norm(torch.randn(2, 64, 512))
   ```
 
@@ -365,8 +389,14 @@ Across 30+ PyTorch modules, `nrc-ai` provides drop-in replacements for standard 
   ```python
   from nrc_ai import PrimeDensityConditionedGeneration, TUPTExclusionTokenPruning
 
+  import torch
+  from nrc_ai import PrimeDensityConditionedGeneration, TUPTExclusionTokenPruning
+
   sampler = PrimeDensityConditionedGeneration(vocab_size=32000)
-  pruner = TUPTExclusionTokenPruning(keep_ratio=0.7)
+  pruner = TUPTExclusionTokenPruning()
+  hidden = torch.randn(2, 64, 128)
+  pruned = pruner(hidden)
+  print("Pruned shape:", pruned.shape)
   ```
 
 ### 4.7 Multi-Manifold Cross-Domain Primitives (`GeometricLatticeIsomorphism`, `NRCProteinFoldingEngine`, `TUPTSyncSeed`)
@@ -375,8 +405,8 @@ Across 30+ PyTorch modules, `nrc-ai` provides drop-in replacements for standard 
   ```python
   from nrc_ai import GeometricLatticeIsomorphism, NRCProteinFoldingEngine
 
-  isomorphism = GeometricLatticeIsomorphism(in_dim=256, out_dim=729)
-  bio_engine = NRCProteinFoldingEngine(d_model=256)
+  isomorphism = GeometricLatticeIsomorphism(high_dim_features=256)
+  bio_engine = NRCProteinFoldingEngine(sequence_dim=256)
   ```
 
 ---
@@ -417,7 +447,6 @@ import torch
 import torch.nn as nn
 from nrc_ai import (
     GoldenFlowNorm,
-    GoldenSpiralRotaryEmbedding,
     HodgePhiTTorsionAttention,
     PhiInfinityLosslessLoRA,
 )
@@ -427,8 +456,7 @@ class ResonantTransformerBlock(nn.Module):
         super().__init__()
         self.norm1 = GoldenFlowNorm(dim)
         self.attn = HodgePhiTTorsionAttention(embed_dim=dim, num_heads=num_heads)
-        self.rope = GoldenSpiralRotaryEmbedding(dim=dim // num_heads)
-        
+
         self.norm2 = GoldenFlowNorm(dim)
         self.ffn = nn.Sequential(
             PhiInfinityLosslessLoRA(in_features=dim, out_features=dim * 4, rank=16),
@@ -439,7 +467,7 @@ class ResonantTransformerBlock(nn.Module):
     def forward(self, x: torch.Tensor) -> torch.Tensor:
         # Pre-norm + Hodge Torsion Attention
         h = self.norm1(x)
-        attn_out, _ = self.attn(h)
+        attn_out = self.attn(h)
         x = x + attn_out
         
         # Pre-norm + Lossless LoRA Feed-Forward

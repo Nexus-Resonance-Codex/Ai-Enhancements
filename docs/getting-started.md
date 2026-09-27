@@ -50,24 +50,28 @@ from nrc_ai import (
 dim, heads = 512, 8
 
 # Drop-in NRC replacements for standard transformer components
-norm = GoldenFlowNorm(dim)
+norm = GoldenFlowNorm(hidden_dim=dim)
 attn = HodgePhiTTorsionAttention(embed_dim=dim, num_heads=heads)
 rope = GoldenSpiralRotaryEmbedding(dim=dim // heads)
 
 # Example: a single forward pass through attention
-x = torch.randn(2, 64, dim)          # (batch, seq_len, embed_dim)
-queries = rope(x)                     # golden-spiral rotary positions
-out = attn(norm(x), queries)          # φ-torsion stabilized attention
-print(out.shape)                      # torch.Size([2, 64, 512])
+x = torch.randn(2, 64, dim)                  # (batch, seq_len, embed_dim)
+q = torch.randn(2, heads, 64, dim // heads)  # (batch, heads, seq_len, head_dim)
+q_rot = rope(q, seq_dim=2)                   # golden-spiral rotary positions
+out = attn(norm(x))                          # φ-torsion stabilized attention
+print(out.shape)                             # torch.Size([2, 64, 512])
 
 # Example: φ-lossless LoRA adapter on a linear layer
-linear = torch.nn.Linear(dim, dim)
-adapter = PhiInfinityLosslessLoRA(linear, rank=8)
-print(adapter(torch.randn(2, 64, dim)).shape)
+adapter = PhiInfinityLosslessLoRA(dim, dim, rank=8)
+print(adapter(torch.randn(2, 64, dim)).shape)  # torch.Size([2, 64, 512])
 
 # Example: Pisano-modulated learning-rate schedule
-opt = torch.optim.AdamW([torch.nn.Parameter(torch.randn(dim))], lr=1e-3)
+param = torch.nn.Parameter(torch.randn(dim))
+opt = torch.optim.AdamW([param], lr=1e-3)
 sched = PisanoModulatedLRSchedule(opt)
+opt.zero_grad()
+param.sum().backward()
+opt.step()
 sched.step()
 print(sched.get_last_lr())
 ```
