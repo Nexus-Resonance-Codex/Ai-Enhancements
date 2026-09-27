@@ -52,6 +52,9 @@ extra_javascript:
 nav:
   - '🔬 Enhancement Models': Models.md
   - Home: index.md
+  - '🚀 Getting Started': getting-started.md
+  - '🎮 NRC Playground Guide': NRC-Playground-Guide.md
+  - '🦙 Ollama Guide': OLLAMA_GUIDE.md
   - '🧠 Interactive Hub':
       - 'QRT Optimizer': demos/optimizer-demo.html
   - '📐 Technical Insights':
