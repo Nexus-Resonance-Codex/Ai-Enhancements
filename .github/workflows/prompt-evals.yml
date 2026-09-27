@@ -16,7 +16,7 @@ jobs:
   evaluate:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - name: QRT Stability Audit
         run: |
           grep -ri "QRT\|KV\|Fractal" .github/prompts/
