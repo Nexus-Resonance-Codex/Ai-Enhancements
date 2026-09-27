@@ -15,9 +15,19 @@
   <img src="https://img.shields.io/badge/Python-3.10%20%7C%203.11%20%7C%203.12-3776AB.svg?style=flat-square&logo=python&logoColor=white" alt="Python Versions">
   <img src="https://img.shields.io/badge/PyTorch-2.2%2B-EE4C2C.svg?style=flat-square&logo=pytorch&logoColor=white" alt="PyTorch Supported">
   <img src="https://img.shields.io/badge/Stability-TTT--7%20Verified-008080.svg?style=flat-square" alt="TTT-7 Verified">
+  <a href="https://github.com/Nexus-Resonance-Codex/Ai-Enhancements/actions/workflows/lint.yml"><img src="https://img.shields.io/github/actions/workflow/status/Nexus-Resonance-Codex/Ai-Enhancements/lint.yml?branch=main&style=flat-square&label=Lint" alt="Lint CI"></a>
+  <a href="https://github.com/Nexus-Resonance-Codex/Ai-Enhancements/actions/workflows/python-tests.yml"><img src="https://img.shields.io/github/actions/workflow/status/Nexus-Resonance-Codex/Ai-Enhancements/python-tests.yml?branch=main&style=flat-square&label=Python%20CI" alt="Python CI"></a>
+  <a href="https://nexus-resonance-codex.github.io/Ai-Enhancements/"><img src="https://img.shields.io/badge/Docs-nrc--ai.github.io-blueviolet.svg?style=flat-square" alt="Documentation site"></a>
+  <a href="https://codespaces.new/Nexus-Resonance-Codex/Ai-Enhancements"><img src="https://img.shields.io/badge/Open%20in%20GitHub%20Codespaces-black.svg?style=flat-square&logo=github" alt="Open in GitHub Codespaces"></a>
 </p>
 
 ---
+
+## 🚀 Try it now
+
+- **1-click cloud environment:** [Open in GitHub Codespaces](https://codespaces.new/Nexus-Resonance-Codex/Ai-Enhancements) — launches a ready-to-code workspace with `nrc-ai` and its dev tools installed.
+- **Run the notebook:** [`examples/quickstart.ipynb`](https://github.com/Nexus-Resonance-Codex/Ai-Enhancements/blob/main/examples/quickstart.ipynb) — the full quickstart, cell by cell, right in your browser.
+- **Ask Copilot:** the [`.github/prompts/`](https://github.com/Nexus-Resonance-Codex/Ai-Enhancements/tree/main/.github/prompts) suite has 14 expert prompts to run in Copilot Chat on github.com.
 
 ## Executive Overview
 
