@@ -7,7 +7,6 @@ import torch
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "../src")))
 
 from nrc_ai._nrc_math import PHI_FLOAT
-
 from nrc_ai.phi_void_positional import PhiVoidResonancePositionalEncoding
 
 

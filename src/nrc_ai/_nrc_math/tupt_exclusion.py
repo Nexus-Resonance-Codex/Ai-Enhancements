@@ -47,12 +47,7 @@ def apply_exclusion_gate(values: Union[int, float, np.ndarray]) -> Union[int, fl
     # PyTorch Path (Supports Grad Tensors)
     mod_vals_torch = values % 9
     # Gating 0, 3, 6, 9
-    mask = (
-        (mod_vals_torch == 0)
-        | (mod_vals_torch == 3)
-        | (mod_vals_torch == 6)
-        | (mod_vals_torch == 9)
-    )
+    mask = (mod_vals_torch == 0) | (mod_vals_torch == 3) | (mod_vals_torch == 6) | (mod_vals_torch == 9)
     return torch.where(~mask, values, values.new_zeros(values.shape))
 
 

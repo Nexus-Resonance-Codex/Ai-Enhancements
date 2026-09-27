@@ -2,6 +2,7 @@ import math
 
 import torch
 import torch.nn as nn
+
 from nrc_ai._nrc_math import PHI_FLOAT
 
 

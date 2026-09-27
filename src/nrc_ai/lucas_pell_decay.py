@@ -1,6 +1,7 @@
 from typing import Iterable
 
 import torch
+
 from nrc_ai._nrc_math import PHI_FLOAT
 
 

@@ -3,6 +3,7 @@ from typing import Optional, cast
 
 import torch
 import torch.nn as nn
+
 from nrc_ai._nrc_math import PHI_FLOAT
 
 from .shard_folding import PhiInfinityShardFolding

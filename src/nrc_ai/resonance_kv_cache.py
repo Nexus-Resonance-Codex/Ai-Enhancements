@@ -2,6 +2,7 @@ from typing import Optional, Tuple
 
 import torch
 import torch.nn as nn
+
 from nrc_ai._nrc_math import QuantumShadowVeil
 
 from .shard_folding import PhiInfinityShardFolding

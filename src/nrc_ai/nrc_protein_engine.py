@@ -1,6 +1,7 @@
 from typing import cast
 
 import torch
+
 from nrc_ai._nrc_math import apply_exclusion_gate
 
 

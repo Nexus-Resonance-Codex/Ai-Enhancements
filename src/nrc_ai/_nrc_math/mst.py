@@ -38,13 +38,9 @@ def mst_step(x: Union[float, np.ndarray]) -> Union[float, np.ndarray]:
     phi = (1 + 5**0.5) / 2
     if isinstance(x, np.ndarray):
         xp = np.abs(x) + 1e-9
-        val = (
-            np.floor(1000.0 * np.sinh(np.minimum(xp, 20.0))) + np.log(xp**2 + 1.0) + (phi**xp)
-        ) % MST_MODULUS
+        val = (np.floor(1000.0 * np.sinh(np.minimum(xp, 20.0))) + np.log(xp**2 + 1.0) + (phi**xp)) % MST_MODULUS
         return cast(np.ndarray, val)
 
     xp = abs(x) + 1e-9
-    val = (
-        math.floor(1000.0 * math.sinh(min(xp, 20.0))) + math.log(xp**2 + 1.0) + (phi**xp)
-    ) % MST_MODULUS
+    val = (math.floor(1000.0 * math.sinh(min(xp, 20.0))) + math.log(xp**2 + 1.0) + (phi**xp)) % MST_MODULUS
     return float(val)

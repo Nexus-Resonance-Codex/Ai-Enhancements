@@ -1,8 +1,9 @@
 from typing import Callable, Iterable, Optional, overload
 
 import torch
-from nrc_ai._nrc_math import qrt_damping
 from torch.optim import Optimizer
+
+from nrc_ai._nrc_math import qrt_damping
 
 
 class QRTTurbulenceOptimizer(Optimizer):
