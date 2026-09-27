@@ -1,7 +1,7 @@
 from typing import Iterable
 
 import torch
-from nrc.math import PHI_FLOAT
+from nrc_ai._nrc_math import PHI_FLOAT
 
 
 class LucasPellHybridWeightDecay:

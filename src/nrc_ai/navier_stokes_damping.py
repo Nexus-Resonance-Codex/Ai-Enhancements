@@ -2,7 +2,7 @@ from typing import cast
 
 import torch
 import torch.nn as nn
-from nrc.math import execute_qrt_damping_tensor
+from nrc_ai._nrc_math import execute_qrt_damping_tensor
 
 
 class NavierStokesDampingRegularizer(nn.Module):

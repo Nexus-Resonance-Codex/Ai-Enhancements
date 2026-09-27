@@ -2,7 +2,7 @@ from typing import Optional, Tuple
 
 import torch
 import torch.nn as nn
-from nrc.math import QuantumShadowVeil
+from nrc_ai._nrc_math import QuantumShadowVeil
 
 from .shard_folding import PhiInfinityShardFolding
 
@@ -33,7 +33,7 @@ class ResonanceShardKVCache(nn.Module):
 
     def _apply_shadow_veil(self, tensor: torch.Tensor, key_idx: int) -> torch.Tensor:
         """Applies the Residue-Hiding (RH) encryption to a memory shard (Torch-Native)."""
-        from nrc.math import PHI_FLOAT
+        from nrc_ai._nrc_math import PHI_FLOAT
 
         device = tensor.device
         dtype = tensor.dtype
@@ -48,7 +48,7 @@ class ResonanceShardKVCache(nn.Module):
 
     def _remove_shadow_veil(self, tensor: torch.Tensor, key_idx: int) -> torch.Tensor:
         """Decrypts a memory shard via inverse resonant phasing (Torch-Native)."""
-        from nrc.math import PHI_FLOAT
+        from nrc_ai._nrc_math import PHI_FLOAT
 
         device = tensor.device
         dtype = tensor.dtype

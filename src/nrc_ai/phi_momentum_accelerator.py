@@ -1,7 +1,7 @@
 from typing import Callable, Iterable, Optional, overload
 
 import torch
-from nrc.math import PHI_FLOAT
+from nrc_ai._nrc_math import PHI_FLOAT
 from torch.optim import Optimizer
 
 

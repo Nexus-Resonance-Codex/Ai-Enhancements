@@ -1,0 +1,68 @@
+# ============================================================
+# CI Success Gate
+#
+# Aggregate branch-protection gate. GitHub Actions cannot express
+# cross-workflow `needs`, so this workflow fires whenever the Lint or
+# Python CI workflow completes, then verifies that BOTH required
+# workflows concluded successfully for the same head SHA.
+#
+# Branch protection should require the single `ci-success` check.
+# ============================================================
+name: CI Success Gate
+
+on:
+  workflow_run:
+    workflows: ["Lint", "Python CI — nrc_ai library"]
+    types: [completed]
+
+permissions:
+  actions: read
+
+jobs:
+  ci-success:
+    name: ci-success
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Verify all required workflows succeeded
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const required = ["Lint", "Python CI — nrc_ai library"];
+            const run = context.payload.workflow_run;
+            const { owner, repo } = context.repo;
+            const sha = run.head_sha;
+
+            const { data } = await github.rest.actions.listWorkflowRunsForRepo({
+              owner,
+              repo,
+              head_sha: sha,
+              per_page: 100,
+            });
+
+            // Keep the latest run of each required workflow for this SHA.
+            const latest = {};
+            for (const r of data.workflow_runs) {
+              if (!required.includes(r.name)) continue;
+              if (!latest[r.name] || r.run_number > latest[r.name].run_number) {
+                latest[r.name] = r;
+              }
+            }
+
+            const problems = [];
+            for (const name of required) {
+              const r = latest[name];
+              if (!r) {
+                problems.push(`${name}: no run found for this commit`);
+              } else if (r.status !== "completed" || r.conclusion !== "success") {
+                problems.push(`${name}: ${r.status}/${r.conclusion}`);
+              }
+            }
+
+            if (problems.length > 0) {
+              core.setFailed(
+                `ci-success gate not satisfied:\n- ${problems.join("\n- ")}`
+              );
+            } else {
+              core.notice("ci-success: all required workflows passed.");
+            }

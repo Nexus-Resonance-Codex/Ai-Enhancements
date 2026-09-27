@@ -43,5 +43,5 @@ def test_metadata() -> None:
     """Verify package metadata."""
     from nrc_ai import __about__
 
-    assert __about__.__version__ == "1.0.0"
+    assert __about__.__version__ == "0.1.0b1"
     assert __about__.__author__ == "James Paul Trageser"

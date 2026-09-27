@@ -27,7 +27,7 @@ import torch
 # ---------------------------------------------------------------------------
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "src")))
 
-from nrc_math import (
+from nrc_ai._nrc_math import (
     PHI_FLOAT,
     PHI_INVERSE_FLOAT,
     apply_exclusion_gate,
@@ -114,7 +114,7 @@ def main() -> None:
     qrt_out2 = execute_qrt_damping_tensor(x)
     check_tensor("QRT Execute Tensor (alias)", qrt_out2)
 
-    mst_out = mst_step(torch.tensor([0.1, 0.5, 1.0, 2.0]))
+    mst_out = torch.as_tensor(mst_step(torch.tensor([0.1, 0.5, 1.0, 2.0]).numpy()))
     check_tensor("MST Step Function", mst_out)
 
     gate_out = apply_exclusion_gate(torch.arange(20, dtype=torch.float32))

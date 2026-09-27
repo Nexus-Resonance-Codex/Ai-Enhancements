@@ -1,0 +1,82 @@
+name: Bug report
+description: Report a reproducible problem with the nrc-ai package
+title: "[bug]: "
+labels: ["bug"]
+assignees: []
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for reporting a bug. Please fill in the details below so the issue
+        can be reproduced and fixed. Check existing issues first to avoid duplicates.
+
+  - type: input
+    id: version
+    attributes:
+      label: nrc-ai version
+      description: Version from `python -c "import nrc_ai; print(nrc_ai.__version__)"` or the git commit if unreleased
+      placeholder: "e.g. 0.1.0b1"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: python-version
+    attributes:
+      label: Python version
+      options:
+        - "3.10"
+        - "3.11"
+        - "3.12"
+        - "3.13"
+        - Other (specify below)
+    validations:
+      required: true
+
+  - type: input
+    id: platform
+    attributes:
+      label: Platform
+      description: OS, CPU/GPU, and torch version if relevant
+      placeholder: "e.g. Ubuntu 24.04, CPU-only, torch 2.4.0"
+
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Minimal reproduction
+      description: The smallest complete code sample that triggers the bug
+      placeholder: |
+        ```python
+        from nrc_ai import GoldenFlowNorm
+        ...
+        ```
+      render: python
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behavior
+      description: What you expected to happen
+    validations:
+      required: true
+
+  - type: textarea
+    id: actual
+    attributes:
+      label: Actual behavior
+      description: What happened instead, including the full traceback if any
+      render: shell
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: checklist
+    attributes:
+      label: Checklist
+      options:
+        - label: I searched existing issues and did not find a duplicate
+          required: true
+        - label: I can reproduce this on the latest `main` branch
+          required: true

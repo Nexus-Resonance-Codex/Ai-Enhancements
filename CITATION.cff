@@ -1,0 +1,27 @@
+cff-version: 1.2.0
+title: nrc-ai
+version: 0.1.0b1
+message: >-
+  If you use this software, please cite it as below.
+authors:
+  - family-names: Trageser
+    given-names: James Paul
+    email: NexusResonanceCodex@gmail.com
+license: AGPL-3.0-only
+repository-code: "https://github.com/Nexus-Resonance-Codex/Ai-Enhancements"
+url: "https://nexus-resonance-codex.github.io/Ai-Enhancements/"
+abstract: >-
+  nrc-ai is the production neural architecture suite of the Nexus Resonance
+  Codex (NRC): 30+ mathematically rigid PyTorch modules — attention mechanisms,
+  positional encodings, optimizers, schedulers, normalization layers, and
+  KV-cache managers — built on golden-ratio (phi) geometry, modular residue
+  exclusion (TUPT), and Lyapunov-bounded stability manifolds (MST / TTT-7).
+keywords:
+  - nexus-resonance-codex
+  - pytorch
+  - deep-learning
+  - golden-ratio
+  - phi-infinity
+  - lattice-resonance
+  - transformers
+  - lyapunov-stability

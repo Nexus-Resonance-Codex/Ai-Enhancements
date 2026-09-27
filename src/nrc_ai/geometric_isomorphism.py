@@ -3,7 +3,7 @@ from typing import cast
 
 import torch
 import torch.nn as nn
-from nrc.math import PHI_FLOAT
+from nrc_ai._nrc_math import PHI_FLOAT
 
 
 class GeometricLatticeIsomorphism(nn.Module):

@@ -480,13 +480,6 @@ The Nexus Resonance Codex operates under an institutional Dual-License model:
   - Patent Covenant: [Tesla-Style Patent Pledge](PATENT_PLEDGE.md)
   - Trademark: [Trademark and Nomenclature Policy](TRADEMARK_POLICY.md)
 
-- **Enterprise & Commercial Use:**
-  Commercial organizations requiring closed-source, proprietary deployment without AGPL-3.0 copyleft terms must obtain a commercial license. See [COMMERCIAL_USE.md](COMMERCIAL_USE.md) or contact:
-
-  **James Paul Trageser**  
-  Founder and Chief Architect  
-  Email: `NexusResonanceCodex@gmail.com`
-
 ---
 
 ## Academic Citation
